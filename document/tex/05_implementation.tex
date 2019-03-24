@@ -1,31 +1,32 @@
-%*****************************************
 \chapter{Implementation}
 \label{ch:implementation}
-%*****************************************
-
-\hint{This chapter should describe the details of the implementation addressing the following questions: \\ \\
-1. What are the design decisions made? \\
-2. What is the environment the approach is developed in? \\
-3. How are components mapped to classes of the source code? \\
-4. How do the components interact with each other?  \\
-5. What are limitations of the implementation? \\ \\
-The section should have a length of about five pages.}
+%This chapter should describe the details of the implementation addressing the following questions:
+%1. What are the design decisions made?
+%2. What is the environment the approach is developed in?
+%3. How are components mapped to classes of the source code?
+%4. How do the components interact with each other?
+%5. What are limitations of the implementation?
+% 5 pages
 
 \section{Architecture}
-%Wahl der IDE für nRF53832. Offizielle Liste ist hier:
-%https://www.nordicsemi.com/DocLib/Content/User_Guides/getting_started/latest/UG/common/nordic_tools
-%- IAR: 30 Tage Demo oder beschränkte Funktion (32 Kbyte code u.A.)
-%- Keil uVision: beschränkte Version (32 KByte Code und Debugger). Essential Version 1330€ pro Jahr.
-%- MBed.org: sehr einfach, da online. code, compiler, bin-datei auf stick ziehen, fertig. leider noch kein mesh support
-%- Project Zephyr: 
-%- GCC. Diese Anleitung: https://www.disk91.com/2017/technology/hardware/discover-nordic-semi-nrf52832/
-%Bug in aktueller GNU Arm Embedded Toolchain 8-2018-q4-major beim Kompilieren: C:/nrf52/arm_tools/bin/arm-none-eabi-objcopy: _build/nrf52832_xxaa.hex 64-bit address 0x4b4fa300000000 out of range for Intel Hex file
-%fix: bin/arm-none-eabi-objcopy.exe mit der datei von version 7-2018-q2-update ersetzen.
-%Der letzte Part ist einfach mist, weil jeder Ordner einzeln eingetragen werden muss. Am ende bekommt man übrigens die .hex datei und muss die selber rüberkopieren.
-%- Segger Embedded Studio: ok, aber meh
+
+\subsection{nRF52832 Software}
+Offizielle Liste ist hier:
+\url{https://www.nordicsemi.com/DocLib/Content/User_Guides/getting_started/latest/UG/common/nordic_tools}
+\begin{itemize}
+\item IAR: 30 Tage Demo oder beschränkte Funktion (32 Kbyte code u.A.)
+\item Keil uVision: beschränkte Version (32 KByte Code und Debugger). Essential Version 1330€ pro Jahr.
+\item MBed.org: sehr einfach, da online. weitere abstraktion wie bei arduino. code, compiler, bin-datei auf stick ziehen, fertig. leider (noch) kein mesh support.
+\item Project Zephyr: ist noch nicht offiziell supportet
+\item GCC. Diese Anleitung: \url{https://www.disk91.com/2017/technology/hardware/discover-nordic-semi-nrf52832/}\\
+Bug in aktueller GNU Arm Embedded Toolchain 8-2018-q4-major beim Kompilieren: C:/nrf52/arm\_tools/bin/arm-none-eabi-objcopy: \_build/nrf52832\_xxaa.hex 64-bit address 0x4b4fa300000000 out of range for Intel Hex file\\
+fix: bin/arm-none-eabi-objcopy.exe mit der datei von version 7-2018-q2-update ersetzen.\\
+Wenns läuft ists leider trotzdem mist, weil jeder Ordner von der library einzeln eingetragen werden muss. Am ende bekommt man die .hex datei und muss die rüberkopieren.
+\item Segger Embedded Studio: funktioniert zwar ganz einfach, aber ist nicht so geil wie eclipse mit zb themes und code folding
+\end{itemize}
+und dann ein haufen implementations zeug
 
 \section{Design Decisions}
-
 
 \section{Interaction of Components}
 
