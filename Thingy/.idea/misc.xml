@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="SbtLocalSettings">
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$/../../ex02/ex02" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (1)/ex01" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (2)/ex02" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (3)/ex03" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (4)/ex04" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (5)/ex05" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (6)/ex06" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (7)/ex07" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (8)/ex08" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (9)/ex09" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+</project>

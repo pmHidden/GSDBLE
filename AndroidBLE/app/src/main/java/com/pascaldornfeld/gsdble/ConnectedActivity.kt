@@ -12,6 +12,7 @@ import java.util.*
 class ConnectedActivity : AppCompatActivity() {
     private val vRecyclerView by lazy(LazyThreadSafetyMode.NONE) { findViewById<RecyclerView>(R.id.recyclerView) }
     private val vTextView by lazy(LazyThreadSafetyMode.NONE) { findViewById<TextView>(R.id.tv_bps) }
+    private var btGatt: BluetoothGatt? = null
 
     var timeLog = Pair(0L, 0)
     private val adapter by lazy(LazyThreadSafetyMode.NONE) { BleDeviceListAdapter() }
@@ -52,6 +53,7 @@ class ConnectedActivity : AppCompatActivity() {
             Toast.makeText(this@ConnectedActivity, "unknown state: $status $newState", Toast.LENGTH_SHORT)
                 .show()
         }
+        btGatt = gatt
     }
 
     private fun servicesDiscovered(gatt: BluetoothGatt?, status: Int) {
@@ -100,6 +102,15 @@ class ConnectedActivity : AppCompatActivity() {
 
         val device = intent.getParcelableExtra<BluetoothDevice>(EXTRA_DEVICE)
         device?.connectGatt(this, false, callback)
+    }
+
+    override fun onBackPressed() {
+        try {
+            btGatt!!.disconnect()
+            super.onBackPressed()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     companion object {
