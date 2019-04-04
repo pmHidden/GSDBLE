@@ -1,95 +1,90 @@
 import java.io.File
 import java.util.*
 import java.util.concurrent.CountDownLatch
-import java.util.concurrent.atomic.AtomicLong
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
-fun main(args: Array<String>) {
+fun main() {
     println("Set Path: ")
-    val inputScanner = Scanner(System.`in`)
-    val path = inputScanner.next()
-    val folder = File(path)
-    val files = folder.listFiles { _, name -> name.endsWith(".csv") }
-    val integral = AtomicLong(0)
-    val numberOfEntries = AtomicLong(0)
-    var timesteps: Long? = null
-    var setup: Array<Short>? = null
+    var path: String? = null
+    Scanner(System.`in`).use { path = it.next() }
+    assertNotNull(path, "count not read path from console")
+    val files = File(path).listFiles { _, name -> name.endsWith(".csv") }
 
+    // globals
+    var setup: Array<Short>? = null
+    var integralTimes2 = 0L
+    var totalTime = 0L
     val lockObjectSetup = Object()
-    val lockObjectTimestamp = Object()
+    val lockObjectServe = Object()
     val countdown = CountDownLatch(files.size)
 
-    // for every file:
+    // calc values of every file on new threads and add results to globals
     files.forEach { file ->
         Thread {
+            var fileIntegralTimes2 = 0L
+            var fileTime = 0L
             file.bufferedReader().use { reader ->
-                var fileIntegral = 0L
-                var fileEntries = 0L
-                val fileTimestamp: Long? // constant after init. same as global timesteps
                 var lastTimestamp: Long?
+                var lastDiff: Long?
 
                 while (true) {
-                    val firstAsString: String = reader.readLine()!!
-                    // setup comma-checker
-                    val firstSplitted = firstAsString.split(',')
-                    if (firstSplitted.size < 3) continue
+                    // setup with first element
+                    val firstSplitted = (reader.readLine()!!).split(',')
+                    if (firstSplitted.size < 3) continue // need at least 3 values: Time, A and B
                     val thisFileSetup = arrayOf(
                         afterComma(firstSplitted[0]),
                         afterComma(firstSplitted[1]),
                         afterComma(firstSplitted[2])
                     )
-                    if (thisFileSetup.any { it == (-1).toShort() }) continue
+                    if (thisFileSetup.any { it == (-1).toShort() }) continue // one of the values is not a decimal
                     // set or check setup-array
                     synchronized(lockObjectSetup) {
                         if (setup == null) {
-                            assertEquals(thisFileSetup[1], thisFileSetup[2])
+                            assertEquals(thisFileSetup[1], thisFileSetup[2], "comma position of A and B is different")
                             setup = thisFileSetup
-                        } else assert(Arrays.deepEquals(setup, thisFileSetup))
+                        } else assertTrue(Arrays.deepEquals(setup, thisFileSetup), "setup arrays are not equal")
                     }
-                    fileIntegral += (parseIt(firstSplitted, 1, setup!!) - parseIt(firstSplitted, 2, setup!!))
-                    fileEntries++
-
-                    val secondAsString = reader.readLine()!!
-                    val secondSplitted = secondAsString.split(',')
-                    fileIntegral += (parseIt(secondSplitted, 1, setup!!) - parseIt(secondSplitted, 2, setup!!))
-                    fileEntries++
-
-                    lastTimestamp = parseIt(secondSplitted, 0, setup!!)
-                    fileTimestamp = lastTimestamp - parseIt(firstSplitted, 0, setup!!)
-                    synchronized(lockObjectTimestamp) {
-                        if (timesteps == null) timesteps = fileTimestamp else assertEquals(timesteps, fileTimestamp)
-                    }
-
+                    lastTimestamp = parseIt(firstSplitted, 0, setup!!)
+                    lastDiff = (parseIt(firstSplitted, 1, setup!!) - parseIt(firstSplitted, 2, setup!!))
                     break
                 }
 
                 while (true) {
-                    val currentAsString: String = reader.readLine() ?: break
-
-                    val currentSplitted = currentAsString.split(',')
+                    val currentSplitted = (reader.readLine() ?: break).split(',')
                     val currentTime = parseIt(currentSplitted, 0, setup!!)
-                    //assertEquals(currentTime - lastTimestamp!!, fileTimestamp)
+                    val currentDiff =
+                        (parseIt(currentSplitted, 1, setup!!) - parseIt(currentSplitted, 2, setup!!)) // trapeze a
 
-                    fileIntegral += (parseIt(currentSplitted, 1, setup!!) - parseIt(currentSplitted, 2, setup!!))
-                    fileEntries++
+                    val timeDifference = Math.subtractExact(currentTime, lastTimestamp!!) // trapeze height
+                    val sumAB = Math.addExact(lastDiff!!, currentDiff)
+                    val areaTimes2 = Math.multiplyExact(timeDifference, sumAB) // trapeze area *2
+                    fileIntegralTimes2 = Math.addExact(fileIntegralTimes2, areaTimes2)
+                    fileTime = Math.addExact(fileTime, timeDifference)
 
                     lastTimestamp = currentTime
+                    lastDiff = currentDiff
                 }
-                integral.addAndGet(fileIntegral)
-                numberOfEntries.addAndGet(fileEntries)
-                println("finished a file. my integral : $fileIntegral after $fileEntries entries")
+            }
+            println("finished a file.")
+            synchronized(lockObjectServe) {
+                integralTimes2 = Math.addExact(integralTimes2, fileIntegralTimes2)
+                totalTime = Math.addExact(totalTime, fileTime)
             }
             countdown.countDown()
         }.start()
     }
-
     countdown.await()
-    println("finished all. integral : ${integral.get()} after ${numberOfEntries.get()} entries")
-    print("timestep was: $timesteps and setup was: ${Arrays.toString(setup)}")
+    // print end results
+    println("finished all.")
+    println("integral: " + (integralTimes2 / 2L))
+    println("total time: $totalTime")
+    println("setup was: ${Arrays.toString(setup)}")
 }
 
 fun parseIt(splitted: List<String>, index: Int, setup: Array<Short>): Long {
-    assertEquals(afterComma(splitted[index]), setup[index])
+    assertEquals(setup[index], afterComma(splitted[index]), "different position of comma")
     return splitted[index].replaceFirst(".", "").toLong()
 }
 
