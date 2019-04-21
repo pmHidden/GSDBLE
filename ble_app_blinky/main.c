@@ -83,8 +83,8 @@
 #define APP_ADV_DURATION                BLE_GAP_ADV_TIMEOUT_GENERAL_UNLIMITED   /**< The advertising time-out (in units of seconds). When set to 0, we will never time out. */
 
 
-#define MIN_CONN_INTERVAL               6       /**< Minimum acceptable connection interval (0.5 seconds). */
-#define MAX_CONN_INTERVAL               6        /**< Maximum acceptable connection interval (1 second). */
+#define MIN_CONN_INTERVAL               6       /**< Minimum acceptable connection interval (7.5 seconds, absolute minimum). */
+#define MAX_CONN_INTERVAL               9        /**< Maximum acceptable connection interval (11.25 second, android 6 minimum). */
 #define SLAVE_LATENCY                   0                                       /**< Slave latency. */
 #define CONN_SUP_TIMEOUT                MSEC_TO_UNITS(4000, UNIT_10_MS)         /**< Connection supervisory time-out (4 seconds). */
 

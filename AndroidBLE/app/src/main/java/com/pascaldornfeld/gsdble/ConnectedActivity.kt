@@ -8,12 +8,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ConnectedActivity : AppCompatActivity() {
     private val vRecyclerView by lazy(LazyThreadSafetyMode.NONE) { findViewById<RecyclerView>(R.id.recyclerView) }
     private val vTextView by lazy(LazyThreadSafetyMode.NONE) { findViewById<TextView>(R.id.tv_bps) }
     private var btGatt: BluetoothGatt? = null
 
+    val listOfMillis = ArrayList<Long>()
     var timeLog = Pair(0L, 0)
     private val adapter by lazy(LazyThreadSafetyMode.NONE) { BleDeviceListAdapter() }
     private var currentList = listOf<Pair<Long, BluetoothGattCharacteristic>>()
@@ -74,20 +76,27 @@ class ConnectedActivity : AppCompatActivity() {
         runOnUiThread { adapter.submitList(list) }
     }
 
+    @Synchronized
     private fun characteristicChanged(gatt: BluetoothGatt?, characteristic: BluetoothGattCharacteristic) {
-        val time = System.currentTimeMillis()
-        // value logging
+        val millis = System.currentTimeMillis()
+        // value logging in list
         currentList = currentList
-            .plus(Pair(time, characteristic))
+            .plus(Pair(millis, characteristic))
             .sortedByDescending { it.first }
             .distinctBy { it.second.uuid }
             .sortedBy { it.second.uuid.toString() }
         val list = currentList
         runOnUiThread { adapter.submitList(list) }
         // time logging
-        val secs = time / 1000
-        timeLog = if (secs == timeLog.first) Pair(secs, timeLog.second + 1)
-        else {
+        val secs = millis / 1000
+        timeLog = if (secs == timeLog.first) {
+            listOfMillis.add(millis % 1000)
+            Pair(secs, timeLog.second + 1)
+        } else {
+            val listOfDeltas = ArrayList<Long>()
+            listOfMillis.forEachIndexed { index, millis2 -> if (index != 0) listOfDeltas.add(millis2 - listOfMillis[index - 1]) }
+            Log.d("gsdble", "list of millis: $listOfDeltas")
+            listOfMillis.clear()
             val tempSec = timeLog.second
             runOnUiThread { vTextView.text = tempSec.toString() }
             Pair(secs, 1)
