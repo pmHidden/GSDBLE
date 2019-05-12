@@ -1,9 +1,9 @@
 Output/spi_pca10040\ Release/Obj/nrf_memobj.o: \
  C:/nrf52/sdk/components/libraries/memobj/nrf_memobj.c \
  C:/nrf52/sdk/components/libraries/memobj/nrf_memobj.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdint.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdlib.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/__crossworks.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdint.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdlib.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/__crossworks.h \
  C:/nrf52/sdk/components/libraries/util/sdk_errors.h \
  C:/nrf52/sdk/components/drivers_nrf/nrf_soc_nosd/nrf_error.h \
  C:/nrf52/sdk/components/libraries/balloc/nrf_balloc.h \
@@ -24,20 +24,20 @@ Output/spi_pca10040\ Release/Obj/nrf_memobj.o: \
  C:/nrf52/sdk/modules/nrfx/mdk/compiler_abstraction.h \
  C:/nrf52/sdk/components/libraries/util/nrf_assert.h \
  C:/nrf52/sdk/components/libraries/util/app_error.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdio.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdbool.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdio.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdbool.h \
  C:/nrf52/sdk/components/libraries/util/sdk_errors.h \
  C:/nrf52/sdk/components/libraries/util/nordic_common.h \
  C:/nrf52/sdk/components/libraries/util/app_error_weak.h \
  C:/nrf52/sdk/components/libraries/util/app_util.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stddef.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stddef.h \
  C:/nrf52/sdk/components/libraries/log/nrf_log_instance.h \
  C:/nrf52/sdk/components/libraries/experimental_section_vars/nrf_section.h \
  C:/nrf52/sdk/components/libraries/util/nordic_common.h \
  C:/nrf52/sdk/components/libraries/log/nrf_log_types.h \
  C:/nrf52/sdk/components/libraries/atomic/nrf_atomic.h \
  C:/nrf52/sdk/components/libraries/util/sdk_common.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/string.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/string.h \
  C:/nrf52/sdk/components/libraries/util/sdk_os.h \
  C:/nrf52/sdk/components/libraries/util/app_util.h \
  C:/nrf52/sdk/components/libraries/util/sdk_macros.h \

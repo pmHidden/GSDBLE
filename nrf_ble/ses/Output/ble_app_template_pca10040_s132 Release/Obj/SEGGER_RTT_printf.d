@@ -4,7 +4,7 @@ Output/ble_app_template_pca10040_s132\ Release/Obj/SEGGER_RTT_printf.o: \
  C:/nrf52/sdk/external/segger_rtt/SEGGER_RTT_Conf.h \
  C:/nrf52/sdk/components/libraries/util/nordic_common.h \
  C:/nrf52/sdk/components/libraries/util/app_util_platform.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdint.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdint.h \
  C:/nrf52/sdk/modules/nrfx/mdk/compiler_abstraction.h \
  C:/nrf52/sdk/modules/nrfx/mdk/nrf.h \
  C:/nrf52/sdk/modules/nrfx/mdk/nrf52.h \
@@ -25,13 +25,13 @@ Output/ble_app_template_pca10040_s132\ Release/Obj/SEGGER_RTT_printf.o: \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf_nvic.h \
  C:/nrf52/sdk/components/libraries/util/nrf_assert.h \
  C:/nrf52/sdk/components/libraries/util/app_error.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdio.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/__crossworks.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdbool.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdio.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/__crossworks.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdbool.h \
  C:/nrf52/sdk/components/libraries/util/sdk_errors.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf_error.h \
  C:/nrf52/sdk/components/libraries/util/nordic_common.h \
  C:/nrf52/sdk/components/libraries/util/app_error_weak.h \
  ../config/sdk_config.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdlib.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdarg.h
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdlib.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdarg.h

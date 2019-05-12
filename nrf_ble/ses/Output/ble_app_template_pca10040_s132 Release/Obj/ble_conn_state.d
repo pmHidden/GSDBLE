@@ -1,8 +1,8 @@
 Output/ble_app_template_pca10040_s132\ Release/Obj/ble_conn_state.o: \
  C:/nrf52/sdk/components/ble/common/ble_conn_state.c \
  C:/nrf52/sdk/components/ble/common/ble_conn_state.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdbool.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdint.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdbool.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdint.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/ble.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf_svc.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf_error.h \
@@ -30,8 +30,8 @@ Output/ble_app_template_pca10040_s132\ Release/Obj/ble_conn_state.o: \
  C:/nrf52/sdk/components/softdevice/s132/headers/ble_gap.h \
  C:/nrf52/sdk/components/libraries/atomic/nrf_atomic.h \
  C:/nrf52/sdk/components/libraries/util/sdk_common.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/string.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/__crossworks.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/string.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/__crossworks.h \
  ../config/sdk_config.h \
  C:/nrf52/sdk/components/libraries/util/nordic_common.h \
  C:/nrf52/sdk/modules/nrfx/mdk/compiler_abstraction.h \
@@ -39,14 +39,14 @@ Output/ble_app_template_pca10040_s132\ Release/Obj/ble_conn_state.o: \
  C:/nrf52/sdk/components/libraries/util/sdk_errors.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf_error.h \
  C:/nrf52/sdk/components/libraries/util/app_util.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stddef.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stddef.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf52/nrf_mbr.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf_svc.h \
  C:/nrf52/sdk/components/libraries/util/sdk_macros.h \
  C:/nrf52/sdk/components/libraries/util/nrf_assert.h \
  C:/nrf52/sdk/components/libraries/atomic_flags/nrf_atflags.h \
  C:/nrf52/sdk/components/libraries/util/app_error.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdio.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdio.h \
  C:/nrf52/sdk/components/libraries/util/app_error_weak.h \
  C:/nrf52/sdk/components/softdevice/common/nrf_sdh_ble.h \
  C:/nrf52/sdk/components/libraries/util/app_util.h \

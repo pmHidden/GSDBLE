@@ -78,9 +78,9 @@
       <file file_name="C:/nrf52/sdk/components/libraries/bsp/bsp.c" />
     </folder>
     <folder Name="Application">
-      <file file_name="main.c" />
-      <file file_name="sdk_config.h" />
-      <file file_name="bmi160.c" />
+      <file file_name="../../../main.c" />
+      <file file_name="../config/sdk_config.h" />
+      <file file_name="../../../bmi160.c" />
     </folder>
     <folder Name="nRF_Segger_RTT">
       <file file_name="C:/nrf52/sdk/external/segger_rtt/SEGGER_RTT.c" />

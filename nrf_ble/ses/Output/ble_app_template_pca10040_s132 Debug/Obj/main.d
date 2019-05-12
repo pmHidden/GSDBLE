@@ -124,4 +124,5 @@ Output/ble_app_template_pca10040_s132\ Debug/Obj/main.o: \
  C:/nrf52/sdk/components/libraries/log/nrf_log_default_backends.h \
  C:\Users\r2d2r\Desktop\bachelorarbeit\nrf_ble\bmi160.h \
  C:\Users\r2d2r\Desktop\bachelorarbeit\nrf_ble\bmi160_defs.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/math.h
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/math.h \
+ C:\Users\r2d2r\Desktop\bachelorarbeit\nrf_ble\my_service.h

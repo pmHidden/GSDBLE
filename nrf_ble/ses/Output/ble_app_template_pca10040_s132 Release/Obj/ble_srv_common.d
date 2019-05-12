@@ -1,12 +1,12 @@
 Output/ble_app_template_pca10040_s132\ Release/Obj/ble_srv_common.o: \
  C:/nrf52/sdk/components/ble/common/ble_srv_common.c \
  C:/nrf52/sdk/components/ble/common/ble_srv_common.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdint.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdbool.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdint.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdbool.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/ble_types.h \
  C:/nrf52/sdk/components/libraries/util/app_util.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stddef.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/__crossworks.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stddef.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/__crossworks.h \
  C:/nrf52/sdk/modules/nrfx/mdk/compiler_abstraction.h \
  C:/nrf52/sdk/components/libraries/util/nordic_common.h \
  C:/nrf52/sdk/modules/nrfx/mdk/nrf.h \
@@ -37,10 +37,10 @@ Output/ble_app_template_pca10040_s132\ Release/Obj/ble_srv_common.o: \
  C:/nrf52/sdk/components/softdevice/s132/headers/ble_gatts.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/ble_gap.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/ble_gatt.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/string.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/string.h \
  C:/nrf52/sdk/components/libraries/util/nordic_common.h \
  C:/nrf52/sdk/components/libraries/util/app_error.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdio.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdio.h \
  C:/nrf52/sdk/components/libraries/util/sdk_errors.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf_error.h \
  C:/nrf52/sdk/components/libraries/util/app_error_weak.h

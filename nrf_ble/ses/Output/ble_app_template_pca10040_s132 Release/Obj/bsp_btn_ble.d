@@ -1,7 +1,7 @@
 Output/ble_app_template_pca10040_s132\ Release/Obj/bsp_btn_ble.o: \
  C:/nrf52/sdk/components/libraries/bsp/bsp_btn_ble.c \
  C:/nrf52/sdk/components/libraries/bsp/bsp_btn_ble.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdint.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdint.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/ble.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf_svc.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf_error.h \
@@ -27,14 +27,14 @@ Output/ble_app_template_pca10040_s132\ Release/Obj/bsp_btn_ble.o: \
  C:/nrf52/sdk/modules/nrfx/mdk/compiler_abstraction.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/ble_gatts.h \
  C:/nrf52/sdk/components/libraries/bsp/bsp.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdbool.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdbool.h \
  C:/nrf52/sdk/components/boards/boards.h \
  C:/nrf52/sdk/modules/nrfx/hal/nrf_gpio.h \
  C:/nrf52/sdk/modules/nrfx/nrfx.h \
  C:/nrf52/sdk/integration/nrfx/nrfx_config.h ../config/sdk_config.h \
  C:/nrf52/sdk/modules/nrfx/drivers/nrfx_common.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stddef.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/__crossworks.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stddef.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/__crossworks.h \
  C:/nrf52/sdk/modules/nrfx/mdk/nrf_peripherals.h \
  C:/nrf52/sdk/modules/nrfx/mdk/nrf52832_peripherals.h \
  C:/nrf52/sdk/integration/nrfx/nrfx_glue.h \
@@ -54,7 +54,7 @@ Output/ble_app_template_pca10040_s132\ Release/Obj/bsp_btn_ble.o: \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf_nvic.h \
  C:/nrf52/sdk/components/libraries/util/nrf_assert.h \
  C:/nrf52/sdk/components/libraries/util/app_error.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdio.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdio.h \
  C:/nrf52/sdk/components/libraries/util/sdk_errors.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf_error.h \
  C:/nrf52/sdk/components/libraries/util/app_error_weak.h \

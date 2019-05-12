@@ -1,10 +1,10 @@
 Output/ble_app_template_pca10040_s132\ Release/Obj/ble_advdata.o: \
  C:/nrf52/sdk/components/ble/common/ble_advdata.c \
  C:/nrf52/sdk/components/ble/common/ble_advdata.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdint.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stdbool.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/string.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/__crossworks.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdint.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdbool.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/string.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/__crossworks.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/ble.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf_svc.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf_error.h \
@@ -37,7 +37,7 @@ Output/ble_app_template_pca10040_s132\ Release/Obj/ble_advdata.o: \
  C:/nrf52/sdk/components/libraries/util/sdk_errors.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf_error.h \
  C:/nrf52/sdk/components/libraries/util/app_util.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.16/include/stddef.h \
+ C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stddef.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf52/nrf_mbr.h \
  C:/nrf52/sdk/components/softdevice/s132/headers/nrf_svc.h \
  C:/nrf52/sdk/components/libraries/util/sdk_macros.h \
