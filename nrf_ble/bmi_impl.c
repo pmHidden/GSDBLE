@@ -11,7 +11,6 @@
 #include "nrf_drv_spi.h"
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
-#include "nrf_mtx.h"
 #include <string.h>
 
 /**
@@ -86,12 +85,12 @@ void sensor_init() {
 }
 
 void sensor_config() {
-  sensor.accel_cfg.odr = BMI160_ACCEL_ODR_800HZ;
+  sensor.accel_cfg.odr = BMI160_ACCEL_ODR_200HZ;
   sensor.accel_cfg.range = BMI160_ACCEL_RANGE_2G;
   sensor.accel_cfg.bw = BMI160_ACCEL_BW_NORMAL_AVG4;
   sensor.accel_cfg.power = BMI160_ACCEL_NORMAL_MODE;
 
-  sensor.gyro_cfg.odr = BMI160_GYRO_ODR_800HZ;
+  sensor.gyro_cfg.odr = BMI160_GYRO_ODR_200HZ;
   sensor.gyro_cfg.range = BMI160_GYRO_RANGE_2000_DPS;
   sensor.gyro_cfg.bw = BMI160_GYRO_BW_NORMAL_MODE;
   sensor.gyro_cfg.power = BMI160_GYRO_NORMAL_MODE;
@@ -154,23 +153,17 @@ void sensor_config_interrupt() {
 }
 
 my_service_t *service;
-nrf_mtx_t bmi_mutex;
 
 void in_pin_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
-  if (nrf_mtx_trylock(&bmi_mutex)) {
-    struct dataAndResult sensor_result = bmi_read();
-    if (sensor_result.result == BMI160_OK) {
-      ret_code_t err_code;
-      err_code = chara_data_update(service, sensor_result.data);
-      if (err_code != NRF_SUCCESS) {
-        NRF_LOG_INFO("couldnt send, code: %d, is queue full: %d", err_code, err_code == NRF_ERROR_RESOURCES);
-      }
-    } else {
-      NRF_LOG_INFO("couldnt read sensor, code: %d", sensor_result.result);
+  struct dataAndResult sensor_result = bmi_read();
+  if (sensor_result.result == BMI160_OK) {
+    ret_code_t err_code;
+    err_code = chara_data_update(service, sensor_result.data);
+    if (err_code != NRF_SUCCESS) {
+      NRF_LOG_INFO("couldnt send, code: %d, is queue full: %d", err_code, err_code == NRF_ERROR_RESOURCES);
     }
-    nrf_mtx_unlock(&bmi_mutex);
   } else {
-    NRF_LOG_INFO("couldnt lock");
+    NRF_LOG_INFO("couldnt read sensor, code: %d", sensor_result.result);
   }
 }
 
@@ -194,9 +187,6 @@ static void gpio_init(void) {
 void imu_init(my_service_t *p_cus) {
   service = p_cus;
   spi_init();
-
-  memset(&bmi_mutex, 0, sizeof(nrf_mtx_t));
-  nrf_mtx_init(&bmi_mutex);
 
   sensor_init();
   sensor_config();

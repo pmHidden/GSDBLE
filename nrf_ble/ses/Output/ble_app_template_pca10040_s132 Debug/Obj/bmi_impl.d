@@ -98,6 +98,4 @@ Output/ble_app_template_pca10040_s132\ Debug/Obj/bmi_impl.o: \
  C:/nrf52/sdk/components/libraries/log/src/nrf_log_ctrl_internal.h \
  C:/nrf52/sdk/components/libraries/log/nrf_log_backend_interface.h \
  C:/nrf52/sdk/components/libraries/memobj/nrf_memobj.h \
- C:/nrf52/sdk/components/libraries/balloc/nrf_balloc.h \
- C:/nrf52/sdk/components/libraries/mutex/nrf_mtx.h \
- C:/nrf52/sdk/components/libraries/atomic/nrf_atomic.h
+ C:/nrf52/sdk/components/libraries/balloc/nrf_balloc.h
