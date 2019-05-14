@@ -1,0 +1,1534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7b4c8d4c-f274-4cf3-b90b-47c79a304df1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Thingy/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Thingy/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Thingy/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Thingy/.idea/kotlinc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Thingy/.idea/libraries/KotlinJavaRuntime.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Thingy/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Thingy/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Thingy/.idea/sbt.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Thingy/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Thingy/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Thingy/OscCsvAnalyser.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Thingy/Zeit,Kanal A,Kanal B,integral(A-B).txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Thingy/src/Shitty.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/ble_app_blinky.eww" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/hex/ble_app_blinky_pca10040_s132.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/hex/ble_app_blinky_pca10040e_s112.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/hex/ble_app_blinky_pca10056_s140.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/hex/ble_app_blinky_pca10056e_s112.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/hex/ble_app_blinky_pca10059_s140.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/hex/license.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/arm4/ble_app_blinky_pca10040_s132.uvopt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/arm4/ble_app_blinky_pca10040_s132.uvproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/arm5_no_packs/ble_app_blinky_pca10040_s132.uvoptx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/arm5_no_packs/ble_app_blinky_pca10040_s132.uvprojx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/armgcc/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/armgcc/ble_app_blinky_gcc_nrf52.ld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/config/sdk_config.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/iar/ble_app_blinky_iar_nRF5x.icf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/iar/ble_app_blinky_pca10040_s132.ewd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/iar/ble_app_blinky_pca10040_s132.ewp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/Debug/Exe/ble_app_blinky_pca10040_s132.elf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/Debug/Exe/ble_app_blinky_pca10040_s132.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/Debug/Exe/ble_app_blinky_pca10040_s132.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/Release/Exe/ble_app_blinky_pca10040_s132.elf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/Release/Exe/ble_app_blinky_pca10040_s132.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/Release/Exe/ble_app_blinky_pca10040_s132.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/SEGGER_RTT.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/SEGGER_RTT.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/SEGGER_RTT_Syscalls_SES.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/SEGGER_RTT_Syscalls_SES.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/SEGGER_RTT_printf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/SEGGER_RTT_printf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/app_button.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/app_button.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/app_error.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/app_error.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/app_error_handler_gcc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/app_error_handler_gcc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/app_error_weak.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/app_error_weak.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/app_scheduler.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/app_scheduler.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/app_timer.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/app_timer.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/app_util_platform.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/app_util_platform.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/ble_advdata.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/ble_advdata.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/ble_app_blinky_pca10040_s132.ind" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/ble_app_blinky_pca10040_s132.ld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/ble_conn_params.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/ble_conn_params.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/ble_conn_state.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/ble_conn_state.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/ble_lbs.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/ble_lbs.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/ble_srv_common.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/ble_srv_common.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/boards.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/boards.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/hardfault_implementation.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/hardfault_implementation.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/main.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/main.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_assert.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_assert.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_atfifo.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_atfifo.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_atflags.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_atflags.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_balloc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_balloc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_ble_gatt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_ble_gatt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_ble_qwr.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_ble_qwr.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_drv_clock.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_drv_clock.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_drv_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_drv_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_fprintf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_fprintf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_fprintf_format.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_fprintf_format.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_log_backend_rtt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_log_backend_rtt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_log_backend_serial.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_log_backend_serial.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_log_backend_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_log_backend_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_log_default_backends.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_log_default_backends.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_log_frontend.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_log_frontend.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_log_str_formatter.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_log_str_formatter.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_memobj.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_memobj.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_pwr_mgmt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_pwr_mgmt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_ringbuf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_ringbuf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_sdh.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_sdh.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_sdh_ble.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_sdh_ble.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_sdh_soc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_sdh_soc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_section_iter.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_section_iter.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_strerror.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrf_strerror.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrfx_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrfx_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrfx_clock.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrfx_clock.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrfx_gpiote.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrfx_gpiote.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrfx_prs.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrfx_prs.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrfx_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrfx_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrfx_uarte.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/nrfx_uarte.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/ses_startup_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/ses_startup_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/ses_startup_nrf_common.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/ses_startup_nrf_common.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/system_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/system_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/thumb_crt0.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/thumb_crt0.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/utf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Debug/Obj/utf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/SEGGER_RTT.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/SEGGER_RTT.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/SEGGER_RTT_Syscalls_SES.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/SEGGER_RTT_Syscalls_SES.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/SEGGER_RTT_printf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/SEGGER_RTT_printf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/app_button.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/app_button.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/app_error.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/app_error.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/app_error_handler_gcc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/app_error_handler_gcc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/app_error_weak.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/app_error_weak.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/app_scheduler.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/app_scheduler.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/app_timer.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/app_timer.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/app_util_platform.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/app_util_platform.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/ble_advdata.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/ble_advdata.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/ble_app_blinky_pca10040_s132.ind" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/ble_app_blinky_pca10040_s132.ld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/ble_conn_params.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/ble_conn_params.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/ble_conn_state.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/ble_conn_state.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/ble_lbs.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/ble_lbs.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/ble_srv_common.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/ble_srv_common.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/boards.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/boards.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/hardfault_implementation.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/hardfault_implementation.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/main.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/main.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_assert.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_assert.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_atfifo.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_atfifo.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_atflags.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_atflags.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_balloc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_balloc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_ble_gatt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_ble_gatt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_ble_qwr.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_ble_qwr.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_drv_clock.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_drv_clock.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_drv_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_drv_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_fprintf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_fprintf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_fprintf_format.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_fprintf_format.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_log_backend_rtt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_log_backend_rtt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_log_backend_serial.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_log_backend_serial.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_log_backend_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_log_backend_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_log_default_backends.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_log_default_backends.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_log_frontend.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_log_frontend.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_log_str_formatter.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_log_str_formatter.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_memobj.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_memobj.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_pwr_mgmt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_pwr_mgmt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_ringbuf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_ringbuf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_sdh.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_sdh.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_sdh_ble.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_sdh_ble.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_sdh_soc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_sdh_soc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_section_iter.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_section_iter.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_strerror.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrf_strerror.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrfx_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrfx_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrfx_clock.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrfx_clock.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrfx_gpiote.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrfx_gpiote.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrfx_prs.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrfx_prs.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrfx_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrfx_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrfx_uarte.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/nrfx_uarte.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/ses_startup_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/ses_startup_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/ses_startup_nrf_common.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/ses_startup_nrf_common.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/system_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/system_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/thumb_crt0.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/thumb_crt0.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/utf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/Output/ble_app_blinky_pca10040_s132 Release/Obj/utf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/ble_app_blinky_pca10040_s132.emProject" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/ble_app_blinky_pca10040_s132.emSession" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/ble_app_blinky_pca10040_s132_Debug.jlink" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/ble_app_blinky_pca10040_s132_Release.jlink" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ble_app_blinky/pca10040/s132/ses/flash_placement.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datenblätter/imu_bmi160.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datenblätter/imu_bmi160_eval.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datenblätter/imu_st.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datenblätter/imu_st_eval.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datenblätter/nRF52832.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datenblätter/nRF52832_gettingstarted.url" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../datenblätter/nRF52_DK.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lsm6dsl_STdC/README.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lsm6dsl_STdC/driver/lsm6dsl_reg.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lsm6dsl_STdC/driver/lsm6dsl_reg.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lsm6dsl_STdC/example/read_data_simple.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ble_app_template.eww" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/bmi160.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/bmi160.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/bmi160_defs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/bmi_impl.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/chara_conf.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/chara_conf.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/chara_data.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/chara_data.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/config/sdk_config.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/hex/ble_app_template_pca10040_s132.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/hex/ble_app_template_pca10040e_s112.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/hex/ble_app_template_pca10056_s140.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/hex/ble_app_template_pca10056e_s112.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/hex/license.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/imu.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/lsm_impl.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/my_service.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/my_service.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/Debug/Exe/ble_app_template_pca10040_s132.elf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/Debug/Exe/ble_app_template_pca10040_s132.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/Debug/Exe/ble_app_template_pca10040_s132.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/Release/Exe/ble_app_template_pca10040_s132.elf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/Release/Exe/ble_app_template_pca10040_s132.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/Release/Exe/ble_app_template_pca10040_s132.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/SEGGER_RTT.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/SEGGER_RTT.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/SEGGER_RTT_Syscalls_SES.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/SEGGER_RTT_Syscalls_SES.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/SEGGER_RTT_printf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/SEGGER_RTT_printf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/app_button.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/app_button.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/app_error.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/app_error.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/app_error_handler_gcc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/app_error_handler_gcc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/app_error_weak.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/app_error_weak.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/app_scheduler.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/app_scheduler.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/app_timer.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/app_timer.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/app_util_platform.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/app_util_platform.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/auth_status_tracker.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/auth_status_tracker.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/ble_advdata.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/ble_advdata.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/ble_advertising.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/ble_advertising.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/ble_app_template_pca10040_s132.ind" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/ble_app_template_pca10040_s132.ld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/ble_conn_params.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/ble_conn_params.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/ble_conn_state.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/ble_conn_state.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/ble_srv_common.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/ble_srv_common.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/bmi160.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/bmi160.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/bmi_impl.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/bmi_impl.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/boards.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/boards.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/bsp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/bsp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/bsp_btn_ble.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/bsp_btn_ble.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/chara_conf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/chara_conf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/chara_data.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/chara_data.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/crc16.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/crc16.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/fds.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/fds.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/gatt_cache_manager.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/gatt_cache_manager.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/gatts_cache_manager.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/gatts_cache_manager.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/hardfault_implementation.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/hardfault_implementation.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/id_manager.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/id_manager.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/lsm_impl.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/lsm_impl.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/main.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/main.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/my_chara1.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/my_chara1.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/my_chara2.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/my_chara2.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/my_service.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/my_service.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_assert.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_assert.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_atfifo.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_atfifo.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_atflags.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_atflags.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_balloc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_balloc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_ble_gatt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_ble_gatt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_ble_qwr.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_ble_qwr.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_drv_clock.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_drv_clock.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_drv_spi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_drv_spi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_drv_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_drv_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_fprintf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_fprintf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_fprintf_format.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_fprintf_format.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_fstorage.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_fstorage.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_fstorage_sd.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_fstorage_sd.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_log_backend_rtt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_log_backend_rtt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_log_backend_serial.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_log_backend_serial.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_log_backend_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_log_backend_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_log_default_backends.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_log_default_backends.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_log_frontend.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_log_frontend.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_log_str_formatter.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_log_str_formatter.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_memobj.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_memobj.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_pwr_mgmt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_pwr_mgmt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_ringbuf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_ringbuf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_sdh.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_sdh.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_sdh_ble.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_sdh_ble.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_sdh_soc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_sdh_soc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_section_iter.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_section_iter.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_strerror.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrf_strerror.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrfx_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrfx_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrfx_clock.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrfx_clock.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrfx_gpiote.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrfx_gpiote.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrfx_prs.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrfx_prs.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrfx_spim.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrfx_spim.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrfx_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrfx_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrfx_uarte.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/nrfx_uarte.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/peer_data_storage.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/peer_data_storage.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/peer_database.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/peer_database.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/peer_id.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/peer_id.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/peer_manager.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/peer_manager.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/peer_manager_handler.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/peer_manager_handler.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/pm_buffer.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/pm_buffer.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/security_dispatcher.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/security_dispatcher.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/security_manager.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/security_manager.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/sensorsim.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/sensorsim.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/ses_startup_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/ses_startup_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/ses_startup_nrf_common.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/ses_startup_nrf_common.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/spi_impl.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/spi_impl.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/system_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/system_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/thumb_crt0.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/thumb_crt0.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/utf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Debug/Obj/utf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/SEGGER_RTT.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/SEGGER_RTT.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/SEGGER_RTT_Syscalls_SES.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/SEGGER_RTT_Syscalls_SES.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/SEGGER_RTT_printf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/SEGGER_RTT_printf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/app_button.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/app_button.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/app_error.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/app_error.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/app_error_handler_gcc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/app_error_handler_gcc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/app_error_weak.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/app_error_weak.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/app_scheduler.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/app_scheduler.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/app_timer.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/app_timer.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/app_util_platform.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/app_util_platform.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/auth_status_tracker.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/auth_status_tracker.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/ble_advdata.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/ble_advdata.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/ble_advertising.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/ble_advertising.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/ble_app_template_pca10040_s132.ind" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/ble_app_template_pca10040_s132.ld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/ble_conn_params.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/ble_conn_params.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/ble_conn_state.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/ble_conn_state.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/ble_srv_common.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/ble_srv_common.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/bmi160.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/bmi160.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/bmi_impl.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/bmi_impl.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/boards.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/boards.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/bsp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/bsp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/bsp_btn_ble.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/bsp_btn_ble.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/chara_conf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/chara_conf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/chara_data.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/chara_data.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/crc16.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/crc16.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/fds.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/fds.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/gatt_cache_manager.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/gatt_cache_manager.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/gatts_cache_manager.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/gatts_cache_manager.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/hardfault_implementation.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/hardfault_implementation.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/id_manager.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/id_manager.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/main.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/main.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/my_service.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/my_service.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_assert.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_assert.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_atfifo.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_atfifo.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_atflags.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_atflags.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_balloc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_balloc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_ble_gatt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_ble_gatt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_ble_qwr.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_ble_qwr.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_drv_clock.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_drv_clock.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_drv_spi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_drv_spi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_drv_twi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_drv_twi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_drv_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_drv_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_fprintf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_fprintf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_fprintf_format.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_fprintf_format.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_fstorage.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_fstorage.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_fstorage_sd.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_fstorage_sd.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_log_backend_rtt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_log_backend_rtt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_log_backend_serial.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_log_backend_serial.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_log_backend_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_log_backend_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_log_default_backends.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_log_default_backends.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_log_frontend.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_log_frontend.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_log_str_formatter.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_log_str_formatter.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_memobj.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_memobj.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_pwr_mgmt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_pwr_mgmt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_ringbuf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_ringbuf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_sdh.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_sdh.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_sdh_ble.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_sdh_ble.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_sdh_soc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_sdh_soc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_section_iter.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_section_iter.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_strerror.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrf_strerror.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_clock.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_clock.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_gpiote.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_gpiote.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_prs.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_prs.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_spi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_spi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_spim.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_spim.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_twi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_twi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_uarte.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/nrfx_uarte.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/peer_data_storage.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/peer_data_storage.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/peer_database.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/peer_database.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/peer_id.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/peer_id.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/peer_manager.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/peer_manager.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/peer_manager_handler.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/peer_manager_handler.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/pm_buffer.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/pm_buffer.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/security_dispatcher.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/security_dispatcher.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/security_manager.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/security_manager.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/sensorsim.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/sensorsim.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/ses_startup_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/ses_startup_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/ses_startup_nrf_common.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/ses_startup_nrf_common.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/spi_impl.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/spi_impl.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/system_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/system_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/thumb_crt0.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/thumb_crt0.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/utf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/Output/ble_app_template_pca10040_s132 Release/Obj/utf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/ble_app_template_pca10040_s132.emProject" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/ble_app_template_pca10040_s132.emSession" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/ble_app_template_pca10040_s132_Debug.jlink" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/ble_app_template_pca10040_s132_Release.jlink" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nrf_ble/ses/flash_placement.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/bmi160.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/bmi160.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/bmi160_defs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/hex/license.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/hex/spi_pca10040.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/hex/spi_pca10056.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/arm4/spi_pca10040.uvopt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/arm4/spi_pca10040.uvproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/arm5_no_packs/spi_pca10040.uvoptx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/arm5_no_packs/spi_pca10040.uvprojx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/armgcc/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/armgcc/spi_gcc_nrf52.ld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/config/sdk_config.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/iar/spi_iar_nRF5x.icf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/iar/spi_pca10040.ewd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/iar/spi_pca10040.ewp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/Debug/Exe/spi_pca10040.elf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/Debug/Exe/spi_pca10040.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/Debug/Exe/spi_pca10040.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/Release/Exe/spi_pca10040.elf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/Release/Exe/spi_pca10040.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/Release/Exe/spi_pca10040.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/SEGGER_RTT.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/SEGGER_RTT.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/SEGGER_RTT_Syscalls_SES.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/SEGGER_RTT_Syscalls_SES.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/SEGGER_RTT_printf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/SEGGER_RTT_printf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_button.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_button.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_error.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_error.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_error_handler_gcc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_error_handler_gcc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_error_weak.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_error_weak.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_scheduler.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_scheduler.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_timer.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_timer.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_util_platform.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_util_platform.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/bmi160.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/bmi160.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/boards.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/boards.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/bsp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/bsp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/main.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/main.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_assert.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_assert.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_balloc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_balloc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_drv_spi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_drv_spi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_drv_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_drv_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_fprintf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_fprintf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_fprintf_format.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_fprintf_format.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_backend_rtt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_backend_rtt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_backend_serial.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_backend_serial.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_backend_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_backend_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_default_backends.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_default_backends.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_frontend.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_frontend.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_str_formatter.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_str_formatter.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_memobj.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_memobj.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_ringbuf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_ringbuf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_strerror.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_strerror.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_gpiote.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_gpiote.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_prs.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_prs.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_spi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_spi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_spim.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_spim.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_uarte.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_uarte.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/ses_startup_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/ses_startup_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/ses_startup_nrf_common.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/ses_startup_nrf_common.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/spi_pca10040.ind" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/spi_pca10040.ld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/system_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/system_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/thumb_crt0.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/thumb_crt0.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/SEGGER_RTT.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/SEGGER_RTT.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/SEGGER_RTT_Syscalls_SES.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/SEGGER_RTT_Syscalls_SES.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/SEGGER_RTT_printf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/SEGGER_RTT_printf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_button.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_button.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_error.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_error.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_error_handler_gcc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_error_handler_gcc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_error_weak.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_error_weak.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_scheduler.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_scheduler.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_timer.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_timer.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_util_platform.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_util_platform.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/bmi160.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/bmi160.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/boards.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/boards.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/bsp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/bsp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/main.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/main.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_assert.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_assert.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_balloc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_balloc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_drv_spi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_drv_spi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_drv_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_drv_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_fprintf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_fprintf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_fprintf_format.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_fprintf_format.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_backend_rtt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_backend_rtt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_backend_serial.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_backend_serial.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_backend_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_backend_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_default_backends.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_default_backends.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_frontend.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_frontend.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_str_formatter.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_str_formatter.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_memobj.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_memobj.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_ringbuf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_ringbuf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_strerror.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_strerror.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_gpiote.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_gpiote.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_prs.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_prs.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_spi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_spi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_spim.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_spim.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_uarte.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_uarte.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/ses_startup_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/ses_startup_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/ses_startup_nrf_common.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/ses_startup_nrf_common.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/spi_pca10040.ind" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/spi_pca10040.ld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/system_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/system_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/thumb_crt0.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/thumb_crt0.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/flash_placement.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/spi_pca10040.emProject" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/spi_pca10040.emSession" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/spi_pca10040_Debug.jlink" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/pca10040/blank/ses/spi_pca10040_Release.jlink" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test/spi.eww" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/bmi160.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/bmi160.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/bmi160_defs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/hex/license.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/hex/spi_pca10040.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/hex/spi_pca10056.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/arm4/spi_pca10040.uvopt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/arm4/spi_pca10040.uvproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/arm5_no_packs/spi_pca10040.uvoptx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/arm5_no_packs/spi_pca10040.uvprojx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/armgcc/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/armgcc/spi_gcc_nrf52.ld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/config/sdk_config.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/iar/spi_iar_nRF5x.icf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/iar/spi_pca10040.ewd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/iar/spi_pca10040.ewp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/Debug/Exe/spi_pca10040.elf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/Debug/Exe/spi_pca10040.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/Debug/Exe/spi_pca10040.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/Release/Exe/spi_pca10040.elf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/Release/Exe/spi_pca10040.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/Release/Exe/spi_pca10040.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/SEGGER_RTT.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/SEGGER_RTT.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/SEGGER_RTT_Syscalls_SES.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/SEGGER_RTT_Syscalls_SES.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/SEGGER_RTT_printf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/SEGGER_RTT_printf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_button.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_button.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_error.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_error.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_error_handler_gcc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_error_handler_gcc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_error_weak.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_error_weak.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_scheduler.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_scheduler.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_timer.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_timer.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_util_platform.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/app_util_platform.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/bmi160.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/bmi160.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/boards.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/boards.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/bsp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/bsp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/main.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/main.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_assert.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_assert.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_balloc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_balloc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_drv_spi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_drv_spi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_drv_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_drv_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_fprintf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_fprintf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_fprintf_format.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_fprintf_format.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_backend_rtt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_backend_rtt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_backend_serial.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_backend_serial.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_backend_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_backend_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_default_backends.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_default_backends.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_frontend.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_frontend.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_str_formatter.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_log_str_formatter.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_memobj.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_memobj.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_ringbuf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_ringbuf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_strerror.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrf_strerror.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_gpiote.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_gpiote.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_prs.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_prs.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_spi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_spi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_spim.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_spim.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_uarte.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/nrfx_uarte.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/ses_startup_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/ses_startup_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/ses_startup_nrf_common.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/ses_startup_nrf_common.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/spi_pca10040.ind" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/spi_pca10040.ld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/system_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/system_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/thumb_crt0.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Debug/Obj/thumb_crt0.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/SEGGER_RTT.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/SEGGER_RTT.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/SEGGER_RTT_Syscalls_SES.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/SEGGER_RTT_Syscalls_SES.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/SEGGER_RTT_printf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/SEGGER_RTT_printf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_button.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_button.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_error.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_error.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_error_handler_gcc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_error_handler_gcc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_error_weak.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_error_weak.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_scheduler.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_scheduler.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_timer.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_timer.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_util_platform.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/app_util_platform.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/bmi160.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/bmi160.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/boards.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/boards.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/bsp.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/bsp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/main.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/main.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_assert.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_assert.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_balloc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_balloc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_drv_spi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_drv_spi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_drv_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_drv_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_fprintf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_fprintf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_fprintf_format.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_fprintf_format.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_backend_rtt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_backend_rtt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_backend_serial.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_backend_serial.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_backend_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_backend_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_default_backends.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_default_backends.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_frontend.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_frontend.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_str_formatter.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_log_str_formatter.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_memobj.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_memobj.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_ringbuf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_ringbuf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_strerror.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrf_strerror.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_gpiote.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_gpiote.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_prs.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_prs.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_spi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_spi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_spim.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_spim.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_uarte.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/nrfx_uarte.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/ses_startup_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/ses_startup_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/ses_startup_nrf_common.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/ses_startup_nrf_common.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/spi_pca10040.ind" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/spi_pca10040.ld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/system_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/system_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/thumb_crt0.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/Output/spi_pca10040 Release/Obj/thumb_crt0.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/flash_placement.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/spi_pca10040.emProject" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/spi_pca10040.emSession" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/spi_pca10040_Debug.jlink" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/pca10040/blank/ses/spi_pca10040_Release.jlink" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spi_test_fifo/spi.eww" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/bmi160.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/bmi160.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/bmi160_defs.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/hex/license.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/hex/twi_scanner_pca10040.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/hex/twi_scanner_pca10056.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/arm4/twi_scanner_pca10040.uvopt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/arm4/twi_scanner_pca10040.uvproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/arm5_no_packs/twi_scanner_pca10040.uvoptx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/arm5_no_packs/twi_scanner_pca10040.uvprojx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/armgcc/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/armgcc/twi_scanner_gcc_nrf52.ld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/config/sdk_config.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/iar/twi_scanner_iar_nRF5x.icf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/iar/twi_scanner_pca10040.ewd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/iar/twi_scanner_pca10040.ewp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/Debug/Exe/twi_scanner_pca10040.elf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/Debug/Exe/twi_scanner_pca10040.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/Debug/Exe/twi_scanner_pca10040.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/Release/Exe/twi_scanner_pca10040.elf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/Release/Exe/twi_scanner_pca10040.hex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/Release/Exe/twi_scanner_pca10040.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/SEGGER_RTT.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/SEGGER_RTT.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/SEGGER_RTT_Syscalls_SES.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/SEGGER_RTT_Syscalls_SES.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/SEGGER_RTT_printf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/SEGGER_RTT_printf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/app_error.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/app_error.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/app_error_handler_gcc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/app_error_handler_gcc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/app_error_weak.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/app_error_weak.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/app_util_platform.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/app_util_platform.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/bmi160.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/bmi160.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/boards.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/boards.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/main.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/main.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_assert.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_assert.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_balloc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_balloc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_drv_twi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_drv_twi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_drv_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_drv_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_fprintf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_fprintf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_fprintf_format.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_fprintf_format.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_log_backend_rtt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_log_backend_rtt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_log_backend_serial.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_log_backend_serial.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_log_backend_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_log_backend_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_log_default_backends.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_log_default_backends.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_log_frontend.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_log_frontend.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_log_str_formatter.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_log_str_formatter.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_memobj.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_memobj.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_ringbuf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_ringbuf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_strerror.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrf_strerror.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrfx_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrfx_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrfx_prs.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrfx_prs.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrfx_twi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrfx_twi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrfx_twim.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrfx_twim.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrfx_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrfx_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrfx_uarte.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/nrfx_uarte.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/ses_startup_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/ses_startup_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/ses_startup_nrf_common.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/ses_startup_nrf_common.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/system_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/system_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/thumb_crt0.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/thumb_crt0.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/twi_scanner_pca10040.ind" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Debug/Obj/twi_scanner_pca10040.ld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/SEGGER_RTT.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/SEGGER_RTT.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/SEGGER_RTT_Syscalls_SES.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/SEGGER_RTT_Syscalls_SES.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/SEGGER_RTT_printf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/SEGGER_RTT_printf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/app_error.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/app_error.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/app_error_handler_gcc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/app_error_handler_gcc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/app_error_weak.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/app_error_weak.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/app_util_platform.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/app_util_platform.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/boards.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/boards.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/main.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/main.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_assert.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_assert.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_balloc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_balloc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_drv_twi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_drv_twi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_drv_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_drv_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_fprintf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_fprintf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_fprintf_format.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_fprintf_format.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_log_backend_rtt.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_log_backend_rtt.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_log_backend_serial.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_log_backend_serial.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_log_backend_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_log_backend_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_log_default_backends.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_log_default_backends.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_log_frontend.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_log_frontend.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_log_str_formatter.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_log_str_formatter.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_memobj.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_memobj.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_ringbuf.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_ringbuf.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_strerror.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrf_strerror.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrfx_atomic.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrfx_atomic.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrfx_prs.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrfx_prs.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrfx_twi.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrfx_twi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrfx_twim.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrfx_twim.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrfx_uart.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrfx_uart.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrfx_uarte.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/nrfx_uarte.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/ses_startup_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/ses_startup_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/ses_startup_nrf_common.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/ses_startup_nrf_common.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/system_nrf52.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/system_nrf52.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/thumb_crt0.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/thumb_crt0.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/twi_scanner_pca10040.ind" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/Output/twi_scanner_pca10040 Release/Obj/twi_scanner_pca10040.ld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/flash_placement.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/twi_scanner_pca10040.emProject" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/twi_scanner_pca10040.emSession" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/twi_scanner_pca10040_Debug.jlink" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/pca10040/blank/ses/twi_scanner_pca10040_Release.jlink" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../twi_test/twi_scanner.eww" beforeDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Main.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="10" column="49" lean-forward="true" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+              <folding>
+                <element signature="n#!!block;n#afterComma#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>string</find>
+      <find>assert</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/Shitty.kt" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-10" />
+    <option name="width" value="980" />
+    <option name="height" value="1040" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="OscCsvAnalyser" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OscCsvAnalyser" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OscCsvAnalyser" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OscCsvAnalyser" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="MainKt" type="JetRunConfigurationType" factoryName="Kotlin" temporary="true" nameIsGenerated="true">
+      <module name="OscCsvAnalyser" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="MainKt" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Kotlin.MainKt" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SbtLocalSettings">
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$/../../ex02/ex02" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (1)/ex01" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (2)/ex02" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (3)/ex03" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (4)/ex04" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (5)/ex05" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (6)/ex06" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (7)/ex07" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (8)/ex08" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../sedc/Neuer Ordner (9)/ex09" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7b4c8d4c-f274-4cf3-b90b-47c79a304df1" name="Default Changelist" comment="" />
+      <created>1553900234337</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1553900234337</updated>
+      <workItem from="1553900235620" duration="10930000" />
+      <workItem from="1553911275497" duration="4157000" />
+      <workItem from="1553915796904" duration="363000" />
+      <workItem from="1553941000508" duration="5071000" />
+      <workItem from="1553950524237" duration="1208000" />
+      <workItem from="1555929464177" duration="129000" />
+      <workItem from="1555930563829" duration="39000" />
+      <workItem from="1557836832077" duration="61000" />
+      <workItem from="1557837010760" duration="43000" />
+    </task>
+    <task id="LOCAL-00001" summary="added project: integrate csv">
+      <created>1553911491024</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1553911491024</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="22001000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49858356" visible="true" weight="0.27919462" />
+      <window_info id="Structure" order="1" sideWeight="0.50141644" side_tool="true" weight="0.26308724" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4986577" weight="0.3286119" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3286119" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5013423" side_tool="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.3286119" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Maven" order="6" />
+      <window_info anchor="right" id="Capture Analysis" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added project: integrate csv" />
+    <option name="LAST_COMMIT_MESSAGE" value="added project: integrate csv" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/io/BufferedReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="381" column="42" lean-forward="true" selection-start-line="381" selection-start-column="42" selection-end-line="381" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$KOTLIN_BUNDLED$/lib/kotlin-stdlib-sources.jar!/kotlin/text/StringsJVM.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="89" column="25" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$KOTLIN_BUNDLED$/lib/kotlin-stdlib-sources.jar!/common/kotlin/text/Strings.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="1215" column="3" lean-forward="true" selection-start-line="1215" selection-start-column="3" selection-end-line="1215" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$KOTLIN_BUNDLED$/lib/kotlin-stdlib-sources.jar!/common/kotlin/util/Standard.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="82" column="19" lean-forward="true" selection-start-line="82" selection-start-column="19" selection-end-line="82" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$KOTLIN_BUNDLED$/lib/kotlin-stdlib-sources.jar!/kotlin/Arrays.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1903">
+          <caret line="59" column="13" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/Thread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="698" column="29" selection-start-line="698" selection-start-column="29" selection-end-line="698" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/util/concurrent/atomic/AtomicLong.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="214" column="25" lean-forward="true" selection-start-line="214" selection-start-column="25" selection-end-line="214" selection-end-column="25" />
+          <folding>
+            <element signature="e#2308#2309#0" expanded="true" />
+            <element signature="e#2344#2345#0" expanded="true" />
+            <element signature="e#5786#5787#0" expanded="true" />
+            <element signature="e#5863#5864#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/util/HashMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="348" column="44" selection-start-line="348" selection-start-column="38" selection-end-line="348" selection-end-column="44" />
+          <folding>
+            <element signature="e#19327#19328#0" expanded="true" />
+            <element signature="e#19410#19411#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/Math.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="974" column="22" selection-start-line="974" selection-start-column="22" selection-end-line="974" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$KOTLIN_BUNDLED$/lib/kotlin-test.jar!/kotlin/test/AssertionsKt.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="17" column="47" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$KOTLIN_BUNDLED$/lib/kotlin-stdlib-sources.jar!/kotlin/util/AssertionsJVM.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="30" column="18" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="10" column="49" lean-forward="true" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+          <folding>
+            <element signature="n#!!block;n#afterComma#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
