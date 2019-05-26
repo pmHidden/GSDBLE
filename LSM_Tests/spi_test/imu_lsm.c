@@ -41,7 +41,7 @@ void imu_init(bool (*send_data_p)(imu_data)) {
   LSM_ERROR_CHECK(lsm6dsl_gy_band_pass_set(&dev_ctx, LSM6DSL_HP_260mHz_LP1_STRONG));
 
   lsm_get_data_init(&dev_ctx);
-  imu_set_speed(IMU_ODR_800Hz);
+  imu_set_speed(IMU_ODR_200Hz);
 }
 
 void imu_set_speed(imu_speed_t speed) {

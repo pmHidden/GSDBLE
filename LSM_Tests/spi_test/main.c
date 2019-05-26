@@ -1,18 +1,17 @@
 #include "app_error.h"
 #include "imu.h"
 #include "nrf_delay.h"
+#include "nrf_drv_gpiote.h"
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
-#include "nrf_drv_gpiote.h"
 
 uint64_t howMuchData = 0;
 
 bool send_my_data(imu_data data) {
   howMuchData++;
-  if (howMuchData % 200 == 0)
-  NRF_LOG_INFO("I received %u in total!", howMuchData);
-  //nrf_delay_us(100);
+  if (howMuchData % 2000 == 0)
+    NRF_LOG_INFO("I received %u in total!", howMuchData);
   return true;
 }
 
@@ -27,8 +26,8 @@ int main(void) {
 
   while (true) {
     if (NRF_LOG_PROCESS() == false) {
-     // NRF_LOG_INFO("sleep and %u", nrfx_gpiote_in_is_set(31));
-     // NRF_LOG_FLUSH();
+      NRF_LOG_INFO("sleep and %u", nrfx_gpiote_in_is_set(31));
+      NRF_LOG_FLUSH();
       __SEV();
       __WFE();
       __WFE();
