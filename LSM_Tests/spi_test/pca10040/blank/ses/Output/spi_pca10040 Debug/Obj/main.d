@@ -21,12 +21,8 @@ Output/spi_pca10040\ Debug/Obj/main.o: \
  C:/nrf52/sdk/components/drivers_nrf/nrf_soc_nosd/nrf_error.h \
  C:/nrf52/sdk/components/libraries/util/nordic_common.h \
  C:/nrf52/sdk/components/libraries/util/app_error_weak.h \
- C:/nrf52/sdk/components/libraries/util/app_util_platform.h \
- C:/nrf52/sdk/modules/nrfx/mdk/compiler_abstraction.h \
- C:/nrf52/sdk/components/libraries/util/nrf_assert.h \
- C:/nrf52/sdk/components/libraries/util/app_error.h \
- C:/nrf52/sdk/components/boards/boards.h \
- C:/nrf52/sdk/modules/nrfx/hal/nrf_gpio.h \
+ C:\Users\r2d2r\Desktop\bachelorarbeit\LSM_Tests\spi_test\imu.h \
+ C:/nrf52/sdk/components/libraries/delay/nrf_delay.h \
  C:/nrf52/sdk/modules/nrfx/nrfx.h \
  C:/nrf52/sdk/integration/nrfx/nrfx_config.h ../config/sdk_config.h \
  C:/nrf52/sdk/modules/nrfx/drivers/nrfx_common.h \
@@ -39,25 +35,16 @@ Output/spi_pca10040\ Debug/Obj/main.o: \
  C:/nrf52/sdk/modules/nrfx/soc/nrfx_irqs_nrf52832.h \
  C:/nrf52/sdk/components/libraries/util/nrf_assert.h \
  C:/nrf52/sdk/components/libraries/util/app_util.h \
+ C:/nrf52/sdk/modules/nrfx/mdk/compiler_abstraction.h \
  C:/nrf52/sdk/components/libraries/util/nordic_common.h \
+ C:/nrf52/sdk/components/libraries/util/app_util_platform.h \
+ C:/nrf52/sdk/components/libraries/util/nrf_assert.h \
+ C:/nrf52/sdk/components/libraries/util/app_error.h \
  C:/nrf52/sdk/modules/nrfx/soc/nrfx_coredep.h \
  C:/nrf52/sdk/modules/nrfx/soc/nrfx_atomic.h \
  C:/nrf52/sdk/components/libraries/util/sdk_errors.h \
  C:/nrf52/sdk/components/libraries/util/sdk_resources.h \
  C:/nrf52/sdk/modules/nrfx/drivers/nrfx_errors.h \
- C:/nrf52/sdk/components/boards/pca10040.h \
- C:\Users\r2d2r\Desktop\bachelorarbeit\LSM_Tests\spi_test\lsm6dsl_reg.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/math.h \
- C:/nrf52/sdk/components/libraries/delay/nrf_delay.h \
- C:/nrf52/sdk/integration/nrfx/legacy/nrf_drv_gpiote.h \
- C:/nrf52/sdk/modules/nrfx/drivers/include/nrfx_gpiote.h \
- C:/nrf52/sdk/modules/nrfx/hal/nrf_gpiote.h \
- C:/nrf52/sdk/modules/nrfx/hal/nrf_gpio.h \
- C:/nrf52/sdk/integration/nrfx/legacy/nrf_drv_spi.h \
- C:/nrf52/sdk/modules/nrfx/drivers/include/nrfx_spim.h \
- C:/nrf52/sdk/modules/nrfx/hal/nrf_spim.h \
- C:/nrf52/sdk/modules/nrfx/drivers/include/nrfx_spi.h \
- C:/nrf52/sdk/modules/nrfx/hal/nrf_spi.h \
  C:/nrf52/sdk/components/libraries/log/nrf_log.h \
  C:/nrf52/sdk/components/libraries/util/sdk_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/string.h \
@@ -76,4 +63,8 @@ Output/spi_pca10040\ Debug/Obj/main.o: \
  C:/nrf52/sdk/components/libraries/memobj/nrf_memobj.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/stdlib.h \
  C:/nrf52/sdk/components/libraries/balloc/nrf_balloc.h \
- C:/nrf52/sdk/components/libraries/log/nrf_log_default_backends.h
+ C:/nrf52/sdk/components/libraries/log/nrf_log_default_backends.h \
+ C:/nrf52/sdk/integration/nrfx/legacy/nrf_drv_gpiote.h \
+ C:/nrf52/sdk/modules/nrfx/drivers/include/nrfx_gpiote.h \
+ C:/nrf52/sdk/modules/nrfx/hal/nrf_gpiote.h \
+ C:/nrf52/sdk/modules/nrfx/hal/nrf_gpio.h

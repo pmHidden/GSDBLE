@@ -25,10 +25,27 @@ fix: bin/arm-none-eabi-objcopy.exe mit der datei von version 7-2018-q2-update er
 Wenns läuft ists leider trotzdem mist, weil jeder Ordner von der library einzeln eingetragen werden muss. Am ende bekommt man die .hex datei und muss die rüberkopieren.
 \item Segger Embedded Studio: funktioniert zwar ganz einfach, aber ist nicht so geil wie eclipse mit zb themes und code folding
 \end{itemize}
-und dann ein haufen implementations zeug
+
 
 % folgendes vielleicht zu design
 \section{Design Decisions}
+
+notizen:
+
+beim loggen mit rtt gehen gerne pakete verloren. als lösung uart nutzen und mit putty den log lesen.
+
+problem: entgegen dem datenblatt nimmt die funktion 'lsm6dsl\textunderscore fifo\textunderscore raw\textunderscore data\textunderscore get' eine 8-bit länge, womit nicht die 4kb der fifo direkt gelesen werden können.
+lösung:
+die implementierung der funktion ruft nur die funktion 'lsm6dsl\textunderscore read\textunderscore reg' auf, welche eine 16-bit länge nimmt. deswegen kann man hier einfach 'lsm6dsl\textunderscore read\textunderscore reg' mit 16-bit nutzen.
+
+problem: spi maximal 255 bytes lesen in einer transaction wegen 8bit buffer.
+lösungen:
+- größerer chip hat 16bit buffer, dafür mehr gesamtenergieaufnahme
+- buffer manuell im sdk auf 16bit stellen funktioniert, ist aber gegen die hardwarespezifikation aus dem datenblatt
+- in einer übertragung mehrere transactions, was viel mehr codeaufwand bedeutet
+- mehrere transactions hintereinander
+
+
 
 \section{Interaction of Components}
 

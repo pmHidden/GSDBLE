@@ -47,4 +47,4 @@ Output/spi_pca10040\ Release/Obj/nrf_log_default_backends.o: \
  C:/nrf52/sdk/components/libraries/log/src/nrf_log_internal.h \
  C:/nrf52/sdk/components/libraries/log/nrf_log_types.h \
  C:/nrf52/sdk/components/libraries/util/nrf_assert.h \
- C:/nrf52/sdk/components/libraries/log/nrf_log_backend_uart.h
+ C:/nrf52/sdk/components/libraries/log/nrf_log_backend_rtt.h

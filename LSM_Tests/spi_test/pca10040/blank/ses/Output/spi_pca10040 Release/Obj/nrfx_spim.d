@@ -41,21 +41,4 @@ Output/spi_pca10040\ Release/Obj/nrfx_spim.o: \
  C:/nrf52/sdk/modules/nrfx/soc/nrfx_atomic.h \
  C:/nrf52/sdk/components/libraries/util/sdk_errors.h \
  C:/nrf52/sdk/components/libraries/util/sdk_resources.h \
- C:/nrf52/sdk/modules/nrfx/drivers/nrfx_errors.h \
- C:/nrf52/sdk/modules/nrfx/drivers/include/nrfx_spim.h \
- C:/nrf52/sdk/modules/nrfx/hal/nrf_spim.h \
- C:/nrf52/sdk/modules/nrfx/drivers/src/prs/nrfx_prs.h \
- C:/nrf52/sdk/modules/nrfx/hal/nrf_gpio.h \
- C:/nrf52/sdk/integration/nrfx/nrfx_log.h \
- C:/nrf52/sdk/components/libraries/log/nrf_log.h \
- C:/nrf52/sdk/components/libraries/util/sdk_common.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 4.12/include/string.h \
- C:/nrf52/sdk/components/libraries/util/sdk_os.h \
- C:/nrf52/sdk/components/libraries/util/app_util.h \
- C:/nrf52/sdk/components/libraries/util/sdk_macros.h \
- C:/nrf52/sdk/components/libraries/experimental_section_vars/nrf_section.h \
- C:/nrf52/sdk/components/libraries/strerror/nrf_strerror.h \
- C:/nrf52/sdk/components/libraries/log/src/nrf_log_internal.h \
- C:/nrf52/sdk/components/libraries/log/nrf_log_instance.h \
- C:/nrf52/sdk/components/libraries/log/nrf_log_types.h \
- C:/nrf52/sdk/components/libraries/log/nrf_log_types.h
+ C:/nrf52/sdk/modules/nrfx/drivers/nrfx_errors.h

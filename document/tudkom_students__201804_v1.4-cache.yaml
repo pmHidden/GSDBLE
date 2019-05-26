@@ -73,7 +73,7 @@ options:
     2.9\miktex\bin\x64;%ProgramFiles(x86)%\MiKTeX 2.9\miktex\bin;$PATH
 files:
   dicy-instance.yaml-ParsedYAML:
-    timeStamp: 2019-04-21T20:45:36.387Z
+    timeStamp: 2019-05-26T10:01:39.728Z
     jobNames: []
     value:
       severity: info
@@ -134,13 +134,13 @@ files:
         2.9\miktex\bin\x64;%ProgramFiles(x86)%\MiKTeX 2.9\miktex\bin;$PATH
     type: ParsedYAML
   tudkom_students__201804_v1.4.tex:
-    timeStamp: 2019-04-21T14:09:03.142Z
+    timeStamp: 2019-05-25T18:16:46.991Z
     jobNames: []
     hash: LI2FBhWMxmH+PyqV0FC+pPz5e3W3kFExw3j+g0jypRo=
     type: LaTeX
     subType: tudreport
   'C:\Users\r2d2r\AppData\Roaming\dicy\config.yaml':
-    timeStamp: 2019-04-21T20:45:36.396Z
+    timeStamp: 2019-05-26T10:01:39.739Z
     jobNames: []
     type: YAML
   x.y-Nil:
@@ -5813,63 +5813,51 @@ files:
     jobNames: []
     type: LaTeXClass
   res\01_statistic_id515723_absatz-von-wearables-weltweit-bis-2018.png:
-    timeStamp: 2019-04-21T09:57:30.687Z
+    timeStamp: 2019-05-25T18:16:46.984Z
     jobNames: []
     hash: JJpHuxLcpwyMhhJje6PQgIQ/AsnhDM3P09e538ZHs/c=
   tex\00_abstract.tex:
-    timeStamp: 2019-04-21T12:02:42.741Z
+    timeStamp: 2019-05-25T18:16:46.985Z
     jobNames: []
     hash: kTpMc0nQvKHpFK74gh6mQRXXYT9OJnBenNJpTkvPgqc=
     type: TeX
   tex\01_introduction.tex:
-    timeStamp: 2019-04-21T20:45:33.668Z
+    timeStamp: 2019-05-25T18:16:46.985Z
     jobNames: []
     hash: HvO36pFhOZotxRrWXci5VCl6xzjBo0aSS+Md07cFbng=
     type: TeX
   tex\02_background.tex:
-    timeStamp: 2019-04-21T12:02:51.529Z
+    timeStamp: 2019-05-25T18:16:46.985Z
     jobNames: []
     hash: Z1OzbJ2TVHT60SQnfmZFCOI4l8nXDV/Ow8SGrPLv9rU=
     type: TeX
   tex\03_relatedwork.tex:
-    timeStamp: 2019-04-21T12:01:49.866Z
+    timeStamp: 2019-05-25T18:16:46.986Z
     jobNames: []
-    hash: NasXNlFGa53LMt6Bo5ykg+35pYcDUIvLPP4mCE579m4=
+    hash: Ji4yllFCEsYBZnig1L++j4t/IWmLsz/ABiFgWEVvH7Y=
     type: TeX
   tex\04_design.tex:
-    timeStamp: 2019-04-21T12:01:49.867Z
+    timeStamp: 2019-05-25T18:16:46.986Z
     jobNames: []
-    hash: IkTHJnQNCoVJ1D/25xv8xu9ejLrT8U4nSgXajrsf9nk=
+    hash: CUATUZWyh4VIx9uFNzz8/SH9JDGsFurAAGI4NdpTCJM=
     type: TeX
   tex\05_implementation.tex:
-    timeStamp: 2019-04-21T12:01:49.869Z
+    timeStamp: 2019-05-26T10:09:00.598Z
     jobNames: []
-    hash: HQBIjLPtMy6Sbe2H0g2kHifjm4jenXPcmlsR6jCATkE=
+    hash: X0YOZ9efg2TSBdYEH0brh5tGhd9+k4gwflDBiMgLtbs=
     type: TeX
   tex\06_evaluation.tex:
-    timeStamp: 2019-04-21T12:01:49.869Z
+    timeStamp: 2019-05-25T18:16:46.987Z
     jobNames: []
-    hash: /hskNchX/zyJ9vnL0e6DaiLdsuGpyX08xcZboHpqdd8=
+    hash: rI6Fg3iNuCrrbO9fcwX9lXvBFWRQfkTMUToaoup0Pww=
     type: TeX
   tex\07_conclusion.tex:
-    timeStamp: 2019-04-21T12:01:49.869Z
+    timeStamp: 2019-05-25T18:16:46.987Z
     jobNames: []
-    hash: NycJA44qzwP777+lbphhEpYAL5Xi79sOVrnumU4FfYU=
+    hash: XnXIyhOyAk2+XDLxPqqooD6xc+RNxnMXL1+scQxSKRg=
     type: TeX
-  build\tudkom_students__201804_v1.4.blg:
-    timeStamp: 2019-04-21T20:45:37.310Z
-    jobNames: []
-    hash: 05WVBDcCmQlpcsjnriGV7Lp244X/d5B0hzZjBzNQRGc=
-    type: BibTeXLog
-    subType: BibTeX
-  build\tudkom_students__201804_v1.4.log:
-    timeStamp: 2019-04-21T20:45:38.923Z
-    jobNames: []
-    hash: z6eUT77Iv4+xQ4Uptz3aW2ks0VDYzx90oWFs9Q5jDPQ=
-    type: LaTeXLog
-    subType: pdfTeX
   build\tudkom_students__201804_v1.4.fls-ParsedFileListing:
-    timeStamp: 2019-04-21T13:51:51.131Z
+    timeStamp: 2019-05-26T10:08:42.119Z
     jobNames: []
     value:
       messages: []
@@ -6087,7 +6075,7 @@ files:
       calls: []
     type: ParsedFileListing
   build\tudkom_students__201804_v1.4.log-ParsedLaTeXLog:
-    timeStamp: 2019-04-21T14:26:44.164Z
+    timeStamp: 2019-05-26T10:08:42.113Z
     jobNames: []
     value:
       messages:
@@ -10926,18 +10914,8 @@ files:
       outputs: []
       calls: []
     type: ParsedBibTeXLog
-  build\tudkom_students__201804_v1.4.aux:
-    timeStamp: 2019-04-21T20:45:38.878Z
-    jobNames: []
-    hash: acrnpg8nF2qW9AHMVbWzOui8efd1S6plDl4uduWyA7Q=
-    type: LaTeXAuxilary
-  build\tudkom_students__201804_v1.4.fls:
-    timeStamp: 2019-04-21T20:45:38.926Z
-    jobNames: []
-    hash: 8LECmdGmr6LU0gZJFA87CclcimfVjc3FVxJ1aQePV/U=
-    type: FileListing
   build\tudkom_students__201804_v1.4.aux-ParsedLaTeXAuxilary:
-    timeStamp: 2019-04-21T14:26:44.151Z
+    timeStamp: 2019-05-26T10:08:40.358Z
     jobNames: []
     value:
       commands:
@@ -11041,47 +11019,69 @@ files:
         - global
         - global
     type: ParsedLaTeXAuxilary
-  build\tudkom_students__201804_v1.4.out:
-    timeStamp: 2019-04-21T20:45:38.884Z
-    jobNames: []
-    hash: zG4CpagwLjMA3XDt1IOFtfY5YN8a2aPt/DgaIi4RtZM=
-    type: OUT
-  build\tudkom_students__201804_v1.4.toc:
-    timeStamp: 2019-04-21T20:45:38.887Z
-    jobNames: []
-    hash: EDz4XqfZsMeFMAGbl5o0Gml/qJV9tSyjetwwylgC9w8=
-    type: TableOfContents
-  build\tudkom_students__201804_v1.4.bbl:
-    timeStamp: 2019-04-21T20:45:37.307Z
-    jobNames: []
-    hash: Ea33crc377o6yHljm8F+g7dAF1RhFcbxlRysvS3XdEI=
   tudkom_students__201804_v1.4.tex"`-ParsedLaTeXMagic:
     jobNames: []
     type: ParsedLaTeXMagic
   tudkom_students__201804_v1.4.synctex.gz:
-    timeStamp: 2019-04-21T20:45:38.919Z
+    timeStamp: 2019-05-26T10:09:02.954Z
     jobNames: []
-    hash: h/i2OFefoJc5DsMLM0Y24OZHQqQdBgoejwsgONTIMs4=
+    hash: a/Bbkbsyg32YqpB5QxiOBk1GPhLhrQGUB34sOD2vYlc=
     type: SyncTeX
   tudkom_students__201804_v1.4.pdf:
-    timeStamp: 2019-04-21T20:45:38.914Z
+    timeStamp: 2019-05-26T10:09:02.949Z
     jobNames: []
-    hash: v97Q4IUbn09eiuBc68Du1+Wj1JxwYHyemnxzszC5VMo=
+    hash: pLp0lBWLWQ+TwGgt81V+b+dL3vNA0sBAua/YckNb7tw=
     type: PortableDocumentFormat
-  build\tudkom_students__201804_v1.4.synctex.gz:
-    timeStamp: 2019-04-21T20:45:38.919Z
-    jobNames: []
-    hash: h/i2OFefoJc5DsMLM0Y24OZHQqQdBgoejwsgONTIMs4=
-    type: SyncTeX
   build\tudkom_students__201804_v1.4.pdf:
-    timeStamp: 2019-04-21T20:45:38.914Z
+    timeStamp: 2019-05-26T10:09:02.949Z
     jobNames: []
-    hash: v97Q4IUbn09eiuBc68Du1+Wj1JxwYHyemnxzszC5VMo=
+    hash: pLp0lBWLWQ+TwGgt81V+b+dL3vNA0sBAua/YckNb7tw=
     type: PortableDocumentFormat
   res\01_statistic_id160549_weltweit-meistverkaufte-spielkonsolen-bis-dezember-2018.png:
-    timeStamp: 2019-04-21T13:53:37.062Z
+    timeStamp: 2019-05-25T18:16:46.983Z
     jobNames: []
     hash: lPpqPxsMq4EGnq+c0FhQMYRdYWm6OhSqqwUQvAJR4rk=
+  build\tudkom_students__201804_v1.4.log:
+    timeStamp: 2019-05-26T10:09:02.958Z
+    jobNames: []
+    hash: VR2DmlQ7NDpAuhQwYyD4ulX1X0fLGpkGTcktDxBOQkM=
+    type: LaTeXLog
+    subType: pdfTeX
+  build\tudkom_students__201804_v1.4.aux:
+    timeStamp: 2019-05-26T10:09:02.914Z
+    jobNames: []
+    hash: acrnpg8nF2qW9AHMVbWzOui8efd1S6plDl4uduWyA7Q=
+    type: LaTeXAuxilary
+  build\tudkom_students__201804_v1.4.fls:
+    timeStamp: 2019-05-26T10:09:02.962Z
+    jobNames: []
+    hash: 8LECmdGmr6LU0gZJFA87CclcimfVjc3FVxJ1aQePV/U=
+    type: FileListing
+  build\tudkom_students__201804_v1.4.synctex.gz:
+    timeStamp: 2019-05-26T10:09:02.954Z
+    jobNames: []
+    hash: a/Bbkbsyg32YqpB5QxiOBk1GPhLhrQGUB34sOD2vYlc=
+    type: SyncTeX
+  build\tudkom_students__201804_v1.4.out:
+    timeStamp: 2019-05-26T10:09:02.918Z
+    jobNames: []
+    hash: zG4CpagwLjMA3XDt1IOFtfY5YN8a2aPt/DgaIi4RtZM=
+    type: OUT
+  build\tudkom_students__201804_v1.4.toc:
+    timeStamp: 2019-05-26T10:09:02.919Z
+    jobNames: []
+    hash: EDz4XqfZsMeFMAGbl5o0Gml/qJV9tSyjetwwylgC9w8=
+    type: TableOfContents
+  build\tudkom_students__201804_v1.4.bbl:
+    timeStamp: 2019-05-26T10:09:01.516Z
+    jobNames: []
+    hash: Ea33crc377o6yHljm8F+g7dAF1RhFcbxlRysvS3XdEI=
+  build\tudkom_students__201804_v1.4.blg:
+    timeStamp: 2019-05-26T10:09:01.516Z
+    jobNames: []
+    hash: 05WVBDcCmQlpcsjnriGV7Lp244X/d5B0hzZjBzNQRGc=
+    type: BibTeXLog
+    subType: BibTeX
 rules:
   - name: ApplyOptions
     command: load
@@ -11181,8 +11181,6 @@ rules:
       - file: build\tudkom_students__201804_v1.4.fls-ParsedFileListing
         type: default
       - file: build\tudkom_students__201804_v1.4.log-ParsedLaTeXLog
-        type: default
-      - file: build\tudkom_students__201804_v1.4.aux
         type: default
       - file: 'C:\Program Files\MiKTeX 2.9\fonts\enc\dvips\base\8r.enc'
         type: default
@@ -11533,12 +11531,6 @@ rules:
         type: default
       - file: tex\07_conclusion.tex
         type: default
-      - file: build\tudkom_students__201804_v1.4.bbl
-        type: default
-      - file: build\tudkom_students__201804_v1.4.out
-        type: default
-      - file: build\tudkom_students__201804_v1.4.toc
-        type: default
       - file: 'C:\Users\r2d2r\texmf\fonts\tfm\softmake\charter\5chb8r.tfm'
         type: default
       - file: 'C:\Users\r2d2r\texmf\fonts\tfm\softmake\charter\5chb8t.tfm'
@@ -11550,84 +11542,28 @@ rules:
       - file: >-
           res\01_statistic_id160549_weltweit-meistverkaufte-spielkonsolen-bis-dezember-2018.png
         type: default
-    outputs:
       - file: build\tudkom_students__201804_v1.4.aux
-        type: default
-      - file: build\tudkom_students__201804_v1.4.fls
-        type: default
-      - file: build\tudkom_students__201804_v1.4.log
         type: default
       - file: build\tudkom_students__201804_v1.4.out
         type: default
       - file: build\tudkom_students__201804_v1.4.toc
         type: default
-      - file: build\tudkom_students__201804_v1.4.synctex.gz
-        type: target
-      - file: build\tudkom_students__201804_v1.4.pdf
-        type: target
-  - name: ParseBibTeXLog
-    command: build
-    phase: execute
-    parameters:
-      - build\tudkom_students__201804_v1.4.blg
-    inputs:
-      - file: build\tudkom_students__201804_v1.4.blg
-        type: default
-    outputs:
-      - file: build\tudkom_students__201804_v1.4.blg-ParsedBibTeXLog
-        type: default
-  - name: ParseLaTeXLog
-    command: build
-    phase: execute
-    parameters:
-      - build\tudkom_students__201804_v1.4.log
-    inputs:
-      - file: build\tudkom_students__201804_v1.4.log
-        type: default
-    outputs:
-      - file: build\tudkom_students__201804_v1.4.log-ParsedLaTeXLog
-        type: default
-  - name: ParseLaTeXAuxilary
-    command: build
-    phase: execute
-    parameters:
-      - build\tudkom_students__201804_v1.4.aux
-    inputs:
-      - file: build\tudkom_students__201804_v1.4.aux
-        type: default
-    outputs:
-      - file: build\tudkom_students__201804_v1.4.aux-ParsedLaTeXAuxilary
-        type: default
-  - name: ParseFileListing
-    command: build
-    phase: execute
-    parameters:
-      - build\tudkom_students__201804_v1.4.fls
-    inputs:
-      - file: build\tudkom_students__201804_v1.4.fls
-        type: default
-    outputs:
-      - file: build\tudkom_students__201804_v1.4.fls-ParsedFileListing
-        type: default
-  - name: BibTeX
-    command: build
-    phase: execute
-    parameters:
-      - build\tudkom_students__201804_v1.4.aux
-      - build\tudkom_students__201804_v1.4.aux-ParsedLaTeXAuxilary
-    inputs:
-      - file: build\tudkom_students__201804_v1.4.aux
-        type: default
-      - file: build\tudkom_students__201804_v1.4.aux-ParsedLaTeXAuxilary
-        type: default
-      - file: build\tudkom_students__201804_v1.4.log-ParsedLaTeXLog
-        type: default
-      - file: build\tudkom_students__201804_v1.4.blg-ParsedBibTeXLog
-        type: default
-    outputs:
       - file: build\tudkom_students__201804_v1.4.bbl
         type: default
-      - file: build\tudkom_students__201804_v1.4.blg
+    outputs:
+      - file: build\tudkom_students__201804_v1.4.pdf
+        type: target
+      - file: build\tudkom_students__201804_v1.4.aux
+        type: default
+      - file: build\tudkom_students__201804_v1.4.fls
+        type: default
+      - file: build\tudkom_students__201804_v1.4.log
+        type: default
+      - file: build\tudkom_students__201804_v1.4.synctex.gz
+        type: target
+      - file: build\tudkom_students__201804_v1.4.out
+        type: default
+      - file: build\tudkom_students__201804_v1.4.toc
         type: default
   - name: LogProducedTargets
     command: build
@@ -11668,28 +11604,6 @@ rules:
       - file: tudkom_students__201804_v1.4.blg-ParsedBibTeXLog
         type: default
     outputs: []
-  - name: ParseBibTeXLog
-    command: log
-    phase: execute
-    parameters:
-      - build\tudkom_students__201804_v1.4.blg
-    inputs:
-      - file: build\tudkom_students__201804_v1.4.blg
-        type: default
-    outputs:
-      - file: build\tudkom_students__201804_v1.4.blg-ParsedBibTeXLog
-        type: default
-  - name: ParseLaTeXLog
-    command: log
-    phase: execute
-    parameters:
-      - build\tudkom_students__201804_v1.4.log
-    inputs:
-      - file: build\tudkom_students__201804_v1.4.log
-        type: default
-    outputs:
-      - file: build\tudkom_students__201804_v1.4.log-ParsedLaTeXLog
-        type: default
   - name: ReportLogMessages
     command: log
     phase: execute
@@ -11724,17 +11638,6 @@ rules:
     command: build
     phase: execute
     parameters:
-      - build\tudkom_students__201804_v1.4.synctex.gz
-    inputs:
-      - file: build\tudkom_students__201804_v1.4.synctex.gz
-        type: target
-    outputs:
-      - file: tudkom_students__201804_v1.4.synctex.gz
-        type: target
-  - name: CopyTargetsToRoot
-    command: build
-    phase: execute
-    parameters:
       - build\tudkom_students__201804_v1.4.pdf
     inputs:
       - file: build\tudkom_students__201804_v1.4.pdf
@@ -11742,3 +11645,100 @@ rules:
     outputs:
       - file: tudkom_students__201804_v1.4.pdf
         type: target
+  - name: ParseLaTeXLog
+    command: log
+    phase: execute
+    parameters:
+      - build\tudkom_students__201804_v1.4.log
+    inputs:
+      - file: build\tudkom_students__201804_v1.4.log
+        type: default
+    outputs:
+      - file: build\tudkom_students__201804_v1.4.log-ParsedLaTeXLog
+        type: default
+  - name: ParseLaTeXLog
+    command: build
+    phase: execute
+    parameters:
+      - build\tudkom_students__201804_v1.4.log
+    inputs:
+      - file: build\tudkom_students__201804_v1.4.log
+        type: default
+    outputs:
+      - file: build\tudkom_students__201804_v1.4.log-ParsedLaTeXLog
+        type: default
+  - name: ParseLaTeXAuxilary
+    command: build
+    phase: execute
+    parameters:
+      - build\tudkom_students__201804_v1.4.aux
+    inputs:
+      - file: build\tudkom_students__201804_v1.4.aux
+        type: default
+    outputs:
+      - file: build\tudkom_students__201804_v1.4.aux-ParsedLaTeXAuxilary
+        type: default
+  - name: ParseFileListing
+    command: build
+    phase: execute
+    parameters:
+      - build\tudkom_students__201804_v1.4.fls
+    inputs:
+      - file: build\tudkom_students__201804_v1.4.fls
+        type: default
+    outputs:
+      - file: build\tudkom_students__201804_v1.4.fls-ParsedFileListing
+        type: default
+  - name: CopyTargetsToRoot
+    command: build
+    phase: execute
+    parameters:
+      - build\tudkom_students__201804_v1.4.synctex.gz
+    inputs:
+      - file: build\tudkom_students__201804_v1.4.synctex.gz
+        type: target
+    outputs:
+      - file: tudkom_students__201804_v1.4.synctex.gz
+        type: target
+  - name: BibTeX
+    command: build
+    phase: execute
+    parameters:
+      - build\tudkom_students__201804_v1.4.aux
+      - build\tudkom_students__201804_v1.4.aux-ParsedLaTeXAuxilary
+    inputs:
+      - file: build\tudkom_students__201804_v1.4.aux
+        type: default
+      - file: build\tudkom_students__201804_v1.4.aux-ParsedLaTeXAuxilary
+        type: default
+      - file: build\tudkom_students__201804_v1.4.log-ParsedLaTeXLog
+        type: default
+      - file: build\tudkom_students__201804_v1.4.blg-ParsedBibTeXLog
+        type: default
+    outputs:
+      - file: build\tudkom_students__201804_v1.4.bbl
+        type: default
+      - file: build\tudkom_students__201804_v1.4.blg
+        type: default
+  - name: ParseBibTeXLog
+    command: build
+    phase: execute
+    parameters:
+      - build\tudkom_students__201804_v1.4.blg
+    inputs:
+      - file: build\tudkom_students__201804_v1.4.blg
+        type: default
+    outputs:
+      - file: build\tudkom_students__201804_v1.4.blg-ParsedBibTeXLog
+        type: default
+  - name: ParseBibTeXLog
+    command: log
+    phase: execute
+    parameters:
+      - build\tudkom_students__201804_v1.4.blg
+    inputs:
+      - file: build\tudkom_students__201804_v1.4.blg
+        type: default
+    outputs:
+      - file: build\tudkom_students__201804_v1.4.blg-ParsedBibTeXLog
+        type: default
