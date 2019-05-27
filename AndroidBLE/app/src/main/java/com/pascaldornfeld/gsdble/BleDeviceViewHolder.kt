@@ -2,6 +2,7 @@ package com.pascaldornfeld.gsdble
 
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothGattCharacteristic
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -20,14 +21,10 @@ class BleDeviceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 "none"
             }
             pair.second.value.size == 16 -> {
-                val buffer = ByteBuffer.wrap(pair.second.value)
-                "(accel: x:${buffer.short}, y:${buffer.short}, z: ${buffer.short}. Gyro: x:${buffer.short}, y:${buffer.short}, z: ${buffer.short}, time:${buffer.int})"
+                val imu = ImuData.fromByteArray(pair.second.value.asUByteArray())
+                imu.toString()
             }
-            pair.second.value.size == 12 -> {
-                val buffer = ByteBuffer.wrap(pair.second.value)
-                "(accel: x:${buffer.short}, y:${buffer.short}, z: ${buffer.short}. Gyro: x:${buffer.short}, y:${buffer.short}, z: ${buffer.short})"
-            }
-            else -> Arrays.toString(pair.second.value)
+            else -> pair.second.value.map { String.format("%02x", it) }.fold("") { a, b -> "$a $b" }
         }
 
         itemView.findViewById<TextView>(R.id.tv_name).text =
