@@ -1,3 +1,15 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">GsdBle</string>
+
+    <string name="scan_stop">Stop Scan</string>
+    <string name="scan_start">Start Scan</string>
+
+    <!-- Properties of sensor devices -->
+    <string name="device_name">GSDBLE</string>
+    <string name="uuid_service" tools:ignore="TypographyDashes">b2154200-d1a3-e541-8bf7-8c8eb0519548</string>
+    <string name="uuid_chara_data" tools:ignore="TypographyDashes">b2154201-d1a3-e541-8bf7-8c8eb0519548</string>
+    <string name="uuid_chara_cfg" tools:ignore="TypographyDashes">b2154202-d1a3-e541-8bf7-8c8eb0519548</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

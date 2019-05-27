@@ -9,7 +9,7 @@
 #include <stdint.h>
 #include "imu.h"
 
-#define CHARA_DATA_UUID 0x4201
+#define CHARA_DATA_UUID 0x4201 // b2154201-d1a3-e541-8bf7-8c8eb0519548
 
 uint32_t chara_data_add(my_service_t *p_cus, const my_service_init_t *p_cus_init);
 

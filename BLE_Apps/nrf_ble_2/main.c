@@ -17,15 +17,12 @@
 #include "nrf.h"
 #include "nrf_ble_gatt.h"
 #include "nrf_ble_qwr.h"
-#include "nrf_delay.h"
-#include "nrf_drv_spi.h"
 #include "nrf_pwr_mgmt.h"
 #include "nrf_sdh.h"
 #include "nrf_sdh_ble.h"
 #include "nrf_sdh_soc.h"
 #include "peer_manager.h"
 #include "peer_manager_handler.h"
-#include "sensorsim.h"
 
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
@@ -68,9 +65,6 @@ static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID; /**< Handle of the curr
  *  BLE_XYZ_DEF(m_xyz);
  */
 MY_SERVICE_DEF(m_myservice);
-// SPI
-#define SPI_INSTANCE 0                                               /**< SPI instance index. */
-static const nrf_drv_spi_t spi = NRF_DRV_SPI_INSTANCE(SPI_INSTANCE); /**< SPI instance. */
 
 // YOUR_JOB: Use UUIDs for service(s) used in your application.
 static ble_uuid_t m_adv_uuids[] = /**< Universally unique service identifiers. */
@@ -158,9 +152,9 @@ static void gap_params_init(void) {
   memset(&gap_conn_params, 0, sizeof(gap_conn_params));
 
   gap_conn_params.min_conn_interval = BLE_GAP_CP_MIN_CONN_INTVL_MIN;
-  gap_conn_params.max_conn_interval = BLE_GAP_CP_MAX_CONN_INTVL_MAX-100;
+  gap_conn_params.max_conn_interval = 9;
   gap_conn_params.slave_latency = SLAVE_LATENCY;
-  gap_conn_params.conn_sup_timeout = BLE_GAP_CP_CONN_SUP_TIMEOUT_MAX;
+  gap_conn_params.conn_sup_timeout = 200;
 
   err_code = sd_ble_gap_ppcp_set(&gap_conn_params);
   APP_ERROR_CHECK(err_code);
@@ -596,6 +590,5 @@ int main(void) {
       nrf_pwr_mgmt_run();
       my_service_loop();
     }
-
   }
 }

@@ -8,7 +8,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define CHARA_CONF_UUID 0x4202
+#define CHARA_CONF_UUID 0x4202 // b2154202-d1a3-e541-8bf7-8c8eb0519548
 
 uint32_t chara_conf_add(my_service_t *p_cus, const my_service_init_t *p_cus_init);
 

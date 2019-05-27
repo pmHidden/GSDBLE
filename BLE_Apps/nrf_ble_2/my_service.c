@@ -56,7 +56,7 @@ uint32_t my_service_init(my_service_t *p_cus, const my_service_init_t *p_cus_ini
 
   // Activate Sensor
   imu_init(send_my_data);
-  imu_set_speed(IMU_ODR_200Hz);
+  imu_set_speed(IMU_ODR_800Hz);
   imu_stop();
 
   return NRF_SUCCESS;

@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ConnectingActivity">
+    tools:context=".ConnectActivity">
 
     <Button
         android:id="@+id/bt_startScan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start Scan" />
+        android:text="@string/scan_start" />
 </LinearLayout>

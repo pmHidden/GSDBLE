@@ -11,9 +11,9 @@
   {                                                    \
     0x48, 0x95, 0x51, 0xb0, 0x8e, 0x8c, 0xf7, 0x8b,    \
         0x41, 0xe5, 0xa3, 0xd1, 0x46, 0x3d, 0x15, 0xb2 \
-  } // b2153d46-a3d1-41e5-8bf7-8c8eb0519548
+  } // b2153d46-d1a3-e541-8bf7-8c8eb0519548
 
-#define CUSTOM_SERVICE_UUID 0x4200
+#define CUSTOM_SERVICE_UUID 0x4200 // b2154200-d1a3-e541-8bf7-8c8eb0519548
 
 #define MY_SERVICE_DEF(_name)       \
   static my_service_t _name;        \

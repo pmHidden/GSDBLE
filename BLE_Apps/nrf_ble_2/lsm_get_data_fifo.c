@@ -18,7 +18,8 @@ static void interrupt_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t ac
 
 void lsm_get_data_init(lsm6dsl_ctx_t *dev_ctx) {
   // config gpiote
-  NRF_LOG_INFO("gpiote init: %u", nrf_drv_gpiote_init());
+  if (!nrf_drv_gpiote_is_init())
+    APP_ERROR_CHECK(nrf_drv_gpiote_init());
   nrf_drv_gpiote_in_config_t in_config = NRFX_GPIOTE_RAW_CONFIG_IN_SENSE_LOTOHI(true);
   in_config.pull = NRF_GPIO_PIN_NOPULL;
   APP_ERROR_CHECK(nrf_drv_gpiote_in_init(IMU_PIN_INT1, &in_config, interrupt_handler));
@@ -105,8 +106,8 @@ void lsm_get_data_loop(lsm6dsl_ctx_t *dev_ctx, bool (*send_data)(imu_data)) {
       memset(&data.time, 0, sizeof(uint32_t));
       data.time = (uint32_t)(theData[i * DATAS_PER_PACKET + 2].u8bit[1] << 8 | theData[i * DATAS_PER_PACKET + 2].u8bit[0]);
       if (!send_data(data)) {
-      NRF_LOG_INFO("%u packets dropped", PACKETS_PER_TRANSACTION - i);
-        break;
+        //NRF_LOG_INFO("%u packets dropped", PACKETS_PER_TRANSACTION - i);
+        //break;
       }
     }
   }

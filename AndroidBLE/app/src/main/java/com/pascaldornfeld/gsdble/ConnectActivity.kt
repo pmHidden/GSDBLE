@@ -18,11 +18,11 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-class ConnectingActivity : AppCompatActivity() {
-    private val bluetoothAdapter: BluetoothAdapter by lazy(LazyThreadSafetyMode.NONE) { (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter }
-    private val vBtStartScan by lazy(LazyThreadSafetyMode.NONE) { findViewById<Button>(R.id.bt_startScan) }
+class ConnectActivity : AppCompatActivity() {
+    private val bluetoothAdapter: BluetoothAdapter by lazy { (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter }
+    private val vBtStartScan by lazy { findViewById<Button>(R.id.bt_startScan) }
     private val handler = Handler()
-    private val leScanCallback by lazy(LazyThreadSafetyMode.NONE) {
+    private val leScanCallback by lazy {
         object : ScanCallback() {
             override fun onScanFailed(errorCode: Int) {
                 super.onScanFailed(errorCode)
@@ -34,18 +34,23 @@ class ConnectingActivity : AppCompatActivity() {
                 if (result != null) {
                     vBtStartScan.isEnabled = false
                     stopScan()
-                    startActivity(Intent(this@ConnectingActivity, ConnectedActivity::class.java).putExtra(ConnectedActivity.EXTRA_DEVICE, result.device))
+                    startActivity(
+                        Intent(this@ConnectActivity, ConnectionOverviewActivity::class.java).putExtra(
+                            ConnectionOverviewActivity.EXTRA_DEVICE,
+                            result.device
+                        )
+                    )
                 }
             }
 
             override fun onBatchScanResults(results: MutableList<ScanResult>?) {
                 super.onBatchScanResults(results)
-                Toast.makeText(this@ConnectingActivity, "not_impl: onBatchScanResults", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ConnectActivity, "not_impl: onBatchScanResults", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    var scanning = false
+    private var scanning = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,35 +64,42 @@ class ConnectingActivity : AppCompatActivity() {
 
     private fun startScan() {
         synchronized(this) {
-            scanning = true
-            try {
-                bluetoothAdapter.bluetoothLeScanner.startScan(
-                    listOf(ScanFilter.Builder().setDeviceName("GSDBLE").build()),
-                    ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build(),
-                    leScanCallback
-                )
-                vBtStartScan.text = "Stop Scan"
-                handler.postDelayed({
-                    Toast.makeText(this, "no device found", Toast.LENGTH_SHORT).show()
-                    stopScan()
-                }, SCAN_PERIOD)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show()
+            if (!scanning) {
+                scanning = true
+                try {
+                    // we cannot filter by service uuid, since we are not advertising with service uuid.
+                    // we are not advertising with service uuid, since service id is custom 128-bit, so it is too big to advertise with.
+                    // this is why we must filter by device name.
+                    bluetoothAdapter.bluetoothLeScanner.startScan(
+                        listOf(ScanFilter.Builder().setDeviceName(getString(R.string.device_name)).build()),
+                        ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build(),
+                        leScanCallback
+                    )
+                    vBtStartScan.text = getString(R.string.scan_stop)
+                    handler.postDelayed({
+                        Toast.makeText(this, "no device found", Toast.LENGTH_SHORT).show()
+                        stopScan()
+                    }, SCAN_PERIOD)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
     private fun stopScan() {
         synchronized(this) {
-            scanning = false
-            try {
-                handler.removeCallbacksAndMessages(null)
-                vBtStartScan.text = "Start Scan"
-                bluetoothAdapter.bluetoothLeScanner.stopScan(leScanCallback)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show()
+            if (scanning) {
+                scanning = false
+                try {
+                    handler.removeCallbacksAndMessages(null)
+                    vBtStartScan.text = getString(R.string.scan_start)
+                    bluetoothAdapter.bluetoothLeScanner.stopScan(leScanCallback)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
