@@ -35,10 +35,9 @@ int32_t lsm_protocol_read(void *handle, uint8_t reg_addr, uint8_t *data, uint16_
   uint8_t address = reg_addr | 0x80;
   err_code = nrf_drv_spi_transfer(&spi, &address, 1, bigData, len + 1);
   APP_ERROR_CHECK(err_code);
-
-  memcpy(data, bigData + 1, len * sizeof(uint8_t));
-
-  return 0;
+  if (err_code == NRF_SUCCESS)
+    memcpy(data, bigData + 1, len * sizeof(uint8_t));
+  return err_code;
 }
 int32_t lsm_protocol_write(void *handle, uint8_t reg_addr, uint8_t *data, uint16_t len) {
   //NRF_LOG_INFO("spi write %u on %02x", len, reg_addr);
@@ -50,6 +49,5 @@ int32_t lsm_protocol_write(void *handle, uint8_t reg_addr, uint8_t *data, uint16
   memcpy(bigData + 1, data, len);
   ret_code_t err_code;
   err_code = nrf_drv_spi_transfer(&spi, bigData, len + 1, NULL, 0);
-  APP_ERROR_CHECK(err_code);
-  return 0;
+  return err_code;
 }

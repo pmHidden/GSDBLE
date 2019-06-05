@@ -25,6 +25,6 @@ uint32_t chara_data_add(my_service_t *p_cus, const my_service_init_t *p_cus_init
  *
  * @return      NRF_SUCCESS on success, otherwise an error code.
  */
-uint32_t chara_data_update(my_service_t *p_cus, imu_data custom_value);
+uint32_t chara_data_update(my_service_t *p_cus, imu_data_t custom_value);
 
 #endif

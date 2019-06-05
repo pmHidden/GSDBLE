@@ -11,8 +11,9 @@
 #include <string.h>
 
 my_service_t *my_service_cus;
+#define TX_BUFFER 0xFFFF // the estimated buffer size
 
-static bool send_my_data(imu_data data) {
+static bool send_my_data(imu_data_t data) {
   return chara_data_update(my_service_cus, data) == NRF_SUCCESS;
 }
 
@@ -56,7 +57,6 @@ uint32_t my_service_init(my_service_t *p_cus, const my_service_init_t *p_cus_ini
 
   // Activate Sensor
   imu_init(send_my_data);
-  imu_set_speed(IMU_ODR_800Hz);
   imu_stop();
 
   return NRF_SUCCESS;
@@ -127,11 +127,12 @@ void ble_cus_on_ble_evt(ble_evt_t const *p_ble_evt, void *p_context) {
   case BLE_GATTS_EVT_WRITE:
     on_write(p_cus, p_ble_evt);
     break;
-  case BLE_GATTS_EVT_HVN_TX_COMPLETE:
-    //NRF_LOG_INFO("tx complete");
+  case BLE_GAP_EVT_CONN_PARAM_UPDATE:
+    imu_on_new_interval(p_ble_evt->evt.gap_evt.params.conn_param_update.conn_params.max_conn_interval, TX_BUFFER);
+    //7000
     break;
   default:
-    NRF_LOG_INFO("other: %d", p_ble_evt->header.evt_id);
+    //NRF_LOG_INFO("other: %d", p_ble_evt->header.evt_id);
     // No implementation needed.
     break;
   }

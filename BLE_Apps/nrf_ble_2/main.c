@@ -38,7 +38,7 @@
 #define APP_ADV_DURATION 3000  /**< *10ms. The advertising duration */
 #define APP_BLE_CONN_CFG_TAG 1 /**< A tag identifying the SoftDevice BLE configuration. */
 
-#define SLAVE_LATENCY 0 /**< Slave latency. */
+#define SLAVE_LATENCY 6 /**< Slave latency. */
 
 #define FIRST_CONN_PARAMS_UPDATE_DELAY APP_TIMER_TICKS(5000) /**< Time from initiating event (connect or start of notification) to first time sd_ble_gap_conn_param_update is called (5 seconds). */
 #define NEXT_CONN_PARAMS_UPDATE_DELAY APP_TIMER_TICKS(30000) /**< Time between each call to sd_ble_gap_conn_param_update after the first call (30 seconds). */
@@ -151,10 +151,12 @@ static void gap_params_init(void) {
 
   memset(&gap_conn_params, 0, sizeof(gap_conn_params));
 
-  gap_conn_params.min_conn_interval = BLE_GAP_CP_MIN_CONN_INTVL_MIN;
+  //gap_conn_params.min_conn_interval = BLE_GAP_CP_MIN_CONN_INTVL_NONE;
+  //gap_conn_params.max_conn_interval = BLE_GAP_CP_MAX_CONN_INTVL_NONE;
+  gap_conn_params.min_conn_interval = 6;
   gap_conn_params.max_conn_interval = 9;
   gap_conn_params.slave_latency = SLAVE_LATENCY;
-  gap_conn_params.conn_sup_timeout = 200;
+  gap_conn_params.conn_sup_timeout = BLE_GAP_CP_MAX_CONN_INTVL_NONE;
 
   err_code = sd_ble_gap_ppcp_set(&gap_conn_params);
   APP_ERROR_CHECK(err_code);

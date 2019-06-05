@@ -84,8 +84,9 @@ void lsm_get_data_loop(lsm6dsl_ctx_t *dev_ctx, bool (*send_data)(imu_data)) {
     axis1bit16_t available_sensor_data;
     memset(&available_sensor_data, 0, sizeof(axis1bit16_t));
     LSM_ERROR_CHECK(lsm6dsl_read_reg(dev_ctx, LSM6DSL_FIFO_STATUS1, available_sensor_data.u8bit, 2)); // actually read LSM6DSL_FIFO_STATUS1 and LSM6DSL_FIFO_STATUS2, but this combined is faster since we dont need to transmit the address two times
-    available_sensor_data.u8bit[0] &= 0x07u;                                                          // only the upper 11 bits are valid  from the register
-    available_sensor_data.i16bit /= BYTES_PER_DATA;                                                   // one sensor has 3 axes with 2 byte per axis (also round down to get full packets)
+    available_sensor_data.u8bit[1] &= 0x07u;                                                          // only the upper 11 bits are valid  from the register
+    available_sensor_data.i16bit = available_sensor_data.i16bit << 1;
+    available_sensor_data.i16bit /= BYTES_PER_DATA; // one sensor has 3 axes with 2 byte per axis (also round down to get full packets)
     if (available_sensor_data.i16bit < PACKETS_PER_TRANSACTION)
       break;
 

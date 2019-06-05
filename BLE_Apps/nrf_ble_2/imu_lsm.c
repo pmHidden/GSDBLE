@@ -13,11 +13,11 @@ vddio -> vdd
 gnd -> gnd
 */
 static lsm6dsl_ctx_t dev_ctx;
-static bool (*send_data)(imu_data);
+static bool (*send_data)(imu_data_t);
 static imu_speed_t cur_speed;
-static bool isPause;
+volatile static bool isPause;
 
-void imu_init(bool (*send_data_p)(imu_data)) {
+void imu_init(bool (*send_data_p)(imu_data_t)) {
   isPause = false;
   send_data = send_data_p;
   lsm_protocol_init();
@@ -41,34 +41,40 @@ void imu_init(bool (*send_data_p)(imu_data)) {
   LSM_ERROR_CHECK(lsm6dsl_gy_band_pass_set(&dev_ctx, LSM6DSL_HP_260mHz_LP1_STRONG));
 
   lsm_get_data_init(&dev_ctx);
-  imu_set_speed(IMU_ODR_200Hz);
+  imu_set_speed(IMU_ODR_25Hz, 3200, 0xFFFF); // set to slowest possible at init. 
 }
 
-void imu_set_speed(imu_speed_t speed) {
-  cur_speed = speed;
-  LSM_ERROR_CHECK(lsm6dsl_xl_data_rate_set(&dev_ctx, speed + 2));
-  LSM_ERROR_CHECK(lsm6dsl_gy_data_rate_set(&dev_ctx, speed + 2));
-  lsm_get_data_speed_set(&dev_ctx, speed);
+void imu_on_new_interval(uint16_t buffer_clear_interval, uint16_t buffer_size) {
+  imu_stop();
+  cur_speed = lsm_get_data_speed_set(&dev_ctx, cur_speed, buffer_clear_interval, buffer_size);
+  imu_restart();
 }
 
-imu_speed_t imu_get_speed() {
+void imu_set_speed(imu_speed_t speed, uint16_t buffer_clear_interval, uint16_t buffer_size) {
+  imu_stop();
+  cur_speed = lsm_get_data_speed_set(&dev_ctx, speed, buffer_clear_interval, buffer_size);
+  imu_restart();
+}
+
+imu_speed_t imu_get_speed(void) {
   return cur_speed;
 }
 
-void imu_stop() {
+void imu_stop(void) {
   isPause = true;
   lsm_get_data_stop(&dev_ctx);
   LSM_ERROR_CHECK(lsm6dsl_xl_data_rate_set(&dev_ctx, LSM6DSL_XL_ODR_OFF));
   LSM_ERROR_CHECK(lsm6dsl_gy_data_rate_set(&dev_ctx, LSM6DSL_GY_ODR_OFF));
 }
 
-void imu_restart() {
+void imu_restart(void) {
   isPause = false;
-  imu_set_speed(cur_speed);
-  lsm_get_data_restart(&dev_ctx);
+  LSM_ERROR_CHECK(lsm6dsl_xl_data_rate_set(&dev_ctx, cur_speed + 2));
+  LSM_ERROR_CHECK(lsm6dsl_gy_data_rate_set(&dev_ctx, cur_speed + 2));
+  lsm_get_data_restart(&dev_ctx, cur_speed);
 }
 
-void imu_loop() {
+void imu_loop(void) {
   if (!isPause)
     lsm_get_data_loop(&dev_ctx, send_data);
 }
