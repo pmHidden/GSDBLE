@@ -38,8 +38,6 @@
 #define APP_ADV_DURATION 3000  /**< *10ms. The advertising duration */
 #define APP_BLE_CONN_CFG_TAG 1 /**< A tag identifying the SoftDevice BLE configuration. */
 
-#define SLAVE_LATENCY 6 /**< Slave latency. */
-
 #define FIRST_CONN_PARAMS_UPDATE_DELAY APP_TIMER_TICKS(5000) /**< Time from initiating event (connect or start of notification) to first time sd_ble_gap_conn_param_update is called (5 seconds). */
 #define NEXT_CONN_PARAMS_UPDATE_DELAY APP_TIMER_TICKS(30000) /**< Time between each call to sd_ble_gap_conn_param_update after the first call (30 seconds). */
 #define MAX_CONN_PARAMS_UPDATE_COUNT 3                       /**< Number of attempts before giving up the connection parameter negotiation. */
@@ -151,12 +149,14 @@ static void gap_params_init(void) {
 
   memset(&gap_conn_params, 0, sizeof(gap_conn_params));
 
-  //gap_conn_params.min_conn_interval = BLE_GAP_CP_MIN_CONN_INTVL_NONE;
-  //gap_conn_params.max_conn_interval = BLE_GAP_CP_MAX_CONN_INTVL_NONE;
-  gap_conn_params.min_conn_interval = 6;
-  gap_conn_params.max_conn_interval = 9;
-  gap_conn_params.slave_latency = SLAVE_LATENCY;
-  gap_conn_params.conn_sup_timeout = BLE_GAP_CP_MAX_CONN_INTVL_NONE;
+  // we want slave_latency 4, but it can be maximum 2, because of this constraint:
+  // conn_sup_timeout * 4 > (1 + slave_latency) * max_conn_interval
+  // if we want to allow every conn_interval.
+
+  gap_conn_params.min_conn_interval = BLE_GAP_CP_MIN_CONN_INTVL_MIN;
+  gap_conn_params.max_conn_interval = BLE_GAP_CP_MAX_CONN_INTVL_MAX;
+  gap_conn_params.slave_latency = 2;
+  gap_conn_params.conn_sup_timeout = BLE_GAP_CP_CONN_SUP_TIMEOUT_NONE;
 
   err_code = sd_ble_gap_ppcp_set(&gap_conn_params);
   APP_ERROR_CHECK(err_code);
@@ -219,14 +219,8 @@ static void services_init(void) {
   err_code = nrf_ble_qwr_init(&m_qwr, &qwr_init);
   APP_ERROR_CHECK(err_code);
 
-  /* YOUR_JOB: Add code to initialize the services used by the application.     */
-  my_service_init_t my_service_init_obj;
-
   // Initialize CUS Service init structure to zero.
-  memset(&my_service_init_obj, 0, sizeof(my_service_init_obj));
-  BLE_GAP_CONN_SEC_MODE_SET_OPEN(&my_service_init_obj.custom_value_char_attr_md.read_perm);
-
-  err_code = my_service_init(&m_myservice, &my_service_init_obj);
+  err_code = my_service_init(&m_myservice);
   APP_ERROR_CHECK(err_code);
 }
 

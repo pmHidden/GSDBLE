@@ -20,7 +20,7 @@ int1 -> P0.31
 static uint16_t packets_per_transaction = MAX_PACKETS_PER_TRANSACTION;
 static volatile bool config_changed = false;
 
-static uint32_t current_time_prefix = 0u;
+static uint16_t current_time_prefix = 0u;
 static uint16_t last_time = 0u;
 
 static void interrupt_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
@@ -107,7 +107,7 @@ imu_speed_t lsm_get_data_speed_set(lsm6dsl_ctx_t *dev_ctx, imu_speed_t speed, ui
   packets_per_transaction = MIN(packets_till_fifo_full_or_buffer_cleared, MAX_PACKETS_PER_TRANSACTION); // range: 1 - 14
 
   uint16_t bytes_till_fifo_full_or_buffer_cleared = BYTES_PER_DATA * DATAS_PER_PACKET * packets_till_fifo_full_or_buffer_cleared; // range: 18 - 4086
-  LSM_ERROR_CHECK(lsm6dsl_fifo_watermark_set(dev_ctx, bytes_till_fifo_full_or_buffer_cleared >> 1)); // register is in 2-byte-word format
+  LSM_ERROR_CHECK(lsm6dsl_fifo_watermark_set(dev_ctx, bytes_till_fifo_full_or_buffer_cleared >> 1));                              // register is in 2-byte-word format
 
   LSM_ERROR_CHECK(lsm6dsl_fifo_data_rate_set(dev_ctx, speed + 2));
 
@@ -145,10 +145,13 @@ void lsm_get_data_loop(lsm6dsl_ctx_t *dev_ctx, bool (*send_data)(imu_data_t)) {
       data.accel_z = theData[i * DATAS_PER_PACKET + 1].i16bit[2];
       memset(&data.time, 0, sizeof(uint32_t));
       uint16_t time = (theData[i * DATAS_PER_PACKET + 2].u8bit[1] << 8 | theData[i * DATAS_PER_PACKET + 2].u8bit[0]);
-      if (time < last_time)
-        current_time_prefix += 0x10000u;
+      if (time < last_time) {
+        current_time_prefix += 1u;
+        if (current_time_prefix & 0x80 != 0u)
+          current_time_prefix = 0u;
+      }
       last_time = time;
-      data.time = current_time_prefix + time;
+      data.time = (((uint32_t)current_time_prefix) << 16) | time;
       if (!send_data(data))
         break;
     }

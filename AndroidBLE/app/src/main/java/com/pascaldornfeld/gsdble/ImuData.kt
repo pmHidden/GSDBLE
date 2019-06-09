@@ -2,19 +2,18 @@ package com.pascaldornfeld.gsdble
 
 import kotlin.experimental.or
 
-data class ImuData(
+data class ImuData (
     val accel_x: Short,
     val accel_y: Short,
     val accel_z: Short,
     val gyro_x: Short,
     val gyro_y: Short,
     val gyro_z: Short,
-    val time: Long
+    val time: Int
 ) {
-    @Suppress("EXPERIMENTAL_API_USAGE")
     companion object {
         const val MIN_TIME = 0
-        val MAX_TIME = UInt.MAX_VALUE.toLong()
+        val MAX_TIME = Int.MAX_VALUE
 
         fun fromByteArray(byteArray: ByteArray): ImuData {
             assert(byteArray.size == 16)
@@ -28,7 +27,7 @@ data class ImuData(
                 ((uByteArray[7].toInt() shl 8).toShort()) or uByteArray[6].toShort(),
                 ((uByteArray[9].toInt() shl 8).toShort()) or uByteArray[8].toShort(),
                 ((uByteArray[11].toInt() shl 8).toShort()) or uByteArray[10].toShort(),
-                time.toLong()
+                time.toInt()
             )
         }
     }

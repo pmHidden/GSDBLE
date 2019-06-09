@@ -21,8 +21,8 @@ void my_service_loop() {
   imu_loop();
 }
 
-uint32_t my_service_init(my_service_t *p_cus, const my_service_init_t *p_cus_init) {
-  if (p_cus == NULL || p_cus_init == NULL) {
+uint32_t my_service_init(my_service_t *p_cus) {
+  if (p_cus == NULL) {
     return NRF_ERROR_NULL;
   }
   my_service_cus = p_cus;
@@ -43,21 +43,23 @@ uint32_t my_service_init(my_service_t *p_cus, const my_service_init_t *p_cus_ini
 
   // Add the Custom Service
   err_code = sd_ble_gatts_service_add(BLE_GATTS_SRVC_TYPE_PRIMARY, &ble_uuid, &p_cus->service_handle);
-  if (err_code != NRF_SUCCESS)
-    return err_code;
+  VERIFY_SUCCESS(err_code);
 
   // Add Characteristics to Service
-  err_code = chara_data_add(p_cus, p_cus_init);
-  if (err_code != NRF_SUCCESS)
-    return err_code;
+  err_code = chara_data_add(p_cus);
+  VERIFY_SUCCESS(err_code);
 
-  //err_code = chara_conf_add(p_cus, p_cus_init);
-  if (err_code != NRF_SUCCESS)
-    return err_code;
+  err_code = chara_conf_add(p_cus);
+  VERIFY_SUCCESS(err_code);
 
   // Activate Sensor
   imu_init(send_my_data);
-  imu_stop();
+
+  // Write current config
+  chara_conf_packet_t init_values;
+  memset(&init_values, 0, sizeof(chara_conf_packet_t));
+  init_values.speed = (uint8_t)imu_speed_get();
+  chara_conf_update(p_cus, init_values);
 
   return NRF_SUCCESS;
 }
@@ -80,21 +82,39 @@ static void on_connect(my_service_t *p_cus, ble_evt_t const *p_ble_evt) {
 static void on_write(my_service_t *p_cus, ble_evt_t const *p_ble_evt) {
   const ble_gatts_evt_write_t *p_evt_write = &p_ble_evt->evt.gatts_evt.params.write;
 
-  // Check if the handle passed with the event matches the Custom Value Characteristic handle.
-  if (p_evt_write->handle == p_cus->custom_value_handles.value_handle) {
-    NRF_LOG_INFO("yes!");
+  if (p_evt_write->handle == p_cus->chara_conf_handles.value_handle && p_evt_write->len >= sizeof(chara_conf_packet_u)) {
+    // pull new config and apply
+    chara_conf_packet_u config;
+    memset(&config, 0, sizeof(chara_conf_packet_u));
+    memcpy(config.bytes, p_evt_write->data, sizeof(chara_conf_packet_u));
+    imu_speed_set((imu_speed_t)config.parsed.speed, TX_BUFFER);
+    // update config and push
+    config.parsed.unused = 0u;
+    config.parsed.speed = (uint8_t)imu_speed_get();
+    chara_conf_update(p_cus, config.parsed);
+  }
+  /*
+  // Check if the Custom value CCCD is written to and that the value is the appropriate length, i.e 2 bytes.
+  if ((p_evt_write->handle == p_cus->chara_data_handles.cccd_handle) && (p_evt_write->len == 2)) {
+    if (ble_srv_is_notification_enabled(p_evt_write->data)) {
+      //evt.evt_type = BLE_CUS_EVT_NOTIFICATION_ENABLED;
+      NRF_LOG_INFO("notificated! data");
+    } else {
+      //evt.evt_type = BLE_CUS_EVT_NOTIFICATION_DISABLED;
+      NRF_LOG_INFO("unnotificated! data");
+    }
   }
 
   // Check if the Custom value CCCD is written to and that the value is the appropriate length, i.e 2 bytes.
-  if ((p_evt_write->handle == p_cus->custom_value_handles.cccd_handle) && (p_evt_write->len == 2)) {
+  if ((p_evt_write->handle == p_cus->chara_conf_handles.cccd_handle) && (p_evt_write->len == 2)) {
     if (ble_srv_is_notification_enabled(p_evt_write->data)) {
       //evt.evt_type = BLE_CUS_EVT_NOTIFICATION_ENABLED;
-      NRF_LOG_INFO("notificated!");
+      NRF_LOG_INFO("notificated! conf");
     } else {
       //evt.evt_type = BLE_CUS_EVT_NOTIFICATION_DISABLED;
-      NRF_LOG_INFO("unnotificated!");
+      NRF_LOG_INFO("unnotificated! conf");
     }
-  }
+  }*/
 }
 
 /**@brief Function for handling the Disconnect event.
@@ -105,7 +125,7 @@ static void on_write(my_service_t *p_cus, ble_evt_t const *p_ble_evt) {
 static void on_disconnect(my_service_t *p_cus, ble_evt_t const *p_ble_evt) {
   UNUSED_PARAMETER(p_ble_evt);
   p_cus->conn_handle = BLE_CONN_HANDLE_INVALID;
-  imu_stop();
+  imu_stop(true);
 }
 
 void ble_cus_on_ble_evt(ble_evt_t const *p_ble_evt, void *p_context) {
@@ -119,17 +139,14 @@ void ble_cus_on_ble_evt(ble_evt_t const *p_ble_evt, void *p_context) {
   case BLE_GAP_EVT_CONNECTED:
     on_connect(p_cus, p_ble_evt);
     break;
-
   case BLE_GAP_EVT_DISCONNECTED:
     on_disconnect(p_cus, p_ble_evt);
     break;
-
   case BLE_GATTS_EVT_WRITE:
     on_write(p_cus, p_ble_evt);
     break;
   case BLE_GAP_EVT_CONN_PARAM_UPDATE:
     imu_on_new_interval(p_ble_evt->evt.gap_evt.params.conn_param_update.conn_params.max_conn_interval, TX_BUFFER);
-    //7000
     break;
   default:
     //NRF_LOG_INFO("other: %d", p_ble_evt->header.evt_id);

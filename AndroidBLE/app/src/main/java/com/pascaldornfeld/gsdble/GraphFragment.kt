@@ -3,7 +3,6 @@ package com.pascaldornfeld.gsdble
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,8 +30,6 @@ abstract class GraphFragment<DataType> : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_graph, container, false)
         vPlot = view.findViewById(R.id.plot_graph)
-
-        seriesInit(vPlot!!)
 
         vPlot!!.graph?.getLineLabelStyle(XYGraphWidget.Edge.LEFT)?.paint?.textSize = PixelUtils.spToPix(9.0f)
         vPlot!!.graph?.getLineLabelStyle(XYGraphWidget.Edge.BOTTOM)?.paint?.textSize = PixelUtils.spToPix(9.0f)
@@ -67,6 +64,7 @@ abstract class GraphFragment<DataType> : Fragment() {
 
         })
 
+        seriesInit(vPlot!!)
         return view
     }
 
@@ -85,6 +83,10 @@ abstract class GraphFragment<DataType> : Fragment() {
             vPlot?.redraw()
         }
 
+    }
+
+    fun addData(p_time: Int, p_data: DataType) {
+        addData(p_time.toLong(), p_data)
     }
 
     abstract fun seriesInit(plot: XYPlot)

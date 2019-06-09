@@ -8,6 +8,8 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 class ConnectionOverviewActivity : AppCompatActivity() {
     // connection related
@@ -17,6 +19,16 @@ class ConnectionOverviewActivity : AppCompatActivity() {
             override fun onCharacteristicChanged(gatt: BluetoothGatt?, characteristic: BluetoothGattCharacteristic?) {
                 super.onCharacteristicChanged(gatt, characteristic)
                 if (gatt != null && characteristic != null) characteristicChanged(gatt, characteristic)
+            }
+
+            override fun onCharacteristicRead(
+                gatt: BluetoothGatt?,
+                characteristic: BluetoothGattCharacteristic?,
+                status: Int
+            ) {
+                super.onCharacteristicRead(gatt, characteristic, status)
+                if (status == GATT_SUCCESS && gatt != null && characteristic != null)
+                    characteristicChanged(gatt, characteristic)
             }
 
             override fun onServicesDiscovered(gatt: BluetoothGatt?, status: Int) {
@@ -30,13 +42,13 @@ class ConnectionOverviewActivity : AppCompatActivity() {
             }
         }
     }
-    private var charaCfg: BluetoothGattCharacteristic? = null
 
     // view related
-    private val graphAccel by lazy { supportFragmentManager.findFragmentById(R.id.graph_accel) as SensorGraphFragment }
-    private val graphGyro by lazy { supportFragmentManager.findFragmentById(R.id.graph_gyro) as SensorGraphFragment }
-    private val graphTime by lazy { supportFragmentManager.findFragmentById(R.id.graph_time) as TimeGraphFragment }
-    private val graphDataRate by lazy { supportFragmentManager.findFragmentById(R.id.graph_dr) as DataRateGraphFragment }
+    private val vGraphAccel by lazy { supportFragmentManager.findFragmentById(R.id.graph_accel) as SensorGraphFragment }
+    private val vGraphGyro by lazy { supportFragmentManager.findFragmentById(R.id.graph_gyro) as SensorGraphFragment }
+    private val vGraphTime by lazy { supportFragmentManager.findFragmentById(R.id.graph_time) as TimeGraphFragment }
+    private val vGraphDataRate by lazy { supportFragmentManager.findFragmentById(R.id.graph_dr) as DataRateGraphFragment }
+    private val vConfigOdr by lazy { supportFragmentManager.findFragmentById(R.id.config_odr) as OdrFragment }
 
     /**
      * connect to the device that was found on start
@@ -45,10 +57,11 @@ class ConnectionOverviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connected)
 
-        graphAccel.setTitle("Accelerometer")
-        graphGyro.setTitle("Gyroscope")
-        graphTime.setTitle("Packet Delivery Delayf")
-        graphDataRate.setTitle("Data Rate")
+        vGraphAccel.setTitle("Accelerometer")
+        vGraphGyro.setTitle("Gyroscope")
+        vGraphTime.setTitle("Packet Delivery Delay")
+        vGraphDataRate.setTitle("Data Rate")
+        vConfigOdr.setTitle("ODR")
 
         val device = intent.getParcelableExtra<BluetoothDevice>(EXTRA_DEVICE)
         device?.connectGatt(this, false, callback)
@@ -60,13 +73,11 @@ class ConnectionOverviewActivity : AppCompatActivity() {
      * else: print what happened
      */
     private fun connectionChanged(gatt: BluetoothGatt, status: Int, newState: Int) {
-        if (status == BluetoothGatt.GATT_SUCCESS && newState == BluetoothProfile.STATE_CONNECTED) {
+        if (newState == BluetoothProfile.STATE_CONNECTED && status == GATT_SUCCESS) {
             gatt.discoverServices()
-            if (!gatt.requestConnectionPriority(BluetoothGatt.CONNECTION_PRIORITY_HIGH)) Toast.makeText(
-                this, "could not set high priority",
-                LENGTH_SHORT
-            ).show()
-        } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+            val successSetPriority = gatt.requestConnectionPriority(BluetoothGatt.CONNECTION_PRIORITY_LOW_POWER)
+        } else if (newState == BluetoothProfile.STATE_DISCONNECTED && status == GATT_SUCCESS) {
+            vConfigOdr.functionToApply = null
             try {
                 gatt.close()
             } catch (e: Exception) {
@@ -74,12 +85,14 @@ class ConnectionOverviewActivity : AppCompatActivity() {
             }
             finish()
         } else {
-            Log.e(TAG, "onConnectionStateChange unknown: $status $newState")
+            Log.e(TAG, "onConnectionStateChange failed to connect or disconnect: $status $newState")
             Toast.makeText(this@ConnectionOverviewActivity, "unknown state: $status $newState", LENGTH_SHORT)
                 .show()
         }
         gattConnection = gatt
     }
+
+    private var lastConfig: ImuConfig? = null
 
     /**
      * on services discovered: check for my service and characteristics
@@ -96,12 +109,7 @@ class ConnectionOverviewActivity : AppCompatActivity() {
             }
             if (service != null) {
                 val charaData =
-                    service.characteristics.find {
-                        val lookingFor = UUID.fromString(getString(R.string.uuid_chara_data))
-                        val isCorrect = it.uuid == UUID.fromString(getString(R.string.uuid_chara_data))
-                        Log.d(TAG, "uuids data: $isCorrect. mine: ${it.uuid}. looking for: $lookingFor")
-                        isCorrect
-                    }
+                    service.characteristics.find { it.uuid == UUID.fromString(getString(R.string.uuid_chara_data)) }
                 if (charaData == null || (charaData.properties and BluetoothGattCharacteristic.PROPERTY_NOTIFY) == 0)
                     Toast.makeText(this, "could not find data chara or it is not notifiable", LENGTH_SHORT).show()
                 else {
@@ -112,10 +120,36 @@ class ConnectionOverviewActivity : AppCompatActivity() {
                         }
                     gatt.writeDescriptor(descriptor)
                 }
-                charaCfg =
+                val charaCfg =
                     service.characteristics.find { it.uuid == UUID.fromString(getString(R.string.uuid_chara_cfg)) }
-                if (charaData == null)
+                if (charaCfg == null || (charaCfg.properties and BluetoothGattCharacteristic.PROPERTY_NOTIFY) == 0)
                     Toast.makeText(this, "could not find cfg chara", LENGTH_SHORT).show()
+                else {
+                    // probably returning false because there is no queue
+                    gatt.setCharacteristicNotification(charaCfg, true)
+                    val descriptor =
+                        charaCfg.getDescriptor(UUID.fromString("00002902-0000-1000-8000-00805f9b34fb")).apply {
+                            value = BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE
+                        }
+                    gatt.writeDescriptor(descriptor)
+
+                    val worker = Executors.newSingleThreadScheduledExecutor()
+                    var runny: Runnable? = null
+                    runny = Runnable {
+                        val success = gatt.readCharacteristic(charaCfg)
+                        if (!success) worker.schedule(runny, 500, TimeUnit.MILLISECONDS)
+                    }
+                    worker.schedule(runny, 100, TimeUnit.MILLISECONDS)
+
+                    vConfigOdr.functionToApply = {
+                        if (lastConfig != null) {
+                            lastConfig = lastConfig!!.copy(odr = it)
+                            charaCfg.value = lastConfig!!.toByteArray()
+                            gatt.writeCharacteristic(charaCfg)
+                        }
+                    }
+                }
+
             } else {
                 Toast.makeText(this, "could not find my service", LENGTH_SHORT).show()
                 onBackPressed()
@@ -135,23 +169,26 @@ class ConnectionOverviewActivity : AppCompatActivity() {
             val timeOfPacketArrival = System.currentTimeMillis()
             val parsedImuData = ImuData.fromByteArray(characteristic.value)
 
-            graphAccel.addData(
+            vGraphAccel.addData(
                 parsedImuData.time,
                 Triple(parsedImuData.accel_x, parsedImuData.accel_y, parsedImuData.accel_z)
             )
-            graphGyro.addData(
+            vGraphGyro.addData(
                 parsedImuData.time,
                 Triple(parsedImuData.gyro_x, parsedImuData.gyro_y, parsedImuData.gyro_z)
             )
-            graphTime.addData(parsedImuData.time, timeOfPacketArrival)
+            vGraphTime.addData(parsedImuData.time, timeOfPacketArrival)
 
             val thisSecond = timeOfPacketArrival / 1000L
             if (thisSecond != currentTrackedSecond) {
-                if (currentTrackedSecond != 0L) graphDataRate.addData(currentTrackedSecond, packetsThisSecond)
+                if (currentTrackedSecond != 0L) vGraphDataRate.addData(currentTrackedSecond, packetsThisSecond)
                 currentTrackedSecond = thisSecond
                 packetsThisSecond = 0L
             }
             packetsThisSecond++
+        } else if (characteristic.uuid == UUID.fromString(getString(R.string.uuid_chara_cfg))) {
+            lastConfig = ImuConfig.fromByteArray(characteristic.value)
+            vConfigOdr.setNewData(lastConfig!!.odr)
         }
     }
 

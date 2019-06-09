@@ -15,6 +15,7 @@ gnd -> gnd
 static lsm6dsl_ctx_t dev_ctx;
 static bool (*send_data)(imu_data_t);
 static imu_speed_t cur_speed;
+static uint16_t cur_buffer_clear_interval;
 volatile static bool isPause;
 
 void imu_init(bool (*send_data_p)(imu_data_t)) {
@@ -41,27 +42,35 @@ void imu_init(bool (*send_data_p)(imu_data_t)) {
   LSM_ERROR_CHECK(lsm6dsl_gy_band_pass_set(&dev_ctx, LSM6DSL_HP_260mHz_LP1_STRONG));
 
   lsm_get_data_init(&dev_ctx);
-  imu_set_speed(IMU_ODR_25Hz, 3200, 0xFFFF); // set to slowest possible at init. 
+  imu_stop(true);
 }
 
 void imu_on_new_interval(uint16_t buffer_clear_interval, uint16_t buffer_size) {
-  imu_stop();
+  imu_stop(false);
+  cur_buffer_clear_interval = buffer_clear_interval;
   cur_speed = lsm_get_data_speed_set(&dev_ctx, cur_speed, buffer_clear_interval, buffer_size);
   imu_restart();
 }
 
-void imu_set_speed(imu_speed_t speed, uint16_t buffer_clear_interval, uint16_t buffer_size) {
-  imu_stop();
-  cur_speed = lsm_get_data_speed_set(&dev_ctx, speed, buffer_clear_interval, buffer_size);
+void imu_speed_set(imu_speed_t speed, uint16_t buffer_size) {
+  speed = MIN(speed, IMU_ODR_1600Hz);
+  imu_stop(false);
+  cur_speed = lsm_get_data_speed_set(&dev_ctx, speed, cur_buffer_clear_interval, buffer_size);
   imu_restart();
 }
 
-imu_speed_t imu_get_speed(void) {
+imu_speed_t imu_speed_get(void) {
   return cur_speed;
 }
 
-void imu_stop(void) {
+void imu_stop(bool reset) {
   isPause = true;
+  if (reset) { // slowest setting
+    imu_stop(false);
+    cur_speed = IMU_ODR_25Hz;
+    cur_buffer_clear_interval = 3200;
+    cur_speed = lsm_get_data_speed_set(&dev_ctx, cur_speed, cur_buffer_clear_interval, 0xFFFF);
+  }
   lsm_get_data_stop(&dev_ctx);
   LSM_ERROR_CHECK(lsm6dsl_xl_data_rate_set(&dev_ctx, LSM6DSL_XL_ODR_OFF));
   LSM_ERROR_CHECK(lsm6dsl_gy_data_rate_set(&dev_ctx, LSM6DSL_GY_ODR_OFF));

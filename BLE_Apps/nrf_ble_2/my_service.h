@@ -25,14 +25,15 @@
  *        initialization of the service.*/
 typedef struct
 {
-  uint8_t initial_custom_value;                           /**< Initial custom value */
-  ble_srv_cccd_security_mode_t custom_value_char_attr_md; /**< Initial security level for Custom characteristics attribute */
+  uint8_t initial_chara_data;                           /**< Initial custom value */
+  ble_srv_cccd_security_mode_t chara_data_char_attr_md; /**< Initial security level for Custom characteristics attribute */
 } my_service_init_t;
 
 /**@brief Service structure. This contains various status information for the service. */
 struct my_service_s {
   uint16_t service_handle;                       /**< Handle of Custom Service (as provided by the BLE stack). */
-  ble_gatts_char_handles_t custom_value_handles; /**< Handles related to the Custom Value characteristic. */
+  ble_gatts_char_handles_t chara_data_handles; /**< Handles related to the Custom Value characteristic. */
+  ble_gatts_char_handles_t chara_conf_handles; /**< Handles related to the Custom Value characteristic. */
   uint16_t conn_handle;                          /**< Handle of the current connection (as provided by the BLE stack, is BLE_CONN_HANDLE_INVALID if not in a connection). */
   uint8_t uuid_type;
 }; // Forward declaration of the my_service_t type.
@@ -47,7 +48,7 @@ typedef struct my_service_s my_service_t;
  *
  * @return      NRF_SUCCESS on successful initialization of service, otherwise an error code.
  */
-uint32_t my_service_init(my_service_t *p_cus, const my_service_init_t *p_cus_init);
+uint32_t my_service_init(my_service_t *p_cus);
 
 /**@brief Function for handling the Application's BLE Stack events.
  *

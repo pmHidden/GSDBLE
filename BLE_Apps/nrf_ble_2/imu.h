@@ -1,6 +1,7 @@
 #ifndef IMU_H_
 #define IMU_H_
 
+#include <stdbool.h>
 #include <stdint.h>
 
 /**
@@ -27,7 +28,7 @@ typedef struct {
   int16_t gyro_x;
   int16_t gyro_y;
   int16_t gyro_z;
-  uint32_t time;
+  uint32_t time; // msb not used, so unsigned value = signed value
 } imu_data_t;
 
 /** 
@@ -45,13 +46,13 @@ void imu_loop(void);
 void imu_on_new_interval(uint16_t buffer_clear_interval, uint16_t buffer_size);
 
 /** set speed of data */
-void imu_set_speed(imu_speed_t speed, uint16_t buffer_clear_interval, uint16_t buffer_size);
+void imu_speed_set(imu_speed_t speed, uint16_t buffer_size);
 
 /** get speed of data */
-imu_speed_t imu_get_speed(void);
+imu_speed_t imu_speed_get(void);
 
 /** stop sending data */
-void imu_stop(void);
+void imu_stop(bool reset);
 
 /** continue sending data */
 void imu_restart(void);
