@@ -58,7 +58,7 @@ void lsm_get_data_init(lsm6dsl_ctx_t *dev_ctx) {
   interrupt_latch.drdy_pulse_cfg_g.drdy_pulsed = PROPERTY_ENABLE;
   LSM_ERROR_CHECK(lsm6dsl_write_reg(dev_ctx, LSM6DSL_DRDY_PULSE_CFG_G, &interrupt_latch.byte, 1));
 
-  LSM_ERROR_CHECK(lsm6dsl_timestamp_res_set(dev_ctx, LSM6DSL_LSB_25us));
+  LSM_ERROR_CHECK(lsm6dsl_timestamp_res_set(dev_ctx, LSM6DSL_LSB_25us)); // we actually get 6,4 ms because of rightshift
 
   uint8_t resetTime[3];
   memset(resetTime, 0, 3 * sizeof(uint8_t));

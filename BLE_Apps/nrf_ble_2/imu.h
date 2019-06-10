@@ -28,7 +28,7 @@ typedef struct {
   int16_t gyro_x;
   int16_t gyro_y;
   int16_t gyro_z;
-  uint32_t time; // msb not used, so unsigned value = signed value
+  uint32_t time; // msb not used, so unsigned value = signed value. 1 timestep = 6,4 ms
 } imu_data_t;
 
 /** 

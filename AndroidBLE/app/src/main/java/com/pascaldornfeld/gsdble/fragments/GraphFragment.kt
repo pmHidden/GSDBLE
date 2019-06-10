@@ -26,7 +26,7 @@ abstract class GraphFragment<DataType> : Fragment() {
     protected var data = listOf<Pair<Long, DataType>>()
     private val internalData = mutableListOf<Pair<Long, DataType>>()
     private var vPlot: XYPlot? = null
-    protected var maxDataNumber = 500
+    protected var timestepsToShow = 625L // = 4 seconds with 6,4 ms per first
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_graph, container, false)
@@ -77,8 +77,11 @@ abstract class GraphFragment<DataType> : Fragment() {
 
     fun addData(p_time: Long, p_data: DataType) {
         internalData.add(Pair(p_time, p_data))
-        if (internalData.first().first > p_time) internalData.clear() // in case of time overflow
-        else if (internalData.size > maxDataNumber) internalData.removeAt(0)
+        if (internalData.first().first > p_time) internalData.clear() // in case of overflow
+
+        while(internalData.isNotEmpty() && internalData.first().first + timestepsToShow < p_time) internalData.removeAt(0)
+       // else if (internalData.size > maxDataNumber)
+
         if (canUpdate.compareAndSet(true, false)) {
             data = internalData.toList()
             vPlot?.redraw()
@@ -160,7 +163,7 @@ class TimeGraphFragment : GraphFragment<Long>() {
  */
 class DataRateGraphFragment : GraphFragment<Long>() {
     override fun seriesInit(plot: XYPlot) {
-        maxDataNumber = 60
+        timestepsToShow = 20
         val series = object : FastXYSeries {
             override fun getX(index: Int): Number = data[index].first
 

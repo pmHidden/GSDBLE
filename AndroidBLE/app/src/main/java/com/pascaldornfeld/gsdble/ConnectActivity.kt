@@ -126,7 +126,9 @@ class ConnectActivity : AppCompatActivity() {
 
     private fun askForLocationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_PERMISSION_LOC)
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                REQUEST_PERMISSION_LOC
+            )
             return
         }
         vBtStartScan.isEnabled = true

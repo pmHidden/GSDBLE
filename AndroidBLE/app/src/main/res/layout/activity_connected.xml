@@ -41,5 +41,11 @@
             android:id="@+id/config_odr"
             android:name="com.pascaldornfeld.gsdble.fragments.OdrFragment"
             />
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/config_intv"
+            android:name="com.pascaldornfeld.gsdble.fragments.IntervalFragment"
+            />
     </LinearLayout>
 </ScrollView>

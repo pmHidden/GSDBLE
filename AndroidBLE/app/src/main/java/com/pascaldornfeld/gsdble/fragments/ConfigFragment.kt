@@ -18,6 +18,7 @@ abstract class ConfigFragment<DataType> : Fragment() {
     var vCurrent: TextView? = null
     var vSet: TextView? = null
     var vApply: Button? = null
+    private val prefixSet = "on device: "
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_config, container, false)
@@ -56,7 +57,7 @@ abstract class ConfigFragment<DataType> : Fragment() {
             vSlider!!.progress = index
             vCurrent!!.text = stringRep
         }
-        vSet!!.text = stringRep
+        vSet!!.text = prefixSet + stringRep
     }
 
     fun setTitle(title: String) {
@@ -75,5 +76,19 @@ class OdrFragment : ConfigFragment<ImuOdr>() {
     override fun applyNewData(index: Int) {
         functionToApply?.invoke(odrs[index])
     }
+}
 
+class IntervalFragment : ConfigFragment<IntervalFragment.Interval>() {
+    enum class Interval { CONNECTION_PRIORITY_LOW_POWER, CONNECTION_PRIORITY_BALANCED, CONNECTION_PRIORITY_HIGH }
+
+    private val intervals by lazy { Interval.values() }
+    var functionToApply: ((Interval) -> Unit)? = null
+
+    override fun getDataArray(): Array<Interval> = intervals
+
+    override fun getStringRepresentationFromData(data: Interval): String = data.name
+
+    override fun applyNewData(index: Int) {
+        functionToApply?.invoke(intervals[index])
+    }
 }

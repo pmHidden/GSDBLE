@@ -9,7 +9,8 @@
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +31,8 @@
             <TextView
                 android:id="@+id/tv_current"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal" />
 
         </LinearLayout>
 
@@ -41,9 +43,15 @@
             android:text="apply" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000" />
+
     <TextView
         android:id="@+id/tv_set"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
 
 </LinearLayout>
