@@ -13,25 +13,25 @@
 
         <fragment
             android:id="@+id/graph_accel"
-            android:name="com.pascaldornfeld.gsdble.SensorGraphFragment"
+            android:name="com.pascaldornfeld.gsdble.fragments.SensorGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
             android:id="@+id/graph_gyro"
-            android:name="com.pascaldornfeld.gsdble.SensorGraphFragment"
+            android:name="com.pascaldornfeld.gsdble.fragments.SensorGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
             android:id="@+id/graph_time"
-            android:name="com.pascaldornfeld.gsdble.TimeGraphFragment"
+            android:name="com.pascaldornfeld.gsdble.fragments.TimeGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
             android:id="@+id/graph_dr"
-            android:name="com.pascaldornfeld.gsdble.DataRateGraphFragment"
+            android:name="com.pascaldornfeld.gsdble.fragments.DataRateGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/config_odr"
-            android:name="com.pascaldornfeld.gsdble.OdrFragment"
+            android:name="com.pascaldornfeld.gsdble.fragments.OdrFragment"
             />
     </LinearLayout>
 </ScrollView>

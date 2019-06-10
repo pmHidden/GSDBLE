@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble
+package com.pascaldornfeld.gsdble.fragments
 
 import android.graphics.Canvas
 import android.graphics.Color
@@ -15,6 +15,7 @@ import com.androidplot.ui.SeriesBundle
 import com.androidplot.ui.SeriesRenderer
 import com.androidplot.util.PixelUtils
 import com.androidplot.xy.*
+import com.pascaldornfeld.gsdble.R
 import java.text.FieldPosition
 import java.text.Format
 import java.text.ParsePosition

@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble
+package com.pascaldornfeld.gsdble.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,8 @@ import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.pascaldornfeld.gsdble.R
+import com.pascaldornfeld.gsdble.models.ImuOdr
 
 
 abstract class ConfigFragment<DataType> : Fragment() {

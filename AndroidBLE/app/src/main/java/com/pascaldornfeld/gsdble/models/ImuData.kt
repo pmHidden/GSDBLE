@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble
+package com.pascaldornfeld.gsdble.models
 
 import kotlin.experimental.or
 
@@ -15,6 +15,7 @@ data class ImuData (
         const val MIN_TIME = 0
         val MAX_TIME = Int.MAX_VALUE
 
+        @Suppress("EXPERIMENTAL_API_USAGE")
         fun fromByteArray(byteArray: ByteArray): ImuData {
             assert(byteArray.size == 16)
             val uByteArray = byteArray.asUByteArray()

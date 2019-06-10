@@ -7,6 +7,12 @@ import android.util.Log
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
+import com.pascaldornfeld.gsdble.fragments.DataRateGraphFragment
+import com.pascaldornfeld.gsdble.fragments.OdrFragment
+import com.pascaldornfeld.gsdble.fragments.SensorGraphFragment
+import com.pascaldornfeld.gsdble.fragments.TimeGraphFragment
+import com.pascaldornfeld.gsdble.models.ImuConfig
+import com.pascaldornfeld.gsdble.models.ImuData
 import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
