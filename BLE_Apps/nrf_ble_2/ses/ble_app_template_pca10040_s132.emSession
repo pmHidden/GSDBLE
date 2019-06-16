@@ -60,11 +60,9 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="561" useTextEdit="1" useBinaryEdit="0" left="0" path="../main.c" selected="0" top="527" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="522" useTextEdit="1" useBinaryEdit="0" left="0" path="C:/nrf52/sdk/components/softdevice/s132/headers/ble_gap.h" selected="0" top="506" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="561" useTextEdit="1" useBinaryEdit="0" left="0" path="../main.c" selected="1" top="545" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="2" useTextEdit="1" useBinaryEdit="0" left="0" path="../imu_lsm.c" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="30" useTextEdit="1" useBinaryEdit="0" left="0" path="../imu.h" selected="1" top="15" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="41" useTextEdit="1" useBinaryEdit="0" left="0" path="../lsm_get_data_fifo.c" selected="0" top="36" codecName="Default"/>
  </Files>
- <ARMCrossStudioWindow activeProject="ble_app_template_pca10040_s132" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" debugSearchFileMap="C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 4.12/source/thumb_crt0.s&#xa;&#xa;C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 4.16/source/thumb_crt0.s&#xa;" fileDialogInitialDirectory="C:/Users/r2d2r/Desktop/bachelorarbeit/BLE_Apps/nrf_ble_2" debugSearchPath="" autoConnectCapabilities="3199"/>
+ <ARMCrossStudioWindow activeProject="ble_app_template_pca10040_s132" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 4.12/source/thumb_crt0.s&#xa;&#xa;C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 4.16/source/thumb_crt0.s&#xa;" fileDialogInitialDirectory="C:/Users/r2d2r/Desktop/bachelorarbeit/BLE_Apps/nrf_ble_2" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>

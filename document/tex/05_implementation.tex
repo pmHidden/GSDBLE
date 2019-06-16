@@ -34,6 +34,9 @@ notizen:
 
 beim loggen mit rtt gehen gerne pakete verloren. als lösung uart nutzen und mit putty den log lesen.
 
+problem: das debug terminal zeigt den log unsichtbar an.
+lösung: nutze ses v4.12: \url{https://devzone.nordicsemi.com/f/nordic-q-a/45985/nrf_log-not-working-on-segger-embedded-studio}
+
 problem: entgegen dem datenblatt nimmt die funktion 'lsm6dsl\textunderscore fifo\textunderscore raw\textunderscore data\textunderscore get' eine 8-bit länge, womit nicht die 4kb der fifo direkt gelesen werden können.
 lösung:
 die implementierung der funktion ruft nur die funktion 'lsm6dsl\textunderscore read\textunderscore reg' auf, welche eine 16-bit länge nimmt. deswegen kann man hier einfach 'lsm6dsl\textunderscore read\textunderscore reg' mit 16-bit nutzen.
