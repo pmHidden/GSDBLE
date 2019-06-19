@@ -28,7 +28,6 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
-#include "bmi160.h"
 #include "my_service.h"
 
 #define DEVICE_NAME "GSDBLE"

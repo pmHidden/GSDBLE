@@ -31,6 +31,12 @@ typedef struct {
   uint32_t time; // msb not used, so unsigned value = signed value. 1 timestep = 6,4 ms
 } imu_data_t;
 
+struct configuration_s {
+  imu_speed_t speed;
+  uint16_t buffer_clear_interval;
+  bool is_pause;
+};
+
 /** 
 init imu and all protocols. 
 
