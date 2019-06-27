@@ -40,12 +40,14 @@ class Manager<E : BleManagerCallbacks>(
         object : BleManagerGattCallback() {
             private val callbackNewData by lazy {
                 DataReceivedCallback { _, data ->
+                    // TODO use data.getXXValue
                     data.value?.let { ImuData.fromByteArray(it) }
                         ?.let { callbacksData.newDataCallback.onNewData(it) }
                 }
             }
             private val callbackNewConfig by lazy {
                 DataReceivedCallback { _, data ->
+                    // TODO use data.getXXValue
                     data.value?.let { ImuConfig.fromByteArray(it) }
                         ?.let { callbacksConfig.newDataCallback.onNewData(it) }
                 }

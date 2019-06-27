@@ -11,7 +11,7 @@
 #include <string.h>
 
 my_service_t *my_service_cus;
-#define TX_BUFFER 0xFFFF // the estimated buffer size
+#define TX_BUFFER 330u // the estimated buffer size
 
 static bool send_my_data(imu_data_t data) {
   return chara_data_update(my_service_cus, data) == NRF_SUCCESS;
@@ -93,28 +93,6 @@ static void on_write(my_service_t *p_cus, ble_evt_t const *p_ble_evt) {
     config.parsed.speed = (uint8_t)imu_speed_get();
     chara_conf_update(p_cus, config.parsed);
   }
-  /*
-  // Check if the Custom value CCCD is written to and that the value is the appropriate length, i.e 2 bytes.
-  if ((p_evt_write->handle == p_cus->chara_data_handles.cccd_handle) && (p_evt_write->len == 2)) {
-    if (ble_srv_is_notification_enabled(p_evt_write->data)) {
-      //evt.evt_type = BLE_CUS_EVT_NOTIFICATION_ENABLED;
-      NRF_LOG_INFO("notificated! data");
-    } else {
-      //evt.evt_type = BLE_CUS_EVT_NOTIFICATION_DISABLED;
-      NRF_LOG_INFO("unnotificated! data");
-    }
-  }
-
-  // Check if the Custom value CCCD is written to and that the value is the appropriate length, i.e 2 bytes.
-  if ((p_evt_write->handle == p_cus->chara_conf_handles.cccd_handle) && (p_evt_write->len == 2)) {
-    if (ble_srv_is_notification_enabled(p_evt_write->data)) {
-      //evt.evt_type = BLE_CUS_EVT_NOTIFICATION_ENABLED;
-      NRF_LOG_INFO("notificated! conf");
-    } else {
-      //evt.evt_type = BLE_CUS_EVT_NOTIFICATION_DISABLED;
-      NRF_LOG_INFO("unnotificated! conf");
-    }
-  }*/
 }
 
 /**@brief Function for handling the Disconnect event.

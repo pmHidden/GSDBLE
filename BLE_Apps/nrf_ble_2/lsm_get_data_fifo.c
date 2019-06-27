@@ -6,9 +6,9 @@
 implementation of lsm_get_data.h. uses fifo for data retrieval
 
 hookup on 'steval-mk178v2' -> 'nrf dk52':
-int1 -> P0.31
+int1 -> P0.8
 */
-#define IMU_PIN_INT1 31
+#define IMU_PIN_INT1 8
 
 #define DATAS_PER_PACKET 3u // we have 2 sensor data and time data.
 #define BYTES_PER_DATA 6u   // every data is 6 byte
@@ -37,37 +37,39 @@ void lsm_get_data_init(lsm6dsl_ctx_t *dev_ctx) {
   nrf_drv_gpiote_in_event_enable(IMU_PIN_INT1, true);
 
   // config sensor
+  // enable fifo_threshold_interrupt on int1
   lsm6dsl_int1_route_t intConfig;
   memset(&intConfig, 0, sizeof(lsm6dsl_int1_route_t));
   intConfig.int1_fth = 1;
   LSM_ERROR_CHECK(lsm6dsl_pin_int1_route_set(dev_ctx, intConfig));
   LSM_ERROR_CHECK(lsm6dsl_fifo_write_trigger_set(dev_ctx, LSM6DSL_TRG_XL_GY_DRDY));
 
-  LSM_ERROR_CHECK(lsm6dsl_fifo_mode_set(dev_ctx, LSM6DSL_STREAM_MODE));
-  LSM_ERROR_CHECK(lsm6dsl_fifo_pedo_and_timestamp_batch_set(dev_ctx, PROPERTY_ENABLE));
-  LSM_ERROR_CHECK(lsm6dsl_fifo_xl_batch_set(dev_ctx, LSM6DSL_FIFO_XL_NO_DEC));
-  LSM_ERROR_CHECK(lsm6dsl_fifo_gy_batch_set(dev_ctx, LSM6DSL_FIFO_GY_NO_DEC));
-
+  // enable timestamp count
   lsm6dsl_reg_t timer;
   LSM_ERROR_CHECK(lsm6dsl_read_reg(dev_ctx, LSM6DSL_CTRL10_C, &timer.byte, 1));
   timer.ctrl10_c.timer_en = 0x1;
   LSM_ERROR_CHECK(lsm6dsl_write_reg(dev_ctx, LSM6DSL_CTRL10_C, &timer.byte, 1));
 
-  lsm6dsl_reg_t interrupt_latch;
-  LSM_ERROR_CHECK(lsm6dsl_read_reg(dev_ctx, LSM6DSL_DRDY_PULSE_CFG_G, &interrupt_latch.byte, 1));
-  interrupt_latch.drdy_pulse_cfg_g.drdy_pulsed = PROPERTY_ENABLE;
-  LSM_ERROR_CHECK(lsm6dsl_write_reg(dev_ctx, LSM6DSL_DRDY_PULSE_CFG_G, &interrupt_latch.byte, 1));
-
+  // set timestamp sensitivity
   LSM_ERROR_CHECK(lsm6dsl_timestamp_res_set(dev_ctx, LSM6DSL_LSB_25us)); // we actually get 6,4 ms because of rightshift
 
+  // reset time
   uint8_t resetTime[3];
   memset(resetTime, 0, 3 * sizeof(uint8_t));
   LSM_ERROR_CHECK(lsm6dsl_write_reg(dev_ctx, LSM6DSL_TIMESTAMP0_REG, resetTime, 3));
 
+  // enable packet#4 in fifo
   LSM_ERROR_CHECK(lsm6dsl_fifo_dataset_4_batch_set(dev_ctx, LSM6DSL_FIFO_DS4_NO_DEC));
+
+  // enable fifo data collection
+  LSM_ERROR_CHECK(lsm6dsl_fifo_pedo_and_timestamp_batch_set(dev_ctx, PROPERTY_ENABLE));
+  LSM_ERROR_CHECK(lsm6dsl_fifo_xl_batch_set(dev_ctx, LSM6DSL_FIFO_XL_NO_DEC));
+  LSM_ERROR_CHECK(lsm6dsl_fifo_gy_batch_set(dev_ctx, LSM6DSL_FIFO_GY_NO_DEC));
+  LSM_ERROR_CHECK(lsm6dsl_fifo_mode_set(dev_ctx, LSM6DSL_STREAM_MODE));
 }
 
 void lsm_get_data_stop(lsm6dsl_ctx_t *dev_ctx) {
+  // stop fifo data collection
   LSM_ERROR_CHECK(lsm6dsl_fifo_mode_set(dev_ctx, LSM6DSL_BYPASS_MODE)); // this will clear the fifo
   config_changed = true;
   LSM_ERROR_CHECK(lsm6dsl_fifo_data_rate_set(dev_ctx, LSM6DSL_FIFO_DISABLE));
@@ -76,11 +78,14 @@ void lsm_get_data_stop(lsm6dsl_ctx_t *dev_ctx) {
 }
 
 void lsm_get_data_restart(lsm6dsl_ctx_t *dev_ctx, imu_speed_t speed) {
+  // reset time on sensor
   uint8_t resetTime[3];
   memset(resetTime, 0, 3 * sizeof(uint8_t));
   LSM_ERROR_CHECK(lsm6dsl_write_reg(dev_ctx, LSM6DSL_TIMESTAMP0_REG, resetTime, 3));
+  // reset time prefix
   current_time_prefix = 0u;
   last_time = 0u;
+  // start fifo data collection
   LSM_ERROR_CHECK(lsm6dsl_fifo_xl_batch_set(dev_ctx, LSM6DSL_FIFO_XL_NO_DEC));
   LSM_ERROR_CHECK(lsm6dsl_fifo_gy_batch_set(dev_ctx, LSM6DSL_FIFO_GY_NO_DEC));
   LSM_ERROR_CHECK(lsm6dsl_fifo_data_rate_set(dev_ctx, speed + 2));

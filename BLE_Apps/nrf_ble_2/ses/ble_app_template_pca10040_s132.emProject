@@ -94,14 +94,20 @@
     <folder Name="Application">
       <file file_name="../main.c" />
       <file file_name="../config/sdk_config.h" />
-      <file file_name="../my_service.c" />
-      <file file_name="../chara_conf.c" />
-      <file file_name="../chara_data.c" />
-      <file file_name="../imu_lsm.c" />
-      <file file_name="../lsm_get_data_fifo.c" />
-      <file file_name="../lsm6dsl_reg.c" />
-      <file file_name="../lsm_protocol_spi.c" />
       <file file_name="../config/custom_board.h" />
+      <folder Name="ServiceCharacteristicSensor">
+        <file file_name="../chara_conf.c" />
+        <file file_name="../chara_data.c" />
+        <file file_name="../my_service.c" />
+        <folder Name="Sensor">
+          <file file_name="../imu_lsm.c" />
+          <file file_name="../lsm_get_data_fifo.c" />
+          <file file_name="../lsm_protocol_spi.c" />
+          <file file_name="../lsm6dsl_reg.c" />
+        </folder>
+      </folder>
+      <file file_name="../board_manager.c" />
+      <file file_name="../peer_advertise.c" />
     </folder>
     <folder Name="Board Support">
       <file file_name="C:/nrf52/sdk/components/libraries/bsp/bsp.c" />

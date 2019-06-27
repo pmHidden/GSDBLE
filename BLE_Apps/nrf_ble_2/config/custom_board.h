@@ -10,8 +10,8 @@ extern "C" {
 // definitions for gsdble
 #define LEDS_NUMBER    2
 
-#define LED_1          17
-#define LED_2          18
+#define LED_1          07
+#define LED_2          17
 
 #define LEDS_ACTIVE_STATE 0
 
@@ -24,9 +24,7 @@ extern "C" {
 
 #define BUTTONS_NUMBER 1
 
-#define BUTTON_START   13
 #define BUTTON_1       13
-#define BUTTON_STOP    13
 #define BUTTON_PULL    NRF_GPIO_PIN_PULLUP
 
 #define BUTTONS_ACTIVE_STATE 0

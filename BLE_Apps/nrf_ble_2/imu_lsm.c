@@ -86,4 +86,5 @@ void imu_restart(void) {
 void imu_loop(void) {
   if (!isPause)
     lsm_get_data_loop(&dev_ctx, send_data);
+    else NRF_LOG_INFO("paused");
 }

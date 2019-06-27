@@ -6,21 +6,21 @@
 implementation of lsm_protocol.h. uses spi as protocol
 
 hookup on 'steval-mk178v2' -> 'nrf dk52':
-miso () -> P0.11
-mosi () -> P0.12
-sck (scl) -> P0.14
-cs (cs) -> P0.16
+ sdo -> P0.11 miso
+ sda -> P0.12 mosi
+ scl -> P0.14 sck
+ cs -> P0.16 ss
 */
 #define SPI_INSTANCE 0
 static const nrf_drv_spi_t spi = NRF_DRV_SPI_INSTANCE(SPI_INSTANCE);
 
 void lsm_protocol_init() {
   nrf_drv_spi_config_t spi_config = NRF_DRV_SPI_DEFAULT_CONFIG;
-  spi_config.ss_pin = 16;
   spi_config.miso_pin = 11;
   spi_config.mosi_pin = 12;
   spi_config.sck_pin = 14;
-  spi_config.frequency = NRF_DRV_SPI_FREQ_4M;
+  spi_config.ss_pin = 16;
+  spi_config.frequency = NRF_DRV_SPI_FREQ_8M;
   APP_ERROR_CHECK(nrf_drv_spi_init(&spi, &spi_config, NULL, NULL));
 }
 
