@@ -1,10 +1,10 @@
 %!TEX root = ../tudkom_students__201804_v1.4.tex
 \chapter{Einleitung}
-%This chapter should motivate the thesis, provide a clear description of the problem to be solved, and describe the major contributions of this thesis.
+% This chapter should motivate the thesis, provide a clear description of the problem to be solved, and describe the major contributions of this thesis.
 % 2 pages
 
 \section{Motivation}
-%What is the motivation for doing research in this area?
+% What is the motivation for doing research in this area?
 Die Nachfrage nach Wearables steigt kontinuierlich.
 Abbildung \ref{fig:stat_wearables} zeigt, dass sich der Absatz in den letzten vier Jahren versechsfacht hat.
 Wearables sind Geräte, die am Körper getragen werden, um zum Beispiel mithilfe von Sensoren Daten zu erfassen \cite{definition_wearables}.\\
@@ -20,10 +20,18 @@ In dieser Arbeit hingegen wird ein Wearable entworfen, dass die Position und Rot
 Auf der Analyse dieser Daten aufbauend können dann weiterführende Anwendungsfälle entwickelt werden.
 Folgende sind zum Beispiel interessante Anwendungen:
 \begin{itemize}
-  \item Das Erkennen von falsch ausgeführten Übungen beim Sport oder falscher Haltung beim Sitzen oder Stehen im Alltag. Dadurch können negative gesundheitliche Folgen vermieden werden.
-  \item Eine Lösung für mobiles Motion Capturing zum Erstellen von Animationen in Filmen oder Videospielen. Mit der Anzahl der Wearables kann die Auflösung der Bewegung proportional zum Preis skaliert werden.
-  \item Ein Echtzeitsystem zur Übersetzung von Zeichensprache in gesprochene Sprache zur Kommunikation von stummen Menschen.
-  \item Für die Bewegungserkennung in Videospielen und Virtual Reality. Abbildung \ref{fig:stat_konsolen} zeigt, dass die Nintendo Wii die fünftmeistverkaufteste Konsole ist und damit die Geschichte der Videospielkonsolen prägt. Die Fernbedienung übernimmt bei ihr die gleichen Funktionen wie das hier entwickelte Wearable. Zusätzlich kann man mit dem Nunchuk einen zweiten Bewegungssensor anschließen. Das hier entwickelte Wearable könnte dieses System erweitern und weitere Vorteile bieten, zum Beispiel, dass die Hände beim Spielen frei bleiben. Bei VR-Headset werden neben Fernbedienungen wie bei der Wii auch Kameras zur Ganzkörper-Bewegungserkennung genutzt.
+  \item Das Erkennen von falsch ausgeführten Übungen beim Sport oder falscher Haltung beim Sitzen oder Stehen im Alltag.
+	Dadurch können negative gesundheitliche Folgen vermieden werden.
+  \item Eine Lösung für mobiles Motion Capturing zum Erstellen von Animationen in Filmen oder Videospielen.
+	Mit der Anzahl der Wearables kann die Auflösung der Bewegung proportional zum Preis skaliert werden.
+  \item Ein Echtzeitsystem zur Übersetzung von Gestensprache in gesprochene Sprache zur Kommunikation von stummen Menschen.
+  \item Für die Bewegungserkennung in Videospielen und Virtual Reality.
+	Abbildung \ref{fig:stat_konsolen} zeigt, dass die Nintendo Wii die bisher fünftmeist-verkaufte Konsole ist (Stand: Ende 2018) und damit die Geschichte der Videospielkonsolen prägt.
+	Die Fernbedienung übernimmt dabei vor allem eine Funktion: Das Tracken der Handposition.
+	Zusätzlich kann man mit dem Nunchuk per Kabel einen zweiten Sensor für die andere Hand anschließen.
+	Würde stattdessen eine Konsole mit dem hier entwickelten Wearable entworfen werden, würden die Hände beim Spielen frei bleiben, das Kabel zwischen den Händen wegfallen und es könnten weitere Gliedmaßen getrackt werden.
+	VR-Headsets und die Xbox Kinect nutzen dagegen Kameras zur Ganzkörpergestenerkennung.
+	Diese Lösung ist dagegen nicht mobil einsetzbar und anfällig auf Störeinflüsse wie fehlender Sichtkontakt.
 \end{itemize}
 \begin{figure}[h]
   \centering
@@ -31,13 +39,26 @@ Folgende sind zum Beispiel interessante Anwendungen:
   \caption{Verkaufszahlen der weltweit meistverkauften Spielkonsolen \cite{statistik_konsolen}}
   \label{fig:stat_konsolen}
 \end{figure}
+Das Wearable kann also in vielen Bereichen Anwendung finden. Von Medizin über Kommunikation zur Produktivität und Unterhaltung.
 
-%blabla gesten auf handy erkennen blabla sport blabla auch motion capturing für videos und spiele
+\section{Problemstellung und Beitrag}
+% What is the problem that should be solved with this thesis?
+Folgende Ziele ergeben sich für diese Arbeit:
+\begin{enumerate}
+	\item Um eine gute Mobilität zu gewährleisten, muss das Wearable klein und leicht sein, damit es auch beim Sport praktikabel bleibt.
+	\item Die Datenübertragung muss ausreichend schnell sein um die Datenrate zu übertragen, die für Gestenerkennung nötig ist.
+	\item Die Energiekapazität und der Energieverbrauch müssen verhältnismäßig zueinander abgestimmt sein.
+	Die Batterie soll keinesfalls öfter als einmal pro Tag geladen oder gewechselt werden müssen.
+	\item Die eingesetzten Protokolle sollen weit verbreitet sein, damit möglichst viele Endgeräte von dem Wearable profitieren können und bestenfalls einzelne Komponenten des Wearables einfach durch Neuere ersetzt werden können.
+\end{enumerate}
+Wegen der hohen Mobilität und Verbreitung wurde als Empfänger der Daten ein Smartphone ausgewählt, wobei durch Implementierung der Schnittstelle später auch andere Geräte genutzt werden können.
+Das Smartphone soll die Schnittstelle exemplarisch implementieren und die Daten sowie Statistiken zur Verbindung zur Auswertung anzeigen.
+Das Wearable soll bei Verbindung Sensordaten mit variabler Rate bereitstellen um Datenübertragung und Energieverbrauch bei verschiedenen Konfigurationen auswerten zu können.
 
-\section{Problem Statement and Contribution}
-%What is the problem that should be solved with this thesis?
-blabla welche möglichkeiten blabla welche technik/protokolle ausgewählt blabla
-
-\section{Outline}
-%How is the rest of this thesis structured?
-blabla struktur
+\section{Überblick der Gliederung}
+% How is the rest of this thesis structured?
+Zunächst werden verschiedene Protokolle, Techniken oder Komponententypen verglichen, die für das Wearable wichtig sind.
+Dann werden bestehende Lösungen vorgestellt und geprüft, welche Vor- und Nachteile sie bieten.
+Im Anschluss werden die eingesetzten Komponenten bezeichnet und wie sie miteinander interagieren sollen.
+In der Implementation wird die Beschaltung beschrieben und die Probleme die bei der Implementierung aufgekommen sind benannt.
+Zum Schluss wird das System anhand der genannten Zielen evaluiert und ein Fazit gezogen.
