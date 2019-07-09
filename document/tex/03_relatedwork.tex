@@ -2,3 +2,91 @@
 
 %This chapter should give a comprehensive overview on the related work done by other authors followed by an analysis why the existing related work is not capable of solving the problem described in the introduction.
 % 3-5 pages
+
+\chapter{Aktueller Stand}
+Es existieren bereits einige Lösungen für den Anwendungsfall.
+
+\section{TI CC2650STK}
+Darunter fällt beispielsweise das TI CC2650STK.
+Es besteht aus der CC2650 MCU sowie 10 Sensoren, darunter eine MPU-9250 IMU, die über I2C angeschlossen ist.
+Eine Auflistung der überflüssigen Komponenten, die nicht komplett abgeschaltet werden können, findet sich in Tabelle \ref{tab:cmp_cc2650stk}.
+Eine CR2032 Knopfzelle mit 230 mAh verliert dadurch $\cfrac{365d*24h}{(230mAh/0.00351mA)} \approx 13.4$ \% der Kapazität pro Jahr.
+Die IMU verbraucht 3.4 mA, wenn Gyrosensor bei 1 kHz und Beschleunigungssensor bei 4 kHz laufen \cite{datasheet_mpu9250}.
+Die MCU unterstützt zwar BLE aber kein BT Mesh.
+Das System ist nicht mehr in Europa verfügbar. \cite{site_cc2650stk}
+
+\begin{minipage}{\linewidth}
+	\captionof{table}{Stromverbrauch der ausgeschalteten zusätzlichen Komponenten am TI CC2650STK}
+	\label{tab:cmp_cc2650stk}
+	\begin{tabularx}{\linewidth}{X|X}
+    Sensortyp & Stromverbrauch ausgeschaltet\\
+    \hline
+    Lastschalter & 0.9 $\mu$A \cite{datasheet_tps2291}\\
+    Feuchtigkeitssensor & 0.11 $\mu$A \cite{datasheet_hdc1000}\\
+    Drucksensor & 0.1 $\mu$A \cite{datasheet_bmp280}\\
+    Infrarottemperatursensor & 2 $\mu$A \cite{site_tmp007}\\
+    Lichtsensor & 0.4 $\mu$A \cite{datasheet_opt3001}]\\
+    \hline
+    Gesamt & 3.51 $\mu$A\\
+  \end{tabularx}
+\end{minipage}
+
+\section{aconno ACNSENSA}
+Das aconno ACNSENSA besteht aus einer nRF52832 MCU und 5 Sensoren, darunter eine LSM9DS1 IMU über I2C.
+Eine Auflistung der überflüssigen Komponenten, die nicht komplett abgeschaltet werden können, findet sich in Tabelle \ref{tab:cmp_acnsensa}.
+Eine CR2450 Knopfzelle mit 620 mAh verliert dadurch nur $\cfrac{365d*24h}{(620mAh/0.0014mA)} \approx 2$ \% der Kapazität pro Jahr.
+Der Gyrosensor der IMU verbraucht 4.0 mA bei 952 Hz.
+Weitere 600 $\mu$A sind zusammen angegeben für den Beschleunigungssensor bei 952 Hz und Magnetometer bei 20 Hz, der sich aber ausschalten lässt \cite{datasheet_lsm9ds1}.
+Die MCU unterstützt BT Mesh. \cite{datasheet_acnsensa}\\
+Das System ist nicht gut verfügbar.
+So sind bei bekannten Händler nur 5 Exemplare zu bekommen \cite{site_mouserAcnsensa}.
+Die Produktwebseite sowie die Datenblätter waren während über den Zeitraum dieser Arbeit teilweise nicht zugreifbar und es existieren mehrere Versionen unter dem selben Namen (vgl. Datenblatt und Produktbild bei mouser.de).
+
+\begin{minipage}{\linewidth}
+	\captionof{table}{Stromverbrauch der ausgeschalteten zusätzlichen Komponenten am aconno ACNSENSA}
+	\label{tab:cmp_acnsensa}
+	\begin{tabularx}{\linewidth}{X|X}
+		Sensortyp & Stromverbrauch ausgeschaltet\\
+		\hline
+    Drucksensor & 1 $\mu$A \cite{datasheet_acnsensa}\\
+    Feuchtigkeitssensor & 0.06 $\mu$A \cite{datasheet_acnsensa}\\
+    Lastschalter & 0.34 $\mu$A \cite{datasheet_sip32401a}\\
+    \hline
+    Gesamt & 1.4 $\mu$A\\
+  \end{tabularx}
+\end{minipage}
+
+\section{Arduino Primo Core}
+Der Arduino Primo Core beinhaltet ein nRF52832 MCU und 3 Sensoren, inklusive einer LSM6DS3 IMU über I2C.
+Eine Auflistung der überflüssigen Komponenten, die nicht komplett abgeschaltet werden können, findet sich in Tabelle \ref{tab:cmp_arduino_primo}.
+Eine CR2032 Knopfzelle mit 230 mAh verliert dadurch $\cfrac{365d*24h}{(230mAh/0.0015mA)} \approx 5.7$ \% der Kapazität pro Jahr.
+Die IMU verbraucht bei 1.6 kHz nur 1.25 mA \cite{datasheet_lsm6ds3}.
+Das System kann nicht mehr gekauft werden und ist auf der Produktseite als 'retired' gelistet.\cite{site_primo} \cite{datasheet_primo}
+
+\begin{minipage}{\linewidth}
+	\captionof{table}{Stromverbrauch der ausgeschalteten zusätzlichen Komponenten am Arduino Primo Core}
+	\label{tab:cmp_arduino_primo}
+	\begin{tabularx}{\linewidth}{X|X}
+		Sensortyp & Stromverbrauch ausgeschaltet\\
+		\hline
+    Magnetometer & 1 $\mu$A \cite{datasheet_lis3mdl}\\
+    Feuchtigkeitssensor & 0.5 $\mu$A \cite{datasheet_hts221}\\
+    \hline
+    Gesamt & 1.5 $\mu$A\\
+	\end{tabularx}
+\end{minipage}
+
+\section{Zusammenfassung}
+Mit den existierenden Lösungen wäre es grundsätzlich möglich das Wearable umzusetzen.
+Allerdings gibt es neben der problematischen Verfügbarkeit eine Limitierung auf die gegebene Hardware.
+So verschwenden alle Lösungen Energie und Platz durch Sensoren, die für den benötigten Anwendungsfall nicht nötig sind, auch wenn dies im Falle des aconno ACNSENSA vernachlässigbar ist.
+Hier ist auch zu beachten, dass zusätzlich zu dem Standbyverbrauch der Komponenten auch Leckströme durch Kondensatoren und Verluste durch Pull-Up Widerstände hinzuzufügen sind.
+Alle genannten Lösungen nutzen für die Kommunikation zwischen MCU und IMU das I2C Protokoll, während in einer Arbeit \cite{comparison_i2c_spi} ermittelt wurde, dass I2C einen doppelt so hohen Energieverbrauch wie SPI hat.
+Auch zwischen den IMUs gibt es gravierende Unterschiede im Energieverbrauch.
+So verbraucht die IMU des Arduino Prime Core weniger als ein Drittel der Energie der anderen Beiden und enthält als Einziges keinen Magnetometer.\\
+Ein Magnetometer entspricht einem elektrischen Kompass und bestimmt die Rotation in Ausrichtung zu den Erdpolen.
+In der Arbeit \cite{sensor_fusion} wurde ein Sensorfusionsalgorithmus entwickelt, der die Genauigkeit des Gyrosensors mit den Daten eines Magnetometers verbessert.
+Dies kann in zukünftigen Änderungen integriert werden, falls die Genauigkeit der verwendeten IMU nicht ausreichen sollte.\\
+In dem Projekt \cite{project_chordata} wird ein System zur Bewegungsaufnahme mit einer IMU entwickelt.
+Hierbei werden die Sensoren per Kabel miteinander verbunden.
+Da die Software allerdings open-source ist, könnte darauf aufbauend eine eigene Bewegungserkennungssoftware erstellt werden.

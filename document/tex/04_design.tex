@@ -1,28 +1,52 @@
 %!TEX root = ../tudkom_students__201804_v1.4.tex
-\chapter{Design / Concept}
+\chapter{Design und Planung}
 \label{ch:design}
 %This chapter should describe the design of the own approach on a conceptional level without mentioning the implementation details.
 % 5 pages
 
-\section{Requirements and Assumptions}
-wir brauchen irgendwas zum rechnen, irgendwas mit bluetooth, irgendwelche sensoren, irgendeine stromversorgung, buttons/led oder so für user, programm und sinnvolle schnittstelle auf handy, irgendwas zum befestigen von dem ganzen
+\section{Anforderungen}
+Als Komponenten werden hauptsächlich eine IMU und eine kompatible MCU, die Daten über BLE übertragen kann sowie für zukünftige Tests auch BT Mesh unterstützt, benötigt.
+Die Komponenten sollen ähnliche Anforderungen an die Spannungsversorgung besitzen wie eine Lithiumknopfzelle sie bereitstellen kann, damit kein zusätzlicher Spannungsregler benötigt wird.
+Ferner sollen die in der Einleitung festgelegten Ziele angestrebt werden.
 
-\section{System Overview}
+\section{Hauptkomponenten}
+Die Arbeit hat sich zunächst danach gerichtet Komponenten zu wählen, die es auf fertige Platinen gelötet gibt, da sich QFN-Komponenten händisch nicht löten lassen.\\
+Da sich der Energieverbrauch von MCUs anhand der Datenblätter schlecht vergleichen lässt, wurde betrachtet, welche Komponenten sich oft zusätzlich auf den Platinen befinden aber viel Strom verbrauchen.
+In diesem Blog \cite{site_arduinolp} wurden verschiedene Komponenten von einem Arduino Pro Mini entfernt und deren Auswirkungen auf den Stromverbrauch ermittelt.
+Das Entfernen der LED, die dauerhaft leuchtet um den Betrieb anzuzeigen, hat eine Einsparung von mehr als 15 \% bei aktiver Nutzung bewirkt und mehr als 90 \% im Schlafmodus der Recheneinheit.
+Das Entfernen des Spannungsreglers hat mindestens weitere 9 \% bei Nutzung und 75 \% im Standby eingespart.
+Dieser Blog \cite{site_arduinolp2} beschreibt, dass ein integrierter Programmierer zwar einen einfach zu verwendenden USB Anschluss bietet, aber gleichzeitig die Stromaufnahme verdreifachen kann.
+Während eine LED problemlos zu entfernen ist, wurde auf die anderen beiden Bauteile nach Möglichkeit verzichtet, da ein Entfernen auch die Funktion der Platine einschränken oder die Platine zerstören kann.
 
-\subsection{Bluetooth MCU}
-diesdas wurde angeguckt. hat sich rausgestellt, dass bluetooth und rechner in einem am effizientesten ist. das hier sind weitere Kriterien gewesen. am ende kamen die hier infrage und das hier wurde ausgewählt, weil.
+\subsection{MCU}
+Die Bluetooth SIG, die das Bluetooth Protokoll spezifiziert, hat eine Liste mit geprüften Implementierungen von BT Mesh veröffentlicht \cite{site_qualifiedMesh}.
+Mit dieser Liste wurden die Herstellerseiten nach passenden verfügbaren MCUs durchsucht bis die Wahl auf die nRF52832 MCU gefallen ist.
+Diese war schon in den zwei fertigen Produkten von Arduino und aconno enthalten weswegen von einer hohen Bekanntheit auszugehen ist.\\
+Der nRF52832 hat eine Spannungsanforderung von 1.7 bis 3.6 V, wodurch er sich direkt an einer Knopfzelle betreiben lässt.
+Das schwächere Modell nRF52810 unterstützt BT Mesh nicht.
+Das stärkere Modell nRF52840 hat mehr Speicherplatz und unterstützt weitere Protokolle aber verbraucht dementsprechend mehr Energie. \cite{site_nrfProducts}\\
+Durch den Pinabstand von 2.54 mm, wie er sich auch auf Arduinos vorfindet, ist die Platine von SparkFun sehr einfach zu verwenden.
+Sie enthält eine Power-LED, die sich über JP6 trennen lässt.
+Es existiert ein Spannungsregler, der sich überbrücken lassen müsste.
+Die Platine stellt eine Alternative dar, falls sich mit den kleineren Platinen wegen der Größe nicht mehr arbeiten lassen würde.
+Die Größe dieser Platine ist nicht direkt angegeben, aber wegen des Pinabstands mindestens 15 x 43 mm. \cite{datasheet_nrfSpark}\\
+Der ACN52832 von aconno enthält weder Power-LED noch Spannungsregler sondern nur die nötigsten Komponenten.
+Er hat eine Größe von 20 x 24.8 mm. \cite{datasheet_nrfAcn}\\
+Der BL651 von Laird enthält ebenfalls nur die nötigsten Komponenten und hat eine Größe von 10 x 14 mm \cite{datasheet_nrfLaird}.
+Es existieren noch weitere Platinen vom nRF52832 sodass eine sehr gute Verfügbarkeit gegeben ist.
+Sollte eine Platine nicht mehr erhältlich sein, könnte sie durch eine Andere ersetzt werden, da die Platinen nur die Pins vom nRF52832 besser zugänglich machen und die nötigen Taktgeber, Kondensatoren und Antennen bereitstellen.
+Für den Prototypen wurde zunächst das nRF52 DK von Nordic verwendet, da es auch den externen Programmierer für die Platinen enthält und die Pins ohne zu Löten mit Jumperkabel verbunden werden können.
 
-\subsection{Sensoren}
-gab entweder accelerometer und gyro getrennt, oder alles in einem als imu. am ende das hier ausgesucht, weil.
-
-\subsection{Stromversorgung}
-gibt diese techniken und diese formfaktoren. das hier passt am besten.
-
-\subsection{Android Schnittstelle}
-das hier wäre ganz cool als schnittstelle
-
-\subsection{Befestigung}
-... das kommt später ...
+\subsection{IMU}
+Auf der Suche nach einer passenden IMU haben sich der STMicroelectronics LSM6DSL und Bosch BMI260 als besonders energiesparend hervorgetan.
+Der LSM6DSL läuft mit 1.71 - 3.6 V, verbraucht 0.4 mA im normalen Modus und 0.65 mA im performance Modus \cite{datasheet_lsm6dsl}. Die zugehörige Platine STEVAL-MKI178V2 enthält keine überflüssigen Komponenten.\\
+Der BMI260 läuft mit 1.7 - 3.6 V und verbraucht 0.685 mA
+Der Sensor war zu Beginn der Arbeit angekündigt.
+Da er pinkompatibel zum Vorgänger BMI160 ist, wurde mit Diesem entwickelt.
+Zum Ende der Arbeit sollte er durch den BMI260 getauscht werden, aber leider war er da nicht verfügbar. \cite{site_bmi260}\\
+Der BMI160 läuft auch mit 1.7 - 3.6 V aber verbraucht 0.925 mA \cite{datasheet_bmi160}.
+Das BMI160 Shuttle Board enthält zusätzlich einen BMM150 Magnetometer.
+Dieser hat im Standby einen Verbrauch von 1 $\mu$A, kann aber mechanisch entfernt werden \cite{datasheet_bmm150}.
 
 \section{Summary}
 das ist der plan. am ende haben wir dann das da. lets go
