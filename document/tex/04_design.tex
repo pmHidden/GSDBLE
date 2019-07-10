@@ -23,6 +23,7 @@ Die Bluetooth SIG, die das Bluetooth Protokoll spezifiziert, hat eine Liste mit 
 Mit dieser Liste wurden die Herstellerseiten nach passenden verfügbaren MCUs durchsucht bis die Wahl auf die nRF52832 MCU gefallen ist.
 Diese war schon in den zwei fertigen Produkten von Arduino und aconno enthalten weswegen von einer hohen Bekanntheit auszugehen ist.\\
 Der nRF52832 hat eine Spannungsanforderung von 1.7 bis 3.6 V, wodurch er sich direkt an einer Knopfzelle betreiben lässt.
+Das EasyDMA-Modul enthält einen Buffer um SPI- und I2C-Kommunikation abzuhandeln, während die MCU im Schlafmodus ist.
 Das schwächere Modell nRF52810 unterstützt BT Mesh nicht.
 Das stärkere Modell nRF52840 hat mehr Speicherplatz und unterstützt weitere Protokolle aber verbraucht dementsprechend mehr Energie. \cite{site_nrfProducts}\\
 Durch den Pinabstand von 2.54 mm, wie er sich auch auf Arduinos vorfindet, ist die Platine von SparkFun sehr einfach zu verwenden.
@@ -46,10 +47,50 @@ Da er pinkompatibel zum Vorgänger BMI160 ist, wurde mit Diesem entwickelt.
 Zum Ende der Arbeit sollte er durch den BMI260 getauscht werden, aber leider war er da nicht verfügbar. \cite{site_bmi260}\\
 Der BMI160 läuft auch mit 1.7 - 3.6 V aber verbraucht 0.925 mA \cite{datasheet_bmi160}.
 Das BMI160 Shuttle Board enthält zusätzlich einen BMM150 Magnetometer.
-Dieser hat im Standby einen Verbrauch von 1 $\mu$A, kann aber mechanisch entfernt werden \cite{datasheet_bmm150}.
+Dieser hat im Standby einen Verbrauch von 1 $\mu$A, kann aber mechanisch entfernt werden \cite{datasheet_bmm150}.\\
+Beide IMUs haben einen FIFO-Buffer eingebaut.
+Die gemessenen Daten können in dem Buffer hinterlegt werden, sodass die MCU die Daten in Bursts lesen und länger im Schlafmodus bleiben kann, da ein Wechsel der Energiemodi wiederum Energie kostet.\\
+Mit zwei Interrupt Pins können die IMUs die MCU über bestimmte Events informieren.
+Das DataReady-Event benachrichtigt, wenn der Sensor neue Daten gemessen hat.
+Das FIFO-Watermark- oder FIFO-Threshold-Event wird geworfen, wenn die FIFO über einen eingestellten Prozentsatz gefüllt ist.
+Das FIFO-Full-Event zeigt an, dass die FIFO komplett gefüllt ist.
+Für spezielle Anwendungen unterstützen beide IMUs weitere Events, wie das Significant-Motion-Event um ein Aufheben des Sensors durch einen Nutzer zu melden.
 
 \section{Zusammenwirken der Komponenten}
+Während SPI 4 Datenverbindungen braucht, braucht I2C 2 Datenverbindungen.
+Da die Pins in der Software der MCU zugewiesen werden, kann für SPI verkabelt und die selbe Verdrahtung auch für I2C genutzt werden.
+Abbildung \ref{fig:abstract_schema} stellt die Verbindungen graphisch dar.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{res/schemaAbstrakt.jpg}
+	\caption{}
+	\label{fig:abstract_schema}
+\end{figure}\\
+Wenn das Wearable nicht mit einem Endgerät verbunden ist, soll es in den Schlafmodus wechseln.
+Über einen Knopf soll es aufgeweckt werden und mit dem Advertisen beginnen.
+Mit Diesem soll das Advertisen auch wieder abgebrochen werden und das Wearable in den Schlafmodus versetzt werden können.
+Wenn das Wearable mit einem Endgerät verbunden ist, soll es sich trennen lassen, indem der Knopf über einige Sekunden gedrückt gehalten wurde, damit es sich nicht versehentlich trennt.\\
+Um dem Nutzer ein Feedback über den Status zu geben, soll eine LED verwendet werden.
+Diese soll beim Advertisen in regelmäßigen Abständen blinken, sodass sich der Stromverbrauch nicht wie bei einer immer angeschalteten Power-LED auswirkt.
+Wenn eine Verbindung hergestellt wurde, soll eine zweite LED zu Beginn der Verbindung aufblinken.
+Wenn während einer Verbindung kurz auf den Knopf gedrückt wird, soll die zweite LED kurz aufleuchten.
 
 \section{BLE Schnittstelle}
+In einer Characteristic sollen die 3 Achsen des Beschleunigungssensors, die 3 Achsen des Gyrosensors und der Zeitstempel hinterlegt werden.
+Damit soll sich der Bewegungsablauf des Sensors zeitlich korrekt rekonstruieren lassen, da BLE die Daten in Burst mit Zeitabständen vom Connection-Interval übergibt und die Daten in Burst von der FIFO abgerufen werden können.
+Um die MCU möglichst selten aus dem Schlafmodus zu holen, soll die FIFO der IMU in den Buffer der EasyDMA geleert werden, sobald sie komplett gefüllt ist.
+Zusätzlich soll umgefüllt werden, wenn die MCU durch andere Interrupts die z.B. durch den BLE-Stack aufgeweckt wird.
+Der Wert der Characteristic soll von der MCU nur gelesen werden können, aber es soll das Notify-Bit gesetzt werden können.\\
+Mit einer zweiten Characteristic soll sich die Abfragerate der IMU einstellen lassen.
+Da die Sensorabfragerate damit von der Datenübertragungsrate unabhängig ist, lässt sich die Energieaufnahme getrennt evaluieren.
+Während eine niedrige Sensorabfragerate mit einer hohen Datenübertragungsrate sehr geringe Latenzen der Sensordaten ermöglicht, sind hohe Sensorabfrageraten mit niedrigen Datenübertragungsraten bei weniger zeitkritischen Anwendungen zur intensiven Auswertung interessant.
+Damit die Verbindung aufrecht erhalten werden aber die Datenerfassung pausiert werden kann, soll die IMU über die Characteristic auch kurzzeitig ausgeschaltet werden können.
+Die zweite Characteristic soll von der MCU gelesen und geschrieben werden können.
 
-\section{Android}
+\section{Applikation des Android Smartphones}
+Beim Start der App soll nach den Wearables gesucht und zu den Wearables verbunden werden.
+Bei einer Verbindung soll das Notify-Bit der ersten Characteristic gesetzt werden, damit neue Sensordaten beim Smartphone ankommen.
+Es ist nicht Ziel der Arbeit eine komplette Gestenerkennung zu implementieren.
+Um Einschätzen zu können, ob die empfangenen Daten korrekt erfasst werden und ankommen, sollen deshalb die Sensordaten und Statistiken zur Verbindung graphisch dargestellt werden.
+Da es im Android SDK keine einfache Möglichkeit dazu gibt, wurde die Bibliothek Androidplot\footnote{\url{http://androidplot.com/}, abgerufen am 10.07.2019} genutzt.
+Der Wert der zweiten Characteristic soll gesetzt und die Verbindungsdatenrate geändert werden können.
