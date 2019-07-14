@@ -17,7 +17,7 @@ Im Bereich der kleinen Bauteile werden zwei Techniken dafür eingesetzt.\\
 Beim kapazitiven Sensor, der in Abbildung \ref{fig:pic_accel_kapa} illustriert ist, wird eine Masse senkrecht-federnd parallel zu einer Platte befestigt, mit der sie einen Kondensator bildet.
 Bei einer Beschleunigung bewegt sich die Masse zur Platte hin oder davon weg und die Kapazität des Kondensators ändert sich.
 Durch diese Änderung lässt sich dann der Wert für die Beschleunigung berechnen. \cite{site_mems}
-\begin{figure}[h]
+\begin{figure}[hbtp]
 	\centering
 	\includegraphics[width=0.33\linewidth]{res/kinAccel.jpg}
 	\caption{Funktionsweise eines kapazitiven Beschleunigungssensors. Basierend auf \cite{site_sensorbild}}
@@ -25,12 +25,12 @@ Durch diese Änderung lässt sich dann der Wert für die Beschleunigung berechne
 \end{figure}\\
 Beim piezoresistiven Sensor, der in Abbildung \ref{fig:pic_accel_pie} dargestellt ist, wird ein Stoff mit piezoresistivem Effekt genutzt, der bei Dehnung seinen Widerstand ändert.
 Eine Masse wird an diesen piezoresistiven Stoff befestigt und durch die Beschleunigung wird der Stoff gedehnt, wodurch durch die Änderung des Widerstands die Beschleunigung berechnet werden kann. \cite{site_dms}
-\begin{figure}[h]
+\begin{figure}[hbtp]
 	\centering
 	\includegraphics[width=0.25\linewidth]{res/prAccel.jpg}
 	\caption{Funktionsweise eines piezoresistiven Beschleunigungssensors. Basierend auf \cite{site_sensorbild}}
 	\label{fig:pic_accel_pie}
-\end{figure}\\
+\end{figure}
 
 \subsection{Gyrosensor}
 Mit einem Gyrosensor, zu sehen in Abbildung \ref{fig:pic_gyro}, wird die Drehung gemessen.
@@ -40,7 +40,7 @@ Bei einer Drehung bewegen sich die Massen durch den Coriolis Effekt.
 Durch die Subtraktion der beiden Kapazitäten kann man dann die Drehgeschwindigkeit berechnen.
 Da die Schwingung gegensätzlich ist, bewegen sich die Massen durch den Coriolis Effekt bei einer Drehung in entgegengesetzte Richtungen und die Differenz der Kapazitäten ändert sich.
 Bei einer geraden Beschleunigung bewegen sich beide Massen in die selbe Richtung und die Differenz der Kapazitäten ändert sich nicht. \cite{gyrosensor}
-\begin{figure}[h]
+\begin{figure}[hbtp]
 	\centering
 	\includegraphics[width=0.65\linewidth]{res/gyro.jpg}
 	\caption{Funktionsweise eines Gyrosensors}
@@ -126,7 +126,7 @@ Die mittleren beiden Ziffern geben jeweils den Durchmesser und die hinteren beid
 Da sich dementsprechend die Kapazität verändert, sind in der Tabelle \ref{tab:knopfzellen} die Kapazitäten von stellvertretenden Modellen gelistet.
 Alle Modelle haben eine Nennspannung von 3 V und gelten unter 2 V als entladen.
 Durch ihre Selbstentladung von < 1 \% pro Jahr, sind sie lange haltbar. \cite{datasheet_ds6450}
-\begin{table}[h]
+\begin{table}[hbtp]
 	\captionof{table}{Typische Kapazität von Knopfzellen verschiedener Größen}
 	\label{tab:knopfzellen}
 	\centering

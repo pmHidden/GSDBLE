@@ -32,7 +32,8 @@
 
 #define APP_BLE_CONN_CFG_TAG 1 /**< A tag identifying the SoftDevice BLE configuration. */
 
-#define TX_QUEUE_SIZE 17
+#define TX_QUEUE_SIZE 0
+//#define APP_TIMER_MAX_TIMERS = 10
 
 #define FIRST_CONN_PARAMS_UPDATE_DELAY APP_TIMER_TICKS(5000) /**< Time from initiating event (connect or start of notification) to first time sd_ble_gap_conn_param_update is called (5 seconds). */
 #define NEXT_CONN_PARAMS_UPDATE_DELAY APP_TIMER_TICKS(30000) /**< Time between each call to sd_ble_gap_conn_param_update after the first call (30 seconds). */
@@ -46,23 +47,9 @@ BLE_ADVERTISING_DEF(m_advertising); /**< Advertising module instance. */
 
 static uint16_t m_conn_handle = BLE_CONN_HANDLE_INVALID; /**< Handle of the current connection. */
 
-/* YOUR_JOB: Declare all services structure your application is using
- *  BLE_XYZ_DEF(m_xyz);
- */
 MY_SERVICE_DEF(m_myservice);
-
 bool errorLedOnceDone = false;
-/**@brief Callback function for asserts in the SoftDevice.
- *
- * @details This function will be called in case of an assert in the SoftDevice.
- *
- * @warning This handler is an example only and does not fit a final product. You need to analyze
- *          how your product is supposed to react in case of Assert.
- * @warning On assert from the SoftDevice, the system can only recover on reset.
- *
- * @param[in] line_num   Line number of the failing ASSERT call.
- * @param[in] file_name  File name of the failing ASSERT call.
- */
+
 void assert_nrf_callback(uint16_t line_num, const uint8_t *p_file_name) {
   app_error_handler(DEAD_BEEF, line_num, p_file_name);
 }
@@ -73,26 +60,6 @@ void app_error_fault_handler(uint32_t id, uint32_t pc, uint32_t info) {
     errorLedOnceDone = true;
   }
   app_error_save_and_stop(id, pc, info);
-}
-
-/**@brief Function for the Timer initialization.
- *
- * @details Initializes the timer module. This creates and starts application timers.
- */
-static void timers_init(void) {
-  // Initialize timer module.
-  ret_code_t err_code = app_timer_init();
-  APP_ERROR_CHECK(err_code);
-
-  // Create timers.
-
-  /* YOUR_JOB: Create any timers to be used by the application.
-                 Below is an example of how to create a timer.
-                 For every new timer needed, increase the value of the macro APP_TIMER_MAX_TIMERS by
-                 one.
-       ret_code_t err_code;
-       err_code = app_timer_create(&m_app_timer_id, APP_TIMER_MODE_REPEATED, timer_timeout_handler);
-       APP_ERROR_CHECK(err_code); */
 }
 
 /**@brief Function for the GAP initialization.
@@ -112,10 +79,6 @@ static void gap_params_init(void) {
       strlen(DEVICE_NAME));
   APP_ERROR_CHECK(err_code);
 
-  /* YOUR_JOB: Use an appearance value matching the application's use case.
-       err_code = sd_ble_gap_appearance_set(BLE_APPEARANCE_);
-       APP_ERROR_CHECK(err_code); */
-
   memset(&gap_conn_params, 0, sizeof(gap_conn_params));
 
   // slave_latency 4 would be best, but it can be maximum 2, because of this constraint:
@@ -131,13 +94,6 @@ static void gap_params_init(void) {
   APP_ERROR_CHECK(err_code);
 }
 
-/**@brief Function for initializing the GATT module.
- */
-static void gatt_init(void) {
-  ret_code_t err_code = nrf_ble_gatt_init(&m_gatt, NULL);
-  APP_ERROR_CHECK(err_code);
-}
-
 /**@brief Function for handling Queued Write Module errors.
  *
  * @details A pointer to this function will be passed to each service which may need to inform the
@@ -148,32 +104,6 @@ static void gatt_init(void) {
 static void nrf_qwr_error_handler(uint32_t nrf_error) {
   APP_ERROR_HANDLER(nrf_error);
 }
-
-/**@brief Function for handling the YYY Service events.
- * YOUR_JOB implement a service handler function depending on the event the service you are using can generate
- *
- * @details This function will be called for all YY Service events which are passed to
- *          the application.
- *
- * @param[in]   p_yy_service   YY Service structure.
- * @param[in]   p_evt          Event received from the YY Service.
- *
- *
-static void on_yys_evt(ble_yy_service_t     * p_yy_service,
-                       ble_yy_service_evt_t * p_evt)
-{
-    switch (p_evt->evt_type)
-    {
-        case BLE_YY_NAME_EVT_WRITE:
-            APPL_LOG("[APPL]: charact written with value %s. ", p_evt->params.char_xx.value.p_str);
-            break;
-
-        default:
-            // No implementation needed.
-            break;
-    }
-}
-*/
 
 /**@brief Function for initializing services that will be used by the application.
  */
@@ -218,7 +148,6 @@ static void on_conn_params_evt(ble_conn_params_evt_t *p_evt) {
  * @param[in] nrf_error  Error code containing information about what went wrong.
  */
 static void conn_params_error_handler(uint32_t nrf_error) {
-  NRF_LOG_INFO("conn_params_error_handler");
   APP_ERROR_HANDLER(nrf_error);
 }
 
@@ -241,15 +170,6 @@ static void conn_params_init(void) {
 
   err_code = ble_conn_params_init(&cp_init);
   APP_ERROR_CHECK(err_code);
-}
-
-/**@brief Function for starting timers.
- */
-static void application_timers_start(void) {
-  /* YOUR_JOB: Start your timers. below is an example of how to start a timer.
-       ret_code_t err_code;
-       err_code = app_timer_start(m_app_timer_id, TIMER_INTERVAL, NULL);
-       APP_ERROR_CHECK(err_code); */
 }
 
 /**@brief Function for putting the chip into sleep mode.
@@ -361,22 +281,6 @@ static void ble_stack_init(void) {
   NRF_SDH_BLE_OBSERVER(m_ble_observer, 3, ble_evt_handler, NULL);
 }
 
-/**@brief Function for initializing the nrf log module.
- */
-static void log_init(void) {
-  ret_code_t err_code = NRF_LOG_INIT(NULL);
-  APP_ERROR_CHECK(err_code);
-  NRF_LOG_DEFAULT_BACKENDS_INIT();
-}
-
-/**@brief Function for initializing power management.
- */
-static void power_management_init(void) {
-  ret_code_t err_code;
-  err_code = nrf_pwr_mgmt_init();
-  APP_ERROR_CHECK(err_code);
-}
-
 static uint16_t getConnHandle() {
   return m_conn_handle;
 }
@@ -384,14 +288,26 @@ static uint16_t getConnHandle() {
 /**@brief Function for application main entry.
  */
 int main(void) {
-  // Initialize.
-  log_init();
-  timers_init();
+  ret_code_t err_code;
+// log
+  err_code = NRF_LOG_INIT(NULL);
+  APP_ERROR_CHECK(err_code);
+  NRF_LOG_DEFAULT_BACKENDS_INIT();
+// timer
+  err_code = app_timer_init();
+  APP_ERROR_CHECK(err_code);
+
   bsp_module_init(sleep_mode_enter, getConnHandle);
-  power_management_init();
+// power management
+  err_code = nrf_pwr_mgmt_init();
+  APP_ERROR_CHECK(err_code);
+
   ble_stack_init();
   gap_params_init();
-  gatt_init();
+//  gatt
+  err_code = nrf_ble_gatt_init(&m_gatt, NULL);
+  APP_ERROR_CHECK(err_code);
+
   services_init();
 
   advertising_init(&m_advertising, APP_BLE_CONN_CFG_TAG, bsp_ind_adv, sleep_mode_enter);
@@ -399,7 +315,6 @@ int main(void) {
   peer_manager_init();
   // Start execution.
   NRF_LOG_INFO("Template example started.");
-  application_timers_start();
 
   advertising_start();
 

@@ -3,6 +3,7 @@ package com.pascaldornfeld.gsdble.fragments
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,8 +79,15 @@ abstract class GraphFragment<DataType> : Fragment() {
         internalData.add(Pair(p_time, p_data))
         if (internalData.first().first > p_time) internalData.clear() // in case of overflow
 
-        while(internalData.isNotEmpty() && internalData.first().first + timestepsToShow < p_time) internalData.removeAt(0)
-       // else if (internalData.size > maxDataNumber)
+        while (internalData.isNotEmpty() && internalData.first().first + timestepsToShow < p_time) {
+            if (this is TimeGraphFragment)
+                Log.w(
+                    "GraphFragment",
+                    "${internalData[internalData.lastIndex - 1]} ${internalData[internalData.lastIndex]}"
+                )
+            internalData.removeAt(0)
+        }
+        // else if (internalData.size > maxDataNumber)
 
         if (canUpdate.compareAndSet(true, false)) {
             data = internalData.toList()

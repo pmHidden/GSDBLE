@@ -24,7 +24,10 @@
   <ProjectSessionItem path="ble_app_template_pca10040_s132;ble_app_template_pca10040_s132;Application"/>
   <ProjectSessionItem path="ble_app_template_pca10040_s132;ble_app_template_pca10040_s132;Application;ServiceCharacteristicSensor"/>
   <ProjectSessionItem path="ble_app_template_pca10040_s132;ble_app_template_pca10040_s132;Application;ServiceCharacteristicSensor;Sensor"/>
+  <ProjectSessionItem path="ble_app_template_pca10040_s132;ble_app_template_pca10040_s132;nRF_Drivers"/>
+  <ProjectSessionItem path="ble_app_template_pca10040_s132;ble_app_template_pca10040_s132;nRF_Segger_RTT"/>
   <ProjectSessionItem path="ble_app_template_pca10040_s132;ble_app_template_pca10040_s132;nRF_SoftDevice"/>
+  <ProjectSessionItem path="ble_app_template_pca10040_s132;ble_app_template_pca10040_s132;UTF8/UTF16 converter"/>
  </Project>
  <Register1>
   <RegisterWindow visibleNodes="CPU - Current Context/r0;CPU - Current Context/r1;CPU - Current Context/r2;CPU - Current Context/r3;CPU - Current Context/r4;CPU - Current Context/r5;CPU - Current Context/r6;CPU - Current Context/r7;CPU - Current Context/r8;CPU - Current Context/r9;CPU - Current Context/r10;CPU - Current Context/r11;CPU - Current Context/r12;CPU - Current Context/sp(r13);CPU - Current Context/lr(r14);CPU - Current Context/pc(r15);CPU - Current Context/apsr;SPI0/EVENTS_READY;SPI0/INTENSET;SPI0/INTENCLR;SPI0/ENABLE;SPI0/RXD;SPI0/TXD;SPI0/FREQUENCY;SPI0/CONFIG;SPI0/PSEL.SCK;SPI0/PSEL.MOSI;SPI0/PSEL.MISO;SPIM0/TASKS_START;SPIM0/TASKS_STOP;SPIM0/TASKS_SUSPEND;SPIM0/TASKS_RESUME;SPIM0/EVENTS_STOPPED;SPIM0/EVENTS_ENDRX;SPIM0/EVENTS_END;SPIM0/EVENTS_ENDTX;SPIM0/EVENTS_STARTED;SPIM0/SHORTS;SPIM0/INTENSET;SPIM0/INTENCLR;SPIM0/ENABLE;SPIM0/FREQUENCY;SPIM0/CONFIG;SPIM0/ORC;SPIM0/PSEL.SCK;SPIM0/PSEL.MOSI;SPIM0/PSEL.MISO;SPIM0/RXD.PTR;SPIM0/RXD.MAXCNT;SPIM0/RXD.AMOUNT;SPIM0/RXD.LIST;SPIM0/TXD.PTR;SPIM0/TXD.MAXCNT;SPIM0/TXD.AMOUNT;SPIM0/TXD.LIST" binaryNodes="" asciiNodes="" openNodes="SPI0;SPI0/RXD;SPI0/TXD;SPIM0" name="ble_app_template_pca10040_s132" decimalNodes="SPI0/EVENTS_READY;SPI0/INTENSET;SPI0/INTENCLR;SPI0/TXD;SPI0/TXD/TXD;SPI0/CONFIG;SPI0/PSEL.SCK;SPI0/PSEL.MOSI;SPI0/PSEL.MISO" octalNodes="" unsignedNodes=""/>
@@ -57,11 +60,11 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="96" useTextEdit="1" useBinaryEdit="0" left="0" path="../lsm_get_data_fifo.c" selected="0" top="73" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="39" useTextEdit="1" useBinaryEdit="0" left="0" path="../imu.h" selected="0" top="30" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="11" useTextEdit="1" useBinaryEdit="0" left="0" path="../imu_lsm.c" selected="1" top="42" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="11" useTextEdit="1" useBinaryEdit="0" left="0" path="../lsm_get_data.h" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="53" useTextEdit="1" useBinaryEdit="0" left="0" path="../my_service.c" selected="0" top="45" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="34" useTextEdit="1" useBinaryEdit="0" left="0" path="../lsm_protocol_spi.c" selected="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="7" y="159" useTextEdit="1" useBinaryEdit="0" left="0" path="../lsm_get_data_fifo.c" selected="1" top="141" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" useBinaryEdit="0" left="0" path="../chara_conf.c" selected="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="54" useTextEdit="1" useBinaryEdit="0" left="0" path="../my_service.c" selected="0" top="30" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="82" useTextEdit="1" useBinaryEdit="0" left="0" path="../imu_lsm.c" selected="0" top="0" codecName="Default"/>
  </Files>
  <ARMCrossStudioWindow activeProject="ble_app_template_pca10040_s132" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" debugSearchFileMap="C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 4.12/source/thumb_crt0.s&#xa;&#xa;C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 4.16/source/thumb_crt0.s&#xa;" fileDialogInitialDirectory="C:/Users/r2d2r/Desktop/bachelorarbeit/BLE_Apps/nrf_ble_2" debugSearchPath="" autoConnectCapabilities="3199"/>
 </session>

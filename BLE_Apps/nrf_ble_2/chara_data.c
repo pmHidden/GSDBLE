@@ -61,14 +61,6 @@ uint32_t chara_data_add(my_service_t *p_cus) {
     }
   }
 
-  //  Read  operation on Cccd should be possible without authentication.
-  ble_gatts_attr_md_t cccd_md;
-  {
-    memset(&cccd_md, 0, sizeof(cccd_md));
-    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cccd_md.read_perm);
-    cccd_md.vloc = BLE_GATTS_VLOC_STACK;
-  }
-
   // add our characteristic
   return sd_ble_gatts_characteristic_add(p_cus->service_handle, &char_md, &attr_char_value, &p_cus->chara_data_handles);
 }

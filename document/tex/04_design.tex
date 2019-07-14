@@ -111,13 +111,7 @@ Da die Platinen der IMUs wegen ihrer Größe nicht optimal sind und zukünftige 
 \section{Zusammenwirken der Komponenten}
 Während SPI 4 Datenverbindungen braucht, braucht I2C 2 Datenverbindungen.
 Da die Pins in der Software der MCU zugewiesen werden, kann für SPI verkabelt und die selbe Verdrahtung auch für I2C genutzt werden.
-Abbildung \ref{fig:abstract_schema} stellt die Verbindungen graphisch dar.
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.9\linewidth]{res/schemaAbstrakt.jpg}
-	\caption{Veranschaulichung der Verbindungen der benötigten Komponenten}
-	\label{fig:abstract_schema}
-\end{figure}\\
+Abbildung \ref{fig:abstract_schema} stellt die Verbindungen graphisch dar.\\
 Wenn das Wearable nicht mit einem Endgerät verbunden ist, soll es in den Schlafmodus wechseln.
 Über einen Knopf soll es aufgeweckt werden und mit dem Advertisen beginnen.
 Mit dem Knopf soll das Advertisen auch wieder abgebrochen werden und das Wearable in den Schlafmodus versetzt werden können.
@@ -126,6 +120,12 @@ Um dem Nutzer ein Feedback über den Status zu geben, soll eine LED verwendet we
 Die LED soll beim Advertisen in regelmäßigen Abständen blinken, sodass sich der Stromverbrauch nicht wie bei einer immer angeschalteten Power-LED auswirkt.
 Wenn eine Verbindung hergestellt wurde, soll eine zweite LED zu Beginn der Verbindung aufblinken.
 Wenn während einer Verbindung kurz auf den Knopf gedrückt wird, soll die zweite LED kurz aufleuchten.
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[width=0.9\linewidth]{res/schemaAbstrakt.jpg}
+	\caption{Veranschaulichung der Verbindungen der benötigten Komponenten}
+	\label{fig:abstract_schema}
+\end{figure}
 
 \section{BLE Schnittstelle}
 In einer Characteristic sollen die 3 Achsen des Beschleunigungssensors, die 3 Achsen des Gyrosensors und der Zeitstempel hinterlegt werden.

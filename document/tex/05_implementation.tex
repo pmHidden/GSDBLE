@@ -61,6 +61,20 @@ Die maximale MTU-Größe kann mit dem Configuration Wizard in \texttt{sdk\_confi
 Sowohl eine größere MTU-Größe als auch ein größerer TX-Buffer benötigt zusätzlichen Platz in der BLE-Stack-Section vom RAM.
 Der reservierte Platz im RAM kann eingestellt werden mit der Konstanten \texttt{RAM\_START} unter den \texttt{linker\_section\_placement\_macros} in der SES-Projekt-Datei, zu finden mit der Endung \texttt{.emProject}.
 Wird zu wenig Platz reserviert, startet das Programm nicht.\\\\
+Der Wert, der hinter der Characteristic \texttt{chara\_data.c} steht, besteht aus den Komponenten in Abbildung \ref{lst:imuData}.
+Aus dem Inhalt ergibt sich eine Größe von 16 Byte.
+Das MSb des Zeitstempels wird nicht genutzt, da auf Endgeräten genutzte Hochsprachen oft keine vorzeichenlosen Werte nutzen können.
+Die Einheit ist durch die LSM6DSL IMU vorgegeben.
+Die IMU speichert den Zeitstempel im 6.4 ms Format.
+Es würde Sinn ergeben, dieses Zeitformat auf das schnellste Datenerfassungsintervall von $\frac{1s}{1600Hz} = 0.625 ms$ zu normalisieren, sodass beide Sensoren dieselbe Zeiteinheit liefern können.
+Allerdings ist die Zeiteinheit kein Vielfaches, sodass Rundungsfehler entstehen.
+Der LSM6DSL arbeitet zudem mit 1666 Hz statt den 1600 Hz beim BMI160.
+Hierfür sollte in Zukunft eine bessere Lösung gefunden werden.
+\begin{figure}[hbtp]
+	\lstinputlisting{res/imuData.c}
+	\caption{Inhalt von Characteristic \texttt{chara\_data.c}}
+	\label{lst:imuData}
+\end{figure}\\
 Schickt das Endgerät dem Wearable mit der Characteristic \texttt{chara\_conf.c} eine neue Konfiguration, wird die Konfiguration versucht angewandt zu werden.
 Ändert sich die Konfiguration, wird sie dem Endgerät mit einem Notify mitgeteilt.
 
@@ -74,15 +88,15 @@ Die Implementierungen können unterschiedliche Interrupts nutzen wie FIFO-Full o
 Um die Implementierung auszutauschen muss eine andere \texttt{.c}-Datei gelinkt werden, indem die entsprechende Zeile im \texttt{.emProject}-Projekt geändert wird.\\
 Die IMU soll mithilfe der Callback-Funktion \texttt{bool (*send\_data)(imu\_data\_t)} die gemessenen Werte an die MCU zurück liefern.\\\\
 Beim Testen mit dem Prototypen ist das Problem, das in Abbildung \ref{fig:daten_vorher} veranschaulicht wird, aufgekommen.
-Wenn die Sensordatenrate zu schnell für den TX-Buffer oder dem Connection Interval ist, empfängt das Endgerät die Sensordaten mit wechselnder Verzögerung.
-Wurde der TX-Buffer gerade durch ein Connection Interval geleert, werden alle nächsten Sensordaten in den Buffer eingetragen, bis der Buffer voll ist.
-Danach werden alle Sensordaten bis zum nächsten Connection Interval verworfen.
-\begin{figure}[h]
+\begin{figure}[!hbtp]
 	\centering
-	\includegraphics[width=0.8\linewidth]{res/datenVorher.jpg}
+	\includegraphics[width=0.76\linewidth]{res/datenVorher.jpg}
 	\caption{Darstellung des Datenstaus. CI = Connection Interval}
 	\label{fig:daten_vorher}
-\end{figure}\\
+\end{figure}
+Wenn die Sensordatenrate zu schnell für den TX-Buffer oder dem Connection Interval ist, empfängt das Endgerät die Sensordaten mit wechselnder Verzögerung.
+Wurde der TX-Buffer gerade durch ein Connection Interval geleert, werden alle nächsten Sensordaten in den Buffer eingetragen, bis der Buffer voll ist.
+Danach werden alle Sensordaten bis zum nächsten Connection Interval verworfen.\\
 Prinzipiell kann das Problem gelöst werden, indem der Connection Interval verkleinert, der TX-Buffer vergrößert oder die Datenmenge verkleinert wird.
 Da die Größe vom TX-Buffer nach der Initialisierung nicht geändert werden kann und von der veränderlichen Durchsatzrate beschränkt ist, reicht es nicht unbedingt alleine aus, diesen Parameter zu variieren.
 Der Connection Interval wird vom Endgerät bestimmt.
@@ -93,41 +107,41 @@ Um die Datenmenge zu reduzieren kann der Sensor langsamer gestellt oder absichtl
 Während das Zweite eine feinere Einstellung ermöglicht, ist das Erste energiesparender.\\
 Deswegen wird ein Algorithmus eingesetzt, der die Geschwindigkeit vom Sensor herabsetzt, wenn ein neuer Connection Interval vorliegt oder der Nutzer eine neue Geschwindigkeit setzen möchte.
 Das Ergebnis soll dem in Abbildung \ref{fig:daten_nachher} veranschaulichte Verhalten nachkommen.
-\begin{figure}[h]
+\begin{figure}[!hbtp]
 	\centering
-	\includegraphics[width=0.8\linewidth]{res/datenNachher.jpg}
+	\includegraphics[width=0.76\linewidth]{res/datenNachher.jpg}
 	\caption{Lösung des Datenstaus}
 	\label{fig:daten_nachher}
-\end{figure}\\
+\end{figure}
 Der Rückgabewert der Callback-Funktion \texttt{bool (*send\_data)(imu\_data\_t)} gibt an, ob die Daten in den TX-Buffer eingefügt werden konnten oder der Buffer schon voll ist.
 Der Parameter \texttt{uint16\_t buffer\_size} der Funktion \texttt{imu\_init} entspricht der eingestellten Größe des TX-Buffers.
 Die Funktion \texttt{void imu\_on\_new\_interval(\allowbreak{}uint16\_t buffer\_clear\_interval)} wird aufgerufen, wenn die Geschwindigkeit der BLE-Verbindung sich geändert hat.
 Der Parameter \texttt{buffer\_clear\_interval} ist dabei der Connection Interval.
 Die Geschwindigkeit wird gespeichert und in den weiteren Aufrufen von der Funktion \texttt{void imu\_speed\_set(\allowbreak{}imu\_speed\_t speed)} verwendet.\\
-Der Algorithmus wird am Beispiel der LSM6DSL IMU mit FIFO-Threshold Interrupt (\texttt{lsm\_get\_data\_fifo.c}) beschrieben.
+Der Algorithmus wird am Beispiel der LSM6DSL IMU mit FIFO-Threshold Interrupt beschrieben (\texttt{lsm\_get\_data\_fifo.c}).
 Zunächst werden in Abbildung \ref{lst:algoPre} die Konstanten für den Sensor berechnet.
-\begin{figure}[h!]
-\lstinputlisting{res/algoPre.c}
+\begin{figure}[hbtp]
+	\lstinputlisting{res/algoPre.c}
 	\caption{Vorbereitung des Algorithmus}
 	\label{lst:algoPre}
-\end{figure}\\
+\end{figure}
 Die Geschwindigkeit wird in Abbildung \ref{lst:algo} berechnet.
+\begin{figure}[hbtp]
+	\lstinputlisting{res/algo.c}
+	\caption{Berechnung der Geschwindigkeit}
+	\label{lst:algo}
+\end{figure}
 Dabei wird mit jeder Iteration berechnet, ob der Sensor in einem Connection Interval mehr Daten erfasst, als in den Buffer passen.
 Falls es zu viele sind, wird die Geschwindigkeit herunter gesetzt, wenn sie nicht auf dem kleinsten möglichen Wert ist.
 Zum Schluss wird die Geschwindigkeit wieder um einen Schritt erhöht.
 Da ein Schritt eine Halbierung oder Verdopplung der Datenrate bedeutet und damit die Lösung nicht den perfekten Punkt für die Datenrate treffen kann, wird dem Programm des Endgeräts freigestellt, ob es die Datenrate nochmals halbieren wird.
 Durch die Variable \texttt{bool didGoLowerOnceAndNowOk} wird sichergestellt, dass die Datenrate nicht höher als vom Endgerät eingestellt wird und, dass der Algorithmus am Ende nicht von der langsamsten Geschwindigkeit erhöht, falls die langsamste Einstellung immer noch zu schnell ist.
-\begin{figure}[h!]
-\lstinputlisting{res/algo.c}
-	\caption{Berechnung der Geschwindigkeit}
-	\label{lst:algo}
-\end{figure}\\
 Falls die Sensordatenrate sehr langsam im Vergleich zum Connection Interval ist, soll nicht gewartet werden, bis die FIFO mit 227 Paketen voll ist.
 Dann würden einige Connection Intervals gar keine und dann 227 Pakete in Einem geschickt werden.
 Deswegen wird der FIFO-Threshold wie in Abbildung \ref{lst:algoPost} eingestellt.
 Damit soll die FIFO mindestens ein Mal pro Connection Interval ausgelesen werden.
-\begin{figure}[h!]
-\lstinputlisting{res/algoPost.c}
+\begin{figure}[hbtp]
+	\lstinputlisting{res/algoPost.c}
 	\caption{Berechnung des Thresholds}
 	\label{lst:algoPost}
 \end{figure}\\
@@ -136,14 +150,14 @@ Der Treiber der LSM6DSL IMU stellt die Funktion \texttt{lsm6dsl\_fifo\_raw\_data
 Da die FIFO eine Größe von 4096 Byte hat, lässt sie sich mit der Funktion wegen dem Parameter \texttt{uint8\_t len} nicht komplett auslesen.
 Das ergibt wenig Sinn und auch das Datenblatt begründet die Einschränkung nicht.
 Schaut man in die Implementierung in Abbildung \ref{lst:fifoRead}, stellt man fest, dass sie nur eine weitere Funktion aufruft.
-\begin{figure}[h!]
-\lstinputlisting{res/fifoRead.c}
+Der vierte Parameter der Funktion \texttt{lsm6dsl\_read\_reg} ist vom Typ \texttt{uint16\_t}.
+Somit lässt sich die allgemeinere Funktion stattdessen nutzen, um die komplette FIFO auszulesen.
+Es ist davon auszugehen, dass es sich um einen Fehler im Treiber handelt.
+\begin{figure}[hbtp]
+	\lstinputlisting{res/fifoRead.c}
 	\caption{Auslesen der FIFO}
 	\label{lst:fifoRead}
 \end{figure}\\
-Der vierte Parameter der Funktion \texttt{lsm6dsl\_read\_reg} ist vom Typ \texttt{uint16\_t}.
-Somit lässt sich die allgemeinere Funktion stattdessen nutzen, um die komplette FIFO auszulesen.
-Es ist davon auszugehen, dass es sich um einen Fehler im Treiber handelt.\\\\
 Unabhängig vom vorherigen Problem gibt es ein Ähnliches bei der Nutzung von EasyDMA (vgl. Abschnitt \ref{ch:mcu}).
 Für eine einfache Transaktion von SPI oder I2C ist der Buffer durch die Größe vom 8 Bit Register \texttt{MAXCNT} begrenzt (siehe Abschnitt 10, 31 und 33 in \cite{datasheet_nrf52832}).
 Da ein Byte für die Adresse reserviert ist, können 254 Datenpakete pro Transaktion verschickt werden.
@@ -154,7 +168,8 @@ Alternativ hätte man die List-Funktion der EasyDMA oder die nRF52840 MCU, die 1
 \section{Wearable Hardwareumsetzung}
 Zur Entwicklung der Software und des Hardwareprototypen wurde das nRF52 DK mit der IMU auf den Evaluations Platinen mit Jumperkabeln verbunden.
 Zur Evaluation sollen die Platinen durch kleinere Alternativen ersetzt werden.
-Da ein Reflowofen bereitgestellt wurde .
+Da ein Reflowofen bereitgestellt wurde, konnten selbst kleinste QFN-Bauteile verlötet werden.
+
 
 % nutze diese komponenten weil reflowofen. je nach skill sind größere komponenten erhältlich, siehe design section
 % optionaler taktgeber
@@ -172,14 +187,15 @@ Da ein Reflowofen bereitgestellt wurde .
 Die App wurde mit dem Android SDK geschrieben, das speziell für Android Smartphones entwickelt wurde.
 Obwohl Java weiter verbreitet und auch vom SDK unterstützt wird, ist die App in der Sprache Kotlin geschrieben, da es sinnvolle Erweiterungen zu Java bietet wie Datenklassen und funktionelle Programmierung und der Code gleichzeitig mit Javacode substituierbar ist.\\
 Die App wurde für Android 9.0 kompiliert und getestet aber sollte auch bis Android 5.0 abwärtskompatibel sein.
-Ältere Versionen werden nicht unterstützt, da die Methode \texttt{no.\allowbreak{}nordicsemi.\allowbreak{}android.\allowbreak{}ble.\allowbreak{}BleManager\#\allowbreak{}requestConnectionPriority} Android 5.0 erfordert und gebraucht wird, um den Connection Interval des BLE-Stacks zu setzten.\\
+Ältere Versionen werden nicht unterstützt, da die Methode \texttt{no.\allowbreak{}nordicsemi.\allowbreak{}android.\allowbreak{}ble.\allowbreak{}BleManager\#\allowbreak{}requestConnectionPriority} Android 5.0 erfordert und gebraucht wird, um den Connection Interval des BLE-Stacks zu setzen.\\
 % a: ble in android sdk hat keine befehlsqueue -> nordic ble sdk
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1.0\linewidth]{res/screen1.jpg}
-	\caption{Startscreen}
-	\label{fig:screen1}
-\end{figure}\\
+
+%\begin{figure}[h]
+	%\centering
+%	\includegraphics[width=1.0\linewidth]{res/screen1.jpg}
+%	\caption{Startscreen}
+%	\label{fig:screen1}
+%\end{figure}\\
 % b: sich ändernde liste läuft nicht mit visualisierungssoftware
 
 \section{Zusammenfassung}
