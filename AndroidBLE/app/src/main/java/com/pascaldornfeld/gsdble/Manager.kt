@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattService
 import android.content.Context
+import android.util.Log
 import com.pascaldornfeld.gsdble.fragments.IntervalFragment
 import com.pascaldornfeld.gsdble.models.ImuConfig
 import com.pascaldornfeld.gsdble.models.ImuData
@@ -64,8 +65,10 @@ class Manager<E : BleManagerCallbacks>(
                 enableNotifications(charaConfig).done(callbacksConfig.notifySuccessCallback)
                     .fail(callbacksConfig.notifyFailCallback).enqueue()
 
+                requestMtu(517).with { _, mtu -> Log.w("MANAGER", "NEW MTU IS: $mtu") }.enqueue()
                 writeNewInterval(IntervalFragment.Interval.CONNECTION_PRIORITY_BALANCED)
             }
+
 
             override fun onDeviceDisconnected() {
                 charaConfig = null

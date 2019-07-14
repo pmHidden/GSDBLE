@@ -11,7 +11,6 @@
 #include <string.h>
 
 my_service_t *my_service_cus;
-#define TX_BUFFER 330u // the estimated buffer size
 
 static bool send_my_data(imu_data_t data) {
   return chara_data_update(my_service_cus, data) == NRF_SUCCESS;
@@ -21,7 +20,7 @@ void my_service_loop() {
   imu_loop();
 }
 
-uint32_t my_service_init(my_service_t *p_cus) {
+uint32_t my_service_init(my_service_t *p_cus, uint16_t p_ble_tx_buffer_size) {
   if (p_cus == NULL) {
     return NRF_ERROR_NULL;
   }
@@ -53,7 +52,7 @@ uint32_t my_service_init(my_service_t *p_cus) {
   VERIFY_SUCCESS(err_code);
 
   // Activate Sensor
-  imu_init(send_my_data);
+  imu_init(send_my_data, p_ble_tx_buffer_size);
 
   // Write current config
   chara_conf_packet_t init_values;
@@ -87,7 +86,7 @@ static void on_write(my_service_t *p_cus, ble_evt_t const *p_ble_evt) {
     chara_conf_packet_u config;
     memset(&config, 0, sizeof(chara_conf_packet_u));
     memcpy(config.bytes, p_evt_write->data, sizeof(chara_conf_packet_u));
-    imu_speed_set((imu_speed_t)config.parsed.speed, TX_BUFFER);
+    imu_speed_set((imu_speed_t)config.parsed.speed);
     // update config and push
     config.parsed.unused = 0u;
     config.parsed.speed = (uint8_t)imu_speed_get();
@@ -124,10 +123,16 @@ void ble_cus_on_ble_evt(ble_evt_t const *p_ble_evt, void *p_context) {
     on_write(p_cus, p_ble_evt);
     break;
   case BLE_GAP_EVT_CONN_PARAM_UPDATE:
-    imu_on_new_interval(p_ble_evt->evt.gap_evt.params.conn_param_update.conn_params.max_conn_interval, TX_BUFFER);
+    imu_on_new_interval(p_ble_evt->evt.gap_evt.params.conn_param_update.conn_params.max_conn_interval);
+    chara_conf_packet_u config;
+    memset(&config, 0, sizeof(chara_conf_packet_u));
+    config.parsed.speed = (uint8_t)imu_speed_get();
+    chara_conf_update(p_cus, config.parsed);
+    break;
+  case BLE_GATTS_EVT_HVN_TX_COMPLETE:
     break;
   default:
-    //NRF_LOG_INFO("other: %d", p_ble_evt->header.evt_id);
+    NRF_LOG_INFO("other: %d", p_ble_evt->header.evt_id);
     // No implementation needed.
     break;
   }

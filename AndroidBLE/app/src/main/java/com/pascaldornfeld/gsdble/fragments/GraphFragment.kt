@@ -21,7 +21,6 @@ import java.text.Format
 import java.text.ParsePosition
 import java.util.concurrent.atomic.AtomicBoolean
 
-
 abstract class GraphFragment<DataType> : Fragment() {
     protected var data = listOf<Pair<Long, DataType>>()
     private val internalData = mutableListOf<Pair<Long, DataType>>()

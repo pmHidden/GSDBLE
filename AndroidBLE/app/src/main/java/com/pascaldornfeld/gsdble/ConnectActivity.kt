@@ -19,7 +19,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class ConnectActivity : AppCompatActivity() {
-    private val bluetoothAdapter: BluetoothAdapter by lazy { (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter }
+    private val bluetoothAdapter: BluetoothAdapter? by lazy { (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager?)?.adapter }
     private val vBtStartScan by lazy { findViewById<Button>(R.id.bt_startScan) }
     private val handler = Handler()
     private val leScanCallback by lazy {
@@ -56,10 +56,12 @@ class ConnectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        vBtStartScan.setOnClickListener {
-            if (scanning) stopScan()
-            else startScan()
-        }
+        if(bluetoothAdapter != null) {
+            vBtStartScan.setOnClickListener {
+                if (scanning) stopScan()
+                else startScan()
+            }
+        } else vBtStartScan.isEnabled = false
     }
 
     private fun startScan() {
@@ -70,7 +72,7 @@ class ConnectActivity : AppCompatActivity() {
                     // we cannot filter by service uuid, since we are not advertising with service uuid.
                     // we are not advertising with service uuid, since service id is custom 128-bit, so it is too big to advertise with.
                     // this is why we must filter by device name.
-                    bluetoothAdapter.bluetoothLeScanner.startScan(
+                    bluetoothAdapter!!.bluetoothLeScanner.startScan(
                         listOf(ScanFilter.Builder().setDeviceName(getString(R.string.device_name)).build()),
                         ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build(),
                         leScanCallback
@@ -95,7 +97,7 @@ class ConnectActivity : AppCompatActivity() {
                 try {
                     handler.removeCallbacksAndMessages(null)
                     vBtStartScan.text = getString(R.string.scan_start)
-                    bluetoothAdapter.bluetoothLeScanner.stopScan(leScanCallback)
+                    bluetoothAdapter!!.bluetoothLeScanner.stopScan(leScanCallback)
                 } catch (e: Exception) {
                     e.printStackTrace()
                     Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show()
@@ -106,11 +108,15 @@ class ConnectActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if (!bluetoothAdapter.isEnabled) startActivityForResult(
-            Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
-            REQUEST_ENABLE_BT
-        )
-        else askForLocationPermission()
+        if(bluetoothAdapter != null) {
+            if (!bluetoothAdapter!!.isEnabled) startActivityForResult(
+                Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
+                REQUEST_ENABLE_BT
+            )
+            else askForLocationPermission()
+        } else {
+            Toast.makeText(this, R.string.bt_not_available, Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

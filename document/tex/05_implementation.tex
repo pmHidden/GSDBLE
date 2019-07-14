@@ -1,55 +1,181 @@
 %!TEX root = ../tudkom_students__201804_v1.4.tex
-\chapter{Implementation}
+\chapter{Implementierung}
 \label{ch:implementation}
-%This chapter should describe the details of the implementation addressing the following questions:
-%1. What are the design decisions made?
-%2. What is the environment the approach is developed in?
-%3. How are components mapped to classes of the source code?
-%4. How do the components interact with each other?
-%5. What are limitations of the implementation?
+% This chapter should describe the details of the implementation addressing the following questions:
+% 1. What are the design decisions made?
+% 2. What is the environment the approach is developed in?
+% 3. How are components mapped to classes of the source code?
+% 4. How do the components interact with each other?
+% 5. What are limitations of the implementation?
 % 5 pages
+Die Implementierung setzt sich zusammen aus dem Programm auf dem Wearable, der Hardware des Wearables und der Android App. Im Folgendem werden die Teilaufgaben einzeln näher betrachtet.
 
-\section{Architecture}
+\section{Wearable Programm}
+\subsection{Entwicklungsumgebung}
+Die nRF52832 MCU wird neben dem offiziellen SDK auch von der plattformübergreifenden Softwareumgebung mBed unterstützt.
+Eine plattformübergreifende Softwareumgebung zu nutzen kann es vereinfachen, den Code von der MCU auf ein anderes MCU-Modell zu portieren.
+Während die Einrichtung von Mbed sehr einfach ist, da der Code im Browser geschrieben wird, unterstützt Mbed bisher leider nicht BT Mesh, weswegen es sich nicht zur weiteren Evaluation eignet \cite{site_mbedMesh}.\\
+Die Arbeit nutzt das nRF5 SDK v15.3.0.
+Damit das SDK vom Compiler bei Nutzung der IDE Segger Embedded Studio gefunden werden kann, muss es nach \texttt{C:\textbackslash{}nrf52\textbackslash{}sdk} entpackt werden oder die Pfade in den \texttt{.emProject}-Dateien ersetzt werden.
+Hier würde es sich eignen, zukünftig eine Lösung mit systemweiten Pfadvariablen zu finden.
+Bevor eine nRF52832 MCU genutzt werden kann, muss zunächst der BLE-Stack installiert werden, indem die \texttt{.hex}-Datei aus dem Softdevice 132 v6.1.1 auf die MCU übertragen wird.\\\\
+Statt die IDE Segger Embedded Studio zu nutzen, kann alternativ der GCC Compiler mit einer beliebigen IDE eingesetzt werden.
+Bei der komplizierten Einrichtung von GCC und den benötigten Tools ist dann zu beachten, dass bei der zum Zeitpunkt der Arbeit aktuellen Version 8-2018-q4-major der GNU Arm Embedded Toolchain\footnote{\url{https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm}, abgerufen am 13.07.2019} ein Out-of-Range-Fehler in einer Intel-Hex-File geworfen wird.
+Der Fehler kann behoben werden, indem die Datei \texttt{bin\textbackslash{}arm-none-eabi-objcopy.exe} mit der aus Version 7-2018-q2-update ersetzt wird.\\
+In der Arbeit wurde wegen der einsteigerfreundlicheren Einrichtung mit der IDE Segger Embedded Studio gearbeitet.
+Die IDE stürzt in der genutzten Version 4.12 leider regelmäßig ab.
+Wird die IDE dagegen aktualisiert, gibt das eingebaute Debug Terminal nur noch unsichtbare Zeichen aus (vgl. \cite{site_sesDebug}).
+Im Debug Terminal wird der Log, der vom RTT-Protokoll übertragen wird, angezeigt.
+Wenn der Log über RTT zu schnell ist, werden Zeilen verworfen.
+Stellt man den Log über den Configuration Wizard in \texttt{sdk\_config.h} auf das ineffizientere UART-Protokoll um, lässt er sich über das externe Programm Putty\footnote{\url{https://www.putty.org/}, abgerufen am 11.07.2019} auslesen.
 
-\subsection{nRF52832 Software}
-Offizielle Liste ist hier:
-\url{https://www.nordicsemi.com/DocLib/Content/User_Guides/getting_started/latest/UG/common/nordic_tools}
-\begin{itemize}
-\item IAR: 30 Tage Demo oder beschränkte Funktion (32 Kbyte code u.A.)
-\item Keil uVision: beschränkte Version (32 KByte Code und Debugger). Essential Version 1330€ pro Jahr.
-\item MBed.org: sehr einfach, da online. weitere abstraktion wie bei arduino. code, compiler, bin-datei auf stick ziehen, fertig. leider (noch) kein mesh support.
-\item Project Zephyr: ist noch nicht offiziell supportet
-\item GCC. Diese Anleitung: \url{https://www.disk91.com/2017/technology/hardware/discover-nordic-semi-nrf52832/}\\
-Bug in aktueller GNU Arm Embedded Toolchain 8-2018-q4-major beim Kompilieren: C:/nrf52/arm\_tools/bin/arm-none-eabi-objcopy: \_build/nrf52832\_xxaa.hex 64-bit address 0x4b4fa300000000 out of range for Intel Hex file\\
-fix: bin/arm-none-eabi-objcopy.exe mit der datei von version 7-2018-q2-update ersetzen.\\
-Wenns läuft ists leider trotzdem mist, weil jeder Ordner von der library einzeln eingetragen werden muss. Am ende bekommt man die .hex datei und muss die rüberkopieren.
-\item Segger Embedded Studio: funktioniert zwar ganz einfach, aber ist nicht so geil wie eclipse mit zb themes und code folding
-\end{itemize}
+\subsection{Programmaufbau}
+Das Programm \texttt{main.c} ist der Einstiegspunkt der MCU.
+Hier werden die vordefinierten und eigenen Module initialisiert und die Hauptschleife verwaltet.
+Unter den vordefinierten Modulen sind zum Beispiel Logging, Timer und Energiemanagement.
+Da das Template 700 Zeilen umfasst, wurden einige Initialisierungen in weitere Dateien ausgelagert.
+Der Code \texttt{peer\_advertise.c} verwaltet die beiden Module, die zum Advertisen und zur optionalen Verbindungsverschlüsselung nötig sind.
+Hier kann unter anderem eingestellt werden, wie lange das Advertisen passiert, bevor das Wearable automatisch in den Schlafmodus wechselt und in welchen Abständen die Pakete beim Advertisen verschickt werden.
+Die Datei \texttt{board\_manager.c} steuert die LEDs und den Knopf.
+Die Definition \texttt{custom\_board.h} beschreibt, wie viele LEDs und Knöpfe angeschlossen sind und an welchen Pins sie liegen.\\
+Im Package \texttt{ServiceCharacteristicSensor} befindet sich der Code für die BLE-Service und den Sensor.
+
+\subsection{BLE-Service}
+Um den BLE Service und die Characteristics zu erstellen wurde nach dem Tutorial\footnote{\url{https://github.com/bjornspockeli/custom\_ble\_service\_example}, aufgerufen am 11.07.2019} eines Mitarbeiters von Nordic Semiconductor gearbeitet.
+Beim Initialisieren des Services \texttt{my\_service.c} werden die beiden Characteristics \texttt{chara\_conf.c} und \texttt{chara\_data.c} erstellt und der Sensor vorbereitet.
+Wenn sich ein Endgerät verbindet, startet der Sensor das Sammeln der Daten und beim Trennen wird er angehalten und zurückgesetzt.\\\\
+Erfasst der Sensor einen neuen Datensatz, wird der Datensatz im Wert der Characteristic \texttt{chara\_data.c} veröffentlicht.
+Da die Werte erst zum nächsten Connection Interval verschickt werden, müssen sie vom BLE-Stack zwischengespeichert werden.
+Ist der Buffer allerdings voll, wird beim Einfügen ein \texttt{NRF\_ERROR\_RESOURCES}-Fehler von der Funktion \texttt{sd\_ble\_gatts\_hvx} geworfen.
+Die Minimalgröße des TX-Buffers kann vor dem Initialisieren des BLE-Stacks mit der Konstanten \texttt{TX\_QUEUE\_SIZE} manuell gesetzt werden und ist standardmäßig 0.
+Es ist möglich die tatsächliche Größe abzuschätzen, da bei einer Teilentleerung des Buffers ein \texttt{TX\_COMPLETE}-Event geworfen wird.
+Wird beim Einfügen in den TX-Buffer ein Counter hoch- und bei einem \texttt{TX\_COMPLETE}-Event runtergezählt, kann die Kapazität bei einem \texttt{NRF\_ERROR\_RESOURCES}-Fehler erhalten werden.
+Nach diesem Verfahren wurde bei dem Programm dieser Arbeit ermittelt, dass die tatsächliche Kapazität etwa 3 mehr als die Minimalgröße beträgt.\\
+Wenn betrachtet wird, dass die verwendeten IMUs die Daten mit bis zu 1600 Hz erfassen können, ist die benötigte Buffergröße $1600 Hz * 4s = 6400$ wegen dem maximalen Connection Interval von 4 Sekunden.
+Den Buffer auf diese Größe zu setzen muss aber nicht sinnvoll sein, da nicht sichergestellt ist, dass in einem Connection Interval der komplette Buffer geleert wird.
+Dies ist von der Übertragungsgeschwindigkeit abhängig, die sich auch aus der Empfangsqualität und der Paketverlustrate ergibt.
+Ist der Buffer größer als die Übertragungsgeschwindigkeit erlaubt, wird der Buffer volllaufen, Sensordaten werden letztendlich verworfen und die eingereihten Sensordaten kommen erst in einem späteren Connection Interval an, sodass eine Verzögerung entsteht.
+Wird der Buffer kleiner gewählt, passen nicht alle Sensordaten hinein und müssen verworfen werden.\\\\
+Im Optimalfall sollte die Übertragungsgeschwindigkeit maximiert werden und der Buffer dazu passend mit etwas Spielraum nach unten gewählt werden.
+Die maximale MTU-Größe kann mit dem Configuration Wizard in \texttt{sdk\_config.h} mit der Konstanten \texttt{NRF\_SDH\_BLE\_GATT\_MAX\_MTU\_SIZE} geändert werden.
+Sowohl eine größere MTU-Größe als auch ein größerer TX-Buffer benötigt zusätzlichen Platz in der BLE-Stack-Section vom RAM.
+Der reservierte Platz im RAM kann eingestellt werden mit der Konstanten \texttt{RAM\_START} unter den \texttt{linker\_section\_placement\_macros} in der SES-Projekt-Datei, zu finden mit der Endung \texttt{.emProject}.
+Wird zu wenig Platz reserviert, startet das Programm nicht.\\\\
+Schickt das Endgerät dem Wearable mit der Characteristic \texttt{chara\_conf.c} eine neue Konfiguration, wird die Konfiguration versucht angewandt zu werden.
+Ändert sich die Konfiguration, wird sie dem Endgerät mit einem Notify mitgeteilt.
+
+\subsection{IMU Integration}
+% durch pattern sensoren einfach austauschbar
+Damit die IMU aber auch die verwendeten Protokolle leicht austauschbar sind, wurde der Code für die IMU aufgeteilt.
+Die Definitionen in \texttt{imu.h} soll dabei jede IMU implementieren und ist die Schnittstelle zum BLE-Service.
+Der Header \texttt{*\_protocol.h} deklariert das Protokoll, mit dem die IMU mit MCU kommuniziert, das heißt SPI oder I2C.
+Der Header \texttt{*\_get\_data.h} deklariert die Art, wie Daten gesammelt werden.
+Die Implementierungen können unterschiedliche Interrupts nutzen wie FIFO-Full oder Data-Ready.
+Um die Implementierung auszutauschen muss eine andere \texttt{.c}-Datei gelinkt werden, indem die entsprechende Zeile im \texttt{.emProject}-Projekt geändert wird.\\
+Die IMU soll mithilfe der Callback-Funktion \texttt{bool (*send\_data)(imu\_data\_t)} die gemessenen Werte an die MCU zurück liefern.\\\\
+Beim Testen mit dem Prototypen ist das Problem, das in Abbildung \ref{fig:daten_vorher} veranschaulicht wird, aufgekommen.
+Wenn die Sensordatenrate zu schnell für den TX-Buffer oder dem Connection Interval ist, empfängt das Endgerät die Sensordaten mit wechselnder Verzögerung.
+Wurde der TX-Buffer gerade durch ein Connection Interval geleert, werden alle nächsten Sensordaten in den Buffer eingetragen, bis der Buffer voll ist.
+Danach werden alle Sensordaten bis zum nächsten Connection Interval verworfen.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{res/datenVorher.jpg}
+	\caption{Darstellung des Datenstaus. CI = Connection Interval}
+	\label{fig:daten_vorher}
+\end{figure}\\
+Prinzipiell kann das Problem gelöst werden, indem der Connection Interval verkleinert, der TX-Buffer vergrößert oder die Datenmenge verkleinert wird.
+Da die Größe vom TX-Buffer nach der Initialisierung nicht geändert werden kann und von der veränderlichen Durchsatzrate beschränkt ist, reicht es nicht unbedingt alleine aus, diesen Parameter zu variieren.
+Der Connection Interval wird vom Endgerät bestimmt.
+Das Wearable kann eine neue Geschwindigkeit vorschlagen.
+Können sich Wearable und Endgerät nicht einigen, wird die Verbindung getrennt.
+Dies würde das Nutzungserlebnis stark negativ beeinflussen.
+Um die Datenmenge zu reduzieren kann der Sensor langsamer gestellt oder absichtlich Daten verworfen werden.
+Während das Zweite eine feinere Einstellung ermöglicht, ist das Erste energiesparender.\\
+Deswegen wird ein Algorithmus eingesetzt, der die Geschwindigkeit vom Sensor herabsetzt, wenn ein neuer Connection Interval vorliegt oder der Nutzer eine neue Geschwindigkeit setzen möchte.
+Das Ergebnis soll dem in Abbildung \ref{fig:daten_nachher} veranschaulichte Verhalten nachkommen.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{res/datenNachher.jpg}
+	\caption{Lösung des Datenstaus}
+	\label{fig:daten_nachher}
+\end{figure}\\
+Der Rückgabewert der Callback-Funktion \texttt{bool (*send\_data)(imu\_data\_t)} gibt an, ob die Daten in den TX-Buffer eingefügt werden konnten oder der Buffer schon voll ist.
+Der Parameter \texttt{uint16\_t buffer\_size} der Funktion \texttt{imu\_init} entspricht der eingestellten Größe des TX-Buffers.
+Die Funktion \texttt{void imu\_on\_new\_interval(\allowbreak{}uint16\_t buffer\_clear\_interval)} wird aufgerufen, wenn die Geschwindigkeit der BLE-Verbindung sich geändert hat.
+Der Parameter \texttt{buffer\_clear\_interval} ist dabei der Connection Interval.
+Die Geschwindigkeit wird gespeichert und in den weiteren Aufrufen von der Funktion \texttt{void imu\_speed\_set(\allowbreak{}imu\_speed\_t speed)} verwendet.\\
+Der Algorithmus wird am Beispiel der LSM6DSL IMU mit FIFO-Threshold Interrupt (\texttt{lsm\_get\_data\_fifo.c}) beschrieben.
+Zunächst werden in Abbildung \ref{lst:algoPre} die Konstanten für den Sensor berechnet.
+\begin{figure}[h!]
+\lstinputlisting{res/algoPre.c}
+	\caption{Vorbereitung des Algorithmus}
+	\label{lst:algoPre}
+\end{figure}\\
+Die Geschwindigkeit wird in Abbildung \ref{lst:algo} berechnet.
+Dabei wird mit jeder Iteration berechnet, ob der Sensor in einem Connection Interval mehr Daten erfasst, als in den Buffer passen.
+Falls es zu viele sind, wird die Geschwindigkeit herunter gesetzt, wenn sie nicht auf dem kleinsten möglichen Wert ist.
+Zum Schluss wird die Geschwindigkeit wieder um einen Schritt erhöht.
+Da ein Schritt eine Halbierung oder Verdopplung der Datenrate bedeutet und damit die Lösung nicht den perfekten Punkt für die Datenrate treffen kann, wird dem Programm des Endgeräts freigestellt, ob es die Datenrate nochmals halbieren wird.
+Durch die Variable \texttt{bool didGoLowerOnceAndNowOk} wird sichergestellt, dass die Datenrate nicht höher als vom Endgerät eingestellt wird und, dass der Algorithmus am Ende nicht von der langsamsten Geschwindigkeit erhöht, falls die langsamste Einstellung immer noch zu schnell ist.
+\begin{figure}[h!]
+\lstinputlisting{res/algo.c}
+	\caption{Berechnung der Geschwindigkeit}
+	\label{lst:algo}
+\end{figure}\\
+Falls die Sensordatenrate sehr langsam im Vergleich zum Connection Interval ist, soll nicht gewartet werden, bis die FIFO mit 227 Paketen voll ist.
+Dann würden einige Connection Intervals gar keine und dann 227 Pakete in Einem geschickt werden.
+Deswegen wird der FIFO-Threshold wie in Abbildung \ref{lst:algoPost} eingestellt.
+Damit soll die FIFO mindestens ein Mal pro Connection Interval ausgelesen werden.
+\begin{figure}[h!]
+\lstinputlisting{res/algoPost.c}
+	\caption{Berechnung des Threshold}
+	\label{lst:algoPost}
+\end{figure}\\
+Bei der Implementierung des Algorithmus mussten weitere Probleme gelöst werden.\\\\
+Der Treiber der LSM6DSL IMU stellt die Funktion \texttt{lsm6dsl\_fifo\_raw\_data\_get)} zum Auslesen der FIFO bereit.
+Da die FIFO eine Größe von 4096 Byte hat, lässt sie sich mit der Funktion wegen dem Parameter \texttt{uint8\_t len} nicht komplett auslesen.
+Dies ergibt wenig Sinn und auch das Datenblatt begründet die Einschränkung nicht.
+Schaut man in die Implementierung in Abbildung \ref{lst:fifoRead}, stellt man fest, dass sie nur eine weitere Funktion aufruft.
+\begin{figure}[h!]
+\lstinputlisting{res/fifoRead.c}
+	\caption{Auslesen der FIFO}
+	\label{lst:fifoRead}
+\end{figure}\\
+Der vierte Parameter der Funktion \texttt{lsm6dsl\_read\_reg} ist vom Typ \texttt{uint16\_t}.
+Somit lässt sich die Funktion stattdessen nutzen, um die komplette FIFO auszulesen.
+Es ist davon auszugehen, dass es sich um einen Fehler im Treiber handelt.\\\\
 
 
-% folgendes vielleicht zu design
-\section{Design Decisions}
-
-notizen:
-
-beim loggen mit rtt gehen gerne pakete verloren. als lösung uart nutzen und mit putty den log lesen.
-
-problem: das debug terminal zeigt den log unsichtbar an.
-lösung: nutze ses v4.12: \url{https://devzone.nordicsemi.com/f/nordic-q-a/45985/nrf_log-not-working-on-segger-embedded-studio}
-
-problem: entgegen dem datenblatt nimmt die funktion 'lsm6dsl\textunderscore fifo\textunderscore raw\textunderscore data\textunderscore get' eine 8-bit länge, womit nicht die 4kb der fifo direkt gelesen werden können.
-lösung:
-die implementierung der funktion ruft nur die funktion 'lsm6dsl\textunderscore read\textunderscore reg' auf, welche eine 16-bit länge nimmt. deswegen kann man hier einfach 'lsm6dsl\textunderscore read\textunderscore reg' mit 16-bit nutzen.
-
-problem: spi maximal 255 bytes lesen in einer transaction wegen 8bit buffer.
-lösungen:
-- größerer chip hat 16bit buffer, dafür mehr gesamtenergieaufnahme
-- buffer manuell im sdk auf 16bit stellen funktioniert, ist aber gegen die hardwarespezifikation aus dem datenblatt
-- in einer übertragung mehrere transactions, was viel mehr codeaufwand bedeutet
-- mehrere transactions hintereinander
+% spi buffer im easydma kann maximal 255 bytes lesen in einer transaction wegen 8bit buffer -> in mehrere transactions aufsplitten ODER manuell im sdk ändern. funktioniert aber ist gegen hardwarespezifikation ODER nRF52840 Chip für 16-bit buffer
 
 
 
-\section{Interaction of Components}
 
-\section{Summary}
+\section{Wearable Hardwareumsetzung}
+% nutze diese komponenten weil reflowofen. je nach skill sind größere komponenten erhältlich, siehe design section
+% optionaler taktgeber
+% int2 ging nicht mehr
+% random kondensatoren zur abkopplung
+% widerstand und led
+% cortex-m-debug connector
+% bom
+% schematic
+% gerber screenshot
+% bilder vor- und rückseite
+
+
+\section{Android App}
+Die App wurde mit dem Android SDK geschrieben, das speziell für Android Smartphones entwickelt wurde.
+Obwohl Java weiter verbreitet und auch vom SDK unterstützt wird, ist die App in der Sprache Kotlin geschrieben, da es sinnvolle Erweiterungen zu Java bietet wie Datenklassen und funktionelle Programmierung und der Code gleichzeitig mit Javacode substituierbar ist.\\
+Die App wurde für Android 9.0 kompiliert und getestet aber sollte auch bis Android 5.0 abwärtskompatibel sein.
+Ältere Versionen werden nicht unterstützt, da die Methode \texttt{no.\allowbreak{}nordicsemi.\allowbreak{}android.\allowbreak{}ble.\allowbreak{}BleManager\#\allowbreak{}requestConnectionPriority} Android 5.0 erfordert und gebraucht wird, um den Connection Interval des BLE-Stacks zu setzten.\\
+% a: ble in android sdk hat keine befehlsqueue -> nordic ble sdk
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1.0\linewidth]{res/screen1.jpg}
+	\caption{Startscreen}
+	\label{fig:screen1}
+\end{figure}\\
+% b: sich ändernde liste läuft nicht mit visualisierungssoftware
+
+\section{Zusammenfassung}

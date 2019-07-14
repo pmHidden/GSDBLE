@@ -5,8 +5,9 @@
 #include <stdint.h>
 
 /**
-definitions to control an imu from an uc
+definitions to control an imu from an mcu
 */
+
 /**
 sensor data rate. speed in hz = 25 * 2 ^ imu_speed_t.
 */
@@ -17,8 +18,7 @@ typedef enum {
   IMU_ODR_200Hz = 3,
   IMU_ODR_400Hz = 4,
   IMU_ODR_800Hz = 5,
-  IMU_ODR_1600Hz = 6,
-  IMU_ODR_NOT_DEF = 7
+  IMU_ODR_1600Hz = 6
 } imu_speed_t;
 
 typedef struct {
@@ -31,36 +31,30 @@ typedef struct {
   uint32_t time; // msb not used, so unsigned value = signed value. 1 timestep = 6,4 ms
 } imu_data_t;
 
-struct configuration_s {
-  imu_speed_t speed;
-  uint16_t buffer_clear_interval;
-  bool is_pause;
-};
-
 /** 
-init imu and all protocols. 
+init imu and all protocols. set sensor speed to default. dont start sending data
 
 parameter is the function pointer, where the data is going to be delivered.
 its return boolean is true, if the data could be sent, otherwise false
 */
-void imu_init(bool (*send_data)(imu_data_t));
+void imu_init(bool (*send_data)(imu_data_t), uint16_t buffer_size);
 
 /** function that is called in the main loop */
 void imu_loop(void);
 
-/** called, when a new interval is set */
-void imu_on_new_interval(uint16_t buffer_clear_interval, uint16_t buffer_size);
+/** called, when a new connection interval is set */
+void imu_on_new_interval(uint16_t buffer_clear_interval);
 
-/** set speed of data */
-void imu_speed_set(imu_speed_t speed, uint16_t buffer_size);
+/** try to set current sensor speed. restart, if stopped */
+void imu_speed_set(imu_speed_t speed);
 
-/** get speed of data */
+/** get current sensor speed */
 imu_speed_t imu_speed_get(void);
 
-/** stop sending data */
+/** stop sending data. if reset == true, set the sensor speed to default */
 void imu_stop(bool reset);
 
-/** continue sending data */
+/** continue sending data with the sensor speed that was set last */
 void imu_restart(void);
 
 #endif

@@ -20,6 +20,7 @@ int1 -> P0.8
 static uint16_t packets_per_transaction = MAX_PACKETS_PER_TRANSACTION;
 static volatile bool config_changed = false;
 
+static uint16_t buffer_size;
 static uint16_t current_time_prefix = 0u;
 static uint16_t last_time = 0u;
 
@@ -27,7 +28,8 @@ static void interrupt_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t ac
   // we just use the interrupt for the wakeup
 }
 
-void lsm_get_data_init(lsm6dsl_ctx_t *dev_ctx) {
+void lsm_get_data_init(lsm6dsl_ctx_t *dev_ctx, uint16_t p_buffer_size) {
+  buffer_size = p_buffer_size;
   // config gpiote
   if (!nrf_drv_gpiote_is_init())
     APP_ERROR_CHECK(nrf_drv_gpiote_init());
@@ -92,22 +94,25 @@ void lsm_get_data_restart(lsm6dsl_ctx_t *dev_ctx, imu_speed_t speed) {
   LSM_ERROR_CHECK(lsm6dsl_fifo_mode_set(dev_ctx, LSM6DSL_STREAM_MODE));
 }
 
-imu_speed_t lsm_get_data_speed_set(lsm6dsl_ctx_t *dev_ctx, imu_speed_t speed, uint16_t buffer_clear_interval, uint16_t buffer_size) {
-  float buffer_clear_interval_ms = ((float)buffer_clear_interval) * 1.25f; // range: 7.5 - 4000
+imu_speed_t lsm_get_data_speed_set(lsm6dsl_ctx_t *dev_ctx, imu_speed_t speed, uint16_t connection_interval) {
+  float connection_interval_ms = ((float)connection_interval) * 1.25f; // range: 7.5 - 4000
 
-  uint16_t packets_generated_per_buffer_clear_interval;
-#define packet_generation_speed_ms(speed_param) (1000.0f / ((float)(25 * (0b1 << speed_param)))) // range: 0.625 - 40
-  if (speed < IMU_ODR_1600Hz) {
-    do {
-      speed++;
-      packets_generated_per_buffer_clear_interval = (uint16_t)(buffer_clear_interval_ms / packet_generation_speed_ms(speed)); // range: 0 - 6400
-      // actual minimum is 0.1875. 1 / 0.1875 = 5.3333. This is why we want slave latency 6
-    } while (packets_generated_per_buffer_clear_interval > buffer_size && speed < IMU_ODR_NOT_DEF);
-    speed--; // one lower so we stay in bounds and better be above the buffersize then under so it can be set lower manually if wanted.
+#define packets_generated_per_connection_interval(speed_param) ((uint16_t)(connection_interval_ms / (1000.0f / ((float)(25 * (0b1 << speed_param)))))) // range: 0 - 6400. actual minimum is 0.1875 packets per connection interval = more then 5 intervals till one packet
+  bool didGoLowerOnceAndNowOk = false;
+  while (packets_generated_per_connection_interval(speed) > buffer_size) {
+    if (speed > 0) {
+      didGoLowerOnceAndNowOk = true;
+      speed--;
+    } else {
+      didGoLowerOnceAndNowOk = false;
+      break;
+    }
   }
-  packets_generated_per_buffer_clear_interval = (uint16_t)(buffer_clear_interval_ms / packet_generation_speed_ms(speed)); // range: 0 - 6400
+  if (didGoLowerOnceAndNowOk)
+    speed++; // better one too high then one too low so its less restrictive
 
-  uint16_t packets_till_fifo_full_or_buffer_cleared = MAX(1u, MIN(FIFO_MAX_FILL_PACKETS, packets_generated_per_buffer_clear_interval)); // range: 1 - 227
+  /** we got the final speed. now calculate the threshold */
+  uint16_t packets_till_fifo_full_or_buffer_cleared = MAX(1u, MIN(FIFO_MAX_FILL_PACKETS, packets_generated_per_connection_interval(speed))); // range: 1 - 227
 
   packets_per_transaction = MIN(packets_till_fifo_full_or_buffer_cleared, MAX_PACKETS_PER_TRANSACTION); // range: 1 - 14
 
@@ -116,7 +121,7 @@ imu_speed_t lsm_get_data_speed_set(lsm6dsl_ctx_t *dev_ctx, imu_speed_t speed, ui
 
   LSM_ERROR_CHECK(lsm6dsl_fifo_data_rate_set(dev_ctx, speed + 2));
 
-  NRF_LOG_INFO("LSM SET SPEED FINISHED. final speed: %u. threshold: %u. ppt: %u", speed, bytes_till_fifo_full_or_buffer_cleared, packets_per_transaction);
+  NRF_LOG_INFO("LSM SET SPEED FINISHED. final speed: %u. th: %u. ppt: %u. pgpci: %u", speed, bytes_till_fifo_full_or_buffer_cleared, packets_per_transaction, packets_generated_per_connection_interval(speed));
   return speed;
 }
 

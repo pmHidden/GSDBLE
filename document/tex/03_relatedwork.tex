@@ -4,9 +4,11 @@
 % 3-5 pages
 
 \chapter{Aktueller Stand}
-Es existieren bereits einige Lösungen für den Anwendungsfall.
 
-\section{Texas Instruments CC2650STK}
+\section{Bestehende Lösungen}
+Einige bestehende Hardwarelösungen eignen sich bereits für die Anwendungsfälle.
+
+\subsection{Texas Instruments CC2650STK}
 Darunter fällt beispielsweise das TI CC2650STK.
 Es besteht aus der CC2650 MCU sowie 10 Sensoren, darunter eine MPU-9250 IMU, die über I2C angeschlossen ist.
 Eine Auflistung der überflüssigen Komponenten, die nicht komplett abgeschaltet werden können, findet sich in Tabelle \ref{tab:cmp_cc2650stk}.
@@ -31,7 +33,7 @@ Das System ist nicht mehr in Europa verfügbar. \cite{site_cc2650stk}
   \end{tabularx}
 \end{minipage}
 
-\section{aconno ACNSENSA}
+\subsection{aconno ACNSENSA}
 Das aconno ACNSENSA besteht aus einer nRF52832 MCU und 5 Sensoren, darunter eine LSM9DS1 IMU über I2C.
 Eine Auflistung der überflüssigen Komponenten, die nicht komplett abgeschaltet werden können, findet sich in Tabelle \ref{tab:cmp_acnsensa}.
 Eine CR2450 Knopfzelle mit 620 mAh verliert dadurch nur $\cfrac{365d*24h}{(620mAh/0.0014mA)} \approx 2$ \% der Kapazität pro Jahr.
@@ -56,7 +58,7 @@ Die Produktwebseite sowie die Datenblätter waren während über den Zeitraum di
   \end{tabularx}
 \end{minipage}
 
-\section{Arduino Primo Core}
+\subsection{Arduino Primo Core}
 Der Arduino Primo Core beinhaltet ein nRF52832 MCU und 3 Sensoren, inklusive einer LSM6DS3 IMU über I2C.
 Eine Auflistung der überflüssigen Komponenten, die nicht komplett abgeschaltet werden können, findet sich in Tabelle \ref{tab:cmp_arduino_primo}.
 Eine CR2032 Knopfzelle mit 230 mAh verliert dadurch $\cfrac{365d*24h}{(230mAh/0.0015mA)} \approx 5.7$ \% der Kapazität pro Jahr.
@@ -80,7 +82,7 @@ Das System kann nicht mehr gekauft werden und ist auf der Produktseite als 'reti
 Mit den existierenden Lösungen wäre es grundsätzlich möglich das Wearable umzusetzen.
 Allerdings gibt es neben der problematischen Verfügbarkeit eine Limitierung auf die gegebene Hardware.
 So verschwenden alle Lösungen Energie und Platz durch Sensoren, die für den benötigten Anwendungsfall nicht nötig sind, auch wenn dies im Falle des aconno ACNSENSA vernachlässigbar ist.
-Hier ist auch zu beachten, dass zusätzlich zu dem Standbyverbrauch der Komponenten auch Leckströme durch Kondensatoren und Verluste durch Pull-Up Widerstände hinzuzufügen sind.
+Hier ist auch zu beachten, dass zusätzlich zu dem Standbyverbrauch der Komponenten auch Leckströme durch Kondensatoren und Verluste durch Pull-Up Widerstände hinzuzufügen sind.\\
 Alle genannten Lösungen nutzen für die Kommunikation zwischen MCU und IMU das I2C Protokoll, während in einer Arbeit \cite{comparison_i2c_spi} ermittelt wurde, dass I2C einen doppelt so hohen Energieverbrauch wie SPI hat.
 Auch zwischen den IMUs gibt es gravierende Unterschiede im Energieverbrauch.
 So verbraucht die IMU des Arduino Prime Core weniger als ein Drittel der Energie der anderen Beiden und enthält als Einziges keinen Magnetometer.\\

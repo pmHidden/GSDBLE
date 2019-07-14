@@ -21,14 +21,6 @@
       BLE_HRS_BLE_OBSERVER_PRIO,    \
       ble_cus_on_ble_evt, &_name)
 
-/**@brief Service init structure. This contains all options and data needed for
- *        initialization of the service.*/
-typedef struct
-{
-  uint8_t initial_chara_data;                           /**< Initial custom value */
-  ble_srv_cccd_security_mode_t chara_data_char_attr_md; /**< Initial security level for Custom characteristics attribute */
-} my_service_init_t;
-
 /**@brief Service structure. This contains various status information for the service. */
 struct my_service_s {
   uint16_t service_handle;                       /**< Handle of Custom Service (as provided by the BLE stack). */
@@ -44,11 +36,10 @@ typedef struct my_service_s my_service_t;
  * @param[out]  p_cus       Service structure. This structure will have to be supplied by
  *                          the application. It will be initialized by this function, and will later
  *                          be used to identify this particular service instance.
- * @param[in]   p_cus_init  Information needed to initialize the service.
  *
  * @return      NRF_SUCCESS on successful initialization of service, otherwise an error code.
  */
-uint32_t my_service_init(my_service_t *p_cus);
+uint32_t my_service_init(my_service_t *p_cus, uint16_t ble_tx_buffer_size);
 
 /**@brief Function for handling the Application's BLE Stack events.
  *

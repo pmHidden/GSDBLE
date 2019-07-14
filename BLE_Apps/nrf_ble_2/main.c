@@ -32,6 +32,8 @@
 
 #define APP_BLE_CONN_CFG_TAG 1 /**< A tag identifying the SoftDevice BLE configuration. */
 
+#define TX_QUEUE_SIZE 17
+
 #define FIRST_CONN_PARAMS_UPDATE_DELAY APP_TIMER_TICKS(5000) /**< Time from initiating event (connect or start of notification) to first time sd_ble_gap_conn_param_update is called (5 seconds). */
 #define NEXT_CONN_PARAMS_UPDATE_DELAY APP_TIMER_TICKS(30000) /**< Time between each call to sd_ble_gap_conn_param_update after the first call (30 seconds). */
 #define MAX_CONN_PARAMS_UPDATE_COUNT 3                       /**< Number of attempts before giving up the connection parameter negotiation. */
@@ -186,7 +188,7 @@ static void services_init(void) {
   APP_ERROR_CHECK(err_code);
 
   // Initialize CUS Service init structure to zero.
-  err_code = my_service_init(&m_myservice);
+  err_code = my_service_init(&m_myservice, TX_QUEUE_SIZE);
   APP_ERROR_CHECK(err_code);
 }
 
@@ -344,6 +346,13 @@ static void ble_stack_init(void) {
   err_code = nrf_sdh_ble_default_cfg_set(APP_BLE_CONN_CFG_TAG, &ram_start);
   APP_ERROR_CHECK(err_code);
 
+  ble_cfg_t ble_cfg;
+  memset(&ble_cfg, 0, sizeof ble_cfg);
+  ble_cfg.conn_cfg.conn_cfg_tag = APP_BLE_CONN_CFG_TAG;
+  ble_cfg.conn_cfg.params.gatts_conn_cfg.hvn_tx_queue_size = TX_QUEUE_SIZE;
+  err_code = sd_ble_cfg_set(BLE_CONN_CFG_GATTS, &ble_cfg, ram_start);
+  APP_ERROR_CHECK(err_code);
+
   // Enable BLE stack.
   err_code = nrf_sdh_ble_enable(&ram_start);
   APP_ERROR_CHECK(err_code);
@@ -386,7 +395,7 @@ int main(void) {
   services_init();
 
   advertising_init(&m_advertising, APP_BLE_CONN_CFG_TAG, bsp_ind_adv, sleep_mode_enter);
-  conn_params_init();
+  //conn_params_init();
   peer_manager_init();
   // Start execution.
   NRF_LOG_INFO("Template example started.");

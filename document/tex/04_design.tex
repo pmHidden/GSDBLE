@@ -3,19 +3,69 @@
 \label{ch:design}
 %This chapter should describe the design of the own approach on a conceptional level without mentioning the implementation details.
 % 5 pages
+Um das Vorhaben umzusetzen, müssen zuerst die Anforderungen bestimmt, einige Entscheidungen getroffen und erste Pläne entworfen werden.
 
 \section{Anforderungen}
 Als Komponenten werden hauptsächlich eine IMU und eine kompatible MCU, die Daten über BLE übertragen kann sowie für zukünftige Tests auch BT Mesh unterstützt, benötigt.
 Die Komponenten sollen ähnliche Anforderungen an die Spannungsversorgung besitzen wie eine Lithiumknopfzelle sie bereitstellen kann, damit kein zusätzlicher Spannungsregler benötigt wird.
-Ferner sollen die in der Einleitung festgelegten Ziele angestrebt werden.
+Ferner sollen die in der Abschnitt \ref{ch:aims} festgelegten Ziele angestrebt werden.
 
-\section{Hauptkomponenten}
+\section{Energieversorgung}
+Zu den typischen mobil verfügbaren Spannungsquellen gehören wiederaufladbare Akkus und Einwegbatterien, die elektrische Energie chemisch speichern können.
+Die Gängigsten basieren auf Nickel oder Lithium, wobei die Lithiumbasierenden wegen der höheren Energiemenge bei gleichem Gewicht und Größe unter dem Gesichtspunkt der Mobilität präferiert werden.
+Lithiumakkus benötigen eine Ladeelektronik sowie einen Entladeschutz.
+Diese nehmen Platz auf der Platine ein, verbrauchen Energie, wodurch die Effizienz sinkt, und verlieren ihre maximale Kapazität mit zunehmenden Alter.
+Durch ihre maximale Spannung von 4.2 Volt könnten sie nicht ohne Spannungswandler mit den meisten Komponenten betrieben werden, der wiederum Effizienz einbüßen würde. \cite{site_liion}\\
+Deshalb wurden Lithiumknopfzellenbatterien als Energieversorgung gewählt.
+Durch ihre flache Bauform können sie platzsparend an Platinen befestigt werden.
+Während auf dem Prototyping-Board Platz für eine CR2032-Knopfzelle bereit steht, soll auf dem Evaluationsboard aus praktischen Gründen eine CR2450-Knopfzelle genutzt werden.
+
+\section{Datenübertragung zwischen Wearable und Endgerät}
+\label{ch:bleAndMesh}
+Um das am Besten geeignete Protokoll zu finden, um die Sensordaten der IMU auf die Endgeräte zu übertragen, wurden verschiedene Protokolle verglichen und nach dem Ausschlussverfahren gewählt.\\
+Eine drahtgebundene Datenübertragung ist schnell und sehr energiesparend und es sind viele verbreitete Anschlüsse spezifiziert.
+Die Mobilität ist dabei aber sehr stark eingeschränkt, da Kabel insbesondere beim Sport sehr stören.\\
+Während einige drahtlose Kommunikationsprotokolle wie NFC wegen der geringen Reichweite nicht geeignet sind, sind Mobilfunkprotokolle wie LTE wegen zu hoher Reichweite ineffizient \cite{comparison_wifi_lte}.
+Die bekannten Protokolle Wi-Fi und Bluetooth arbeiten unter anderem auf der 2.4-GHz Antenne, weswegen Peer-to-Peer(P2P) Protokolle auf dieser Frequenz in Tabelle \ref{tab:p2p_protocols} vergleichen wurden.\\
+\begin{minipage}{\linewidth}
+        \renewcommand\footnoterule{}
+        \renewcommand{\thefootnote}{\alph{footnote}}
+	\captionof{table}{P2P-Protokolle auf der 2.4-GHz Frequenz}
+	\label{tab:p2p_protocols}
+	\begin{tabularx}{\linewidth}{>{\hsize=.3\hsize}X|>{\hsize=.5\hsize}X|X}
+		Protokoll & Typische Anwendung & Kommentar\\
+		\hline
+		Wi-Fi Hotspot & Teilen der Internetverbindung in einem lokalem Netzwerk & Am Smartphone kann ein Hotspot erstellt werden, die Wearables könnten diesen suchen und sich verbinden, woraufhin z.B. über eine REST-API kommuniziert werden kann.
+		Es kann auch die 5-GHz Frequenz genutzt werden.\\
+		Wi-Fi Direct & P2P-Kommunikation & Wie Wi-Fi Hotspot aber die Wearables bekommen keinen Internetzugriff vom Smartphone.\\
+		Bluetooth (BT) & Datenübertragung, Audiostreaming & Nicht für niedrigen Energieverbrauch ausgelegt.\\
+		BT Low Energy (BLE) & P2P-Kommunikation mit geringem Energieverbrauch, z.B. Smartwatches & Während die maximale Geräteanzahl nicht vom Protokoll spezifiziert ist, ist diese in Android auf 7 Geräte beschränkt\footnotemark[1].
+		Weiterhin ist die Anzahl zum Beispiel durch die Auslastung der Geräte und des Funkkanals begrenzt.\\
+		BT Mesh & Mesh-Kommunikation mit geringem Energieverbrauch & Nachrichten werden hierbei über das gesamte Netzwerk geflutet, wodurch die Reichweite des Netzwerkes erhöht wird und die Auslastung auf das Netzwerk verteilt wird aber der Energieverbrauch aller Knoten steigt.
+		BLE Geräte können mit Mesh-Netzwerken kompatibel gemacht werden, indem sie sich zu einem Knoten des Netzwerks verbinden.\\
+		Thread, ZigBee & Smarthome & Nicht ohne weitere Hardware unter Android\\
+		Ant, Ant+ & Sen\-sor\-da\-ten\-über\-tra\-gung mit geringem Energieverbrauch & Nicht von allen Smartphones ohne zusätzliche Hardware unterstützt\\
+	\end{tabularx}
+	\footnotetext[1]{Beschränkung durch GATT\_MAX\_PHY\_CHANNEL \cite{site_androidBlTarget}}
+\end{minipage}\\\\
+Da Bluetooth nicht für einen geringen Energieverbrauch ausgelegt ist, werden die Alternativen BLE und BT Mesh bevorzugt.
+Die Smarthome Protokolle funktionieren ohne zusätzlicher Hardware nicht am Smartphone.
+Ant und Ant+ sind zwar für die Sensordatenübertragung bei Smartphones ausgelegt, aber brauchen zusätzlich ein Dongle, wenn diese das Protokoll nicht unterstützen.
+Sowohl handelsübliche Laptops als auch das vorliegende Smartphone, ein Pocophone F1, unterstützt die Protokolle nicht.\\
+"BLE ist etwa 30\% energieeffizienter als Wi-Fi"\footnote{Übersetzung durch den Verfasser} \cite{comparison_wifi_ble}, weswegen die Wi-Fi Protokolle heraus fallen.
+BT Mesh löst zwar das Problem der Geräteanzahlbeschränkung unter Android, allerdings auf Kosten des Energieverbrauchs.
+Die erweiterte Reichweite durch das Mesh-Netzwerk wird bei einem Wearable in der Regel nicht benötigt.\\
+Die Datenübertragung zwischen Wearable und Endgerät soll mit BLE stattfinden, da dieses Protokoll von fast jedem Smartphone und Laptop unterstützt wird und den Anforderungen erfüllen kann.
+Zusätzlich soll BT Mesh als Option offen gelassen werden, da es gegebenenfalls auftretende Probleme mit BLE lösen kann.
+Der zusätzliche Energieverbrauch durch das Mesh-Netzwerk müsste zunächst evaluiert werden.
+
+\section{Wahl der Hauptkomponenten}
 Die Arbeit hat sich zunächst danach gerichtet Komponenten zu wählen, die es auf fertige Platinen gelötet gibt, da sich QFN-Komponenten händisch nicht löten lassen.\\
 Da sich der Energieverbrauch von MCUs anhand der Datenblätter schlecht vergleichen lässt, wurde betrachtet, welche Komponenten sich oft zusätzlich auf den Platinen befinden aber viel Strom verbrauchen.
-In diesem Blog \cite{site_arduinolp} wurden verschiedene Komponenten von einem Arduino Pro Mini entfernt und deren Auswirkungen auf den Stromverbrauch ermittelt.
+In einem Blog \cite{site_arduinolp} wurden verschiedene Komponenten von einem Arduino Pro Mini entfernt und deren Auswirkungen auf den Stromverbrauch ermittelt.
 Das Entfernen der LED, die dauerhaft leuchtet um den Betrieb anzuzeigen, hat eine Einsparung von mehr als 15 \% bei aktiver Nutzung bewirkt und mehr als 90 \% im Schlafmodus der Recheneinheit.
 Das Entfernen des Spannungsreglers hat mindestens weitere 9 \% bei Nutzung und 75 \% im Standby eingespart.
-Dieser Blog \cite{site_arduinolp2} beschreibt, dass ein integrierter Programmierer zwar einen einfach zu verwendenden USB Anschluss bietet, aber gleichzeitig die Stromaufnahme verdreifachen kann.
+Ein anderer Blog \cite{site_arduinolp2} beschreibt, dass ein integrierter Programmierer zwar einen einfach zu verwendenden USB Anschluss bietet, aber gleichzeitig die Stromaufnahme verdreifachen kann.
 Während eine LED problemlos zu entfernen ist, wurde auf die anderen beiden Bauteile nach Möglichkeit verzichtet, da ein Entfernen auch die Funktion der Platine einschränken oder die Platine zerstören kann.
 
 \subsection{MCU}
@@ -35,7 +85,7 @@ Der ACN52832 von aconno enthält weder Power-LED noch Spannungsregler sondern nu
 Er hat eine Größe von 20 x 24.8 mm. \cite{datasheet_nrfAcn}\\
 Der BL651 von Laird enthält ebenfalls nur die nötigsten Komponenten und hat eine Größe von 10 x 14 mm \cite{datasheet_nrfLaird}.
 Es existieren noch weitere Platinen vom nRF52832 sodass eine sehr gute Verfügbarkeit gegeben ist.
-Sollte eine Platine nicht mehr erhältlich sein, könnte sie durch eine Andere ersetzt werden, da die Platinen nur die Pins vom nRF52832 besser zugänglich machen und die nötigen Taktgeber, Kondensatoren und Antennen bereitstellen.
+Sollte eine Platine nicht mehr erhältlich sein, könnte sie durch eine Andere ersetzt werden, da die Platinen nur die Pins vom nRF52832 besser zugänglich machen und die nötigen Taktgeber, Kondensatoren und Antennen bereitstellen sollen.
 Für den Prototypen wurde zunächst das nRF52 DK von Nordic verwendet, da es auch den externen Programmierer für die Platinen enthält und die Pins ohne zu Löten mit Jumperkabel verbunden werden können.
 
 \subsection{IMU}
@@ -54,7 +104,8 @@ Mit zwei Interrupt Pins können die IMUs die MCU über bestimmte Events informie
 Das DataReady-Event benachrichtigt, wenn der Sensor neue Daten gemessen hat.
 Das FIFO-Watermark- oder FIFO-Threshold-Event wird geworfen, wenn die FIFO über einen eingestellten Prozentsatz gefüllt ist.
 Das FIFO-Full-Event zeigt an, dass die FIFO komplett gefüllt ist.
-Für spezielle Anwendungen unterstützen beide IMUs weitere Events, wie das Significant-Motion-Event um ein Aufheben des Sensors durch einen Nutzer zu melden.
+Für spezielle Anwendungen unterstützen beide IMUs weitere Events, wie das Significant-Motion-Event um ein Aufheben des Sensors durch einen Nutzer zu melden.\\
+Da die Platinen der IMUs wegen ihrer Größe nicht optimal sind und zukünftige Anwendungen bessere Sensoren oder einen eingebauten Magnetometer benötigen können, soll der Code modular aufgebaut sein, sodass das Sensormodell einfach getauscht werden kann.
 
 \section{Zusammenwirken der Komponenten}
 Während SPI 4 Datenverbindungen braucht, braucht I2C 2 Datenverbindungen.
@@ -63,7 +114,7 @@ Abbildung \ref{fig:abstract_schema} stellt die Verbindungen graphisch dar.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\linewidth]{res/schemaAbstrakt.jpg}
-	\caption{}
+	\caption{Veranschaulichung der Verbindungen der benötigten Komponenten}
 	\label{fig:abstract_schema}
 \end{figure}\\
 Wenn das Wearable nicht mit einem Endgerät verbunden ist, soll es in den Schlafmodus wechseln.
@@ -85,12 +136,11 @@ Mit einer zweiten Characteristic soll sich die Abfragerate der IMU einstellen la
 Da die Sensorabfragerate damit von der Datenübertragungsrate unabhängig ist, lässt sich die Energieaufnahme getrennt evaluieren.
 Während eine niedrige Sensorabfragerate mit einer hohen Datenübertragungsrate sehr geringe Latenzen der Sensordaten ermöglicht, sind hohe Sensorabfrageraten mit niedrigen Datenübertragungsraten bei weniger zeitkritischen Anwendungen zur intensiven Auswertung interessant.
 Damit die Verbindung aufrecht erhalten werden aber die Datenerfassung pausiert werden kann, soll die IMU über die Characteristic auch kurzzeitig ausgeschaltet werden können.
-Die zweite Characteristic soll von der MCU gelesen und geschrieben werden können.
+Die zweite Characteristic soll von der MCU gelesen und geschrieben werden können, sowie das Endgerät bei Änderungen benachrichtigt werden.
 
 \section{Applikation des Android Smartphones}
 Beim Start der App soll nach den Wearables gesucht und zu den Wearables verbunden werden.
-Bei einer Verbindung soll das Notify-Bit der ersten Characteristic gesetzt werden, damit neue Sensordaten beim Smartphone ankommen.
-Es ist nicht Ziel der Arbeit eine komplette Gestenerkennung zu implementieren.
-Um Einschätzen zu können, ob die empfangenen Daten korrekt erfasst werden und ankommen, sollen deshalb die Sensordaten und Statistiken zur Verbindung graphisch dargestellt werden.
-Da es im Android SDK keine einfache Möglichkeit dazu gibt, wurde die Bibliothek Androidplot\footnote{\url{http://androidplot.com/}, abgerufen am 10.07.2019} genutzt.
+Bei einer Verbindung soll das Notify-Bit der Characteristics gesetzt werden, damit neue Daten beim Smartphone ankommen.
+Um einschätzen zu können, ob die empfangenen Daten korrekt erfasst werden und ankommen, sollen die Sensordaten und Statistiken zur Verbindung graphisch dargestellt werden.
+Da es im Android SDK keine einfache Möglichkeit dazu gibt, soll die Bibliothek Androidplot\footnote{\url{http://androidplot.com/}, abgerufen am 10.07.2019} genutzt werden.
 Der Wert der zweiten Characteristic soll gesetzt und die Verbindungsdatenrate geändert werden können.
