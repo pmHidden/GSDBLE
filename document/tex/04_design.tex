@@ -14,7 +14,7 @@ Ferner sollen die in der Abschnitt \ref{ch:aims} festgelegten Ziele angestrebt w
 Zu den typischen mobil verfügbaren Spannungsquellen gehören wiederaufladbare Akkus und Einwegbatterien, die elektrische Energie chemisch speichern können.
 Die Gängigsten basieren auf Nickel oder Lithium, wobei die Lithiumbasierenden wegen der höheren Energiemenge bei gleichem Gewicht und Größe unter dem Gesichtspunkt der Mobilität präferiert werden.
 Lithiumakkus benötigen eine Ladeelektronik sowie einen Entladeschutz.
-Diese nehmen Platz auf der Platine ein, verbrauchen Energie, wodurch die Effizienz sinkt, und verlieren ihre maximale Kapazität mit zunehmenden Alter.
+Diese Komponenten nehmen Platz auf der Platine ein, verbrauchen Energie, wodurch die Effizienz sinkt, und verlieren ihre maximale Kapazität mit zunehmenden Alter.
 Durch ihre maximale Spannung von 4.2 Volt könnten sie nicht ohne Spannungswandler mit den meisten Komponenten betrieben werden, der wiederum Effizienz einbüßen würde. \cite{site_liion}\\
 Deshalb wurden Lithiumknopfzellenbatterien als Energieversorgung gewählt.
 Durch ihre flache Bauform können sie platzsparend an Platinen befestigt werden.
@@ -35,11 +35,11 @@ Die bekannten Protokolle Wi-Fi und Bluetooth arbeiten unter anderem auf der 2.4-
 	\begin{tabularx}{\linewidth}{>{\hsize=.3\hsize}X|>{\hsize=.5\hsize}X|X}
 		Protokoll & Typische Anwendung & Kommentar\\
 		\hline
-		Wi-Fi Hotspot & Teilen der Internetverbindung in einem lokalem Netzwerk & Am Smartphone kann ein Hotspot erstellt werden, die Wearables könnten diesen suchen und sich verbinden, woraufhin z.B. über eine REST-API kommuniziert werden kann.
+		Wi-Fi Hotspot & Teilen der Internetverbindung in einem lokalem Netzwerk & Am Smartphone kann ein Hotspot erstellt werden, die Wearables könnten ihn suchen und sich verbinden, woraufhin z.B. über eine REST-API kommuniziert werden kann.
 		Es kann auch die 5-GHz Frequenz genutzt werden.\\
 		Wi-Fi Direct & P2P-Kommunikation & Wie Wi-Fi Hotspot aber die Wearables bekommen keinen Internetzugriff vom Smartphone.\\
 		Bluetooth (BT) & Datenübertragung, Audiostreaming & Nicht für niedrigen Energieverbrauch ausgelegt.\\
-		BT Low Energy (BLE) & P2P-Kommunikation mit geringem Energieverbrauch, z.B. Smartwatches & Während die maximale Geräteanzahl nicht vom Protokoll spezifiziert ist, ist diese in Android auf 7 Geräte beschränkt\footnotemark[1].
+		BT Low Energy (BLE) & P2P-Kommunikation mit geringem Energieverbrauch, z.B. Smartwatches & Während die maximale Geräteanzahl nicht vom Protokoll spezifiziert ist, ist sie in Android auf 7 Geräte beschränkt\footnotemark[1].
 		Weiterhin ist die Anzahl zum Beispiel durch die Auslastung der Geräte und des Funkkanals begrenzt.\\
 		BT Mesh & Mesh-Kommunikation mit geringem Energieverbrauch & Nachrichten werden hierbei über das gesamte Netzwerk geflutet, wodurch die Reichweite des Netzwerkes erhöht wird und die Auslastung auf das Netzwerk verteilt wird aber der Energieverbrauch aller Knoten steigt.
 		BLE Geräte können mit Mesh-Netzwerken kompatibel gemacht werden, indem sie sich zu einem Knoten des Netzwerks verbinden.\\
@@ -50,7 +50,7 @@ Die bekannten Protokolle Wi-Fi und Bluetooth arbeiten unter anderem auf der 2.4-
 \end{minipage}\\\\
 Da Bluetooth nicht für einen geringen Energieverbrauch ausgelegt ist, werden die Alternativen BLE und BT Mesh bevorzugt.
 Die Smarthome Protokolle funktionieren ohne zusätzlicher Hardware nicht am Smartphone.
-Ant und Ant+ sind zwar für die Sensordatenübertragung bei Smartphones ausgelegt, aber brauchen zusätzlich ein Dongle, wenn diese das Protokoll nicht unterstützen.
+Ant und Ant+ sind zwar für die Sensordatenübertragung bei Smartphones ausgelegt, aber brauchen zusätzlich ein Dongle, wenn sie das Protokoll nicht unterstützen.
 Sowohl handelsübliche Laptops als auch das vorliegende Smartphone, ein Pocophone F1, unterstützt die Protokolle nicht.\\
 "BLE ist etwa 30\% energieeffizienter als Wi-Fi"\footnote{Übersetzung durch den Verfasser} \cite{comparison_wifi_ble}, weswegen die Wi-Fi Protokolle heraus fallen.
 BT Mesh löst zwar das Problem der Geräteanzahlbeschränkung unter Android, allerdings auf Kosten des Energieverbrauchs.
@@ -69,9 +69,10 @@ Ein anderer Blog \cite{site_arduinolp2} beschreibt, dass ein integrierter Progra
 Während eine LED problemlos zu entfernen ist, wurde auf die anderen beiden Bauteile nach Möglichkeit verzichtet, da ein Entfernen auch die Funktion der Platine einschränken oder die Platine zerstören kann.
 
 \subsection{MCU}
+\label{ch:mcu}
 Die Bluetooth SIG, die das Bluetooth Protokoll spezifiziert, hat eine Liste mit geprüften Implementierungen von BT Mesh veröffentlicht \cite{site_qualifiedMesh}.
 Mit dieser Liste wurden die Herstellerseiten nach passenden verfügbaren MCUs durchsucht bis die Wahl auf die nRF52832 MCU gefallen ist.
-Diese war schon in den zwei fertigen Produkten von Arduino und aconno enthalten weswegen von einer hohen Bekanntheit auszugehen ist.\\
+Die MCU war schon in den zwei fertigen Produkten von Arduino und aconno enthalten weswegen von einer hohen Bekanntheit auszugehen ist.\\
 Der nRF52832 hat eine Spannungsanforderung von 1.7 bis 3.6 V, wodurch er sich direkt an einer Knopfzelle betreiben lässt.
 Das EasyDMA-Modul enthält einen Buffer um SPI- und I2C-Kommunikation abzuhandeln, während die MCU im Schlafmodus ist.
 Das schwächere Modell nRF52810 unterstützt BT Mesh nicht.
@@ -93,11 +94,11 @@ Auf der Suche nach einer passenden IMU haben sich der STMicroelectronics LSM6DSL
 Der LSM6DSL läuft mit 1.71 - 3.6 V, verbraucht 0.4 mA im normalen Modus und 0.65 mA im Performance-Modus \cite{datasheet_lsm6dsl}. Die zugehörige Platine STEVAL-MKI178V2 enthält keine überflüssigen Komponenten.\\
 Der BMI260 läuft mit 1.7 - 3.6 V und verbraucht 0.685 mA
 Der Sensor war zu Beginn der Arbeit angekündigt.
-Da er pinkompatibel zum Vorgänger BMI160 ist, wurde mit Diesem entwickelt.
+Da er pinkompatibel zum Vorgänger BMI160 ist, wurde mit dem BMI160 entwickelt.
 Zum Ende der Arbeit sollte er durch den BMI260 getauscht werden, aber leider war er da nicht verfügbar. \cite{site_bmi260}\\
 Der BMI160 läuft auch mit 1.7 - 3.6 V aber verbraucht 0.925 mA \cite{datasheet_bmi160}.
 Das BMI160 Shuttle Board enthält zusätzlich einen BMM150 Magnetometer.
-Dieser hat im Standby einen Verbrauch von 1 $\mu$A, kann aber mechanisch entfernt werden \cite{datasheet_bmm150}.\\
+Der Magnetometer hat im Standby einen Verbrauch von 1 $\mu$A, kann aber mechanisch entfernt werden \cite{datasheet_bmm150}.\\
 Beide IMUs haben einen FIFO-Buffer eingebaut.
 Die gemessenen Daten können in dem Buffer hinterlegt werden, sodass die MCU die Daten in Bursts lesen und länger im Schlafmodus bleiben kann, da ein Wechsel der Energiemodi wiederum Energie kostet.\\
 Mit zwei Interrupt Pins können die IMUs die MCU über bestimmte Events informieren.
@@ -119,10 +120,10 @@ Abbildung \ref{fig:abstract_schema} stellt die Verbindungen graphisch dar.
 \end{figure}\\
 Wenn das Wearable nicht mit einem Endgerät verbunden ist, soll es in den Schlafmodus wechseln.
 Über einen Knopf soll es aufgeweckt werden und mit dem Advertisen beginnen.
-Mit Diesem soll das Advertisen auch wieder abgebrochen werden und das Wearable in den Schlafmodus versetzt werden können.
+Mit dem Knopf soll das Advertisen auch wieder abgebrochen werden und das Wearable in den Schlafmodus versetzt werden können.
 Wenn das Wearable mit einem Endgerät verbunden ist, soll es sich trennen lassen, indem der Knopf über einige Sekunden gedrückt gehalten wurde, damit es sich nicht versehentlich trennt.\\
 Um dem Nutzer ein Feedback über den Status zu geben, soll eine LED verwendet werden.
-Diese soll beim Advertisen in regelmäßigen Abständen blinken, sodass sich der Stromverbrauch nicht wie bei einer immer angeschalteten Power-LED auswirkt.
+Die LED soll beim Advertisen in regelmäßigen Abständen blinken, sodass sich der Stromverbrauch nicht wie bei einer immer angeschalteten Power-LED auswirkt.
 Wenn eine Verbindung hergestellt wurde, soll eine zweite LED zu Beginn der Verbindung aufblinken.
 Wenn während einer Verbindung kurz auf den Knopf gedrückt wird, soll die zweite LED kurz aufleuchten.
 

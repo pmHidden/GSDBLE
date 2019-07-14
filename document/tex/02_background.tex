@@ -7,7 +7,7 @@
 \section{Sensor}
 % Beschleunigungssensor und Gyrosensor
 Um Gelenkstellungen anzugeben wird eine Position und Rotation gebraucht.
-Diese wird von einem Beschleunigungssensor und einem Gyrosensor erfasst und besteht aus je 3 Achsen.
+Diese Daten werden von einem Beschleunigungssensor und einem Gyrosensor erfasst und bestehen aus je 3 Achsen.
 Die Sensoren sind platz- und energiesparend zusammen in einer Inertialen Messeinheit (IMU) erhältlich.
 Im Folgenden wird ein Einblick in die Funktionsweise der beiden Sensorentypen gegeben.
 
@@ -51,7 +51,7 @@ Da konstant eine Schwingung auf der Masse gehalten werden muss, damit der Coriol
 \section{Chipkommunikation}
 % I2C und SPI
 Eine IMU enthält in der Regel keine programmierbare Chiparchitektur sondern wird mit einer Microprocessor Unit (MPU) betrieben.
-Diese beinhaltet unter anderem eine Recheneinheit und einen Programmspeicher.
+Die IMU beinhaltet unter anderem eine Recheneinheit und einen Programmspeicher.
 Zur Kommunikation zwischen IMU und MPU kann man wiederum zwischen einigen Systemen wählen.
 Die verwendeten IMUs unterstützen die weit verbreiteten Master-Slave-Systeme Inter-Integrated Circuit (I2C) und Serial Peripheral Interface (SPI), die auch Beide auf der gewählten MPU laufen.
 Die Chipkommunikation läuft in der Regel mit einer langsameren Frequenz als die Recheneinheit.
@@ -82,9 +82,9 @@ Die Entscheidung wird später im Abschnitt \ref{ch:bleAndMesh} begründet.
 \subsubsection{Bluetooth Low Energy}
 BLE ist eine Abwandlung von Bluetooth, die für geringen Energieverbrauch optimiert ist.
 Geräte können dabei die Rolle vom Central oder Peripheral einnehmen, die einem Master-Slave Protokoll gleichkommen.
-Um eine Datenverbindung zu starten, kündigt sich die Peripheral auf den drei Advertising Frequenzen an und die Central hört diese ab.
+Um eine Datenverbindung zu starten, kündigt sich die Peripheral auf den drei Advertising Frequenzen an während die Central diese Frequenzen abhört.
 Die Parameter dafür, zum Beispiel die bis zu 31 Byte große Payload, werden im Generic Access Profile (GAP) eingestellt.
-Die Central kann auf die Ankündigung der Peripheral antworten und sich mit Diesem verbinden. \cite{site_adabt}\\
+Die Central kann auf die Ankündigung der Peripheral antworten und sich mit ihm verbinden. \cite{site_adabt}\\
 Nach dem Verbindungsaufbau gibt die Central eine Geschwindigkeit vor.
 Die Geschwindigkeit besteht aus einem Connection Interval, einer Slave Latency und einem Supervision Timeout.
 Das Connection Interval beschreibt in welchen Zeitabständen die Datenbursts passieren.
@@ -120,7 +120,7 @@ Nachteilig ist, dass der Energieverbrauch der Geräte höher ist, da sie seltene
 
 \section{Lithiumknopfzelle}
 Zur Energieversorgung wird eine Knopfzelle aus Lithium genutzt.
-Diese gibt es in verschiedenen Größen.
+Die Knopfzelle gibt es in verschiedenen Größen.
 Die gängigsten Größen CR2032, CR2430 und CR2450 eignen sich dafür gut.
 Die mittleren beiden Ziffern geben jeweils den Durchmesser und die hinteren beiden Ziffern die Dicke in Millimeter an.
 Da sich dementsprechend die Kapazität verändert, sind in der Tabelle \ref{tab:knopfzellen} die Kapazitäten von stellvertretenden Modellen gelistet.

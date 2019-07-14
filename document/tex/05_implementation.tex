@@ -53,7 +53,7 @@ Wird beim Einfügen in den TX-Buffer ein Counter hoch- und bei einem \texttt{TX\
 Nach diesem Verfahren wurde bei dem Programm dieser Arbeit ermittelt, dass die tatsächliche Kapazität etwa 3 mehr als die Minimalgröße beträgt.\\
 Wenn betrachtet wird, dass die verwendeten IMUs die Daten mit bis zu 1600 Hz erfassen können, ist die benötigte Buffergröße $1600 Hz * 4s = 6400$ wegen dem maximalen Connection Interval von 4 Sekunden.
 Den Buffer auf diese Größe zu setzen muss aber nicht sinnvoll sein, da nicht sichergestellt ist, dass in einem Connection Interval der komplette Buffer geleert wird.
-Dies ist von der Übertragungsgeschwindigkeit abhängig, die sich auch aus der Empfangsqualität und der Paketverlustrate ergibt.
+Das ist von der Übertragungsgeschwindigkeit abhängig, die sich auch aus der Empfangsqualität und der Paketverlustrate ergibt.
 Ist der Buffer größer als die Übertragungsgeschwindigkeit erlaubt, wird der Buffer volllaufen, Sensordaten werden letztendlich verworfen und die eingereihten Sensordaten kommen erst in einem späteren Connection Interval an, sodass eine Verzögerung entsteht.
 Wird der Buffer kleiner gewählt, passen nicht alle Sensordaten hinein und müssen verworfen werden.\\\\
 Im Optimalfall sollte die Übertragungsgeschwindigkeit maximiert werden und der Buffer dazu passend mit etwas Spielraum nach unten gewählt werden.
@@ -88,7 +88,7 @@ Da die Größe vom TX-Buffer nach der Initialisierung nicht geändert werden kan
 Der Connection Interval wird vom Endgerät bestimmt.
 Das Wearable kann eine neue Geschwindigkeit vorschlagen.
 Können sich Wearable und Endgerät nicht einigen, wird die Verbindung getrennt.
-Dies würde das Nutzungserlebnis stark negativ beeinflussen.
+Das würde das Nutzungserlebnis stark negativ beeinflussen.
 Um die Datenmenge zu reduzieren kann der Sensor langsamer gestellt oder absichtlich Daten verworfen werden.
 Während das Zweite eine feinere Einstellung ermöglicht, ist das Erste energiesparender.\\
 Deswegen wird ein Algorithmus eingesetzt, der die Geschwindigkeit vom Sensor herabsetzt, wenn ein neuer Connection Interval vorliegt oder der Nutzer eine neue Geschwindigkeit setzen möchte.
@@ -128,13 +128,13 @@ Deswegen wird der FIFO-Threshold wie in Abbildung \ref{lst:algoPost} eingestellt
 Damit soll die FIFO mindestens ein Mal pro Connection Interval ausgelesen werden.
 \begin{figure}[h!]
 \lstinputlisting{res/algoPost.c}
-	\caption{Berechnung des Threshold}
+	\caption{Berechnung des Thresholds}
 	\label{lst:algoPost}
 \end{figure}\\
 Bei der Implementierung des Algorithmus mussten weitere Probleme gelöst werden.\\\\
-Der Treiber der LSM6DSL IMU stellt die Funktion \texttt{lsm6dsl\_fifo\_raw\_data\_get)} zum Auslesen der FIFO bereit.
+Der Treiber der LSM6DSL IMU stellt die Funktion \texttt{lsm6dsl\_fifo\_raw\_data\_get} zum Auslesen der FIFO bereit.
 Da die FIFO eine Größe von 4096 Byte hat, lässt sie sich mit der Funktion wegen dem Parameter \texttt{uint8\_t len} nicht komplett auslesen.
-Dies ergibt wenig Sinn und auch das Datenblatt begründet die Einschränkung nicht.
+Das ergibt wenig Sinn und auch das Datenblatt begründet die Einschränkung nicht.
 Schaut man in die Implementierung in Abbildung \ref{lst:fifoRead}, stellt man fest, dass sie nur eine weitere Funktion aufruft.
 \begin{figure}[h!]
 \lstinputlisting{res/fifoRead.c}
@@ -142,16 +142,20 @@ Schaut man in die Implementierung in Abbildung \ref{lst:fifoRead}, stellt man fe
 	\label{lst:fifoRead}
 \end{figure}\\
 Der vierte Parameter der Funktion \texttt{lsm6dsl\_read\_reg} ist vom Typ \texttt{uint16\_t}.
-Somit lässt sich die Funktion stattdessen nutzen, um die komplette FIFO auszulesen.
+Somit lässt sich die allgemeinere Funktion stattdessen nutzen, um die komplette FIFO auszulesen.
 Es ist davon auszugehen, dass es sich um einen Fehler im Treiber handelt.\\\\
-
-
-% spi buffer im easydma kann maximal 255 bytes lesen in einer transaction wegen 8bit buffer -> in mehrere transactions aufsplitten ODER manuell im sdk ändern. funktioniert aber ist gegen hardwarespezifikation ODER nRF52840 Chip für 16-bit buffer
-
-
-
+Unabhängig vom vorherigen Problem gibt es ein Ähnliches bei der Nutzung von EasyDMA (vgl. Abschnitt \ref{ch:mcu}).
+Für eine einfache Transaktion von SPI oder I2C ist der Buffer durch die Größe vom 8 Bit Register \texttt{MAXCNT} begrenzt (siehe Abschnitt 10, 31 und 33 in \cite{datasheet_nrf52832}).
+Da ein Byte für die Adresse reserviert ist, können 254 Datenpakete pro Transaktion verschickt werden.
+Diese Einschränkung wurde in Abbildung \ref{lst:algoPre} in Zeile 9ff und Abbildung \ref{lst:algoPost} in Zeile 7f beachtet.
+Beim Auslesen der FIFO werden dafür mehrere Transaktionen durchgeführt, bis die FIFO leer ist.
+Alternativ hätte man die List-Funktion der EasyDMA oder die nRF52840 MCU, die 16 Bit für den Buffer bereitstellt \cite{datasheet_nrf52840}, nutzen können.
 
 \section{Wearable Hardwareumsetzung}
+Zur Entwicklung der Software und des Hardwareprototypen wurde das nRF52 DK mit der IMU auf den Evaluations Platinen mit Jumperkabeln verbunden.
+Zur Evaluation sollen die Platinen durch kleinere Alternativen ersetzt werden.
+Da ein Reflowofen bereitgestellt wurde .
+
 % nutze diese komponenten weil reflowofen. je nach skill sind größere komponenten erhältlich, siehe design section
 % optionaler taktgeber
 % int2 ging nicht mehr

@@ -81,14 +81,14 @@ Das System kann nicht mehr gekauft werden und ist auf der Produktseite als 'reti
 \section{Zusammenfassung und verwandte Arbeiten}
 Mit den existierenden Lösungen wäre es grundsätzlich möglich das Wearable umzusetzen.
 Allerdings gibt es neben der problematischen Verfügbarkeit eine Limitierung auf die gegebene Hardware.
-So verschwenden alle Lösungen Energie und Platz durch Sensoren, die für den benötigten Anwendungsfall nicht nötig sind, auch wenn dies im Falle des aconno ACNSENSA vernachlässigbar ist.
+So verschwenden alle Lösungen Energie und Platz durch Sensoren, die für den benötigten Anwendungsfall nicht nötig sind, auch wenn das im Falle des aconno ACNSENSA vernachlässigbar ist.
 Hier ist auch zu beachten, dass zusätzlich zu dem Standbyverbrauch der Komponenten auch Leckströme durch Kondensatoren und Verluste durch Pull-Up Widerstände hinzuzufügen sind.\\
 Alle genannten Lösungen nutzen für die Kommunikation zwischen MCU und IMU das I2C Protokoll, während in einer Arbeit \cite{comparison_i2c_spi} ermittelt wurde, dass I2C einen doppelt so hohen Energieverbrauch wie SPI hat.
 Auch zwischen den IMUs gibt es gravierende Unterschiede im Energieverbrauch.
 So verbraucht die IMU des Arduino Prime Core weniger als ein Drittel der Energie der anderen Beiden und enthält als Einziges keinen Magnetometer.\\
 Ein Magnetometer entspricht einem elektrischen Kompass und bestimmt die Rotation in Ausrichtung zu den Erdpolen.
 In der Arbeit \cite{sensor_fusion} wurde ein Sensorfusionsalgorithmus entwickelt, der die Genauigkeit des Gyrosensors mit den Daten eines Magnetometers verbessert.
-Dies kann in zukünftigen Änderungen integriert werden, falls die Genauigkeit der verwendeten IMU nicht ausreichen sollte.\\
+Der Algorithmus kann in zukünftigen Versionen integriert werden, falls die Genauigkeit der verwendeten IMU nicht ausreichen sollte.\\
 In dem Projekt \cite{project_chordata} wird ein System zur Bewegungsaufnahme mit einer IMU entwickelt.
 Hierbei werden die Sensoren per Kabel miteinander verbunden.
 Da die Software allerdings open-source ist, könnte darauf aufbauend eine eigene Bewegungserkennungssoftware erstellt werden.
