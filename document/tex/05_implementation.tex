@@ -169,15 +169,34 @@ Alternativ hätte man die List-Funktion der EasyDMA oder die nRF52840 MCU, die 1
 Zur Entwicklung der Software und des Hardwareprototypen wurde das nRF52 DK mit der IMU auf den Evaluations Platinen mit Jumperkabeln verbunden.
 Zur Evaluation sollen die Platinen durch kleinere Alternativen ersetzt werden.
 Da ein Reflowofen bereitgestellt wurde, konnten selbst kleinste QFN-Bauteile verlötet werden.
-Die LSM6DSL IMU wurde als QFN-Chip verbaut und die MCU in Form der Laird BL651.
+Die LSM6DSL IMU wurde als QFN-Chip und die MCU in Form der Laird BL651 verbaut.
 Die Platine von Laird bietet den Vorteil gegenüber der MCU als Chip, dass kein Vorwissen über Antennen nötig ist.
-
-
-% optionaler taktgeber
-% int2 ging nicht mehr
-% random kondensatoren zur abkopplung
-% widerstand und led
-% cortex-m-debug connector
+Dieser Abschnitt entnimmt seine Informationen den Datenblättern der Bauteile.\\
+An die MCU kann optional ein 32 kHz Taktgeber angeschlossen werden.
+Ohne den Taktgeber wird das Taktsignal von anderen Taktgebern synthetisiert.
+Der Taktgeber muss innerhalb der von der MCU vorgegebenen Spezifikation liegen und benötigt zwei Kondensatoren zum schwingen.
+Die Kapazität der Kondensatoren C lässt sich mit den Formeln und Werten \ref{eq:quatz1} bis \ref{eq:quatz2} auf 6 pF bestimmen.
+\begin{gather}
+  \label{eq:quatz1}
+	CL = \cfrac{C'^2}{2*C'}\\
+	C' = C + C_{pcb} + C_{pin}\\
+\intertext{mit den Werten}
+	CL = 7 pF\text{: Lastkapazität des ausgewählten Taktgebers}\\
+	C_{pcb} \simeq 4 pF\text{: Kapazitäten durch die Leiterbahnen und Platine}\\
+  \label{eq:quatz2}
+	C_{pin} = 4 pF\text{: Kapazität des Pins der MCU}
+\end{gather}\\
+Die Pins P0.22 bis P0.31 der MCU dürfen nicht Hochfrequent betrieben werden, da es die BLE-Kommunikation negativ beeinflussen kann.
+Im Design der Platine wurde deswegen auf diese Pins verzichtet.
+Der Interrupt2 Pin der IMU konnte dadurch leider platzbedingt nicht verbunden werden.
+In zukünftigen Versionen der Platine sollte er angeschlossen werden, um der Softwareentwicklung mehr Möglichkeiten offen zu lassen.\\
+An den zwei Spannungspins der IMU und dem Spannungspins der MCU sind 100 $\mu$F Kondensatoren angebracht.
+Sie dienen zur Abkopplung der Komponenten bei Lastschwankungen und sind auch in den Referenzimplementierungen vorhanden.
+Die LEDs haben eine Vorwärtsspannung von 1.8 V und einen Nennstrom von 2 mA.
+Um diese Vorgaben bei einem Batterielevel von 2 V bis 3 V einzuhalten, sind jeweils 191 Ohm Widerstände vorgeschaltet.
+Zur Programmierung des Chips wurde ein Cortex-M-Debug Anschluss angebracht.
+Damit lässt er sich vom nRF52 DK mit dem passenden Kabel programmieren.
+Um den Energieverbrauch zu evaluieren ist die Spannungsversorgung der Platine über zwei Pins, die 2.54 mm voneinander entfernt sind, offen zugänglich.\\
 % bom
 % schematic
 % gerber screenshot
