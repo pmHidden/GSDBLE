@@ -8,7 +8,7 @@
 
 #define BTN_ID 0
 
-static void (*sleep_mode_enter)();
+static void (*sleep_mode)();
 static uint16_t (*getConnHandle)();
 APP_TIMER_DEF(m_bm_shorttime_on);
 static bool led_on = false;
@@ -22,7 +22,7 @@ static void bsp_event_handler(bsp_event_t event) {
 
   switch (event) {
   case BSP_EVENT_SLEEP:
-    sleep_mode_enter();
+    sleep_mode();
     break; // BSP_EVENT_SLEEP
 
   case BSP_EVENT_DISCONNECT:
@@ -32,7 +32,7 @@ static void bsp_event_handler(bsp_event_t event) {
     }
     break; // BSP_EVENT_DISCONNECT
 
-  case BSP_EVENT_KEY_0:
+  case BSP_EVENT_DEFAULT:
     bsp_ind_conn();
     break; // BSP_EVENT_KEY_0
   default:
@@ -47,7 +47,7 @@ static uint32_t connection_buttons_configure() {
   if (err_code != NRF_SUCCESS)
     return err_code;
 
-  err_code = bsp_event_to_button_action_assign(BTN_ID, BSP_BUTTON_ACTION_RELEASE, BSP_EVENT_KEY_0);
+  err_code = bsp_event_to_button_action_assign(BTN_ID, BSP_BUTTON_ACTION_RELEASE, BSP_EVENT_DEFAULT);
   return err_code;
 }
 
@@ -93,7 +93,7 @@ static void led_timer_handler(void *p_context) {
 // publics
 
 void bsp_module_init(void (*p_sleep_mode_enter)(), uint16_t (*p_getConnHandle)()) {
-  sleep_mode_enter = p_sleep_mode_enter;
+  sleep_mode = p_sleep_mode_enter;
   getConnHandle = p_getConnHandle;
 
   ret_code_t err_code;
@@ -105,8 +105,8 @@ void bsp_module_init(void (*p_sleep_mode_enter)(), uint16_t (*p_getConnHandle)()
   err_code = advertising_buttons_configure();
   APP_ERROR_CHECK(err_code);
 
-  //err_code = app_timer_create(&m_bm_shorttime_on, APP_TIMER_MODE_SINGLE_SHOT, led_timer_handler);
-  //APP_ERROR_CHECK(err_code);
+  err_code = app_timer_create(&m_bm_shorttime_on, APP_TIMER_MODE_SINGLE_SHOT, led_timer_handler);
+  APP_ERROR_CHECK(err_code);
 }
 
 void bsp_ind_adv(void) {
