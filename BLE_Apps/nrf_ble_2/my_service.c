@@ -1,4 +1,5 @@
 // https://github.com/bjornspockeli/custom_ble_service_example
+// also has the function of the characteristics
 #include "my_service.h"
 #include "ble_srv_common.h"
 #include "boards.h"
@@ -18,6 +19,14 @@ static bool send_my_data(imu_data_t data) {
 
 void my_service_loop() {
   imu_loop();
+}
+
+static void writeCurrentConfig() {
+  chara_conf_packet_t config;
+  memset(&config, 0, sizeof(chara_conf_packet_t));
+  config.speed = (uint8_t)imu_speed_get();
+  config.pause = (uint8_t)imu_is_paused();
+  chara_conf_update(my_service_cus, config);
 }
 
 uint32_t my_service_init(my_service_t *p_cus, uint16_t p_ble_tx_buffer_size) {
@@ -55,10 +64,7 @@ uint32_t my_service_init(my_service_t *p_cus, uint16_t p_ble_tx_buffer_size) {
   imu_init(send_my_data, p_ble_tx_buffer_size);
 
   // Write current config
-  chara_conf_packet_t init_values;
-  memset(&init_values, 0, sizeof(chara_conf_packet_t));
-  init_values.speed = (uint8_t)imu_speed_get();
-  chara_conf_update(p_cus, init_values);
+  writeCurrentConfig();
 
   return NRF_SUCCESS;
 }
@@ -81,16 +87,22 @@ static void on_connect(my_service_t *p_cus, ble_evt_t const *p_ble_evt) {
 static void on_write(my_service_t *p_cus, ble_evt_t const *p_ble_evt) {
   const ble_gatts_evt_write_t *p_evt_write = &p_ble_evt->evt.gatts_evt.params.write;
 
+  // user writes new configuration
   if (p_evt_write->handle == p_cus->chara_conf_handles.value_handle && p_evt_write->len >= sizeof(chara_conf_packet_u)) {
     // pull new config and apply
     chara_conf_packet_u config;
     memset(&config, 0, sizeof(chara_conf_packet_u));
     memcpy(config.bytes, p_evt_write->data, sizeof(chara_conf_packet_u));
     imu_speed_set((imu_speed_t)config.parsed.speed);
-    // update config and push
-    config.parsed.unused = 0u;
-    config.parsed.speed = (uint8_t)imu_speed_get();
-    chara_conf_update(p_cus, config.parsed);
+    bool want_to_pause = (bool)config.parsed.pause;
+    if (want_to_pause != imu_is_paused()) {
+      if (want_to_pause)
+        imu_stop(false);
+      else
+        imu_restart();
+    }
+    // respond with update
+    writeCurrentConfig();
   }
 }
 
@@ -132,7 +144,7 @@ void ble_cus_on_ble_evt(ble_evt_t const *p_ble_evt, void *p_context) {
   case BLE_GATTS_EVT_HVN_TX_COMPLETE:
     break;
   default:
-    NRF_LOG_INFO("other: %d", p_ble_evt->header.evt_id);
+    NRF_LOG_INFO("other ble event: %d", p_ble_evt->header.evt_id);
     // No implementation needed.
     break;
   }

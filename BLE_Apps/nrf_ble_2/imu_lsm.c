@@ -14,7 +14,7 @@ gnd -> gnd
 */
 static lsm6dsl_ctx_t dev_ctx;
 static bool (*send_data)(imu_data_t);
-static imu_speed_t cur_speed; 
+static imu_speed_t cur_speed;
 static uint16_t cur_buffer_clear_interval;
 volatile static bool isPause;
 
@@ -83,8 +83,13 @@ void imu_restart(void) {
   lsm_get_data_restart(&dev_ctx, cur_speed);
 }
 
+bool imu_is_paused() {
+  return isPause;
+}
+
 void imu_loop(void) {
   if (!isPause)
     lsm_get_data_loop(&dev_ctx, send_data);
-    else NRF_LOG_INFO("paused");
+  else
+    NRF_LOG_INFO("paused");
 }

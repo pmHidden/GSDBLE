@@ -1,5 +1,5 @@
 // https://github.com/bjornspockeli/custom_ble_service_example
-// characteristic for sensor config
+// characteristic for sensor config. only has the configuration, not the function.
 #include "chara_conf.h"
 #include "ble_srv_common.h"
 #include "boards.h"
@@ -35,6 +35,7 @@ uint32_t chara_conf_add(my_service_t *p_cus) {
   attr_char_value.init_len = sizeof(chara_conf_packet_u);
   attr_char_value.init_offs = 0;
   attr_char_value.max_len = sizeof(chara_conf_packet_u);
+  NRF_LOG_INFO("Size of chara_conf is %d bytes", sizeof(chara_conf_packet_u));
 
   // set the properties
   ble_gatts_attr_md_t attr_md;

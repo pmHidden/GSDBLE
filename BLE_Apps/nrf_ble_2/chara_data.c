@@ -1,5 +1,5 @@
 // https://github.com/bjornspockeli/custom_ble_service_example
-// characteristic for sensor data
+// characteristic for sensor data. only has the configuration, not the function.
 #include "chara_data.h"
 #include "ble_srv_common.h"
 #include "boards.h"
@@ -35,6 +35,7 @@ uint32_t chara_data_add(my_service_t *p_cus) {
   attr_char_value.init_len = sizeof(imu_data_t);
   attr_char_value.init_offs = 0;
   attr_char_value.max_len = sizeof(imu_data_t);
+  NRF_LOG_INFO("Size of chara_data is %d bytes", sizeof(imu_data_t));
 
   // set the properties
   ble_gatts_attr_md_t attr_md;

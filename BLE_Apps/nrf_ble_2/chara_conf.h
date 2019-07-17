@@ -11,7 +11,8 @@ uint32_t chara_conf_add(my_service_t *p_cus);
 
 typedef struct {
   uint8_t speed : 3;  // refers to imu_data_t
-  uint8_t unused : 5; // so we have a good size % 8 == 0
+  uint8_t pause : 1;
+  uint8_t unused : 4; // so we have a good size % 8 == 0
 } chara_conf_packet_t;
 
 typedef union {

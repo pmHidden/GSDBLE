@@ -4,13 +4,9 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-/**
-definitions to control an imu from an mcu
-*/
+/** definitions to control an imu from an mcu */
 
-/**
-sensor data rate. speed in hz = 25 * 2 ^ imu_speed_t.
-*/
+/** sensor data rate. speed in hz = 25 * 2 ^ imu_speed_t. */
 typedef enum {
   IMU_ODR_25Hz = 0,
   IMU_ODR_50Hz = 1,
@@ -54,7 +50,9 @@ imu_speed_t imu_speed_get(void);
 /** stop sending data. if reset == true, set the sensor speed to default */
 void imu_stop(bool reset);
 
-/** continue sending data with the sensor speed that was set last */
+bool imu_is_paused();
+
+/** starts sending data. applies old config (or default if there is no old) */
 void imu_restart(void);
 
 #endif
