@@ -34,7 +34,7 @@ static void bsp_event_handler(bsp_event_t event) {
 
   case BSP_EVENT_DEFAULT:
     bsp_ind_conn();
-    break; // BSP_EVENT_KEY_0
+    break; // BSP_EVENT_DEFAULT
   default:
     break;
   }
