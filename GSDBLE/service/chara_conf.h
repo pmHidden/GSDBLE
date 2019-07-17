@@ -2,7 +2,7 @@
 #define CHARA_CONF_H_
 
 // https://github.com/bjornspockeli/custom_ble_service_example
-#include "imu.h"
+#include "../imu.h"
 #include "my_service.h"
 
 #define CHARA_CONF_UUID 0x4202 // b2154202-d1a3-e541-8bf7-8c8eb0519548

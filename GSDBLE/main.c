@@ -14,7 +14,7 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
-#include "my_service.h"
+#include "service/my_service.h"
 
 #define DEVICE_NAME "GSDBLE"
 #define APP_BLE_CONN_CFG_TAG 1                           // A tag identifying the SoftDevice BLE configuration

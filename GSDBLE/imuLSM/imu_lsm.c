@@ -1,5 +1,5 @@
 #include "app_error.h"
-#include "imu.h"
+#include "../imu.h"
 #include "lsm6dsl_reg.h"
 #include "lsm_get_data.h"
 #include "lsm_protocol.h"

@@ -5,7 +5,7 @@
 #include "boards.h"
 #include "chara_conf.h"
 #include "chara_data.h"
-#include "imu.h"
+#include "../imu.h"
 #include "nrf_gpio.h"
 #include "nrf_log.h"
 #include "sdk_common.h"

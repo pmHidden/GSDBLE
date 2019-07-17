@@ -7,7 +7,7 @@
 #include "ble_srv_common.h"
 #include <stdbool.h>
 #include <stdint.h>
-#include "imu.h"
+#include "../imu.h"
 
 #define CHARA_DATA_UUID 0x4201 // b2154201-d1a3-e541-8bf7-8c8eb0519548
 

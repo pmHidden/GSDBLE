@@ -2,7 +2,7 @@
 #define LSM_GET_DATA_H_
 
 #include "app_error.h"
-#include "imu.h"
+#include "../imu.h"
 #include "lsm6dsl_reg.h"
 #include <stdint.h>
 
