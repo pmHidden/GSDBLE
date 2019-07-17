@@ -1,0 +1,19 @@
+lsm:
+sdo -> p11 (grün)
+sdx -> gnd
+scx -> gnd
+int1 -> p08 (lila)
+sda -> p12 (gelb)
+scl -> p14 (orange)
+cs -> p16 (blau)
+
+button -> p13 -> gnd
+led1 -> p17 -> vcc
+led2 -> p07 -> vcc
+
+10-pin-debug-header
+gnddetect, key, gnd, gnd, vcc
+nreset, nc, swo, swdclk, swdio
+zu
+gnd, nc, gnd, gnd, vcc
+nreset (p21), nc, p18, swdclk, swdio
