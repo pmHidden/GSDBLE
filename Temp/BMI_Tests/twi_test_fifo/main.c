@@ -26,15 +26,15 @@ rest nc
 
 #define TWI_INSTANCE_ID 0
 static const nrf_drv_twi_t m_twi = NRF_DRV_TWI_INSTANCE(TWI_INSTANCE_ID);
-#define INT1_PIN 28
+#define INT1_PIN 8
 struct bmi160_dev bmi;
 
 ret_code_t twi_init(void) {
   ret_code_t err_code;
 
   nrf_drv_twi_config_t twi_config = NRF_DRV_TWI_DEFAULT_CONFIG;
-  twi_config.scl = ARDUINO_SCL_PIN;
-  twi_config.sda = ARDUINO_SDA_PIN;
+  twi_config.scl = 14;
+  twi_config.sda = 12;
   twi_config.frequency = NRF_DRV_TWI_FREQ_100K;
 
   err_code = nrf_drv_twi_init(&m_twi, &twi_config, NULL, NULL);
@@ -46,7 +46,7 @@ ret_code_t twi_init(void) {
 }
 
 int8_t user_spi_read(uint8_t id, uint8_t reg_addr, uint8_t *data, uint16_t len) {
-  NRF_LOG_INFO("i2c read %hu", len);
+  //NRF_LOG_INFO("i2c read %hu", len);
 
   if (len != 0) {
     ret_code_t err_code;
@@ -61,7 +61,7 @@ int8_t user_spi_read(uint8_t id, uint8_t reg_addr, uint8_t *data, uint16_t len) 
 }
 
 int8_t user_spi_write(uint8_t id, uint8_t reg_addr, uint8_t *data, uint16_t len) {
-  NRF_LOG_INFO("i2c write %hu", len);
+  //NRF_LOG_INFO("i2c write %hu", len);
 
   uint8_t tx_ptr[len + 1];
   tx_ptr[0] = reg_addr;
@@ -147,12 +147,12 @@ int8_t fifo_gyro_header_time_data(struct bmi160_dev *dev) {
   int8_t rslt = 0;
 
   /* Declare memory to store the raw FIFO buffer information */
-  uint8_t fifo_buff[300];
+  uint8_t fifo_buff[254];
 
   /* Modify the FIFO buffer instance and link to the device instance */
   struct bmi160_fifo_frame fifo_frame;
   fifo_frame.data = fifo_buff;
-  fifo_frame.length = 300;
+  fifo_frame.length = 254;
   dev->fifo = &fifo_frame;
   uint16_t index = 0;
 
@@ -162,7 +162,7 @@ int8_t fifo_gyro_header_time_data(struct bmi160_dev *dev) {
   uint8_t gyro_index;
 
   /* Configure the sensor's FIFO settings */
-  rslt = bmi160_set_fifo_config(BMI160_FIFO_GYRO | BMI160_FIFO_HEADER, BMI160_ENABLE, dev);
+  rslt = bmi160_set_fifo_config(BMI160_FIFO_GYRO, BMI160_ENABLE, dev);
 
   if (rslt == BMI160_OK) {
     dev->delay_ms(420);
@@ -172,11 +172,7 @@ int8_t fifo_gyro_header_time_data(struct bmi160_dev *dev) {
 
     if (rslt == BMI160_OK) {
       NRF_LOG_INFO("AVAILABLE FIFO LENGTH : %d", dev->fifo->length);
-      /* Print the raw FIFO data */
-      for (index = 0; index < dev->fifo->length; index++) {
-        NRF_LOG_INFO("FIFO DATA INDEX[%d] = %x", index, dev->fifo->data[index]);
-        NRF_LOG_FLUSH(); // Log buffer overflow otherwise
-      }
+
       /* Parse the FIFO data to extract gyro data from the FIFO buffer */
       NRF_LOG_INFO("REQUESTED GYRO DATA FRAMES : %d", gyro_frames_req);
       rslt = bmi160_extract_gyro(gyro_data, &gyro_frames_req, dev);
@@ -212,6 +208,9 @@ int main(void) {
 
   NRF_LOG_INFO("TWI example started.");
 
+  nrf_gpio_cfg_output(11);
+  nrf_gpio_pin_clear(11);
+
   APP_ERROR_CHECK(twi_init());
   APP_ERROR_CHECK_BOOL(BMI160_OK == sensor_init());
   APP_ERROR_CHECK_BOOL(BMI160_OK == sensor_config());
@@ -237,9 +236,9 @@ int main(void) {
       __WFE();
       bmi160_set_fifo_flush(&bmi);
       __WFE();
-      fifo_gyro_header_time_data(&bmi);
       for (;;) {
         if (!NRF_LOG_PROCESS()) {
+          fifo_gyro_header_time_data(&bmi);
           __SEV();
           __WFE();
           __WFE();
@@ -247,50 +246,4 @@ int main(void) {
       }
     }
   }
-  /*
-  // main
-  while (true) {
-    NRF_LOG_INFO("Read");
-    memset(fifo_buff, 0, 1024 * sizeof(uint8_t));
-    bmi.fifo->length = 1024u;
-    NRF_LOG_INFO("USER REQUESTED FIFO LENGTH : %u", bmi.fifo->length);
-    APP_ERROR_CHECK_BOOL(BMI160_OK == bmi160_get_fifo_data(&bmi));
-    NRF_LOG_INFO("AVAILABLE FIFO LENGTH : %u", bmi.fifo->length);
-
-    uint16_t index = 0;
-    for (index = 0; index < bmi.fifo->length; index++) {
-      NRF_LOG_INFO("FIFO DATA INDEX[%u] = %x", index, bmi.fifo->data[index]);
-      NRF_LOG_FLUSH();
-    }*/
-  /*
-    uint8_t gyro_frames_req = 80u;
-    struct bmi160_sensor_data gyro_data[80];
-    memset(gyro_data, 0, 80 * sizeof(struct bmi160_sensor_data));
-
-    APP_ERROR_CHECK_BOOL(BMI160_OK == bmi160_extract_gyro(gyro_data, &gyro_frames_req, &bmi));
-    NRF_LOG_INFO("GYRO DATA : %u", gyro_frames_req);
-    NRF_LOG_INFO("SENSOR TIME DATA : %u", bmi.fifo->sensor_time);
-    NRF_LOG_INFO("SKIPPED : %u.", bmi.fifo->skipped_frame_count);
-    */
-  /*
-    uint8_t accel_frames_req = 100u;
-    struct bmi160_sensor_data accel_data[100];
-
-    APP_ERROR_CHECK_BOOL(BMI160_OK == bmi160_extract_accel(accel_data, &accel_frames_req, &bmi));
-    NRF_LOG_INFO("ACCEL DATA : %u", accel_frames_req);
-    NRF_LOG_INFO("SENSOR TIME DATA : %u", bmi.fifo->sensor_time);
-    NRF_LOG_INFO("SKIPPED : %u.", bmi.fifo->skipped_frame_count);
-*/
-  /*
-
-    NRF_LOG_FLUSH();
-    __WFE();
-    union bmi160_int_status status;
-    APP_ERROR_CHECK_BOOL(BMI160_OK == bmi160_get_int_status(BMI160_INT_STATUS_1, &status, &bmi));
-    if (status.bit.ffull == 0u) {
-      NRF_LOG_INFO("Sleep");
-      __WFE();
-    }
-    __SEV();
-  }*/
 }

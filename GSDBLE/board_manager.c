@@ -97,7 +97,6 @@ void bsp_module_init(void (*p_sleep_mode_enter)(), uint16_t (*p_getConnHandle)()
   getConnHandle = p_getConnHandle;
 
   ret_code_t err_code;
-  bsp_event_t startup_event;
 
   err_code = bsp_init(BSP_INIT_LEDS | BSP_INIT_BUTTONS, bsp_event_handler);
   APP_ERROR_CHECK(err_code);

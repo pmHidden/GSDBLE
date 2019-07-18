@@ -82,12 +82,14 @@
     <folder Name="nRF_Drivers">
       <file file_name="C:/nrf52/sdk/integration/nrfx/legacy/nrf_drv_clock.c" />
       <file file_name="C:/nrf52/sdk/integration/nrfx/legacy/nrf_drv_spi.c" />
+      <file file_name="C:/nrf52/sdk/integration/nrfx/legacy/nrf_drv_twi.c" />
       <file file_name="C:/nrf52/sdk/integration/nrfx/legacy/nrf_drv_uart.c" />
       <file file_name="C:/nrf52/sdk/modules/nrfx/soc/nrfx_atomic.c" />
       <file file_name="C:/nrf52/sdk/modules/nrfx/drivers/src/nrfx_clock.c" />
       <file file_name="C:/nrf52/sdk/modules/nrfx/drivers/src/nrfx_gpiote.c" />
       <file file_name="C:/nrf52/sdk/modules/nrfx/drivers/src/prs/nrfx_prs.c" />
       <file file_name="C:/nrf52/sdk/modules/nrfx/drivers/src/nrfx_spim.c" />
+      <file file_name="C:/nrf52/sdk/modules/nrfx/drivers/src/nrfx_twim.c" />
       <file file_name="C:/nrf52/sdk/modules/nrfx/drivers/src/nrfx_uart.c" />
       <file file_name="C:/nrf52/sdk/modules/nrfx/drivers/src/nrfx_uarte.c" />
     </folder>
@@ -99,11 +101,16 @@
         <file file_name="../service/chara_conf.c" />
         <file file_name="../service/chara_data.c" />
         <file file_name="../service/my_service.c" />
-        <folder Name="Sensor">
-          <file file_name="../imuLSM/imu_lsm.c" />
+        <folder Name="ImuLsm">
           <file file_name="../imuLSM/lsm_get_data_fifo.c" />
-          <file file_name="../imuLSM/lsm_protocol_spi.c" />
+          <file file_name="../imuLSM/lsm_protocol_i2c.c" />
           <file file_name="../imuLSM/lsm6dsl_reg.c" />
+          <file file_name="../imuLSM/imu_lsm.c" />
+        </folder>
+        <folder Name="ImuBmi">
+          <file file_name="../imuBMI/bmi_get_data_fifo.c" />
+          <file file_name="../imuBMI/bmi_protocol_spi.c" />
+          <file file_name="../imuBMI/bmi160.c" />
         </folder>
       </folder>
       <file file_name="../board_manager.c" />
