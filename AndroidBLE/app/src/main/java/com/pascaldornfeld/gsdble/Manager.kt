@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattService
 import android.content.Context
 import android.util.Log
+import androidx.annotation.IntRange
 import com.pascaldornfeld.gsdble.fragments.IntervalFragment
 import com.pascaldornfeld.gsdble.models.ImuConfig
 import com.pascaldornfeld.gsdble.models.ImuData
@@ -20,7 +21,8 @@ class Manager<E : BleManagerCallbacks>(
     context: Context,
     private val callbacksData: CharaCallbacks<ImuData>,
     private val callbacksConfig: CharaCallbacks<ImuConfig>,
-    private val callbackInterval: CharaCallbacks.MyDataReceivedCallback<IntervalFragment.Interval>
+    private val callbackInterval: CharaCallbacks.MyDataReceivedCallback<IntervalFragment.Interval>,
+    private val callbackMtu: ((Int) -> Unit)
 ) : BleManager<E>(context) {
     data class CharaCallbacks<DataType>(
         val newDataCallback: MyDataReceivedCallback<DataType>,
@@ -31,7 +33,6 @@ class Manager<E : BleManagerCallbacks>(
             fun onNewData(data: DataType)
         }
     }
-
 
     private var charaData: BluetoothGattCharacteristic? = null
     private var charaConfig: BluetoothGattCharacteristic? = null
@@ -65,10 +66,9 @@ class Manager<E : BleManagerCallbacks>(
                 enableNotifications(charaConfig).done(callbacksConfig.notifySuccessCallback)
                     .fail(callbacksConfig.notifyFailCallback).enqueue()
 
-                //requestMtu(517).with { _, mtu -> Log.w("MANAGER", "NEW MTU IS: $mtu") }.enqueue()
+                writeNewMtu(23)
                 writeNewInterval(IntervalFragment.Interval.CONNECTION_PRIORITY_BALANCED)
             }
-
 
             override fun onDeviceDisconnected() {
                 charaConfig = null
@@ -91,6 +91,10 @@ class Manager<E : BleManagerCallbacks>(
         }
     }
 
+    fun writeNewMtu(pMtu: Int) {
+        requestMtu(pMtu).with { _, mtu -> callbackMtu(mtu) }.enqueue()
+    }
+
     fun writeNewConfig(config: ImuConfig) = writeCharacteristic(charaConfig, config.toByteArray()).enqueue()
 
     fun writeNewInterval(interval: IntervalFragment.Interval) {
@@ -103,5 +107,9 @@ class Manager<E : BleManagerCallbacks>(
                 requestConnectionPriority(CONNECTION_PRIORITY_HIGH).enqueue()
         }
         callbackInterval.onNewData(interval)
+    }
+
+    override fun shouldClearCacheWhenDisconnected(): Boolean {
+        return true
     }
 }

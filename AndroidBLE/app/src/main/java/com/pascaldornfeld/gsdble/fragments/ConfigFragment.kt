@@ -104,3 +104,16 @@ class IntervalFragment : ConfigFragment<IntervalFragment.Interval>() {
         functionToApply?.invoke(intervals[index])
     }
 }
+
+class MtuFragment : ConfigFragment<Int>() {
+    var functionToApply: ((Int) -> Unit)? = null
+    private val minimum = 23
+    private val maximum = 517
+
+    override fun getDataArray(): Array<Int> = IntArray(maximum - minimum + 1) { minimum + it }.toTypedArray()
+    override fun getStringRepresentationFromData(data: Int): String = data.toString()
+
+    override fun applyNewData(index: Int) {
+        functionToApply?.invoke(index + minimum)
+    }
+}

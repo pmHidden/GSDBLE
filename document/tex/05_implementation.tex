@@ -172,10 +172,10 @@ Da ein Reflowofen bereitgestellt wurde, konnten selbst kleinste QFN-Bauteile ver
 Die LSM6DSL IMU wurde als QFN-Chip und die MCU in Form der Laird BL651 verbaut.
 Die Platine von Laird bietet den Vorteil gegenüber der MCU als Chip, dass kein Vorwissen über Antennen nötig ist.
 Dieser Abschnitt entnimmt seine Informationen den Datenblättern der Bauteile.\\
-An die MCU kann optional ein 32 kHz Taktgeber angeschlossen werden.
+An die MCU kann optional ein 32.768 kHz Taktgeber angeschlossen werden.
 Ohne den Taktgeber wird das Taktsignal von anderen Taktgebern synthetisiert.
 Der Taktgeber muss innerhalb der von der MCU vorgegebenen Spezifikation liegen und benötigt zwei Kondensatoren zum schwingen.
-Die Kapazität der Kondensatoren C lässt sich mit den Formeln und Werten \ref{eq:quatz1} bis \ref{eq:quatz2} auf 6 pF bestimmen.
+Die Kapazität der Kondensatoren C lässt sich mit den Formeln und Werten \ref{eq:quatz1} bis \ref{eq:quatz2} auf 6 pF bestimmen. \cite{datasheet_nrf52832}
 \begin{gather}
   \label{eq:quatz1}
 	CL = \cfrac{C'^2}{2*C'}\\
@@ -186,36 +186,113 @@ Die Kapazität der Kondensatoren C lässt sich mit den Formeln und Werten \ref{e
   \label{eq:quatz2}
 	C_{pin} = 4 pF\text{: Kapazität des Pins der MCU}
 \end{gather}\\
-Die Pins P0.22 bis P0.31 der MCU dürfen nicht Hochfrequent betrieben werden, da es die BLE-Kommunikation negativ beeinflussen kann.
+Die Pins P0.22 bis P0.31 der MCU dürfen nicht hochfrequent betrieben werden, da es die BLE-Kommunikation negativ beeinflussen kann. \cite{datasheet_nrf52832}
 Im Design der Platine wurde deswegen auf diese Pins verzichtet.
 Der Interrupt2 Pin der IMU konnte dadurch leider platzbedingt nicht verbunden werden.
 In zukünftigen Versionen der Platine sollte er angeschlossen werden, um der Softwareentwicklung mehr Möglichkeiten offen zu lassen.\\
 An den zwei Spannungspins der IMU und dem Spannungspins der MCU sind 100 $\mu$F Kondensatoren angebracht.
 Sie dienen zur Abkopplung der Komponenten bei Lastschwankungen und sind auch in den Referenzimplementierungen vorhanden.
-Die LEDs haben eine Vorwärtsspannung von 1.8 V und einen Nennstrom von 2 mA.
+Die ausgewählten LEDs haben eine Vorwärtsspannung von 1.8 V und einen Nennstrom von 2 mA.
 Um diese Vorgaben bei einem Batterielevel von 2 V bis 3 V einzuhalten, sind jeweils 191 Ohm Widerstände vorgeschaltet.
-Zur Programmierung des Chips wurde ein Cortex-M-Debug Anschluss angebracht.
+Als Farben der LEDs wurden rot und gelb gewählt, da die Farben eine hohe Wellenlänge haben und dadurch energieärmer sind.
+Wird die rote LED der Gelben in der Nutzung präferiert steigert sich aus dem selben Grund die Energieeffizienz des Wearables minimal.
+Zur Programmierung des Chips wurde ein Cortex-M-Debug\footnote{\url{http://infocenter.arm.com/help/topic/com.arm.doc.faqs/attached/13634/cortex_debug_connectors.pdf}, aufgerufen am 18.07.2019} Anschluss angebracht.
 Damit lässt er sich vom nRF52 DK mit dem passenden Kabel programmieren.
-Um den Energieverbrauch zu evaluieren ist die Spannungsversorgung der Platine über zwei Pins, die 2.54 mm voneinander entfernt sind, offen zugänglich.\\
-% bom
-% schematic
-% gerber screenshot
-% bilder vor- und rückseite
+Um den Energieverbrauch zu evaluieren ist die Spannungsversorgung der Platine über zwei Pins, die 2.54 mm voneinander entfernt sind, offen zugänglich.
+Alle Komponenten wurden soweit verfügbar in der Größe 0603 gewählt, damit sie mit einem Lötkolben eingelötet oder ausgetauscht werden können.
+Eine vollständige Liste der Komponenten ist in Tabelle \ref{tab:bom} zu finden.\\
 
+\begin{minipage}{\linewidth}
+	\captionof{table}{Bill of Materials (BOM)}
+	\label{tab:bom}
+	\begin{tabularx}{\linewidth}{l|X|l|>{\hsize=.3\hsize}X}
+		Komponente & Typ & Anzahl & Name im Schaltplan\\
+		\hline
+		Laird BL652-SA-01 & nRF52832 MCU & 1 & IC1\\
+		STMicroelectronics LSM6DSL & LSM6DSL IMU & 1 & U1\\
+		ECS Inc ECS-.327-7-34R & 32.768 kHz Taktgeber mit 7 pF Ladekapazität und 50 kOhm ESR & 1 & Y1\\
+		Yageo CC0603CRNPO9BN6R0 & 6 pF Kondensator für Taktgeber & 2 & C2, C3\\
+		Yageo CC0603JRX7R9BB104 & 0.1 $\mu$F Kondensator zur Abkopplung & 3 & C1, C4, C5\\
+		Vishay TLMY1000-GS08 & Gelbe LED & 1 & LED1\\
+		Vishay TLMS1000-GS08 & Rote LED & 1 & LED2\\
+		Vishay CRCW0603191RFKEA & 191 Ohm Widerstand für LEDs & 2 & R1, R2\\
+		Keystone Electronics 3008 & CR2450 Knopfzellenhalter & 1 & CR2450\\
+		Panasonic EVQ-Q2B03W & Taster & 1 & S1\\
+		CNC-Tech 3220-10-0300-00 & Cortex-M-Debug Buchse & 1 & J2\\
+  \end{tabularx}
+\end{minipage}\\\\
+Bei der Erstellung des Schaltplans, in Abbildung \ref{fig:schematic} zu sehen, musste bereits beachtet werden, wo sich die Pins physisch an den Komponenten befinden, damit sich die Verbindungen nicht überschneiden.
+Die Komponenten lassen sich mit der letzten Spalte von Tabelle \ref{tab:bom} zuordnen.
+Die Komponente VCC.GND sind die besagten Pins zur externen Stromversorgung.
+\begin{figure}[p]
+	\centering
+	\includegraphics[height=0.8\linewidth,angle=90]{res/schematic.pdf}
+	\caption{Schaltplan der Platine}
+	\label{fig:schematic}
+\end{figure}\\
+Die Platine wurde nach dem Entwurf in Abbildung \ref{fig:platinenlayout} bei JLCPCB\footnote{\url{https://jlcpcb.com/}, aufgerufen am 18.07.2019} angefertigt.
+Die roten und blauen Stellen sind Kupferverbindungen.
+Die größeren Felder sind die Masseflächen.
+Die grauen Vias verbinden die Unterseite mit der Oberseite.
+Während sich auf der Unterseite nur die Batterie befindet, sind die restlichen Komponenten auf der Oberseite.
+Das freie Rechteck in der linken unteren Ecke enthält kein Metall, da sich hier die Antenne befindet und sonst negativ beeinflusst werden würde.
+An der Rückseite erkennt man, dass die Größe der Platine durch die Batterie und der Antenne vorgegeben sind.
+Die Verbindungen zur Stromversorgung sind dicker ausgeführt, damit sie weniger Widerstand bieten.
+Normalerweise wird die Unterseite der Platine genutzt, wenn Verbindungen sich überschneiden.
+Die Unterseite ist fast komplett durch die Batterie belegt.
+Über den Kupferleitungen ist eine isolierende Lackschicht, die vor Kurzschlüssen durch die Batterie schützen würde.
+Da die Knopfzelle allerdings beim Einlegen und Entfernen über die Oberfläche reibt, ist zu erwarten, dass die Lackschicht sich abträgt und dann nicht mehr schützt.
+Deswegen mussten Überschneidungen komplett vermieden werden.
+\begin{figure}[hbt]
+	\centering
+	\subfloat[Vorderseite]{\includegraphics[width=0.5\linewidth]{res/platineFront.jpg}}
+	\subfloat[Rückseite]{\includegraphics[width=0.5\linewidth]{res/platineBack.jpg}}
+	\caption{Platinenlayout}
+	\label{fig:platinenlayout}
+\end{figure}\\
+Die fertige Platine ist in Abbildung \ref{fig:platine} zu finden.
+Zum Größenvergleich sind CR2032 und CR2450 Knopfzellen und das nRF52 DK mit abgebildet.
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[width=0.5\linewidth]{res/platine.jpg}
+	\caption{Fertig bestückte Platine im Größenvergleich}
+	\label{fig:platine}
+\end{figure}\\
 
 \section{Android App}
 Die App wurde mit dem Android SDK geschrieben, das speziell für Android Smartphones entwickelt wurde.
-Obwohl Java weiter verbreitet und auch vom SDK unterstützt wird, ist die App in der Sprache Kotlin geschrieben, da es sinnvolle Erweiterungen zu Java bietet wie Datenklassen und funktionelle Programmierung und der Code gleichzeitig mit Javacode substituierbar ist.\\
-Die App wurde für Android 9.0 kompiliert und getestet aber sollte auch bis Android 5.0 abwärtskompatibel sein.
+Obwohl Java weiter verbreitet und auch vom SDK unterstützt wird, ist die App in der Sprache Kotlin geschrieben, da sie sinnvolle Erweiterungen zu Java bietet wie Datenklassen und funktionelle Programmierung und der Code gleichzeitig mit Javacode substituierbar ist.\\
+Die App wurde für Android 9.0 kompiliert und getestet und soll bis Android 5.0 abwärtskompatibel sein.
 Ältere Versionen werden nicht unterstützt, da die Methode \texttt{no.\allowbreak{}nordicsemi.\allowbreak{}android.\allowbreak{}ble.\allowbreak{}BleManager\#\allowbreak{}requestConnectionPriority} Android 5.0 erfordert und gebraucht wird, um den Connection Interval des BLE-Stacks zu setzen.\\
-% a: ble in android sdk hat keine befehlsqueue -> nordic ble sdk
-
-%\begin{figure}[h]
-	%\centering
-%	\includegraphics[width=1.0\linewidth]{res/screen1.jpg}
-%	\caption{Startscreen}
-%	\label{fig:screen1}
-%\end{figure}\\
-% b: sich ändernde liste läuft nicht mit visualisierungssoftware
+Beim Start der App wird die \texttt{ConnectActivity} gestartet.
+Sie enthält nur einen Knopf.
+Drückt der Nutzer auf den Knopf sucht das Smartphone nach Geräten, die mit dem Namen 'GSDBLE' advertisen.
+Der Knopf ist ausgegraut, wenn das Smartphone kein BLE unterstützt oder der Nutzer der App keine Rechte für die Nutzung von Bluetooth gegeben hat.
+Wenn ein Wearable gefunden wurde, wechselt die App auf die \texttt{ConnectionOverviewActivity}.
+Dabei wird das gefundene Wearable im Intent \texttt{EXTRA\_DEVICE} übergeben.\\
+Die Activity \texttt{ConnectionOverviewActivity} verbindet sich mit dem Wearable, sucht nach den Services und Characteristics und setzt das Notify-Bit bei den Characteristics.
+Das Android SDK bietet Klassen zur Verbindung mit BLE.
+Hier hat sich herausgestellt, dass alle Befehle asynchron laufen.
+Dabei ist problematisch, dass die Befehle nicht in einer Schlange verwaltet werden, sondern ein Befehl ignoriert wird, wenn der Vorherige noch nicht abgeschlossen ist.
+Deswegen wurde auf die Bibliothek von Nordic\footnote{\url{https://github.com/NordicSemiconductor/Android-BLE-Library}, aufgerufen am 18.07.2019} zugegriffen, die die Klassen des SDK besser zugänglich macht.\\
+Die Klasse \texttt{Manager} verwaltet die Verbindung.
+Die Activity \texttt{ConnectionOverviewActivity} dagegen verwaltet die graphische Oberfläche.
+In der Activity werden verschiedene Statistiken graphisch angezeigt.
+Darunter sind die Sensordaten, aber auch z.B. die empfangenen Daten pro Sekunde.
+Über Slider lassen sich Parameter einstellen.
+Die Parameter sind die MTU, der Connection Interval und die Sensordatenrate.
+Jedes Teil ist davon ein eigenes Fragment aus den Dateien \texttt{ConfigFragment} oder \texttt{Graphfragment}.
+Die abstrakte Klasse \texttt{Graphfragment} empfängt Daten und fügt sie in die Liste \texttt{internalData} ein.
+Wenn die Liste zu voll ist, werden die ältesten Daten entfernt.
+Die Daten sollen dann von der Graphenbibliothek angezeigt werden.
+Da sie in einem anderen Thread arbeitet und es sonst zu Race Conditions kommt, wird von der Liste \texttt{internalData} ein Snapshot in \texttt{data} für die Graphenbibliothek erstellt.\\
+Die Werte der Characteristics sind in den Modelklassen \texttt{ImuConfig} und \texttt{ImuData} realisiert.
+Sie bieten die Möglichkeit die Werte in ein \texttt{ByteArray} umzuwandeln und wieder zurück.
 
 \section{Zusammenfassung}
+Die Einrichtung der Entwicklungsumgebung der MCU ist leider kompliziert und bedarf viele Umwege.
+Die Installation von Android Studio dagegen lief einwandfrei.
+Von den Entwickler der MCU und Drittanbietern sollte hier nachgebessert werden.\\
+Um den Datenstau zu umgehen, der durch die drei Buffer in MCU und IMU entsteht, berechnet ein Algorithmus die Parameter zur korrekten Umfüllung.
+Der Hardwareentwurf war erfolgreich verlaufen, sodass ein Wearable zur Evaluation bereit steht.
+In der Android App werden dafür Daten gesammelt, die statistisch ausgewertet werden können.

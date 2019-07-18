@@ -59,5 +59,11 @@
             android:id="@+id/config_intv"
             android:name="com.pascaldornfeld.gsdble.fragments.IntervalFragment"
             />
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/config_mtu"
+            android:name="com.pascaldornfeld.gsdble.fragments.MtuFragment"
+            />
     </LinearLayout>
 </ScrollView>

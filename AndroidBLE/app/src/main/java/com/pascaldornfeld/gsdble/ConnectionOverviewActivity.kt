@@ -104,6 +104,7 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
                     manager.writeNewConfig(lastConfig!!)
                 }
             }
+
         },
             FailCallback { _, status -> vConfigOdr.setTitle("Failed Notify Config $status") })
     }
@@ -115,7 +116,9 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
             object : Manager.CharaCallbacks.MyDataReceivedCallback<IntervalFragment.Interval> {
                 override fun onNewData(data: IntervalFragment.Interval) = vConfigIntv.setNewData(data)
             }
-        )
+        ) {
+            vConfigMtu.setNewData(it)
+        }
     }
 
     // view related
@@ -139,6 +142,7 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
     private val vConfigOdr by lazy { supportFragmentManager.findFragmentById(R.id.config_odr) as OdrFragment }
     private val vConfigPause by lazy { supportFragmentManager.findFragmentById(R.id.config_pause) as PauseFragment }
     private val vConfigIntv by lazy { supportFragmentManager.findFragmentById(R.id.config_intv) as IntervalFragment }
+    private val vConfigMtu by lazy { supportFragmentManager.findFragmentById(R.id.config_mtu) as MtuFragment }
 
     /**
      * connect to the device that was found on start
@@ -166,6 +170,8 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
         lastConfig = null
         vConfigIntv.functionToApply = null
         vConfigOdr.functionToApply = null
+        vConfigPause.functionToApply = null
+        vConfigMtu.functionToApply = null
     }
 
     override fun onDeviceDisconnected(device: BluetoothDevice) {
@@ -207,6 +213,8 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
         Log.v(TAG, "onDeviceReady")
         vConfigIntv.functionToApply = { manager.writeNewInterval(it) }
         vConfigIntv.setTitle("Interval Time")
+        vConfigMtu.setTitle("MTU")
+        vConfigMtu.functionToApply = { manager.writeNewMtu(it) }
     }
 
     override fun onError(device: BluetoothDevice, message: String, errorCode: Int) {
