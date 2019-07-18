@@ -65,7 +65,7 @@ class Manager<E : BleManagerCallbacks>(
                 enableNotifications(charaConfig).done(callbacksConfig.notifySuccessCallback)
                     .fail(callbacksConfig.notifyFailCallback).enqueue()
 
-                requestMtu(517).with { _, mtu -> Log.w("MANAGER", "NEW MTU IS: $mtu") }.enqueue()
+                //requestMtu(517).with { _, mtu -> Log.w("MANAGER", "NEW MTU IS: $mtu") }.enqueue()
                 writeNewInterval(IntervalFragment.Interval.CONNECTION_PRIORITY_BALANCED)
             }
 

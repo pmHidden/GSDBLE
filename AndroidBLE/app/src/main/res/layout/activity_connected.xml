@@ -25,13 +25,19 @@
 
         <fragment
             android:id="@+id/graph_time"
-            android:name="com.pascaldornfeld.gsdble.fragments.TimeGraphFragment"
+            android:name="com.pascaldornfeld.gsdble.fragments.LongTimeGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
             android:id="@+id/graph_dr"
-            android:name="com.pascaldornfeld.gsdble.fragments.DataRateGraphFragment"
+            android:name="com.pascaldornfeld.gsdble.fragments.LongTimeGraphFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <fragment
+            android:id="@+id/graph_data_rate_variance"
+            android:name="com.pascaldornfeld.gsdble.fragments.FloatTimeGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -40,6 +46,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/config_odr"
             android:name="com.pascaldornfeld.gsdble.fragments.OdrFragment"
+            />
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/config_pause"
+            android:name="com.pascaldornfeld.gsdble.fragments.PauseFragment"
             />
         <fragment
             android:layout_width="match_parent"

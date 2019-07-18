@@ -28,7 +28,7 @@
       linker_printf_width_precision_supported="Yes"
       linker_scanf_fmt_level="long"
       linker_section_placement_file="flash_placement.xml"
-      linker_section_placement_macros="FLASH_PH_START=0x0;FLASH_PH_SIZE=0x80000;RAM_PH_START=0x20000000;RAM_PH_SIZE=0x10000;FLASH_START=0x26000;FLASH_SIZE=0x5a000;RAM_START=0x20004000;RAM_SIZE=0xDDE0"
+      linker_section_placement_macros="FLASH_PH_START=0x0;FLASH_PH_SIZE=0x80000;RAM_PH_START=0x20000000;RAM_PH_SIZE=0x10000;FLASH_START=0x26000;FLASH_SIZE=0x5a000;RAM_START=0x20004000;RAM_SIZE=0xdde8"
       linker_section_placements_segments="FLASH RX 0x0 0x80000;RAM RWX 0x20000000 0x10000"
       macros="CMSIS_CONFIG_TOOL=C:/nrf52/sdk/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar"
       project_directory=""
@@ -105,12 +105,7 @@
           <file file_name="../imuLSM/lsm_get_data_fifo.c" />
           <file file_name="../imuLSM/lsm6dsl_reg.c" />
           <file file_name="../imuLSM/imu_lsm.c" />
-          <file file_name="../imuLSM/lsm_protocol_spi.c" />
-        </folder>
-        <folder Name="ImuBmi">
-          <file file_name="../imuBMI/bmi_get_data_fifo.c" />
-          <file file_name="../imuBMI/bmi_protocol_spi.c" />
-          <file file_name="../imuBMI/bmi160.c" />
+          <file file_name="../imuLSM/lsm_protocol_i2c.c" />
         </folder>
       </folder>
       <file file_name="../board_manager.c" />

@@ -3,6 +3,7 @@
 #include "boards.h"
 #include "nrf_drv_twi.h"
 #include <stdio.h>
+#include "nrf_drv_gpiote.h"
 
 #include "nrf_delay.h"
 #include "nrf_log.h"
@@ -29,10 +30,12 @@ static uint8_t twi_chip_id = LSM6DSL_I2C_ADD_L;
 
 ret_code_t twi_init(void) {
   ret_code_t err_code;
+  nrf_gpio_cfg_output(11);
+  nrf_gpio_pin_clear(11);
 
   nrf_drv_twi_config_t twi_config = NRF_DRV_TWI_DEFAULT_CONFIG;
-  twi_config.scl = ARDUINO_SCL_PIN;
-  twi_config.sda = ARDUINO_SDA_PIN;
+  twi_config.scl = 14;
+  twi_config.sda = 12;
   twi_config.frequency = NRF_DRV_TWI_FREQ_100K;
 
   err_code = nrf_drv_twi_init(&m_twi, &twi_config, NULL, NULL);

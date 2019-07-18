@@ -10,8 +10,12 @@ import com.pascaldornfeld.gsdble.models.ImuData
 import no.nordicsemi.android.ble.BleManagerCallbacks
 import no.nordicsemi.android.ble.callback.FailCallback
 import no.nordicsemi.android.ble.callback.SuccessCallback
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
+    var curConfig: ImuConfig? = null
+
     // connection related
     private val callbackData: Manager.CharaCallbacks<ImuData> by lazy {
         Manager.CharaCallbacks(object :
@@ -32,9 +36,24 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
                 )
                 vGraphTime.addData(data.time, timeOfPacketArrival)
 
+
                 val thisSecond = timeOfPacketArrival / 1000L
                 if (thisSecond != currentTrackedSecond) {
-                    if (currentTrackedSecond != 0L) vGraphDataRate.addData(currentTrackedSecond, packetsThisSecond)
+                    if (currentTrackedSecond != 0L) {
+                        vGraphDataRate.addData(currentTrackedSecond, packetsThisSecond)
+
+                        val tempCurConf = curConfig
+                        if (tempCurConf != null && vGraphDataRate.internalData.size > 1) {
+                            var sum = 0.0f
+                            vGraphDataRate.internalData.forEach {
+                                sum += (it.second - ImuConfig.lsmRealOdr[tempCurConf.odr.ordinal]).toFloat().pow(2)
+                            }
+                            vGraphDataRateVariance.addData(
+                                currentTrackedSecond,
+                                sqrt((sum / (vGraphDataRate.internalData.size - 1).toFloat()))
+                            )
+                        }
+                    }
                     currentTrackedSecond = thisSecond
                     packetsThisSecond = 0L
                 }
@@ -45,11 +64,13 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
             vGraphGyro.setTitle("Gyroscope")
             vGraphTime.setTitle("Packet Delivery Delay")
             vGraphDataRate.setTitle("Data Rate")
+            vGraphDataRateVariance.setTitle("Data Rate Variance")
         }, FailCallback { _, status ->
             vGraphAccel.setTitle("Failed Data Notify $status")
             vGraphGyro.setTitle("Failed Data Notify $status")
             vGraphTime.setTitle("Failed Data Notify $status")
             vGraphDataRate.setTitle("Failed Data Notify $status")
+            vGraphDataRateVariance.setTitle("Failed Data Notify $status")
         })
     }
 
@@ -60,8 +81,19 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
             override fun onNewData(data: ImuConfig) {
                 lastConfig = data
                 vConfigOdr.setNewData(data.odr)
+                vConfigPause.setNewData(data.paused)
+                curConfig = data
             }
         }, SuccessCallback {
+            vConfigPause.setTitle("Pause")
+            vConfigPause.functionToApply = {
+                // write new config
+                if (lastConfig != null) {
+                    lastConfig = lastConfig!!.copy(paused = it)
+                    manager.writeNewConfig(lastConfig!!)
+                }
+            }
+
             vConfigOdr.setTitle("ODR")
             vConfigOdr.functionToApply = {
                 // write new config
@@ -87,9 +119,23 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
     // view related
     private val vGraphAccel by lazy { supportFragmentManager.findFragmentById(R.id.graph_accel) as SensorGraphFragment }
     private val vGraphGyro by lazy { supportFragmentManager.findFragmentById(R.id.graph_gyro) as SensorGraphFragment }
-    private val vGraphTime by lazy { supportFragmentManager.findFragmentById(R.id.graph_time) as TimeGraphFragment }
-    private val vGraphDataRate by lazy { supportFragmentManager.findFragmentById(R.id.graph_dr) as DataRateGraphFragment }
+    private val vGraphTime by lazy {
+        val view = supportFragmentManager.findFragmentById(R.id.graph_time) as LongTimeGraphFragment
+        view.initialize(10000.0f, null, "data time vs delivery time")
+        view
+    }
+    private val vGraphDataRate by lazy {
+        val view = supportFragmentManager.findFragmentById(R.id.graph_dr) as LongTimeGraphFragment
+        view.initialize(10000.0f, 1000.0f, "data time vs data rate")
+        view
+    }
+    private val vGraphDataRateVariance by lazy {
+        val view = supportFragmentManager.findFragmentById(R.id.graph_data_rate_variance) as FloatTimeGraphFragment
+        view.initialize(10000.0f, 1000.0f, "variance")
+        view
+    }
     private val vConfigOdr by lazy { supportFragmentManager.findFragmentById(R.id.config_odr) as OdrFragment }
+    private val vConfigPause by lazy { supportFragmentManager.findFragmentById(R.id.config_pause) as PauseFragment }
     private val vConfigIntv by lazy { supportFragmentManager.findFragmentById(R.id.config_intv) as IntervalFragment }
 
     /**

@@ -78,6 +78,18 @@ class OdrFragment : ConfigFragment<ImuOdr>() {
     }
 }
 
+class PauseFragment : ConfigFragment<Boolean>() {
+    var functionToApply: ((Boolean) -> Unit)? = null
+
+    override fun getDataArray(): Array<Boolean> = arrayOf(false, true)
+
+    override fun getStringRepresentationFromData(data: Boolean): String = data.toString()
+
+    override fun applyNewData(index: Int) {
+        functionToApply?.invoke(index == 1)
+    }
+}
+
 class IntervalFragment : ConfigFragment<IntervalFragment.Interval>() {
     enum class Interval { CONNECTION_PRIORITY_LOW_POWER, CONNECTION_PRIORITY_BALANCED, CONNECTION_PRIORITY_HIGH }
 

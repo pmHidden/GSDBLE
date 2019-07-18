@@ -1,22 +1,32 @@
 package com.pascaldornfeld.gsdble.models
 
 import kotlin.experimental.and
+import kotlin.experimental.or
 
 data class ImuConfig(
-    val odr: ImuOdr
+    val odr: ImuOdr,
+    val paused: Boolean
 ) {
     fun toByteArray(): ByteArray {
         val byteArray = ByteArray(1)
-        byteArray[0] = odr.ordinal.toByte()
+        byteArray[0] = odr.ordinal.toByte() or ((if (paused) 1 else 0).shl(3)).toByte()
         return byteArray
     }
 
     companion object {
         fun fromByteArray(byteArray: ByteArray): ImuConfig {
             assert(byteArray.size == 1)
-            return ImuConfig(ImuOdr.values()[(byteArray[0] and 0x07).toInt()])
+            return ImuConfig(
+                ImuOdr.values()[(byteArray[0] and 0x07).toInt()],
+                (byteArray[0] and 0x08).toInt().shr(3) == 1
+            )
         }
 
+        val lsmRealOdr = arrayOf(26, 52, 104, 208, 416, 833, 1666)
+        val bmiRealOdr = arrayOf(25, 50, 100, 200, 400, 800, 1600)
+        fun odrToMsInterval(odr: ImuOdr): Float {
+            return 1.0f / lsmRealOdr[odr.ordinal]
+        }
     }
 }
 

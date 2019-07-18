@@ -20,7 +20,6 @@ static bool led_on = false;
  */
 static void bsp_event_handler(bsp_event_t event) {
   ret_code_t err_code;
-  NRF_LOG_INFO("bsp %d", event);
 
   switch (event) {
   case BSP_EVENT_SLEEP:

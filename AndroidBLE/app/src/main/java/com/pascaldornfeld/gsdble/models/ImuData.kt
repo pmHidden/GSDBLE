@@ -14,6 +14,7 @@ data class ImuData (
     companion object {
         const val MIN_TIME = 0
         val MAX_TIME = Int.MAX_VALUE
+        const val TIME_SCALE_MS = 6.4f
 
         @Suppress("EXPERIMENTAL_API_USAGE")
         fun fromByteArray(byteArray: ByteArray): ImuData {

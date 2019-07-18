@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.androidplot.Plot
 import com.androidplot.PlotListener
@@ -17,6 +18,7 @@ import com.androidplot.ui.SeriesRenderer
 import com.androidplot.util.PixelUtils
 import com.androidplot.xy.*
 import com.pascaldornfeld.gsdble.R
+import com.pascaldornfeld.gsdble.models.ImuData
 import java.text.FieldPosition
 import java.text.Format
 import java.text.ParsePosition
@@ -24,9 +26,21 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 abstract class GraphFragment<DataType> : Fragment() {
     protected var data = listOf<Pair<Long, DataType>>()
-    private val internalData = mutableListOf<Pair<Long, DataType>>()
+    val internalData = mutableListOf<Pair<Long, DataType>>()
+    // use only on the same thread as calling addData
     private var vPlot: XYPlot? = null
-    protected var timestepsToShow = 625L // = 4 seconds with 6,4 ms per first
+    open var timeToShowMs = 5000.0f // show 5 seconds
+        protected set(value) {
+            field = value
+        }
+    open var timestepScalingMs = ImuData.TIME_SCALE_MS
+        protected set(value) {
+            field = value
+        }
+
+    private fun timeInXScalingToShow() = ((timeToShowMs / timestepScalingMs)).toInt()
+
+    open fun formatterY(obj: Number, toAppendTo: StringBuffer): StringBuffer = toAppendTo.append(obj.toLong())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_graph, container, false)
@@ -35,18 +49,23 @@ abstract class GraphFragment<DataType> : Fragment() {
         vPlot!!.graph?.getLineLabelStyle(XYGraphWidget.Edge.LEFT)?.paint?.textSize = PixelUtils.spToPix(9.0f)
         vPlot!!.graph?.getLineLabelStyle(XYGraphWidget.Edge.BOTTOM)?.paint?.textSize = PixelUtils.spToPix(9.0f)
 
-        val format = object : Format() {
-            override fun format(obj: Any, toAppendTo: StringBuffer, pos: FieldPosition): StringBuffer {
-                val i = (obj as Number).toLong()
-                return toAppendTo.append(i)
-            }
+        val formatX = object : Format() {
+            override fun format(obj: Any, toAppendTo: StringBuffer, pos: FieldPosition): StringBuffer =                toAppendTo.append((obj as Number).toLong())
 
             override fun parseObject(source: String, pos: ParsePosition): Any? {
                 return null
             }
         }
-        vPlot!!.graph.getLineLabelStyle(XYGraphWidget.Edge.LEFT).format = format
-        vPlot!!.graph.getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).format = format
+        val formatY = object : Format() {
+            override fun format(obj: Any, toAppendTo: StringBuffer, pos: FieldPosition): StringBuffer =
+                formatterY(obj as Number, toAppendTo)
+
+            override fun parseObject(source: String, pos: ParsePosition): Any? {
+                return null
+            }
+        }
+        vPlot!!.graph.getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).format = formatX
+        vPlot!!.graph.getLineLabelStyle(XYGraphWidget.Edge.LEFT).format = formatY
 
         vPlot!!.addListener(object : PlotListener {
             override fun onAfterDraw(
@@ -60,7 +79,7 @@ abstract class GraphFragment<DataType> : Fragment() {
                 source: Plot<*, out Formatter<*>, out SeriesRenderer<*, *, *>, out SeriesBundle<*, *>, out SeriesRegistry<*, *, *>>?,
                 canvas: Canvas?
             ) {
-
+                canUpdate.set(false)
             }
 
         })
@@ -79,15 +98,9 @@ abstract class GraphFragment<DataType> : Fragment() {
         internalData.add(Pair(p_time, p_data))
         if (internalData.first().first > p_time) internalData.clear() // in case of overflow
 
-        while (internalData.isNotEmpty() && internalData.first().first + timestepsToShow < p_time) {
-            if (this is TimeGraphFragment)
-                Log.w(
-                    "GraphFragment",
-                    "${internalData[internalData.lastIndex - 1]} ${internalData[internalData.lastIndex]}"
-                )
+        while (internalData.isNotEmpty() && internalData.first().first + timeInXScalingToShow() < p_time) {
             internalData.removeAt(0)
         }
-        // else if (internalData.size > maxDataNumber)
 
         if (canUpdate.compareAndSet(true, false)) {
             data = internalData.toList()
@@ -140,9 +153,19 @@ class SensorGraphFragment : GraphFragment<Triple<Short, Short, Short>>() {
 }
 
 /**
- * graph to visualize time vs time data (f.e. sensor data time vs packet arrival time)
+ * graph to visualize realtime time vs aby number
  */
-class TimeGraphFragment : GraphFragment<Long>() {
+class FloatTimeGraphFragment : GraphFragment<Float>() {
+    var plotplotTitle = ""
+
+    fun initialize(p_timeToShowMs : Float?, p_timeStepScalingMs: Float?, p_title: String) {
+        if (p_timeStepScalingMs != null) timestepScalingMs = p_timeStepScalingMs
+        if (p_timeToShowMs != null) timeToShowMs = p_timeToShowMs
+        plotplotTitle = p_title
+    }
+
+    override fun formatterY(obj: Number, toAppendTo: StringBuffer): StringBuffer = toAppendTo.append(String.format("%.2f", obj.toFloat()))
+
     override fun seriesInit(plot: XYPlot) {
         val series = object : FastXYSeries {
             override fun getX(index: Int): Number = data[index].first
@@ -150,44 +173,65 @@ class TimeGraphFragment : GraphFragment<Long>() {
             override fun getY(index: Int): Number = data[index].second
 
             override fun minMax(): RectRegion {
-                val minX = if (data.isEmpty()) 0 else data[0].first
-                val maxX = if (data.isEmpty()) 0 else data[data.lastIndex].first
-                val minY = if (data.isEmpty()) 0 else data[0].second
-                val maxY = if (data.isEmpty()) 0 else data[data.lastIndex].second
+                val minX = if (data.isEmpty()) 0 else data.minBy { it.first }!!.first
+                val maxX = if (data.isEmpty()) 0 else data.maxBy { it.first }!!.first
+                val minY = if (data.isEmpty()) 0.0f else data.minBy { it.second }!!.second
+                val maxY = if (data.isEmpty()) 0.0f else data.maxBy { it.second }!!.second
                 return RectRegion(minX, maxX, minY, maxY)
             }
 
-            override fun getTitle(): String = "data time vs delivery time"
+            override fun getTitle(): String = plotplotTitle
 
             override fun size(): Int = data.size
         }
-        plot.addSeries(series, FastLineAndPointRenderer.Formatter(Color.rgb(200, 200, 200), null, null))
+
+        val context = this.context
+        if (context != null)
+            plot.addSeries(
+                series,
+                FastLineAndPointRenderer.Formatter(ContextCompat.getColor(context, R.color.colorAccent), null, null)
+            )
+        else Log.w("GraphFragment", "Cound not get context")
     }
 }
 
 /**
- * graph to visualize time vs number (f.e. sensor data time vs data rate)
+ * graph to visualize realtime time vs aby number
  */
-class DataRateGraphFragment : GraphFragment<Long>() {
+class LongTimeGraphFragment : GraphFragment<Long>() {
+    var plotplotTitle = ""
+
+    fun initialize(p_timeToShowMs : Float?, p_timeStepScalingMs: Float?, p_title: String) {
+        if (p_timeStepScalingMs != null) timestepScalingMs = p_timeStepScalingMs
+        if (p_timeToShowMs != null) timeToShowMs = p_timeToShowMs
+        plotplotTitle = p_title
+    }
+
     override fun seriesInit(plot: XYPlot) {
-        timestepsToShow = 20
         val series = object : FastXYSeries {
             override fun getX(index: Int): Number = data[index].first
 
             override fun getY(index: Int): Number = data[index].second
 
             override fun minMax(): RectRegion {
-                val minX = if (data.isEmpty()) 0 else data[0].first
-                val maxX = if (data.isEmpty()) 0 else data[data.lastIndex].first
+                val minX = if (data.isEmpty()) 0 else data.minBy { it.first }!!.first
+                val maxX = if (data.isEmpty()) 0 else data.maxBy { it.first }!!.first
                 val minY = if (data.isEmpty()) 0 else data.minBy { it.second }!!.second
                 val maxY = if (data.isEmpty()) 0 else data.maxBy { it.second }!!.second
                 return RectRegion(minX, maxX, minY, maxY)
             }
 
-            override fun getTitle(): String = "data time vs data rate"
+            override fun getTitle(): String = plotplotTitle
 
             override fun size(): Int = data.size
         }
-        plot.addSeries(series, FastLineAndPointRenderer.Formatter(Color.rgb(200, 200, 200), null, null))
+
+        val context = this.context
+        if (context != null)
+            plot.addSeries(
+                series,
+                FastLineAndPointRenderer.Formatter(ContextCompat.getColor(context, R.color.colorAccent), null, null)
+            )
+        else Log.w("GraphFragment", "Cound not get context")
     }
 }

@@ -3707,7 +3707,7 @@
 // <e> NRFX_TWIM_ENABLED - nrfx_twim - TWIM peripheral driver
 //==========================================================
 #ifndef NRFX_TWIM_ENABLED
-#define NRFX_TWIM_ENABLED 0
+#define NRFX_TWIM_ENABLED 1
 #endif
 // <q> NRFX_TWIM0_ENABLED  - Enable TWIM0 instance
 
@@ -3951,7 +3951,7 @@
 // <e> NRFX_TWI_ENABLED - nrfx_twi - TWI peripheral driver
 //==========================================================
 #ifndef NRFX_TWI_ENABLED
-#define NRFX_TWI_ENABLED 0
+#define NRFX_TWI_ENABLED 1
 #endif
 // <q> NRFX_TWI0_ENABLED  - Enable TWI0 instance
 
@@ -5131,7 +5131,7 @@
 // <e> SPI_ENABLED - nrf_drv_spi - SPI/SPIM peripheral driver - legacy layer
 //==========================================================
 #ifndef SPI_ENABLED
-#define SPI_ENABLED 1
+#define SPI_ENABLED 0
 #endif
 // <o> SPI_DEFAULT_CONFIG_IRQ_PRIORITY  - Interrupt priority
 
@@ -5387,7 +5387,7 @@
 // <e> TWI_ENABLED - nrf_drv_twi - TWI/TWIM peripheral driver - legacy layer
 //==========================================================
 #ifndef TWI_ENABLED
-#define TWI_ENABLED 0
+#define TWI_ENABLED 1
 #endif
 // <o> TWI_DEFAULT_CONFIG_FREQUENCY  - Frequency
 
@@ -5462,7 +5462,7 @@
 // <i> Anomaly 109 Addendum located at https://infocenter.nordicsemi.com/
 
 #ifndef TWIM_NRF52_ANOMALY_109_WORKAROUND_ENABLED
-#define TWIM_NRF52_ANOMALY_109_WORKAROUND_ENABLED 0
+#define TWIM_NRF52_ANOMALY_109_WORKAROUND_ENABLED 1
 #endif
 
 // </e>
@@ -7410,7 +7410,7 @@
 // <e> NRF_STACK_GUARD_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef NRF_STACK_GUARD_CONFIG_LOG_ENABLED
-#define NRF_STACK_GUARD_CONFIG_LOG_ENABLED 0
+#define NRF_STACK_GUARD_CONFIG_LOG_ENABLED 1
 #endif
 // <o> NRF_STACK_GUARD_CONFIG_LOG_LEVEL  - Default Severity level
 
@@ -7421,7 +7421,7 @@
 // <4=> Debug
 
 #ifndef NRF_STACK_GUARD_CONFIG_LOG_LEVEL
-#define NRF_STACK_GUARD_CONFIG_LOG_LEVEL 3
+#define NRF_STACK_GUARD_CONFIG_LOG_LEVEL 1
 #endif
 
 // <o> NRF_STACK_GUARD_CONFIG_INFO_COLOR  - ANSI escape code prefix.
@@ -7620,7 +7620,7 @@
 // <e> GPIOTE_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef GPIOTE_CONFIG_LOG_ENABLED
-#define GPIOTE_CONFIG_LOG_ENABLED 0
+#define GPIOTE_CONFIG_LOG_ENABLED 1
 #endif
 // <o> GPIOTE_CONFIG_LOG_LEVEL  - Default Severity level
 
@@ -7631,7 +7631,7 @@
 // <4=> Debug
 
 #ifndef GPIOTE_CONFIG_LOG_LEVEL
-#define GPIOTE_CONFIG_LOG_LEVEL 3
+#define GPIOTE_CONFIG_LOG_LEVEL 1
 #endif
 
 // <o> GPIOTE_CONFIG_INFO_COLOR  - ANSI escape code prefix.
@@ -8187,7 +8187,7 @@
 // <e> SPIS_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef SPIS_CONFIG_LOG_ENABLED
-#define SPIS_CONFIG_LOG_ENABLED 0
+#define SPIS_CONFIG_LOG_ENABLED 1
 #endif
 // <o> SPIS_CONFIG_LOG_LEVEL  - Default Severity level
 
@@ -8198,7 +8198,7 @@
 // <4=> Debug
 
 #ifndef SPIS_CONFIG_LOG_LEVEL
-#define SPIS_CONFIG_LOG_LEVEL 3
+#define SPIS_CONFIG_LOG_LEVEL 1
 #endif
 
 // <o> SPIS_CONFIG_INFO_COLOR  - ANSI escape code prefix.
@@ -8238,7 +8238,7 @@
 // <e> SPI_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef SPI_CONFIG_LOG_ENABLED
-#define SPI_CONFIG_LOG_ENABLED 0
+#define SPI_CONFIG_LOG_ENABLED 1
 #endif
 // <o> SPI_CONFIG_LOG_LEVEL  - Default Severity level
 
@@ -8249,7 +8249,7 @@
 // <4=> Debug
 
 #ifndef SPI_CONFIG_LOG_LEVEL
-#define SPI_CONFIG_LOG_LEVEL 3
+#define SPI_CONFIG_LOG_LEVEL 1
 #endif
 
 // <o> SPI_CONFIG_INFO_COLOR  - ANSI escape code prefix.
@@ -8289,7 +8289,7 @@
 // <e> TIMER_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef TIMER_CONFIG_LOG_ENABLED
-#define TIMER_CONFIG_LOG_ENABLED 0
+#define TIMER_CONFIG_LOG_ENABLED 1
 #endif
 // <o> TIMER_CONFIG_LOG_LEVEL  - Default Severity level
 
@@ -8300,7 +8300,7 @@
 // <4=> Debug
 
 #ifndef TIMER_CONFIG_LOG_LEVEL
-#define TIMER_CONFIG_LOG_LEVEL 3
+#define TIMER_CONFIG_LOG_LEVEL 1
 #endif
 
 // <o> TIMER_CONFIG_INFO_COLOR  - ANSI escape code prefix.
@@ -8340,7 +8340,7 @@
 // <e> TWIS_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef TWIS_CONFIG_LOG_ENABLED
-#define TWIS_CONFIG_LOG_ENABLED 0
+#define TWIS_CONFIG_LOG_ENABLED 1
 #endif
 // <o> TWIS_CONFIG_LOG_LEVEL  - Default Severity level
 
@@ -8351,7 +8351,7 @@
 // <4=> Debug
 
 #ifndef TWIS_CONFIG_LOG_LEVEL
-#define TWIS_CONFIG_LOG_LEVEL 3
+#define TWIS_CONFIG_LOG_LEVEL 1
 #endif
 
 // <o> TWIS_CONFIG_INFO_COLOR  - ANSI escape code prefix.
@@ -8391,7 +8391,7 @@
 // <e> TWI_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef TWI_CONFIG_LOG_ENABLED
-#define TWI_CONFIG_LOG_ENABLED 0
+#define TWI_CONFIG_LOG_ENABLED 1
 #endif
 // <o> TWI_CONFIG_LOG_LEVEL  - Default Severity level
 
@@ -8402,7 +8402,7 @@
 // <4=> Debug
 
 #ifndef TWI_CONFIG_LOG_LEVEL
-#define TWI_CONFIG_LOG_LEVEL 3
+#define TWI_CONFIG_LOG_LEVEL 2
 #endif
 
 // <o> TWI_CONFIG_INFO_COLOR  - ANSI escape code prefix.
@@ -8544,7 +8544,7 @@
 // <e> WDT_CONFIG_LOG_ENABLED - Enables logging in the module.
 //==========================================================
 #ifndef WDT_CONFIG_LOG_ENABLED
-#define WDT_CONFIG_LOG_ENABLED 0
+#define WDT_CONFIG_LOG_ENABLED 1
 #endif
 // <o> WDT_CONFIG_LOG_LEVEL  - Default Severity level
 
@@ -8555,7 +8555,7 @@
 // <4=> Debug
 
 #ifndef WDT_CONFIG_LOG_LEVEL
-#define WDT_CONFIG_LOG_LEVEL 3
+#define WDT_CONFIG_LOG_LEVEL 1
 #endif
 
 // <o> WDT_CONFIG_INFO_COLOR  - ANSI escape code prefix.

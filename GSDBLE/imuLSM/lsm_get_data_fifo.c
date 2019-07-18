@@ -129,14 +129,15 @@ imu_speed_t lsm_get_data_speed_set(lsm6dsl_ctx_t *dev_ctx, imu_speed_t speed, ui
 
 void lsm_get_data_loop(lsm6dsl_ctx_t *dev_ctx, bool (*send_data)(imu_data_t)) {
   while (true) {
+    NRF_LOG_INFO("loop getdatafifo");
     config_changed = false;
     uint16_t local_packets_per_transaction = packets_per_transaction;
     axis1bit16_t available_sensor_data; // we use this type, because we get uint8_t[2] and want that converted to uint16_t but since we dont use the most-significant 4-bit, we can safely use int16_t
     memset(&available_sensor_data, 0, sizeof(axis1bit16_t));
-    LSM_ERROR_CHECK(lsm6dsl_read_reg(dev_ctx, LSM6DSL_FIFO_STATUS1, available_sensor_data.u8bit, 2)); // actually read LSM6DSL_FIFO_STATUS1 and LSM6DSL_FIFO_STATUS2, but this combined is faster since we dont need to transmit the address two times
-    available_sensor_data.u8bit[1] &= 0x07u;                                                          // only the upper 11 bits are valid from the register
-    available_sensor_data.i16bit = available_sensor_data.i16bit << 1;                                 // this register is in 2-byte-word format. after this, number of bytes is stored in this variable. 12 bits are used now.
-
+    if (lsm6dsl_read_reg(dev_ctx, LSM6DSL_FIFO_STATUS1, available_sensor_data.u8bit, 2) != 0) // actually read LSM6DSL_FIFO_STATUS1 and LSM6DSL_FIFO_STATUS2, but this combined is faster since we dont need to transmit the address two times
+      break;
+    available_sensor_data.u8bit[1] &= 0x07u;                          // only the upper 11 bits are valid from the register
+    available_sensor_data.i16bit = available_sensor_data.i16bit << 1; // this register is in 2-byte-word format. after this, number of bytes is stored in this variable. 12 bits are used now.
     if (config_changed || available_sensor_data.i16bit < BYTES_PER_DATA * DATAS_PER_PACKET * local_packets_per_transaction)
       break;
 
@@ -166,4 +167,5 @@ void lsm_get_data_loop(lsm6dsl_ctx_t *dev_ctx, bool (*send_data)(imu_data_t)) {
         break;
     }
   }
+    NRF_LOG_INFO("out of loop");
 }
