@@ -1,11 +1,11 @@
 // https://github.com/bjornspockeli/custom_ble_service_example
 // also has the function of the characteristics
 #include "my_service.h"
+#include "../imu.h"
 #include "ble_srv_common.h"
 #include "boards.h"
 #include "chara_conf.h"
 #include "chara_data.h"
-#include "../imu.h"
 #include "nrf_gpio.h"
 #include "nrf_log.h"
 #include "sdk_common.h"
@@ -136,10 +136,7 @@ void ble_cus_on_ble_evt(ble_evt_t const *p_ble_evt, void *p_context) {
     break;
   case BLE_GAP_EVT_CONN_PARAM_UPDATE:
     imu_on_new_interval(p_ble_evt->evt.gap_evt.params.conn_param_update.conn_params.max_conn_interval);
-    chara_conf_packet_u config;
-    memset(&config, 0, sizeof(chara_conf_packet_u));
-    config.parsed.speed = (uint8_t)imu_speed_get();
-    chara_conf_update(p_cus, config.parsed);
+    writeCurrentConfig();
     break;
   case BLE_GATTS_EVT_HVN_TX_COMPLETE:
     break;

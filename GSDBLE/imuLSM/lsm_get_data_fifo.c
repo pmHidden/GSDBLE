@@ -129,7 +129,6 @@ imu_speed_t lsm_get_data_speed_set(lsm6dsl_ctx_t *dev_ctx, imu_speed_t speed, ui
 
 void lsm_get_data_loop(lsm6dsl_ctx_t *dev_ctx, bool (*send_data)(imu_data_t)) {
   while (true) {
-    NRF_LOG_INFO("loop getdatafifo");
     config_changed = false;
     uint16_t local_packets_per_transaction = packets_per_transaction;
     axis1bit16_t available_sensor_data; // we use this type, because we get uint8_t[2] and want that converted to uint16_t but since we dont use the most-significant 4-bit, we can safely use int16_t
@@ -167,5 +166,4 @@ void lsm_get_data_loop(lsm6dsl_ctx_t *dev_ctx, bool (*send_data)(imu_data_t)) {
         break;
     }
   }
-    NRF_LOG_INFO("out of loop");
 }

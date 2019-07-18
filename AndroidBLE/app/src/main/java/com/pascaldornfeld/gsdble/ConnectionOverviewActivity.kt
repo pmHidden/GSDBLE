@@ -14,7 +14,7 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
-    var curConfig: ImuConfig? = null
+    private var lastConfig: ImuConfig? = null
 
     // connection related
     private val callbackData: Manager.CharaCallbacks<ImuData> by lazy {
@@ -42,7 +42,7 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
                     if (currentTrackedSecond != 0L) {
                         vGraphDataRate.addData(currentTrackedSecond, packetsThisSecond)
 
-                        val tempCurConf = curConfig
+                        val tempCurConf = lastConfig
                         if (tempCurConf != null && vGraphDataRate.internalData.size > 1) {
                             var sum = 0.0f
                             vGraphDataRate.internalData.forEach {
@@ -74,7 +74,6 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
         })
     }
 
-    private var lastConfig: ImuConfig? = null
     private val callbackConfig: Manager.CharaCallbacks<ImuConfig> by lazy {
         Manager.CharaCallbacks(object :
             Manager.CharaCallbacks.MyDataReceivedCallback<ImuConfig> {
@@ -82,7 +81,10 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
                 lastConfig = data
                 vConfigOdr.setNewData(data.odr)
                 vConfigPause.setNewData(data.paused)
-                curConfig = data
+                vGraphAccel.internalData.clear()
+                vGraphGyro.internalData.clear()
+                vGraphTime.internalData.clear()
+                vGraphDataRate.internalData.clear()
             }
         }, SuccessCallback {
             vConfigPause.setTitle("Pause")

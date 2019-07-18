@@ -20,8 +20,8 @@ void lsm_protocol_init() {
   // set miso and ss to gnd
   nrf_gpio_cfg_output(11);
   nrf_gpio_pin_clear(11);
-  //nrf_gpio_cfg_output(16);
-  nrf_gpio_pin_clear(16);
+  nrf_gpio_cfg_output(16);
+  nrf_gpio_pin_set(16);
 
   // init twi
   nrf_drv_twi_config_t twi_config = NRF_DRV_TWI_DEFAULT_CONFIG;

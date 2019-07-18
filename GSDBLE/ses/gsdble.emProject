@@ -105,7 +105,7 @@
           <file file_name="../imuLSM/lsm_get_data_fifo.c" />
           <file file_name="../imuLSM/lsm6dsl_reg.c" />
           <file file_name="../imuLSM/imu_lsm.c" />
-          <file file_name="../imuLSM/lsm_protocol_i2c.c" />
+          <file file_name="../imuLSM/lsm_protocol_spi.c" />
         </folder>
       </folder>
       <file file_name="../board_manager.c" />

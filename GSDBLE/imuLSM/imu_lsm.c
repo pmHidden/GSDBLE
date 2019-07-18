@@ -1,5 +1,5 @@
-#include "app_error.h"
 #include "../imu.h"
+#include "app_error.h"
 #include "lsm6dsl_reg.h"
 #include "lsm_get_data.h"
 #include "lsm_protocol.h"
@@ -46,17 +46,21 @@ void imu_init(bool (*send_data_p)(imu_data_t), uint16_t buffer_size) {
 }
 
 void imu_on_new_interval(uint16_t buffer_clear_interval) {
+  bool pausedBefore = isPause;
   imu_stop(false);
   cur_buffer_clear_interval = buffer_clear_interval;
   cur_speed = lsm_get_data_speed_set(&dev_ctx, cur_speed, buffer_clear_interval);
-  imu_restart();
+  if (!pausedBefore)
+    imu_restart();
 }
 
 void imu_speed_set(imu_speed_t speed) {
+  bool pausedBefore = isPause;
   speed = MIN(speed, IMU_ODR_1600Hz);
   imu_stop(false);
   cur_speed = lsm_get_data_speed_set(&dev_ctx, speed, cur_buffer_clear_interval);
-  imu_restart();
+  if (!pausedBefore)
+    imu_restart();
 }
 
 imu_speed_t imu_speed_get(void) {
@@ -84,6 +88,7 @@ void imu_restart(void) {
 }
 
 bool imu_is_paused() {
+  NRF_LOG_INFO("asking for paused: %d", isPause);
   return isPause;
 }
 
