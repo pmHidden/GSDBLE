@@ -5,6 +5,7 @@
 #include "bsp.h"
 #include "nrf_sdh_ble.h"
 #include <stdint.h>
+#include "nrf_log.h"
 
 #define BTN_ID 0
 
@@ -19,6 +20,7 @@ static bool led_on = false;
  */
 static void bsp_event_handler(bsp_event_t event) {
   ret_code_t err_code;
+  NRF_LOG_INFO("bsp %d", event);
 
   switch (event) {
   case BSP_EVENT_SLEEP:
@@ -32,9 +34,9 @@ static void bsp_event_handler(bsp_event_t event) {
     }
     break; // BSP_EVENT_DISCONNECT
 
-  case BSP_EVENT_DEFAULT:
+  case BSP_EVENT_KEY_0:
     bsp_ind_conn();
-    break; // BSP_EVENT_DEFAULT
+    break; // BSP_EVENT_KEY_0
   default:
     break;
   }
@@ -47,14 +49,14 @@ static uint32_t connection_buttons_configure() {
   if (err_code != NRF_SUCCESS)
     return err_code;
 
-  err_code = bsp_event_to_button_action_assign(BTN_ID, BSP_BUTTON_ACTION_RELEASE, BSP_EVENT_DEFAULT);
+  err_code = bsp_event_to_button_action_assign(BTN_ID, BSP_BUTTON_ACTION_RELEASE, BSP_EVENT_KEY_0);
   return err_code;
 }
 
 static uint32_t advertising_buttons_configure() {
   uint32_t err_code;
 
-  err_code = bsp_event_to_button_action_assign(BTN_ID, BSP_BUTTON_ACTION_LONG_PUSH, BSP_EVENT_NOTHING);
+  err_code = bsp_event_to_button_action_assign(BTN_ID, BSP_BUTTON_ACTION_LONG_PUSH, BSP_EVENT_NOTHING );
   if (err_code != NRF_SUCCESS)
     return err_code;
 
@@ -125,7 +127,7 @@ void bsp_ind_conn(void) {
   err_code = bsp_indication_set(BSP_INDICATE_USER_STATE_1); // led 2 on
   APP_ERROR_CHECK(err_code);
   led_on = true;
-  err_code = app_timer_start(m_bm_shorttime_on, APP_TIMER_TICKS(500), 0);
+  err_code = app_timer_start(m_bm_shorttime_on, APP_TIMER_TICKS(500), NULL);
   APP_ERROR_CHECK(err_code);
 }
 
