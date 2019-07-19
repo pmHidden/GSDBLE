@@ -13,6 +13,7 @@ hookup on 'steval-mk178v2' -> 'nrf dk52':
 */
 #define SPI_INSTANCE 0
 static const nrf_drv_spi_t spi = NRF_DRV_SPI_INSTANCE(SPI_INSTANCE);
+#define PROTOCOL_SPEED NRF_DRV_SPI_FREQ_8M
 
 void lsm_protocol_init() {
   nrf_drv_spi_config_t spi_config = NRF_DRV_SPI_DEFAULT_CONFIG;
@@ -20,7 +21,7 @@ void lsm_protocol_init() {
   spi_config.mosi_pin = 12;
   spi_config.sck_pin = 14;
   spi_config.ss_pin = 16;
-  spi_config.frequency = NRF_DRV_SPI_FREQ_8M;
+  spi_config.frequency = PROTOCOL_SPEED;
   APP_ERROR_CHECK(nrf_drv_spi_init(&spi, &spi_config, NULL, NULL));
 }
 

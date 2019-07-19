@@ -5,7 +5,6 @@ import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattService
 import android.content.Context
 import android.util.Log
-import androidx.annotation.IntRange
 import com.pascaldornfeld.gsdble.fragments.IntervalFragment
 import com.pascaldornfeld.gsdble.models.ImuConfig
 import com.pascaldornfeld.gsdble.models.ImuData
@@ -15,6 +14,7 @@ import no.nordicsemi.android.ble.ConnectionPriorityRequest.*
 import no.nordicsemi.android.ble.callback.DataReceivedCallback
 import no.nordicsemi.android.ble.callback.FailCallback
 import no.nordicsemi.android.ble.callback.SuccessCallback
+import java.lang.reflect.Method
 import java.util.*
 
 class Manager<E : BleManagerCallbacks>(
@@ -111,5 +111,9 @@ class Manager<E : BleManagerCallbacks>(
 
     override fun shouldClearCacheWhenDisconnected(): Boolean {
         return true
+    }
+
+    fun errorRefresh() {
+        refreshDeviceCache().enqueue()
     }
 }

@@ -33,12 +33,9 @@ abstract class GraphFragment<DataType> : Fragment() {
         protected set(value) {
             field = value
         }
-    open var timestepScalingMs = ImuData.TIME_SCALE_MS
-        protected set(value) {
-            field = value
-        }
+    var timestepScalingMs: (() -> Float) = { ImuData.actualTimeScaleMs }
 
-    private fun timeInXScalingToShow() = ((timeToShowMs / timestepScalingMs)).toInt()
+    private fun timeInXScalingToShow() = ((timeToShowMs / timestepScalingMs())).toInt()
 
     open fun formatterY(obj: Number, toAppendTo: StringBuffer): StringBuffer = toAppendTo.append(obj.toLong())
 
@@ -50,7 +47,8 @@ abstract class GraphFragment<DataType> : Fragment() {
         vPlot!!.graph?.getLineLabelStyle(XYGraphWidget.Edge.BOTTOM)?.paint?.textSize = PixelUtils.spToPix(9.0f)
 
         val formatX = object : Format() {
-            override fun format(obj: Any, toAppendTo: StringBuffer, pos: FieldPosition): StringBuffer =                toAppendTo.append((obj as Number).toLong())
+            override fun format(obj: Any, toAppendTo: StringBuffer, pos: FieldPosition): StringBuffer =
+                toAppendTo.append((obj as Number).toLong())
 
             override fun parseObject(source: String, pos: ParsePosition): Any? {
                 return null
@@ -158,13 +156,14 @@ class SensorGraphFragment : GraphFragment<Triple<Short, Short, Short>>() {
 class FloatTimeGraphFragment : GraphFragment<Float>() {
     var plotplotTitle = ""
 
-    fun initialize(p_timeToShowMs : Float?, p_timeStepScalingMs: Float?, p_title: String) {
-        if (p_timeStepScalingMs != null) timestepScalingMs = p_timeStepScalingMs
+    fun initialize(p_timeToShowMs: Float?, p_timeStepScalingMs: Float?, p_title: String) {
+        if (p_timeStepScalingMs != null) timestepScalingMs = {p_timeStepScalingMs}
         if (p_timeToShowMs != null) timeToShowMs = p_timeToShowMs
         plotplotTitle = p_title
     }
 
-    override fun formatterY(obj: Number, toAppendTo: StringBuffer): StringBuffer = toAppendTo.append(String.format("%.2f", obj.toFloat()))
+    override fun formatterY(obj: Number, toAppendTo: StringBuffer): StringBuffer =
+        toAppendTo.append(String.format("%.2f", obj.toFloat()))
 
     override fun seriesInit(plot: XYPlot) {
         val series = object : FastXYSeries {
@@ -201,8 +200,8 @@ class FloatTimeGraphFragment : GraphFragment<Float>() {
 class LongTimeGraphFragment : GraphFragment<Long>() {
     var plotplotTitle = ""
 
-    fun initialize(p_timeToShowMs : Float?, p_timeStepScalingMs: Float?, p_title: String) {
-        if (p_timeStepScalingMs != null) timestepScalingMs = p_timeStepScalingMs
+    fun initialize(p_timeToShowMs: Float?, p_timeStepScalingMs: Float?, p_title: String) {
+        if (p_timeStepScalingMs != null) timestepScalingMs = {p_timeStepScalingMs}
         if (p_timeToShowMs != null) timeToShowMs = p_timeToShowMs
         plotplotTitle = p_title
     }

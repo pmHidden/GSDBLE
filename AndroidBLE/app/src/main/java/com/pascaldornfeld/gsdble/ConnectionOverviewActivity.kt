@@ -3,6 +3,7 @@ package com.pascaldornfeld.gsdble
 import android.bluetooth.BluetoothDevice
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.pascaldornfeld.gsdble.fragments.*
 import com.pascaldornfeld.gsdble.models.ImuConfig
@@ -46,7 +47,7 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
                         if (tempCurConf != null && vGraphDataRate.internalData.size > 1) {
                             var sum = 0.0f
                             vGraphDataRate.internalData.forEach {
-                                sum += (it.second - ImuConfig.lsmRealOdr[tempCurConf.odr.ordinal]).toFloat().pow(2)
+                                sum += (it.second - ImuConfig.actualOdr[tempCurConf.odr.ordinal]).toFloat().pow(2)
                             }
                             vGraphDataRateVariance.addData(
                                 currentTrackedSecond,
@@ -143,6 +144,7 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
     private val vConfigPause by lazy { supportFragmentManager.findFragmentById(R.id.config_pause) as PauseFragment }
     private val vConfigIntv by lazy { supportFragmentManager.findFragmentById(R.id.config_intv) as IntervalFragment }
     private val vConfigMtu by lazy { supportFragmentManager.findFragmentById(R.id.config_mtu) as MtuFragment }
+    private val vConfigSensor by lazy { supportFragmentManager.findFragmentById(R.id.config_sensor) as SensorFragment }
 
     /**
      * connect to the device that was found on start
@@ -151,14 +153,23 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connected)
 
+        vConfigSensor.setTitle("Sensor")
+        vConfigSensor.functionToApply = {
+            ImuConfig.actualOdr = if(it.ordinal == 0) ImuConfig.LSM_REAL_ODR else ImuConfig.BMI_REAL_ODR
+            ImuData.actualTimeScaleMs = if(it.ordinal == 0) ImuData.TIME_SCALE_MS_LSM else ImuData.TIME_SCALE_MS_BMI
+            vGraphAccel.internalData.clear()
+            vGraphGyro.internalData.clear()
+            vGraphTime.internalData.clear()
+            vConfigSensor.setNewData(it)
+        }
+
         val device = intent.getParcelableExtra<BluetoothDevice>(EXTRA_DEVICE)
         manager.setGattCallbacks(this)
         manager.connect(device).enqueue()
     }
 
     override fun onBackPressed() {
-        if (manager.isConnected) manager.disconnect().enqueue()
-        else super.onBackPressed()
+        manager.disconnect().enqueue()
     }
 
     companion object {
@@ -176,7 +187,7 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
 
     override fun onDeviceDisconnected(device: BluetoothDevice) {
         Log.v(TAG, "onDeviceDisconnected")
-        onBackPressed()
+        super.onBackPressed()
     }
 
     override fun onDeviceConnected(device: BluetoothDevice) {
@@ -185,7 +196,8 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
 
     override fun onDeviceNotSupported(device: BluetoothDevice) {
         Log.v(TAG, "onDeviceNotSupported")
-        onBackPressed()
+        manager.errorRefresh()
+        Toast.makeText(this, "I hate when this happens. Please restart bluetooth",  Toast.LENGTH_LONG).show()
     }
 
     override fun onBondingFailed(device: BluetoothDevice) {

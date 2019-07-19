@@ -15,6 +15,7 @@ hookup on 'steval-mk178v2' -> 'nrf dk52':
 #define TWI_INSTANCE_ID 0
 static const nrf_drv_twi_t m_twi = NRF_DRV_TWI_INSTANCE(TWI_INSTANCE_ID);
 static uint8_t twi_chip_id = LSM6DSL_I2C_ADD_L;
+#define PROTOCOL_SPEED NRF_DRV_TWI_FREQ_400K
 
 void lsm_protocol_init() {
   // set miso and ss to gnd
@@ -27,7 +28,7 @@ void lsm_protocol_init() {
   nrf_drv_twi_config_t twi_config = NRF_DRV_TWI_DEFAULT_CONFIG;
   twi_config.scl = 14;
   twi_config.sda = 12;
-  twi_config.frequency = NRF_DRV_TWI_FREQ_400K;
+  twi_config.frequency = PROTOCOL_SPEED;
   APP_ERROR_CHECK(nrf_drv_twi_init(&m_twi, &twi_config, NULL, NULL));
   nrf_drv_twi_enable(&m_twi);
 }

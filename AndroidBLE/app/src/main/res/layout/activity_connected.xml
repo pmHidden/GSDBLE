@@ -65,5 +65,11 @@
             android:id="@+id/config_mtu"
             android:name="com.pascaldornfeld.gsdble.fragments.MtuFragment"
             />
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/config_sensor"
+            android:name="com.pascaldornfeld.gsdble.fragments.SensorFragment"
+            />
     </LinearLayout>
 </ScrollView>

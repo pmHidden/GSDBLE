@@ -23,6 +23,8 @@ static volatile bool config_changed = false;
 
 static uint16_t buffer_size;
 static uint32_t current_time = 0u;
+static uint8_t buffer[BYTES_PER_PACKET * MAX_PACKETS_PER_TRANSACTION];
+static struct bmi160_fifo_frame fifo_frame;
 
 static void interrupt_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action) {
   // we just use the interrupt for the wakeup
@@ -33,18 +35,26 @@ void bmi_get_data_init(struct bmi160_dev *dev_ctx, uint16_t p_buffer_size) {
   // config gpiote
   if (!nrf_drv_gpiote_is_init())
     APP_ERROR_CHECK(nrf_drv_gpiote_init());
-  nrf_drv_gpiote_in_config_t in_config = NRFX_GPIOTE_RAW_CONFIG_IN_SENSE_HITOLO(true);
+  nrf_drv_gpiote_in_config_t in_config = NRFX_GPIOTE_RAW_CONFIG_IN_SENSE_LOTOHI(true);
   in_config.pull = NRF_GPIO_PIN_NOPULL;
   APP_ERROR_CHECK(nrf_drv_gpiote_in_init(IMU_PIN_INT1, &in_config, interrupt_handler));
   nrf_drv_gpiote_in_event_enable(IMU_PIN_INT1, true);
+
+  memset(&fifo_frame, 0, sizeof(struct bmi160_fifo_frame));
+  fifo_frame.length = BYTES_PER_PACKET * MAX_PACKETS_PER_TRANSACTION;
+  fifo_frame.data = buffer;
+  dev_ctx->fifo = &fifo_frame;
+  BMI_ERROR_CHECK(bmi160_set_fifo_down(BMI160_ACCEL_FIFO_DOWN_ZERO | BMI160_GYRO_FIFO_DOWN_ZERO, dev_ctx));
+  BMI_ERROR_CHECK(bmi160_set_fifo_config(BMI160_FIFO_ACCEL | BMI160_FIFO_GYRO, BMI160_ENABLE, dev_ctx));
 
   // enable fifo_threshold_interrupt on int1
   struct bmi160_int_pin_settg pin_config;
   memset(&pin_config, 0, sizeof(struct bmi160_int_pin_settg));
   pin_config.output_en = BMI160_ENABLE;
   pin_config.output_mode = BMI160_DISABLE;
-  pin_config.output_type = BMI160_DISABLE;
-  pin_config.edge_ctrl = BMI160_ENABLE;
+  pin_config.output_type = BMI160_ENABLE;
+  pin_config.edge_ctrl = BMI160_DISABLE;
+
   pin_config.input_en = BMI160_DISABLE;
   pin_config.latch_dur = BMI160_LATCH_DUR_NONE;
 
@@ -56,23 +66,16 @@ void bmi_get_data_init(struct bmi160_dev *dev_ctx, uint16_t p_buffer_size) {
   int_config.fifo_WTM_int_en = BMI160_ENABLE;
 
   BMI_ERROR_CHECK(bmi160_set_int_config(&int_config, dev_ctx));
-
-  BMI_ERROR_CHECK(bmi160_set_fifo_down(BMI160_GYRO_FIFO_DOWN_ONE | BMI160_ACCEL_FIFO_DOWN_ONE, dev_ctx));
-  BMI_ERROR_CHECK(bmi160_set_fifo_config(BMI160_FIFO_ACCEL | BMI160_FIFO_GYRO, BMI160_ENABLE, dev_ctx));
 }
 
 void bmi_get_data_stop(struct bmi160_dev *dev_ctx) {
   // stop fifo data collection
   config_changed = true;
-  BMI_ERROR_CHECK(bmi160_set_fifo_down(BMI160_GYRO_FIFO_DOWN_ZERO | BMI160_ACCEL_FIFO_DOWN_ZERO, dev_ctx));
   BMI_ERROR_CHECK(bmi160_set_fifo_flush(dev_ctx));
-  NRF_LOG_INFO("stopped fifo sensor");
 }
 
 void bmi_get_data_restart(struct bmi160_dev *dev_ctx, imu_speed_t speed) {
   // start fifo data collection
-  BMI_ERROR_CHECK(bmi160_set_fifo_down(BMI160_GYRO_FIFO_DOWN_ONE | BMI160_ACCEL_FIFO_DOWN_ONE, dev_ctx));
-  NRF_LOG_INFO("restarted fifo sensor");
 }
 
 imu_speed_t bmi_get_data_speed_set(struct bmi160_dev *dev_ctx, imu_speed_t speed, uint16_t connection_interval) {
@@ -93,11 +96,11 @@ imu_speed_t bmi_get_data_speed_set(struct bmi160_dev *dev_ctx, imu_speed_t speed
     speed++; // better one too high then one too low so its less restrictive
 
   /** we got the final speed. now calculate the threshold */
-  uint16_t packets_till_fifo_full_or_buffer_cleared = MAX(1u, MIN(FIFO_MAX_FILL_PACKETS, packets_generated_per_connection_interval(speed))); // range: 1 - 227
+  uint16_t packets_till_fifo_full_or_buffer_cleared = MAX(2u, MIN(FIFO_MAX_FILL_PACKETS, packets_generated_per_connection_interval(speed))); // range: 1 - 64
 
-  packets_per_transaction = MIN(packets_till_fifo_full_or_buffer_cleared, MAX_PACKETS_PER_TRANSACTION); // range: 1 - 14
+  packets_per_transaction = MIN(packets_till_fifo_full_or_buffer_cleared, MAX_PACKETS_PER_TRANSACTION); // range: 2 - 21
 
-  uint16_t bytes_till_fifo_full_or_buffer_cleared = BYTES_PER_PACKET * packets_till_fifo_full_or_buffer_cleared; // range: 18 - 4086
+  uint16_t bytes_till_fifo_full_or_buffer_cleared = BYTES_PER_PACKET * packets_till_fifo_full_or_buffer_cleared; // range: 24 - 252
   BMI_ERROR_CHECK(bmi160_set_fifo_wm(bytes_till_fifo_full_or_buffer_cleared >> 2, dev_ctx));
 
   NRF_LOG_INFO("BMI SET SPEED FINISHED. final speed: %u. th: %u. ppt: %u. pgpci: %u", speed, bytes_till_fifo_full_or_buffer_cleared, packets_per_transaction, packets_generated_per_connection_interval(speed));
@@ -109,23 +112,18 @@ imu_speed_t bmi_get_data_speed_set(struct bmi160_dev *dev_ctx, imu_speed_t speed
 void bmi_get_data_loop(struct bmi160_dev *dev_ctx, bool (*send_data)(imu_data_t), imu_speed_t cur_speed) {
   config_changed = false;
   uint16_t local_packets_per_transaction = packets_per_transaction;
+  uint16_t bytes_to_read = BYTES_PER_PACKET * local_packets_per_transaction;
   while (true) {
-    struct bmi160_fifo_frame fifo_frame;
-    memset(&fifo_frame, 0, sizeof(struct bmi160_fifo_frame));
-    dev_ctx->fifo = &fifo_frame;
-
-    uint8_t buffer[BYTES_PER_PACKET * local_packets_per_transaction];
-    dev_ctx->fifo->length = BYTES_PER_PACKET * local_packets_per_transaction;
-    dev_ctx->fifo->data = buffer;
-    NRF_LOG_INFO("trying to get data");
-    bool configChangedBefore = config_changed;
-    bool response = BMI160_OK != bmi160_get_fifo_data(dev_ctx);
-    bool lengthOk = dev_ctx->fifo->length == 0;
-    bool configChangedAfter = config_changed;
-
-    if (configChangedBefore || response || lengthOk || configChangedAfter)
+    uint8_t data[2];
+    int8_t rslt = bmi160_get_regs(BMI160_FIFO_LENGTH_ADDR, data, 2, dev_ctx);
+    data[1] = data[1] & BMI160_FIFO_BYTE_COUNTER_MASK;
+    uint16_t bytes_available = (((uint16_t)data[1] << 8) | ((uint16_t)data[0]));
+    if (config_changed || bytes_available < bytes_to_read)
       break;
-    NRF_LOG_INFO("got data: %d", dev_ctx->fifo->length);
+
+    dev_ctx->fifo->length = bytes_to_read;
+    if (config_changed || BMI160_OK != bmi160_get_fifo_data(dev_ctx) || config_changed)
+      break;
 
     uint8_t packets_read_accel = dev_ctx->fifo->length / BYTES_PER_PACKET;
     uint8_t packets_read_gyro = dev_ctx->fifo->length / BYTES_PER_PACKET;
@@ -143,11 +141,10 @@ void bmi_get_data_loop(struct bmi160_dev *dev_ctx, bool (*send_data)(imu_data_t)
       data.accel_y = accel_data[i].y;
       data.accel_z = accel_data[i].z;
 
-      current_time += 2 ^ (6 - cur_speed);
+      current_time += (1 << 6 - cur_speed);
       if (current_time & 0x80000000 != 0u)
         current_time = 0u;
       data.time = current_time;
-      NRF_LOG_INFO("One Packet Was Sent");
       if (!send_data(data))
         break;
     }

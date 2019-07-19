@@ -14,6 +14,7 @@ hookup on 'steval-mk178v2' -> 'nrf dk52':
 */
 #define TWI_INSTANCE_ID 0
 static const nrf_drv_twi_t m_twi = NRF_DRV_TWI_INSTANCE(TWI_INSTANCE_ID);
+#define PROTOCOL_SPEED NRF_DRV_TWI_FREQ_400K
 
 void bmi_protocol_init(struct bmi160_dev *dev_ctx) {
   // set miso and ss to gnd
@@ -26,7 +27,7 @@ void bmi_protocol_init(struct bmi160_dev *dev_ctx) {
   nrf_drv_twi_config_t twi_config = NRF_DRV_TWI_DEFAULT_CONFIG;
   twi_config.scl = 14;
   twi_config.sda = 12;
-  twi_config.frequency = NRF_TWI_FREQ_100K;
+  twi_config.frequency = PROTOCOL_SPEED;
   APP_ERROR_CHECK(nrf_drv_twi_init(&m_twi, &twi_config, NULL, NULL));
   nrf_drv_twi_enable(&m_twi);
 

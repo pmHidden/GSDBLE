@@ -13,6 +13,7 @@ hookup on 'steval-mk178v2' -> 'nrf dk52':
 */
 #define SPI_INSTANCE 0
 static const nrf_drv_spi_t spi = NRF_DRV_SPI_INSTANCE(SPI_INSTANCE);
+#define PROTOCOL_SPEED NRF_DRV_SPI_FREQ_8M
 
 void bmi_protocol_init(struct bmi160_dev *dev_ctx) {
   nrf_drv_spi_config_t spi_config = NRF_DRV_SPI_DEFAULT_CONFIG;
@@ -20,7 +21,7 @@ void bmi_protocol_init(struct bmi160_dev *dev_ctx) {
   spi_config.mosi_pin = 12;
   spi_config.sck_pin = 14;
   spi_config.ss_pin = 16;
-  spi_config.frequency = NRF_DRV_SPI_FREQ_8M;
+  spi_config.frequency = PROTOCOL_SPEED;
   APP_ERROR_CHECK(nrf_drv_spi_init(&spi, &spi_config, NULL, NULL));
 
   dev_ctx->id = 0;
@@ -44,8 +45,18 @@ int8_t bmi_protocol_read(uint8_t id, uint8_t reg_addr, uint8_t *data, uint16_t l
 int8_t bmi_protocol_write(uint8_t id, uint8_t reg_addr, uint8_t *data, uint16_t len) {
   if (len > 0xFEu)
     NRF_LOG_INFO("SPI-WRITE: YOU ARE WRITING TOO MUCH DATA! %u", len);
+/*
+  uint8_t bigData[len + 1];
+  bigData[0] = reg_addr;
+  memcpy(bigData + 1, data, len);
 
-  uint16_t index = 0;
+  ret_code_t err_code;
+  err_code = nrf_drv_spi_transfer(&spi, bigData, len + 1, NULL, 0);
+  APP_ERROR_CHECK(err_code);
+
+  return BMI160_OK;
+*/
+    uint16_t index = 0;
   while (index < len) {
     uint8_t p_tx_buffer[2];
     p_tx_buffer[0] = reg_addr;

@@ -1,10 +1,10 @@
-#include "app_error.h"
 #include "../imu.h"
+#include "app_error.h"
 #include "bmi160.h"
 #include "bmi_get_data.h"
 #include "bmi_protocol.h"
-#include "nrf_log.h"
 #include "nrf_delay.h"
+#include "nrf_log.h"
 
 /**
 implementation of imu.h. uses lsm3dsl as imu
@@ -63,7 +63,7 @@ void imu_speed_set(imu_speed_t speed) {
 
 imu_speed_t imu_speed_get(void) {
   return cur_speed;
- }
+}
 
 void imu_stop(bool reset) {
   isPause = true;
@@ -76,8 +76,8 @@ void imu_stop(bool reset) {
   bmi_get_data_stop(&dev_ctx);
   dev_ctx.gyro_cfg.power = BMI160_GYRO_SUSPEND_MODE;
   dev_ctx.accel_cfg.power = BMI160_ACCEL_SUSPEND_MODE;
-  NRF_LOG_INFO("stopped sensor");
   BMI_ERROR_CHECK(bmi160_set_sens_conf(&dev_ctx));
+  NRF_LOG_INFO("stopped sensor");
 }
 
 void imu_restart(void) {
@@ -86,7 +86,7 @@ void imu_restart(void) {
   dev_ctx.accel_cfg.power = BMI160_ACCEL_NORMAL_MODE;
   dev_ctx.accel_cfg.odr = cur_speed + BMI160_ACCEL_ODR_25HZ;
   dev_ctx.gyro_cfg.odr = cur_speed + BMI160_GYRO_ODR_25HZ;
-  NRF_LOG_INFO("started sensor");
+  BMI_ERROR_CHECK(bmi160_set_sens_conf(&dev_ctx));
   bmi_get_data_restart(&dev_ctx, cur_speed);
 }
 

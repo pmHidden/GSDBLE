@@ -83,6 +83,7 @@ Schickt das Endgerät dem Wearable mit der Characteristic \texttt{chara\_conf.c}
 Damit die IMU aber auch die verwendeten Protokolle leicht austauschbar sind, wurde der Code für die IMU aufgeteilt.
 Die Definitionen in \texttt{imu.h} soll dabei jede IMU implementieren und ist die Schnittstelle zum BLE-Service.
 Der Header \texttt{*\_protocol.h} deklariert das Protokoll, mit dem die IMU mit MCU kommuniziert, das heißt SPI oder I2C.
+Mit der Konstanten \texttt{PROTOCOL\_SPEED} lässt sich die Geschwindigkeit des Protokolls ändern.
 Der Header \texttt{*\_get\_data.h} deklariert die Art, wie Daten gesammelt werden.
 Die Implementierungen können unterschiedliche Interrupts nutzen wie FIFO-Full oder Data-Ready.
 Um die Implementierung auszutauschen muss eine andere \texttt{.c}-Datei gelinkt werden, indem die entsprechende Zeile im \texttt{.emProject}-Projekt geändert wird.\\
@@ -243,7 +244,7 @@ Die Unterseite ist fast komplett durch die Batterie belegt.
 Über den Kupferleitungen ist eine isolierende Lackschicht, die vor Kurzschlüssen durch die Batterie schützen würde.
 Da die Knopfzelle allerdings beim Einlegen und Entfernen über die Oberfläche reibt, ist zu erwarten, dass die Lackschicht sich abträgt und dann nicht mehr schützt.
 Deswegen mussten Überschneidungen komplett vermieden werden.
-\begin{figure}[hbt]
+\begin{figure}[hbtp]
 	\centering
 	\subfloat[Vorderseite]{\includegraphics[width=0.5\linewidth]{res/platineFront.jpg}}
 	\subfloat[Rückseite]{\includegraphics[width=0.5\linewidth]{res/platineBack.jpg}}
@@ -252,9 +253,9 @@ Deswegen mussten Überschneidungen komplett vermieden werden.
 \end{figure}\\
 Die fertige Platine ist in Abbildung \ref{fig:platine} zu finden.
 Zum Größenvergleich sind CR2032 und CR2450 Knopfzellen und das nRF52 DK mit abgebildet.
-\begin{figure}[hbt]
+\begin{figure}[hbtp]
 	\centering
-	\includegraphics[width=0.5\linewidth]{res/platine.jpg}
+	\includegraphics[width=0.5\linewidth]{res/gsdble.jpg}
 	\caption{Fertig bestückte Platine im Größenvergleich}
 	\label{fig:platine}
 \end{figure}\\

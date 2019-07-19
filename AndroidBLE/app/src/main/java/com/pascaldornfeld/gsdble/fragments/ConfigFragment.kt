@@ -117,3 +117,17 @@ class MtuFragment : ConfigFragment<Int>() {
         functionToApply?.invoke(index + minimum)
     }
 }
+
+class SensorFragment : ConfigFragment<SensorFragment.Sensors>() {
+    enum class Sensors { LSM6DSL, BMI160 }
+    private val sensors by lazy { Sensors.values() }
+
+    var functionToApply: ((Sensors) -> Unit)? = null
+    override fun getDataArray(): Array<Sensors> = sensors
+
+    override fun getStringRepresentationFromData(data: Sensors): String = data.name
+
+    override fun applyNewData(index: Int) {
+        functionToApply?.invoke(sensors[index])
+    }
+}

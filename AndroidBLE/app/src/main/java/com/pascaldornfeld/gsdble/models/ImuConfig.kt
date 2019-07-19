@@ -14,6 +14,10 @@ data class ImuConfig(
     }
 
     companion object {
+        val LSM_REAL_ODR = arrayOf(26, 52, 104, 208, 416, 833, 1666)
+        val BMI_REAL_ODR = arrayOf(25, 50, 100, 200, 400, 800, 1600)
+        var actualOdr = LSM_REAL_ODR
+
         fun fromByteArray(byteArray: ByteArray): ImuConfig {
             assert(byteArray.size == 1)
             return ImuConfig(
@@ -22,11 +26,6 @@ data class ImuConfig(
             )
         }
 
-        val lsmRealOdr = arrayOf(26, 52, 104, 208, 416, 833, 1666)
-        val bmiRealOdr = arrayOf(25, 50, 100, 200, 400, 800, 1600)
-        fun odrToMsInterval(odr: ImuOdr): Float {
-            return 1.0f / lsmRealOdr[odr.ordinal]
-        }
     }
 }
 
