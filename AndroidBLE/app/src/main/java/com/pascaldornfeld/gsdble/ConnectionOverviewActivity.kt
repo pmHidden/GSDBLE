@@ -37,14 +37,13 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
                 )
                 vGraphTime.addData(data.time, timeOfPacketArrival)
 
-
                 val thisSecond = timeOfPacketArrival / 1000L
                 if (thisSecond != currentTrackedSecond) {
                     if (currentTrackedSecond != 0L) {
                         vGraphDataRate.addData(currentTrackedSecond, packetsThisSecond)
 
                         val tempCurConf = lastConfig
-                        if (tempCurConf != null && vGraphDataRate.internalData.size > 1) {
+                        if (tempCurConf != null && vGraphDataRate.internalData.size >= 30) {
                             var sum = 0.0f
                             vGraphDataRate.internalData.forEach {
                                 sum += (it.second - ImuConfig.actualOdr[tempCurConf.odr.ordinal]).toFloat().pow(2)
@@ -132,7 +131,7 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
     }
     private val vGraphDataRate by lazy {
         val view = supportFragmentManager.findFragmentById(R.id.graph_dr) as LongTimeGraphFragment
-        view.initialize(10000.0f, 1000.0f, "data time vs data rate")
+        view.initialize(35000.0f, 1000.0f, "data time vs data rate")
         view
     }
     private val vGraphDataRateVariance by lazy {

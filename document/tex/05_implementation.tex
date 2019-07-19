@@ -282,6 +282,7 @@ In der Activity werden verschiedene Statistiken graphisch angezeigt.
 Darunter sind die Sensordaten, aber auch z.B. die empfangenen Daten pro Sekunde.
 Über Slider lassen sich Parameter einstellen.
 Die Parameter sind die MTU, der Connection Interval und die Sensordatenrate.
+Da die IMUs verschiedene Zeiteinheiten und geringfügig unterschiedliche Datenraten besitzen, lässt sich der Sensor mit einem Slider einstellen, damit die Statistiken korrekt berechnet werden.
 Jedes Teil ist davon ein eigenes Fragment aus den Dateien \texttt{ConfigFragment} oder \texttt{Graphfragment}.
 Die abstrakte Klasse \texttt{Graphfragment} empfängt Daten und fügt sie in die Liste \texttt{internalData} ein.
 Wenn die Liste zu voll ist, werden die ältesten Daten entfernt.
