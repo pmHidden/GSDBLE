@@ -1,5 +1,6 @@
 package com.pascaldornfeld.gsdble.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,8 +49,9 @@ abstract class ConfigFragment<DataType> : Fragment() {
 
     abstract fun getDataArray(): Array<DataType>
     abstract fun getStringRepresentationFromData(data: DataType): String
-    abstract fun applyNewData(index: Int)
+    protected abstract fun applyNewData(index: Int)
 
+    @SuppressLint("SetTextI18n")
     fun setNewData(data: DataType) {
         val stringRep = getStringRepresentationFromData(data)
         val index = getDataArray().indexOf(data)
@@ -121,6 +123,8 @@ class MtuFragment : ConfigFragment<Int>() {
 class SensorFragment : ConfigFragment<SensorFragment.Sensors>() {
     enum class Sensors { LSM6DSL, BMI160 }
     private val sensors by lazy { Sensors.values() }
+
+    fun initWithLsm() { applyNewData(0) }
 
     var functionToApply: ((Sensors) -> Unit)? = null
     override fun getDataArray(): Array<Sensors> = sensors

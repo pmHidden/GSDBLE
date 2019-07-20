@@ -159,8 +159,10 @@ class ConnectionOverviewActivity : AppCompatActivity(), BleManagerCallbacks {
             vGraphAccel.internalData.clear()
             vGraphGyro.internalData.clear()
             vGraphTime.internalData.clear()
+            vGraphDataRate.internalData.clear()
             vConfigSensor.setNewData(it)
         }
+        vConfigSensor.initWithLsm()
 
         val device = intent.getParcelableExtra<BluetoothDevice>(EXTRA_DEVICE)
         manager.setGattCallbacks(this)

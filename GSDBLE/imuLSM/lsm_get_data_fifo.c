@@ -137,13 +137,21 @@ void lsm_get_data_loop(lsm6dsl_ctx_t *dev_ctx, bool (*send_data)(imu_data_t)) {
       break;
     available_sensor_data.u8bit[1] &= 0x07u;                          // only the upper 11 bits are valid from the register
     available_sensor_data.i16bit = available_sensor_data.i16bit << 1; // this register is in 2-byte-word format. after this, number of bytes is stored in this variable. 12 bits are used now.
+    NRF_LOG_INFO("%d bytes available",available_sensor_data.i16bit );
     if (config_changed || available_sensor_data.i16bit < BYTES_PER_DATA * DATAS_PER_PACKET * local_packets_per_transaction)
-      break;
+ { 
+          NRF_LOG_INFO("break at avail");
+               break;
+}
 
     axis3bit16_t theData[DATAS_PER_PACKET * local_packets_per_transaction];
     memset(theData, 0, DATAS_PER_PACKET * local_packets_per_transaction * sizeof(axis3bit16_t));
+
     if (config_changed || lsm6dsl_fifo_raw_data_get(dev_ctx, theData->u8bit, BYTES_PER_DATA * DATAS_PER_PACKET * local_packets_per_transaction) != 0 || config_changed)
+      {
+          NRF_LOG_INFO("break at fiforead");
       break;
+}
 
     for (uint16_t i = 0; i < local_packets_per_transaction; i++) {
       imu_data_t data;

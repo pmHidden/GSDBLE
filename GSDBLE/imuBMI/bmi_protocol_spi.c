@@ -13,7 +13,7 @@ hookup on 'steval-mk178v2' -> 'nrf dk52':
 */
 #define SPI_INSTANCE 0
 static const nrf_drv_spi_t spi = NRF_DRV_SPI_INSTANCE(SPI_INSTANCE);
-#define PROTOCOL_SPEED NRF_DRV_SPI_FREQ_8M
+#define PROTOCOL_SPEED NRF_DRV_SPI_FREQ_4M
 
 void bmi_protocol_init(struct bmi160_dev *dev_ctx) {
   nrf_drv_spi_config_t spi_config = NRF_DRV_SPI_DEFAULT_CONFIG;
