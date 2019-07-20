@@ -1,0 +1,9 @@
+23 mtu
+200 hz
+high prio
+10 tx
+spi 4 mhz
+lsm imu
+
+netzteil 3 v wenn prototyp
+und geringerer voltage drop
