@@ -1,8 +1,5 @@
 idle test
-2gs
-5s durchschnitt pro aufzeichnung
 10 kOhm Widerstand
-6 tests
 batterie: 2.875 V
 1 15.36 mV
 2 15.39 mV
@@ -12,10 +9,7 @@ batterie: 2.875 V
 6 15.37 mV
 
 advertising test
-2gs
-5s durchschnitt pro aufzeichnung
 47 Ohm Widerstand
-6 tests
 batterie: 2.916 V
 1 35.72 mV
 2 35.82 mV
@@ -24,25 +18,8 @@ batterie: 2.916 V
 5 35.74 mV
 6 35.92 mV
 
-10 ohm: etwa 7.73 mV
-
 sending test
-2gs
-high priority 800hz
 47 ohm widerstand
-278.8 mV
-= 5.932 mA
-
-10 ohm widerstand
-59.7 mV
-= 5.97 mA
-
-ab jetzt 47 ohm
-25 hz lp
-62.74 mV
-
-25 hz mp
-64.73 mV
 
 25 hz hp
 73.87 mV
@@ -61,6 +38,3 @@ ab jetzt 47 ohm
 
 800 hz hp
 277.7 mV
-
-1600 hz hp. effektiv: 850 hz
-292.3 mV
