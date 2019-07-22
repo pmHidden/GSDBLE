@@ -10,6 +10,7 @@
 % 5-10 pages
 
 \section{Ziele}
+\label{ch:aimEval}
 Mit dem Wearable werden einige Tests mit Blick auf die in der Einleitung \ref{ch:aims} aufgestellten Ziele gemacht.
 Die Austauschbarkeit der Protokolle und Komponenten wird durch die Implementierung erreicht.
 Insbesondere die Trennung des Codes von Endgerät, MCU, IMU und dem Protokoll zwischen MCU und IMU tragen dazu bei.
@@ -446,10 +447,24 @@ Wenn der benötigte Strom gering ist, wird der Spannungswandler in Intervallen b
 Mit dem Energieverbrauch von 0.004 mW im Schlafmodus sollte das Wearable 53 Jahre bei einer Batteriekapazität von 620 mAh laufen.
 Wird es allerdings genutzt, ist die geringste Stromaufnahme bei 25 Hz Sensordatenrate, Low Connection Interval und 8 MHz SPI-Frequenz mit etwa 1 mA zu erwarten.
 Das entspricht 2 - 3 kOhm bei 2 - 3 Volt Spannung.
-Während die CR2450 dann bei 3 kOhm weniger als 90 \% der Kapazität besitzt und bei 2 kOhm keine Angabe existiert \cite{datasheet_ds6450}, behält die CR2032 bei dem Widerstand noch etwa die gesamte Kapazität \cite{datasheet_ds6032}.
-Bei 550 mAh sollte sich die CR2450 bei 1 mA und 3 kOhm etwa 23 Tage betreiben lassen.
+Während die CR2450 bei 3 kOhm weniger als 90 \% der Kapazität besitzt und für 2 kOhm nicht spezifiziert ist \cite{datasheet_ds6450}, behält die CR2032 bei dem Widerstand noch etwa die gesamte Kapazität \cite{datasheet_ds6032}.
+Bei 550 mAh sollte sich die CR2450 bei 1 mA und 3 kOhm etwa 23 Tage betreiben lassen.\\
+Um auszuschließen, dass sich die Batterie von Varta nicht als Referenzmodell eignet, wurde nach einem anderen Modell gesucht, dass sich besonders für hohe Ströme eignet.
+Die Murata CR2450R werden explizit als ``High Drain lithium coin batteries'' \cite{site_murataCr2450r} vermarktet.
+Sie haben nur eine Kapazität von 500 mAh aber die Kapazität ist bis 10 mA angegeben und der Spitzenstrom darf 50 mA betragen.
+Es wird empfohlen sie unter 3 mA zu betreiben, wo sie noch etwa 450 mAh bereitstellen kann.
+Das ergibt eine Laufzeit von mehr als 6 Tagen. \cite{site_murataCr2450r}\\
+Damit lässt sich das Wearable mit 200 Hz Sensordatenrate betreiben (vgl. '200Hz' in Tabelle \ref{tab:test5}).
+Eine Sensordatenrate von 400 Hz verbraucht selbst bei höherer SPI-Frequenz zu viel Strom (vgl. '8MHz' in Tabelle \ref{tab:test3}).
+In dem Test hatte das Wearable durchschnittlich 2.871 V zur Verfügung.
+Sinkt die Spannung weiter, sollte die Stromaufnahme noch höher sein.\\
+Wird die Hochstrom-CR2450 mit der CR2032 der selben Modellreihe verglichen, hat die CR2450 bei 3 mA die 2.5-fache Kapazität \cite{site_murataCr2032r}.
+Dagegen hat der vorherige Vergleich in Abschnitt \ref{ch:aimEval} die 2.7-fache Kapazität ergeben.
+Das Volumen beträgt weiterhin das 2.34-fache bei der CR2450.
 
 \subsection{Standardabweichung der ankommenden Datenrate}
+Bei allen Einstellungen ist durchschnittlich die in der IMU eingestellte Datenrate beim Smartphone angekommen.
+Die Standardabweichung hat sich allerdings bei den Einstellungen unterschieden.
 Für die Standardabweichung ist ein Intervall angegeben, da die ausgegebenen Werte um etwa 0.5 Hz schwankten.
 Dementsprechend muss eine hohe Ungenauigkeit berücksichtigt werden.\\
 In Tabelle \ref{tab:test2} ist die Standardabweichung um mindestens 1 Hz höher wenn der Algorithmus nicht genutzt wird.

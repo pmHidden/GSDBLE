@@ -5,30 +5,38 @@
 % 3 pages
 
 \section{Zusammenfassung}
-
+Es wurde ein System entworfen, dass zur Aufnahme von IMU-Daten genutzt werden kann und sie über ein drahtloses Protokoll an ein Endgerät schicken kann.
+Dafür wurden verschiedene Protokolle und Komponenten miteinander verglichen.
+Die gewählten Komponenten wurden in einem Prototypen verbaut und eine modulare Software geschrieben.
+Für das Endgerät, ein Android Smartphone, wurde eine App geschrieben, die sich mit dem System verbindet und Statistiken zur Evaluation graphisch darstellt.
+Die Komponenten wurden in einem kleinerem Format auf eine Platine gelötet und zusätzlich nötige Komponenten hinzugefügt.
+In der Evaluation wurde der Strom- und Energieverbrauch und die Abweichung der Datenrate auf dem Smartphone getestet.
+Dabei wurden Software und Hardwareparameter geändert und ihr Einfluss auf die Faktoren ausgewertet.\\
+Es wurde festgestellt, dass der anfangs betrachtete Vorteil von Größe zu Kapazität der größeren Batterie kleiner ausfällt als angenommen.
+Eine Änderung der TX-Buffer und MTU-Größe bewirkt im Verbrauch keine Änderung, allerdings zeigt sich eine geringe Verbesserung der Standardabweichung bei der höchsten Einstellung des TX-Buffers mit eingeschaltetem Algorithmus.
+Schaltet man den Algorithmus aus, der dazu bestimmt war, unregelmäßiges Umfüllen der Buffer von IMU und zu BLE-Stack zu verhindern, erhöht sich die Standardabweichung, sodass ein positiver Effekt des Algorithmus beobachtbar ist.
+Eine Erhöhung der SPI-Frequenz verringert den Verbrauch und verbessert gleichzeitig die Abweichung.
+Eine Erhöhung des Connection Intervals erhöht den Verbrauch aber verringert die Abweichung.
+Eine größere Sensordatenrate hat den größten negativen Einfluss auf den Verbrauch.\\
+Die verwendete Messmethode ist dabei nicht ideal.
+Die Spannung, die über die Messwiderstände abfällt, muss berücksichtigt werden.
+In dem Handbuch des nRF52 DK wird vorgeschlagen, einen 10 Ohm Widerstand zu nehmen und den Widerstand damit gar nicht dem Spannungsabfall anzupassen, wodurch der Stromverbrauch im Schlafmodus durch Störeinflüsse nicht mehr messbar ist \cite{site_nrf52dk}.
+Stattdessen kann die verbrauchte Energie des Testobjekts statt dem fließenden Strom verglichen werden.
+Da die Komponenten bei unterschiedlichen Spannungen verschiedene Energieeffizienzen vorweisen, aber sie wegen der schwankenden Stromaufnahme schwer einzuberechnen sind, weichen die Ergebnisse trotzdem vom Verbrauch beim Betrieb ohne Messeinrichtung ab.\\
+Die Standardabweichung wurde auf einem Datensatz in Zeitraum von 30 Sekunden berechnet, bei denen die Daten je 1 Sekunde voneinander entfernt waren.
+Wenn der Zeitraum größer gewählt worden wäre, wäre zu erwarten, dass die Standardabweichung genauere Werte liefern würde.
 
 \section{Zukünftige Arbeiten}
-Um die Messmethode zu verbessern, muss das Testobjekt eine feste Spannung bekommen.
-Eine Lösung ist es die Widerstände so zu wählen, dass der Spannungsabfall bei allen Messversuchen gleich bleibt.
-Beim Advertisen in Abbildung \ref{fig:curCr} sieht man, dass der Strom sich aber über eine breite Spanne ändert.
-Idealerweise müsste sich der Widerstand dynamisch ändern und der aktuelle Wert zur Berechnung des Stroms gespeichert werden.
-Eine andere Lösung ist eine Spannungsquelle, die so eingestellt werden kann, dass die Spannung hinter den Widerständen gehalten wird.
-Um Lastunterschiede auszugleichen ohne kurzzeitig Überspannungen zu erzeugen, müsste die Spannungsquelle sehr schnell reagieren.
-Dagegen kann ein Kondensator diese Lastunterschiede abfedern und die Anforderungen an die Spannungsquelle mindern.\\
-
-
-energieverbrauch beim smartphone
-
-andere unkonventionelle arten zur datenübertragung untersuchen. durch vibrierende knochen reden.
-
-btmesh implementieren und vergleichen, wie stark der energieverbrauch sich ändert. es gibt da die library von nordic
-
-nRF52811
-
-project zephyr oder zukünftig mbed
-
-list feature für easydma
-
-mix aus daten verwerfen und sensor langsamer machen
-
-eInk um verbindung anzuzeigen
+Um die Messmethode zu verbessern, müsste das Testobjekt eine konstante Spannung bekommen.
+Dafür müsste eine Spannungsquelle genutzt werden, die so eingestellt werden kann, dass die Spannung hinter den Widerständen gehalten wird.
+Um Lastunterschiede auszugleichen ohne kurzzeitig Über- oder Unterspannungen zu erzeugen, müsste die Spannungsquelle schneller reagieren, als die Unterschiede auftreten.
+Ein Kondensator könnte diese Lastunterschiede abfedern und die Anforderungen an die Spannungsquelle mindern.\\
+Der Einfluss von mehreren Wearables an einem Smartphone wurde bisher nicht betrachtet.
+Die zusätzliche Auslastung der BLE-Frequenz kann den Stromverbrauch und die Abweichung der einzelnen Wearables erhöhen.
+Um die Anzahl der Wearables zu erhöhen, kann der zusätzliche Verbrauch von BT Mesh evaluiert werden.
+Die Android-nRF-Mesh\footnote{\url{https://github.com/NordicSemiconductor/Android-nRF-Mesh-Library}, aufgerufen am 22.07.2019} Bibliothek von Nordic Semiconductor kann genutzt werden um Smartphones BT Mesh kompatibel zu machen.\\
+Als weitere Metriken können der Energieverbrauch des Smartphones und die Latenz zwischen Datenerfassung an der IMU und Datenempfang beim Smartphone gemessen werden.\\
+Die Software kann weiter verbessert werden, indem das List-Feature der EasyDMA zur SPI-Übertragung \cite{datasheet_nrf52832} genutzt wird oder der Algorithmus zusätzlich Daten absichtlich verwirft, um die Bufferumfüllung zu optimieren.
+Zur besseren Modularität der MCU können Bibliotheken betrachtet werden, die eine Abstraktionsstufe der SDKs der MCU bieten.
+Dann ist es einfacher bei Bedarf die MCU zu wechseln.\\
+Um den Nutzer darauf hinzuweisen, dass das Wearable verbunden ist, ohne das ein Knopf gedrückt werden muss oder eine LED dauerhaft leuchtet, können weitere Techniken wie eInk\footnote{\url{https://eink.com/color-technology.html}, aufgerufen am 22.07.2019} betrachtet werden.

@@ -63,13 +63,26 @@ Der reservierte Platz im RAM kann eingestellt werden mit der Konstanten \texttt{
 Wird zu wenig Platz reserviert, startet das Programm nicht.\\\\
 Der Wert, der hinter der Characteristic \texttt{chara\_data.c} steht, besteht aus den Komponenten in Abbildung \ref{lst:imuData}.
 Aus dem Inhalt ergibt sich eine Größe von 16 Byte.
-Das MSb des Zeitstempels wird nicht genutzt, da auf Endgeräten genutzte Hochsprachen oft keine vorzeichenlosen Werte nutzen können.
-Die Einheit ist durch die LSM6DSL IMU vorgegeben.
-Die IMU speichert den Zeitstempel im 6.4 ms Format.
+Das MSb des Zeitstempels wird nicht genutzt, da auf Endgeräten genutzte Hochsprachen oft keine vorzeichenlosen Werte interpretieren können.
+Die LSM6DSL IMU speichert den Zeitstempel im 6.4 ms Format.
 Es würde Sinn ergeben, dieses Zeitformat auf das schnellste Datenerfassungsintervall von $\frac{1s}{1600Hz} = 0.625 ms$ zu normalisieren, sodass beide Sensoren dieselbe Zeiteinheit liefern können.
-Allerdings ist die Zeiteinheit kein Vielfaches, sodass Rundungsfehler entstehen.
-Der LSM6DSL arbeitet zudem mit 1666 Hz statt den 1600 Hz beim BMI160.
-Hierfür sollte in Zukunft eine bessere Lösung gefunden werden.
+Allerdings ist die Zeiteinheit der LSM6DSL IMU kein Vielfaches, sodass Rundungsfehler entstehen würden.
+Beim BMI160 wird die Einheit der Zeitstempel mit 0.625 ms übertragen.
+Hier wird der Zeitstempel aber von der MCU berechnet, sodass er nicht mehr korrekt wäre, wenn die FIFO der IMU überläuft.
+Deswegen wird die FIFO des BMI160 nur zu 75 \% gefüllt.\\
+Der LSM6DSL arbeitet zudem mit leicht verschiedenen Frequenzen als der BMI160.
+Die Unterschiede können in Tabelle \ref{tab:imuFreq} betrachtet werden. \cite {datasheet_lsm6dsl} \cite{datasheet_bmi160}\\
+\begin{minipage}{\linewidth}
+	\centering
+	\captionof{table}{IMU Frequenzen (in Hz)}
+	\label{tab:imuFreq}
+	\begin{tabular}{l|l|l|l|l|l|l|l}
+		BMI160 & 25 & 50 & 100 & 200 & 400 & 800 & 1600\\
+		LSM6DSL & 26 & 52 & 104 & 208 & 416 & 833 & 1666\\
+  \end{tabular}
+\end{minipage}\\\\
+In Zukunft sollte eine einheitliche Lösung gefunden werden.
+Zur Berechnung der Statistiken soll vorerst mit unverarbeiteten Daten gearbeitet werden und am Smartphone umgerechnet werden.
 \begin{figure}[hbtp]
 	\lstinputlisting{res/imuData.c}
 	\caption{Inhalt von Characteristic \texttt{chara\_data.c}}
@@ -283,6 +296,10 @@ Darunter sind die Sensordaten, aber auch z.B. die empfangenen Daten pro Sekunde.
 Über Slider lassen sich Parameter einstellen.
 Die Parameter sind die MTU, der Connection Interval und die Sensordatenrate.
 Da die IMUs verschiedene Zeiteinheiten und geringfügig unterschiedliche Datenraten besitzen, lässt sich der Sensor mit einem Slider einstellen, damit die Statistiken korrekt berechnet werden.
+Der Connection Interval lässt sich in den Schritten Low, Balance und High ändern.
+Das entspricht den Werten 100 - 125 ms, 30 - 50 ms und 11.25 - 15 ms.
+Diese Vorgabe besteht durch die Konstanten der Klasse \texttt{android.bluetooth.BluetoothGatt
+} im Android SDK.
 Jedes Teil ist davon ein eigenes Fragment aus den Dateien \texttt{ConfigFragment} oder \texttt{Graphfragment}.
 Die abstrakte Klasse \texttt{Graphfragment} empfängt Daten und fügt sie in die Liste \texttt{internalData} ein.
 Wenn die Liste zu voll ist, werden die ältesten Daten entfernt.
