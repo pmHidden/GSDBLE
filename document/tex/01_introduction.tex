@@ -17,22 +17,22 @@ Durch das Auswerten dieser Daten kann die Trainingsintensität in Echtzeit an di
 	\caption{Absatz von Wearables \cite{statistik_wearables}}
 	\label{fig:stat_wearables}
 \end{figure}\\
-In dieser Arbeit hingegen wird ein Wearable entworfen, das die Position und Rotation von Gelenken erfasst.
+Statt zur Herzfrequenzmessung wird in dieser Arbeit hingegen ein Wearable entworfen, das die Position und Rotation von Gelenken erfasst.
 Auf der Analyse dieser Daten aufbauend können dann weiterführende Anwendungsfälle entwickelt werden.
 Folgende sind zum Beispiel interessante Anwendungen:
 \begin{itemize}
-  \item Das Erkennen von falsch ausgeführten Übungen beim Sport oder falscher Haltung beim Sitzen oder Stehen im Alltag.
+  \item Das Erkennen von falsch ausgeführten Übungen beim Sport oder von einer falschen Haltung beim Sitzen oder Stehen im Alltag.
 	Dadurch können negative gesundheitliche Folgen vermieden werden.
-  \item Eine Lösung für mobiles Motion Capturing zum Erstellen von Animationen in Filmen oder Videospielen.
-	Mit der Anzahl der Wearables kann die Auflösung der Bewegung proportional zum Preis skaliert werden.
+  \item Eine Lösung für die mobile Ganzkörperbewegungserkennung zum Erstellen von Animationen in Filmen oder Videospielen.
+	Mit der Anzahl der Wearables kann der Detailgrad der Bewegung proportional zum Preis skaliert werden.
   \item Ein Echtzeitsystem zur Übersetzung von Gestensprache in gesprochene Sprache zur Kommunikation von stummen Menschen.
   \item Für die Bewegungserkennung in Videospielen und Virtual Reality.
-	Abbildung \ref{fig:stat_konsolen} zeigt, dass die Nintendo Wii die bisher fünftmeist-verkaufte Konsole ist (Stand: Ende 2018) und damit die Geschichte der Videospielkonsolen prägt.
+	Abbildung \ref{fig:stat_konsolen} zeigt, dass die Nintendo Wii die bisher fünftmeist-verkaufte Konsole ist (Stand: Dezember 2018) und damit die Geschichte der Videospielkonsolen prägt.
 	Die Fernbedienung übernimmt dabei vor allem eine Funktion: Das Tracken der Handposition.
-	Zusätzlich kann man mit dem Nunchuk per Kabel einen zweiten Sensor für die andere Hand anschließen.
-	Würde stattdessen eine Konsole mit dem hier entwickelten Wearable entworfen werden, würden die Hände beim Spielen frei bleiben, das Kabel zwischen den Händen wegfallen und es könnten weitere Gliedmaßen getrackt werden.
-	VR-Headsets und die Xbox Kinect nutzen dagegen Kameras zur Ganzkörpergestenerkennung.
-	Diese Lösung ist dagegen nicht mobil einsetzbar und anfällig auf Störeinflüsse wie fehlender Sichtkontakt.
+	Zusätzlich kann mit dem Nunchuk per Kabel ein zweiter Sensor für die andere Hand angeschlossen werden.
+	Würde stattdessen eine Konsole mit dem hier entwickelten Wearable entworfen werden, könnten die Hände beim Spielen frei bleiben, das Kabel zwischen den Händen wegfallen und weitere Gliedmaßen getrackt werden.
+	VR-Headsets und die Xbox Kinect nutzen dagegen Kameras zur Ganzkörperbewegungserkennung.
+	Diese Lösung ist jedoch nicht mobil einsetzbar und anfällig auf Störeinflüsse wie fehlender Sichtkontakt.
 \end{itemize}
 \begin{figure}[hbtp]
   \centering
@@ -40,27 +40,28 @@ Folgende sind zum Beispiel interessante Anwendungen:
   \caption{Verkaufszahlen der weltweit meistverkauften Spielkonsolen \cite{statistik_konsolen}}
   \label{fig:stat_konsolen}
 \end{figure}
-Das Wearable kann also in vielen Bereichen Anwendung finden. Von Medizin über Kommunikation zur Produktivität und Unterhaltung.
+Das Wearable kann also in vielen Bereichen Anwendung finden. Von Medizin über Kommunikation bis zur Produktivität und Unterhaltung.
 
 \section{Problemstellung und Beitrag}
 % What is the problem that should be solved with this thesis?
 \label{ch:aims}
 Folgende Ziele ergeben sich für diese Arbeit:
 \begin{enumerate}
-	\item Um eine gute Mobilität zu gewährleisten, muss das Wearable klein und leicht sein, damit es auch beim Sport praktikabel bleibt.
-	\item Die Datenübertragung muss ausreichend schnell sein um die Datenrate zu übertragen, die für Gestenerkennung nötig ist.
-	\item Die Energiekapazität und der Energieverbrauch müssen verhältnismäßig zueinander abgestimmt sein.
+	\item Um eine gute Mobilität zu gewährleisten, muss das Wearable klein und leicht sein, damit es auch beim Sport komfortabel zu nutzen bleibt.
+	\item Die Datenübertragung muss ausreichend schnell sein, um die Datenrate zu übertragen, die für Gestenerkennung nötig ist.
+	\item Die Batteriekapazität und die Stromaufnahme müssen verhältnismäßig zueinander abgestimmt sein.
+	Würde die Batterie öfter als ein Mal pro Tag geladen oder gewechselt werden müssen, wäre das Wearable nicht mehr praktikabel.
 	Die Batterie soll keinesfalls öfter als einmal pro Tag geladen oder gewechselt werden müssen.
-	\item Die eingesetzten Protokolle sollen weit verbreitet sein, damit möglichst viele Endgeräte von dem Wearable profitieren können und bestenfalls einzelne Komponenten des Wearables einfach durch Neuere ersetzt werden können.
+	\item Die eingesetzten Protokolle sollen weit verbreitet sein, damit möglichst viele Endgeräte von dem Wearable profitieren können und einzelne Komponenten des Wearables mit wenig Aufwand durch neuere oder dem Anwendungsfall angepasste Komponenten ersetzt werden können.
 \end{enumerate}
-Wegen der hohen Mobilität und Verbreitung wurde als Empfänger der Daten ein Smartphone ausgewählt, wobei durch Implementierung der Schnittstelle später auch andere Geräte genutzt werden können.
-Das Smartphone soll die Schnittstelle exemplarisch implementieren und die Daten sowie Statistiken zur Verbindung zur Auswertung anzeigen.
-Das Wearable soll bei Verbindung Sensordaten mit variabler Rate bereitstellen um Datenübertragung und Energieverbrauch bei verschiedenen Konfigurationen auswerten zu können.
+Wegen der hohen Mobilität und Verbreitung wurde als Empfänger der Daten ein Smartphone ausgewählt, wobei durch die Implementierung der Schnittstelle später auch andere Geräte genutzt werden können.
+Das Smartphone soll die Schnittstelle exemplarisch implementieren und die Daten sowie Verbindungstatistiken zur Auswertung anzeigen.
+Das Wearable soll bei Verbindung Sensordaten mit variabler Rate bereitstellen, um Datenübertragung und Stromaufnahme bei verschiedenen Konfigurationen auswerten zu können.
 
 \section{Gliederung}
 % How is the rest of this thesis structured?
-Zunächst werden verschiedene Protokolle, Techniken oder Komponententypen verglichen, die für das Wearable wichtig sind.
+Zunächst werden verschiedene Protokolle und Komponententypen vorgestellt, die für das Wearable wichtig sind.
 Dann werden bestehende Lösungen vorgestellt und geprüft, welche Vor- und Nachteile sie bieten.
-Im Anschluss werden die eingesetzten Komponenten bezeichnet und beschrieben, wie sie miteinander interagieren sollen.
-In der Implementierung wird die Beschaltung beschrieben und es werden die Probleme benannt, die bei der Implementierung aufgekommen sind.
+Im Anschluss werden die eingesetzten Komponenten ausgewählt und beschrieben, wie sie miteinander interagieren sollen.
+In der Implementierung wird die Beschaltung beschrieben und es werden die Probleme benannt, die während der Implementierung aufgekommen sind.
 Zum Schluss wird das System anhand der genannten Ziele evaluiert und ein Fazit gezogen.

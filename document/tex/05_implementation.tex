@@ -21,13 +21,14 @@ Hier würde es sich eignen, zukünftig eine Lösung mit systemweiten Pfadvariabl
 Bevor eine nRF52832 MCU genutzt werden kann, muss zunächst der BLE-Stack installiert werden, indem die \texttt{.hex}-Datei aus dem Softdevice 132 v6.1.1 auf die MCU übertragen wird.\\\\
 Statt die IDE Segger Embedded Studio zu nutzen, kann alternativ der GCC Compiler mit einer beliebigen IDE eingesetzt werden.
 Bei der komplizierten Einrichtung von GCC und den benötigten Tools ist dann zu beachten, dass bei der zum Zeitpunkt der Arbeit aktuellen Version 8-2018-q4-major der GNU Arm Embedded Toolchain\footnote{\url{https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm}, abgerufen am 13.07.2019} ein Out-of-Range-Fehler in einer Intel-Hex-File geworfen wird.
-Der Fehler kann behoben werden, indem die Datei \texttt{bin\textbackslash{}arm-none-eabi-objcopy.exe} mit der aus Version 7-2018-q2-update ersetzt wird.\\
+Der Fehler kann behoben werden, indem die Datei \texttt{bin\textbackslash{}arm-none-eabi-objcopy.exe} mit der aus Version 7-2018-q2-update ersetzt wird.
+Der Log kann über den Configuration Wizard in \texttt{sdk\_config.h} auf das UART-Protokoll umgestellt werden und lässt sich über das externe Programm Putty\footnote{\url{https://www.putty.org/}, abgerufen am 11.07.2019} auslesen.\\
 In der Arbeit wurde wegen der einsteigerfreundlicheren Einrichtung mit der IDE Segger Embedded Studio gearbeitet.
 Die IDE stürzt in der genutzten Version 4.12 leider regelmäßig ab.
 Wird die IDE dagegen aktualisiert, gibt das eingebaute Debug Terminal nur noch unsichtbare Zeichen aus (vgl. \cite{site_sesDebug}).
 Im Debug Terminal wird der Log, der vom RTT-Protokoll übertragen wird, angezeigt.
 Wenn der Log über RTT zu schnell ist, werden Zeilen verworfen.
-Stellt man den Log über den Configuration Wizard in \texttt{sdk\_config.h} auf das ineffizientere UART-Protokoll um, lässt er sich über das externe Programm Putty\footnote{\url{https://www.putty.org/}, abgerufen am 11.07.2019} auslesen.
+Um dem entgegenzuwirken, kann über Configuration Wizard in \texttt{sdk\_config.h} das LOG\_DEFERRED ausgestellt werden.
 
 \subsection{Programmaufbau}
 Das Programm \texttt{main.c} ist der Einstiegspunkt der MCU.
@@ -35,7 +36,7 @@ Hier werden die vordefinierten und eigenen Module initialisiert und die Hauptsch
 Unter den vordefinierten Modulen sind zum Beispiel Logging, Timer und Energiemanagement.
 Da das Template 700 Zeilen umfasst, wurden einige Initialisierungen in weitere Dateien ausgelagert.
 Der Code \texttt{peer\_advertise.c} verwaltet die beiden Module, die zum Advertisen und zur optionalen Verbindungsverschlüsselung nötig sind.
-Hier kann unter anderem eingestellt werden, wie lange das Advertisen passiert, bevor das Wearable automatisch in den Schlafmodus wechselt und in welchen Abständen die Pakete beim Advertisen verschickt werden.
+Hier kann unter anderem eingestellt werden, wie lange das Advertisen stattfindet, bevor das Wearable automatisch in den Schlafmodus wechselt und in welchen Abständen die Pakete beim Advertisen verschickt werden.
 Die Datei \texttt{board\_manager.c} steuert die LEDs und den Knopf.
 Die Definition \texttt{custom\_board.h} beschreibt, wie viele LEDs und Knöpfe angeschlossen sind und an welchen Pins sie liegen.\\
 Im Package \texttt{ServiceCharacteristicSensor} befindet sich der Code für die BLE-Service und den Sensor.
@@ -118,7 +119,7 @@ Das Wearable kann eine neue Geschwindigkeit vorschlagen.
 Können sich Wearable und Endgerät nicht einigen, wird die Verbindung getrennt.
 Das würde das Nutzungserlebnis stark negativ beeinflussen.
 Um die Datenmenge zu reduzieren kann der Sensor langsamer gestellt oder absichtlich Daten verworfen werden.
-Während das Zweite eine feinere Einstellung ermöglicht, ist das Erste energiesparender.\\
+Während das Zweite eine feinere Einstellung ermöglicht, ist das Erste stromsparender.\\
 Deswegen wird ein Algorithmus eingesetzt, der die Geschwindigkeit vom Sensor herabsetzt, wenn ein neuer Connection Interval vorliegt oder der Nutzer eine neue Geschwindigkeit setzen möchte.
 Das Ergebnis soll dem in Abbildung \ref{fig:daten_nachher} veranschaulichte Verhalten nachkommen.
 \begin{figure}[!hbtp]
@@ -209,10 +210,10 @@ Sie dienen zur Abkopplung der Komponenten bei Lastschwankungen und sind auch in 
 Die ausgewählten LEDs haben eine Vorwärtsspannung von 1.8 V und einen Nennstrom von 2 mA.
 Um diese Vorgaben bei einem Batterielevel von 2 V bis 3 V einzuhalten, sind jeweils 191 Ohm Widerstände vorgeschaltet.
 Als Farben der LEDs wurden rot und gelb gewählt, da die Farben eine hohe Wellenlänge haben und dadurch energieärmer sind.
-Wird die rote LED der Gelben in der Nutzung präferiert steigert sich aus dem selben Grund die Energieeffizienz des Wearables minimal.
+Wird die rote LED der Gelben in der Nutzung präferiert steigert sich aus dem selben Grund die Effizienz des Wearables minimal.
 Zur Programmierung des Chips wurde ein Cortex-M-Debug\footnote{\url{http://infocenter.arm.com/help/topic/com.arm.doc.faqs/attached/13634/cortex_debug_connectors.pdf}, aufgerufen am 18.07.2019} Anschluss angebracht.
 Damit lässt er sich vom nRF52 DK mit dem passenden Kabel programmieren.
-Um den Energieverbrauch zu evaluieren ist die Spannungsversorgung der Platine über zwei Pins, die 2.54 mm voneinander entfernt sind, offen zugänglich.
+Um die Stromaufnahme zu evaluieren ist die Spannungsversorgung der Platine über zwei Pins, die 2.54 mm voneinander entfernt sind, offen zugänglich.
 Alle Komponenten wurden soweit verfügbar in der Größe 0603 gewählt, damit sie mit einem Lötkolben eingelötet oder ausgetauscht werden können.
 Eine vollständige Liste der Komponenten ist in Tabelle \ref{tab:bom} zu finden.\\
 
@@ -237,7 +238,7 @@ Eine vollständige Liste der Komponenten ist in Tabelle \ref{tab:bom} zu finden.
 \end{minipage}\\\\
 Bei der Erstellung des Schaltplans, in Abbildung \ref{fig:schematic} zu sehen, musste bereits beachtet werden, wo sich die Pins physisch an den Komponenten befinden, damit sich die Verbindungen nicht überschneiden.
 Die Komponenten lassen sich mit der letzten Spalte von Tabelle \ref{tab:bom} zuordnen.
-Die Komponente VCC.GND sind die besagten Pins zur externen Stromversorgung.
+Die Komponente VCC.GND sind die besagten Pins zur externen Spannungsversorgung.
 \begin{figure}[p]
 	\centering
 	\includegraphics[height=0.8\linewidth,angle=90]{res/schematic.pdf}
@@ -251,7 +252,7 @@ Die grauen Vias verbinden die Unterseite mit der Oberseite.
 Während sich auf der Unterseite nur die Batterie befindet, sind die restlichen Komponenten auf der Oberseite.
 Das freie Rechteck in der linken unteren Ecke enthält kein Metall, da sich hier die Antenne befindet und sonst negativ beeinflusst werden würde.
 An der Rückseite erkennt man, dass die Größe der Platine durch die Batterie und der Antenne vorgegeben sind.
-Die Verbindungen zur Stromversorgung sind dicker ausgeführt, damit sie weniger Widerstand bieten.
+Die Verbindungen zur Spannungsversorgung sind dicker ausgeführt, damit sie weniger Widerstand bieten.
 Normalerweise wird die Unterseite der Platine genutzt, wenn Verbindungen sich überschneiden.
 Die Unterseite ist fast komplett durch die Batterie belegt.
 Über den Kupferleitungen ist eine isolierende Lackschicht, die vor Kurzschlüssen durch die Batterie schützen würde.

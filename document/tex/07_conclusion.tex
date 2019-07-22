@@ -10,7 +10,7 @@ Dafür wurden verschiedene Protokolle und Komponenten miteinander verglichen.
 Die gewählten Komponenten wurden in einem Prototypen verbaut und eine modulare Software geschrieben.
 Für das Endgerät, ein Android Smartphone, wurde eine App geschrieben, die sich mit dem System verbindet und Statistiken zur Evaluation graphisch darstellt.
 Die Komponenten wurden in einem kleinerem Format auf eine Platine gelötet und zusätzlich nötige Komponenten hinzugefügt.
-In der Evaluation wurde der Strom- und Energieverbrauch und die Abweichung der Datenrate auf dem Smartphone getestet.
+In der Evaluation wurde die Strom- und Leistungsaufnahme und die Abweichung der Datenrate auf dem Smartphone getestet.
 Dabei wurden Software und Hardwareparameter geändert und ihr Einfluss auf die Faktoren ausgewertet.\\
 Es wurde festgestellt, dass der anfangs betrachtete Vorteil von Größe zu Kapazität der größeren Batterie kleiner ausfällt als angenommen.
 Eine Änderung der TX-Buffer und MTU-Größe bewirkt im Verbrauch keine Änderung, allerdings zeigt sich eine geringe Verbesserung der Standardabweichung bei der höchsten Einstellung des TX-Buffers mit eingeschaltetem Algorithmus.
@@ -21,8 +21,8 @@ Eine größere Sensordatenrate hat den größten negativen Einfluss auf den Verb
 Die verwendete Messmethode ist dabei nicht ideal.
 Die Spannung, die über die Messwiderstände abfällt, muss berücksichtigt werden.
 In dem Handbuch des nRF52 DK wird vorgeschlagen, einen 10 Ohm Widerstand zu nehmen und den Widerstand damit gar nicht dem Spannungsabfall anzupassen, wodurch der Stromverbrauch im Schlafmodus durch Störeinflüsse nicht mehr messbar ist \cite{site_nrf52dk}.
-Stattdessen kann die verbrauchte Energie des Testobjekts statt dem fließenden Strom verglichen werden.
-Da die Komponenten bei unterschiedlichen Spannungen verschiedene Energieeffizienzen vorweisen, aber sie wegen der schwankenden Stromaufnahme schwer einzuberechnen sind, weichen die Ergebnisse trotzdem vom Verbrauch beim Betrieb ohne Messeinrichtung ab.\\
+Stattdessen kann die verbrauchte Leistung des Testobjekts statt dem fließenden Strom verglichen werden.
+Da die Komponenten bei unterschiedlichen Spannungen verschiedene Leistungseffizienzen vorweisen, aber sie wegen der schwankenden Stromaufnahme schwer einzuberechnen sind, weichen die Ergebnisse trotzdem vom Verbrauch beim Betrieb ohne Messeinrichtung ab.\\
 Die Standardabweichung wurde auf einem Datensatz in Zeitraum von 30 Sekunden berechnet, bei denen die Daten je 1 Sekunde voneinander entfernt waren.
 Wenn der Zeitraum größer gewählt worden wäre, wäre zu erwarten, dass die Standardabweichung genauere Werte liefern würde.
 

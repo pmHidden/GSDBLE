@@ -16,15 +16,15 @@ Die Austauschbarkeit der Protokolle und Komponenten wird durch die Implementieru
 Insbesondere die Trennung des Codes von Endgerät, MCU, IMU und dem Protokoll zwischen MCU und IMU tragen dazu bei.
 Ob die Größe und das Gewicht ausreichend gering sind, ist vom Anwendungsfall abhängig.
 Bei dem Wearable sind sie stark von der Knopfzelle geprägt.
-Es wurde die etwa 2.36 cm\textsuperscript{3} große CR2450 statt der etwa 1.01 cm\textsuperscript{3} großen CR2032 gewählt um die 2.7-fache Energiekapazität zu erhalten.
+Es wurde die etwa 2.36 cm\textsuperscript{3} große CR2450 statt der etwa 1.01 cm\textsuperscript{3} großen CR2032 gewählt um die 2.7-fache Kapazität zu erhalten.
 Um die Entscheidung zu ändern, muss nur das Platinenlayout überarbeitet werden während das Schaltbild und der Code übernommen werden können.
-Ob die Kapazität der Knopfzellen überhaupt anwendungstauglich ist, soll in den Tests zum Energieverbrauch ermittelt werden.
-Dafür sollen verschiedene Parameter geändert werden und der Einfluss auf die Energieaufnahme gemessen und die Auswirkungen auf die Datenübertragung evaluiert werden.
+Ob die Kapazität der Knopfzellen überhaupt anwendungstauglich ist, soll in den Tests zur Stromaufnahme ermittelt werden.
+Dafür sollen verschiedene Parameter geändert werden und der Einfluss auf die Stromaufnahme gemessen und die Auswirkungen auf die Datenübertragung evaluiert werden.
 Bei der Datenübertragung kann zum Einen die Menge der Sensordaten pro Sekunde gemessen werden.
 Zum Anderen kann geprüft werden, wie regelmäßig die Sensordaten beim Endgerät ankommen.\\
-Es wurde die Energieaufnahme verglichen in den Szenarien Prototyp mit LSM6DSL IMU vs Wearable und LSM6DSL IMU vs BMI160 IMU auf dem Prototypen.
+Es wurde die Stromaufnahme verglichen in den Szenarien Prototyp mit LSM6DSL IMU vs Wearable und LSM6DSL IMU vs BMI160 IMU auf dem Prototypen.
 Der Prototyp besteht aus dem nRF52 DK und dem STEVAL-MKI178V2 bzw. BMI160 Shuttle Board.
-Die Auswirkungen auf die Energieaufnahme und der Datenübertragung werden auf dem Wearable bei einer Änderung der Größe des TX-Buffers, der MTU-Größe, dem Connection Interval, der SPI-Frequenz und der Sensordatenrate erfasst.
+Die Auswirkungen auf die Stromaufnahme und der Datenübertragung werden auf dem Wearable bei einer Änderung der Größe des TX-Buffers, der MTU-Größe, dem Connection Interval, der SPI-Frequenz und der Sensordatenrate erfasst.
 Um den Einfluss des Algorithmus zu erfassen, werden die Test mit der variablen Größe des TX-Buffers auch ohne aktivem Algorithmus getestet.
 Dafür wird dem Algorithmus eine Größe des TX-Buffers von 0xFFFFu in \texttt{main.c} in der Zeile \texttt{err\_code = my\_service\_init(\allowbreak{}\&m\_myservice, TX\_QUEUE\_SIZE);} übergeben.
 
@@ -76,7 +76,7 @@ Der erste Teil der Tabellen listet die Rahmenbedingungen für die Tests auf.
 Die Zeilen der Daten beginnen mit der Beschreibung des Testfalls.
 Die Zeile 'AVG' ist der Durchschnitt der sechs Einzeltests.
 Sie besteht aus gemessenem Spannungsabfall, der berechneten Stromaufnahme.
-Die Zeile 'P\textsubscript{AVG}' ist die Energieaufnahme nach $P_{AVG} = (Versorgungsspannung - gemesseneSpannung) * resultierender Strom$.
+Die Zeile 'P\textsubscript{AVG}' ist die Leistungsaufnahme nach $P_{AVG} = (Versorgungsspannung - gemesseneSpannung) * resultierender Strom$.
 Einzelne Tests haben zusätzlich die Standardabweichung 'ABW' oder listen die höchsten gemessenen Spitze im Spannungsabfall auf.
 
 \begin{figure}[!hbtp]
@@ -403,48 +403,49 @@ Es hat keinerlei Auswirkungen auf die Daten und ist durch die Messweise bedingt.
 Ein Abschnitt auf der X-Achse sind 0.5 Sekunden, sodass eine komplette Abbildung 5 Sekunden darstellt.
 Eine Frequenz von 0 Hz bedeutet, dass die IMU keine Daten erfasst.
 
-\subsection{Nur Stromverbrauch als Metrik?}
+\subsection{Nur Stromaufnahme als Metrik?}
 Vergleicht man Abbildung \ref{fig:curNetz} und Abbildung \ref{fig:curCr}, stellt man fest, dass sich die Verlaufskurven bei Batterie- und Netzspannung nicht unterscheiden.
 Es sind regelmäßige Spitzen zu erkennen in denen das Wearable am Advertisen ist.
 Die zusätzliche Stromaufnahme durch die blinkende LED ist beobachtbar.\\
 Vergleicht man den \underline{Strom} 'Wearable LSM6DSL 200 Hz' (Tabelle \ref{tab:test1}) mit '200Hz' (Tabelle \ref{tab:test5}), stellt man einen Anstieg der Stromaufnahme von 8.51 \% bei Batteriebetrieb fest.\\
 In Tabelle \ref{tab:test1} wurde mit einem 10 Ohm Widerstand gemessen, wohingegen in Tabelle \ref{tab:test5} mit 47 Ohm gemessen wurde.
 Während die Spannungsquellen beide etwa 3 Volt liefern, fällt eine unterschiedliche Spannung an den Widerständen ab.
-Vergleicht man den \underline{Energieverbrauch}, misst man immer noch einen Unterschied von 5.4 \%.\\
+Vergleicht man den \underline{Leistungsverbrauch}, misst man immer noch einen Unterschied von 5.4 \%.\\
 Werden die Werte 'Wearable LSM6DSL 0 Hz' (Tabelle \ref{tab:test1}) und 'High 0Hz' (Tabelle \ref{tab:test4}) verglichen, sind die Unterschiede noch höher.
 Es handelt sich nicht wie zunächst angenommen um eine falsche Einstellung.
 Abbildung \ref{fig:curHiNetz} zeigt die zugehörige Aufnahme, die dem Muster von Abbildung \ref{fig:curHi} entspricht.
-Beim Batteriebetrieb ist die Stromaufnahme 120 \% und die Energieaufnahme 133 \% so hoch.\\\\
-Während in den Datenblättern der Komponenten der Stromverbrauch bei einer bestimmten Spannung spezifiziert ist \cite{datasheet_lsm6dsl} \cite{datasheet_nrf52832}, ist die Spannung am Testobjekt bei der eingesetzten Messmethode abhängig vom Stromverbrauch.
+Beim Batteriebetrieb ist die Stromaufnahme 120 \% und die Leistungsaufnahme 133 \% so hoch.\\\\
+Während in den Datenblättern der Komponenten die Stromaufnahme bei einer bestimmten Spannung spezifiziert ist \cite{datasheet_lsm6dsl} \cite{datasheet_nrf52832}, ist die Spannung am Testobjekt bei der eingesetzten Messmethode abhängig von der Stromaufnahme.
 Die Stromberechnungen mit stark unterschiedlichen Spannungsabfällen sind nicht direkt miteinander vergleichbar.
 Trotzdem sind die Berechnungen für das Wearable gültig, da die Spannungen am Testobjekt über 2 Volt liegen und die Knopfzelle unter 2 Volt als leer gilt.
-Es lässt sich stattdessen der Energieverbrauch vergleichen.
+Es lässt sich stattdessen die Leistungsaufnahme vergleichen.
 Hierbei muss beachtet werden, dass das Testobjekt bei unterschiedlichen Spannungen unterschiedlich effektiv arbeiten kann.\\
-Der Stromverbrauch ist trotzdem wichtig, da die Batterien bei höherem Strom eine geringere Kapazität aufweisen.
+Die Stromaufnahme ist trotzdem wichtig, da die Batterien bei höherem Strom eine geringere Kapazität aufweisen.
 So hat die CR2450 weniger als 600 mAh Kapazität, wenn weniger als 5.5 kOhm anliegen.
 Diese Grenze ist bei 2 Volt mit 364 $\mu$A erreicht. \cite{datasheet_ds6450}
 
-\subsection{Energie- und Stromeinfluss der Parameter}
+\subsection{Leistungs- und Stromeinfluss der Parameter}
 Im Test mit dem Netzteil wurde eine MTU-Größe von 23 Byte gewählt.
 Beim Test von der Batterie wurde sie auf 35 Byte erhöht.
-Betrachtet man Tabelle \ref{tab:test2}, so stellt man fest, dass die Größe des TX-Buffers und die Größe der MTU im Energieverbrauch höchstens einen Unterschied von 0.78 \% ausmachen.
-Deshalb kann davon ausgegangen werden, dass sie den energieverbrauch nicht beeinflussen.\\
-Tabelle \ref{tab:test1} kann man entnehmen, dass der Prototyp mit LSM6DSL 20 \% mehr Strom und Energie verbraucht als das Wearable bei 200 Hz.
-Bei 0 Hz sind es 186 \% in der Strom- und 202 \% mehr in der Energieaufnahme.\\
+Betrachtet man Tabelle \ref{tab:test2}, so stellt man fest, dass die Größe des TX-Buffers und die Größe der MTU in der Leistungsaufnahme höchstens einen Unterschied von 0.78 \% ausmachen.
+Deshalb kann davon ausgegangen werden, dass sie die Leistungsaufnahme nicht beeinflussen.\\
+Tabelle \ref{tab:test1} kann man entnehmen, dass der Prototyp mit LSM6DSL 20 \% mehr Strom und Leistung verbraucht als das Wearable bei 200 Hz.
+Bei 0 Hz sind es 186 \% in der Strom- und 202 \% mehr in der Leistungsaufnahme.\\
 Der Unterschied zwischen BMI160 und LSM6DSL ist vernachlässigbar, wenn die Sensoren keine Daten aufnehmen.\\
-Bei 200 Hz verbraucht der BMI160 zwischen 18 und 19 \% mehr Strom und Energie.
-Tabelle \ref{tab:test3} beweist, dass die kleinstmögliche SPI-Frequenz 63 \% mehr Strom und 70 \% mehr Energie als die Höchstmögliche verbraucht.
+Bei 200 Hz verbraucht der BMI160 zwischen 18 und 19 \% mehr Strom und Leistung.
+Tabelle \ref{tab:test3} beweist, dass die kleinstmögliche SPI-Frequenz 63 \% mehr Strom und 70 \% mehr Leistung als die Höchstmögliche verbraucht.
 Die mittlere Frequenz befindet sich dazwischen, allerdings ist der Vorteil von 125 kHz zu 1 MHz stärker als von 1 MHz zu 8 MHz zu wechseln.\\
-Tabelle \ref{tab:test4} sagt aus, dass eine Erhöhung des Connection Interval von Low auf Balance die Strom- und Energieaufnahme um 20 \% erhöht.
+Tabelle \ref{tab:test4} sagt aus, dass eine Erhöhung des Connection Interval von Low auf Balance die Strom- und Leistungsaufnahme um 20 \% erhöht.
 Die Erhöhung von Balance zu High beträgt 34 \%.
 In den Abbildungen \ref{fig:curLo} bis \ref{fig:curHi} sieht man die Erhöhung der Anzahl der Spitzen proportional zum Connection Interval.\\
 Tabelle \ref{tab:test5} zeigt, dass eine höhere Sensordatenrate auch eine höhere Aufnahme bedeutet.
-Während aber eine Erhöhung von 25 Hz auf 50 Hz nur einen Zuwachs von unter 7 \% bedeutet, erhöht sich der Strom bei einem Wechsel von 400 Hz auf 800 Hz um 52 \% und die Energie um 58 \%.\\
+Während aber eine Erhöhung von 25 Hz auf 50 Hz nur einen Zuwachs von unter 7 \% bedeutet, erhöht sich der Strom bei einem Wechsel von 400 Hz auf 800 Hz um 52 \% und die Leistung um 58 \%.\\
 Abbildung \ref{fig:curSleep} ist die Stromaufnahme während des Schalfmodus der MCU.
 Es sind regelmäßig Spitzen von etwa 5 $mu$A zu sehen.
 Sie kommen daher, dass die MCU einen internen Spannungswandler besitzt.
-Wenn der benötigte Strom gering ist, wird der Spannungswandler in Intervallen betrieben und lädt dabei einen Kondensator auf, von dem die MCU ihre Energie beziehen kann \cite{site_refreshMode}.\\
-Mit dem Energieverbrauch von 0.004 mW im Schlafmodus sollte das Wearable 53 Jahre bei einer Batteriekapazität von 620 mAh laufen.
+Wenn der benötigte Strom gering ist, wird der Spannungswandler in Intervallen betrieben und lädt dabei einen Kondensator auf, von dem die MCU ihre Leistung beziehen kann \cite{site_refreshMode}.
+Entgegen der Datenblätter von MCU und IMU nutzt das Wearable 1.537 $\mu$A statt $3.3 \mu{}A = 0.3 \mu{}A + 3 \mu{}A$ \cite{datasheet_lsm6dsl} \cite{datasheet_nrf52832}.\\
+Mit der Leistungsaufnahme von 0.004 mW im Schlafmodus sollte das Wearable 53 Jahre bei einer Batteriekapazität von 620 mAh laufen.
 Wird es allerdings genutzt, ist die geringste Stromaufnahme bei 25 Hz Sensordatenrate, Low Connection Interval und 8 MHz SPI-Frequenz mit etwa 1 mA zu erwarten.
 Das entspricht 2 - 3 kOhm bei 2 - 3 Volt Spannung.
 Während die CR2450 bei 3 kOhm weniger als 90 \% der Kapazität besitzt und für 2 kOhm nicht spezifiziert ist \cite{datasheet_ds6450}, behält die CR2032 bei dem Widerstand noch etwa die gesamte Kapazität \cite{datasheet_ds6032}.
