@@ -17,24 +17,3 @@ batterie: 2.916 V
 4 35.8 mV
 5 35.74 mV
 6 35.92 mV
-
-sending test
-47 ohm widerstand
-
-25 hz hp
-73.87 mV
-
-50 hz hp
-78.63 mV
-
-100 hz hp
-92.51 mV
-
-200 hz hp
-118.7 mV
-
-400 hz hp
-173.3 mV
-
-800 hz hp
-277.7 mV
