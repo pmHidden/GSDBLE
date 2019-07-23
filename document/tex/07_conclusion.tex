@@ -1,42 +1,37 @@
 %!TEX root = ../tudkom_students__201804_v1.4.tex
-\chapter{Abschluss}
+\chapter{Fazit}
 \label{ch:closure}
 %This chapter should summarize the thesis and describe the main contributions of the thesis. Subsequently, it should describe possible future work in the context of the thesis. What are limitations of the developed solutions? Which things can be improved?
 % 3 pages
 
 \section{Zusammenfassung}
-Es wurde ein System entworfen, dass zur Aufnahme von IMU-Daten genutzt werden kann und sie über ein drahtloses Protokoll an ein Endgerät schicken kann.
+Es wurde ein System entworfen, das zur Aufnahme von IMU-Daten genutzt werden kann und sie über ein drahtloses Protokoll an ein Endgerät schickt.
 Dafür wurden verschiedene Protokolle und Komponenten miteinander verglichen.
 Die gewählten Komponenten wurden in einem Prototypen verbaut und eine modulare Software geschrieben.
-Für das Endgerät, ein Android Smartphone, wurde eine App geschrieben, die sich mit dem System verbindet und Statistiken zur Evaluation graphisch darstellt.
+Für das Endgerät, ein Android Smartphone, wurde eine App entwickelt, die sich mit dem System verbindet und Statistiken zur Evaluation graphisch darstellt.
 Die Komponenten wurden in einem kleinerem Format auf eine Platine gelötet und zusätzlich nötige Komponenten hinzugefügt.
-In der Evaluation wurde die Strom- und Leistungsaufnahme und die Abweichung der Datenrate auf dem Smartphone getestet.
+In der Evaluation wurde die Stromaufnahme und die Abweichung der Datenrate auf dem Smartphone getestet.
 Dabei wurden Software und Hardwareparameter geändert und ihr Einfluss auf die Faktoren ausgewertet.\\
-Es wurde festgestellt, dass der anfangs betrachtete Vorteil von Größe zu Kapazität der größeren Batterie kleiner ausfällt als angenommen.
-Eine Änderung der TX-Buffer und MTU-Größe bewirkt im Verbrauch keine Änderung, allerdings zeigt sich eine geringe Verbesserung der Standardabweichung bei der höchsten Einstellung des TX-Buffers mit eingeschaltetem Algorithmus.
-Schaltet man den Algorithmus aus, der dazu bestimmt war, unregelmäßiges Umfüllen der Buffer von IMU und zu BLE-Stack zu verhindern, erhöht sich die Standardabweichung, sodass ein positiver Effekt des Algorithmus beobachtbar ist.
-Eine Erhöhung der SPI-Frequenz verringert den Verbrauch und verbessert gleichzeitig die Abweichung.
-Eine Erhöhung des Connection Intervals erhöht den Verbrauch aber verringert die Abweichung.
-Eine größere Sensordatenrate hat den größten negativen Einfluss auf den Verbrauch.\\
-Die verwendete Messmethode ist dabei nicht ideal.
-Die Spannung, die über die Messwiderstände abfällt, muss berücksichtigt werden.
-In dem Handbuch des nRF52 DK wird vorgeschlagen, einen 10 Ohm Widerstand zu nehmen und den Widerstand damit gar nicht dem Spannungsabfall anzupassen, wodurch der Stromverbrauch im Schlafmodus durch Störeinflüsse nicht mehr messbar ist \cite{site_nrf52dk}.
-Stattdessen kann die verbrauchte Leistung des Testobjekts statt dem fließenden Strom verglichen werden.
-Da die Komponenten bei unterschiedlichen Spannungen verschiedene Leistungseffizienzen vorweisen, aber sie wegen der schwankenden Stromaufnahme schwer einzuberechnen sind, weichen die Ergebnisse trotzdem vom Verbrauch beim Betrieb ohne Messeinrichtung ab.\\
+Durch einen Fehler in der Messmethode konnten die Messwerte zur Stromaufnahme nur zum relativen Vergleich untereinander genutzt werden.
+Das Wearable hat eine geringere Stromaufnahme als der Prototyp gezeigt.
+Während der BMI160 weniger Strom als der LSM6DSL im Schlafmodus benötigt hat, hatte der BMI160 bei 200 Hz den größeren Verbrauch.
+Eine Änderung der TX-Buffer und MTU-Größe bewirkte in der Stromaufnahme keine Änderung, allerdings zeigte sich eine geringe Verbesserung der Standardabweichung bei der höchsten Einstellung des TX-Buffers mit eingeschaltetem Algorithmus.
+Schaltete man den Algorithmus aus, der dazu bestimmt war, unregelmäßiges Umfüllen der Buffer von IMU und zu BLE-Stack zu verhindern, erhöhte sich die Standardabweichung, sodass ein positiver Effekt des Algorithmus beobachtbar war.
+Wider Erwarten hat eine größere MTU die Abweichung verbessert.
+Eine Erhöhung der SPI-Frequenz verringerte den Verbrauch und verbesserte gleichzeitig die Abweichung.
+Eine Erhöhung des Connection Intervals erhöhte den Verbrauch aber verringerte die Abweichung.
+Eine größere Sensordatenrate hatte einen negativen Einfluss auf den Verbrauch.
+Es wurde festgestellt, dass der anfangs betrachtete Vorteil von Größe zu Kapazität der größeren Batterie kleiner ausfällt als angenommen.\\
 Die Standardabweichung wurde auf einem Datensatz in Zeitraum von 30 Sekunden berechnet, bei denen die Daten je 1 Sekunde voneinander entfernt waren.
-Wenn der Zeitraum größer gewählt worden wäre, wäre zu erwarten, dass die Standardabweichung genauere Werte liefern würde.
+Wenn der Zeitraum größer gewählt worden wäre, sollte die Standardabweichung genauere Werte liefern.
 
 \section{Zukünftige Arbeiten}
-Um die Messmethode zu verbessern, müsste das Testobjekt eine konstante Spannung bekommen.
-Dafür müsste eine Spannungsquelle genutzt werden, die so eingestellt werden kann, dass die Spannung hinter den Widerständen gehalten wird.
-Um Lastunterschiede auszugleichen ohne kurzzeitig Über- oder Unterspannungen zu erzeugen, müsste die Spannungsquelle schneller reagieren, als die Unterschiede auftreten.
-Ein Kondensator könnte diese Lastunterschiede abfedern und die Anforderungen an die Spannungsquelle mindern.\\
-Der Einfluss von mehreren Wearables an einem Smartphone wurde bisher nicht betrachtet.
-Die zusätzliche Auslastung der BLE-Frequenz kann den Stromverbrauch und die Abweichung der einzelnen Wearables erhöhen.
-Um die Anzahl der Wearables zu erhöhen, kann der zusätzliche Verbrauch von BT Mesh evaluiert werden.
-Die Android-nRF-Mesh\footnote{\url{https://github.com/NordicSemiconductor/Android-nRF-Mesh-Library}, aufgerufen am 22.07.2019} Bibliothek von Nordic Semiconductor kann genutzt werden um Smartphones BT Mesh kompatibel zu machen.\\
+Während die Entwicklung des Wearables erfolgreich war, sollte die Evaluation wiederholt werden, um genaue Angaben zur Batterielaufzeit zu ermöglichen.\\
 Als weitere Metriken können der Energieverbrauch des Smartphones und die Latenz zwischen Datenerfassung an der IMU und Datenempfang beim Smartphone gemessen werden.\\
+Der Einfluss von mehreren Wearables an einem Smartphone wurde bisher nicht betrachtet.
+Die zusätzliche Auslastung der BLE-Frequenz kann den Stromverbrauch und die Abweichung der Datenrate bei der einzelnen Wearables erhöhen.
+Um die Anzahl der Wearables zu erhöhen, kann der zusätzliche Verbrauch von BT Mesh evaluiert werden.
+Die Android-nRF-Mesh\footnote{\url{https://github.com/NordicSemiconductor/Android-nRF-Mesh-Library}, aufgerufen am 22.07.2019} Bibliothek von Nordic Semiconductor kann genutzt werden, um Smartphones BT Mesh kompatibel zu machen.\\
 Die Software kann weiter verbessert werden, indem das List-Feature der EasyDMA zur SPI-Übertragung \cite{datasheet_nrf52832} genutzt wird oder der Algorithmus zusätzlich Daten absichtlich verwirft, um die Bufferumfüllung zu optimieren.
-Zur besseren Modularität der MCU können Bibliotheken betrachtet werden, die eine Abstraktionsstufe der SDKs der MCU bieten.
-Dann ist es einfacher bei Bedarf die MCU zu wechseln.\\
-Um den Nutzer darauf hinzuweisen, dass das Wearable verbunden ist, ohne das ein Knopf gedrückt werden muss oder eine LED dauerhaft leuchtet, können weitere Techniken wie eInk\footnote{\url{https://eink.com/color-technology.html}, aufgerufen am 22.07.2019} betrachtet werden.
+Zur besseren Modularität der MCU können Bibliotheken betrachtet werden, die eine Abstraktionsstufe der SDKs der MCU bieten, sodass bei Bedarf einfacher die MCU gewechselt werden kann.\\
+Um den Nutzer darauf hinzuweisen, dass das Wearable verbunden ist, ohne, dass ein Knopf gedrückt werden muss oder eine LED dauerhaft leuchtet, können weitere Techniken wie eInk\footnote{\url{https://eink.com/color-technology.html}, aufgerufen am 22.07.2019} betrachtet werden.
