@@ -34,7 +34,14 @@ Um die Abweichung zur Einstellung zu vergleichen wird die Datenrate pro Sekunde 
   \label{eq:standardabweichung}
 	s = \sqrt{\cfrac{1}{n-1}\sum_{i=1}^{n} (x_{i}-\overline{x})^{2}}\text{, mit $n$ = Anzahl der Werte und $\overline{x}$ = eingestellte Sensordatenrate}
 \end{equation}
-Die Standardabweichung wird wiederum auf einem Graphen auf dem Smartphone aufgezeichnet, sobald Daten von mindestens 30 Sekunden vorliegen.\\
+Die Standardabweichung wird wiederum auf einem Graphen auf dem Smartphone aufgezeichnet, sobald Daten von mindestens 30 Sekunden vorliegen.
+In Abbildung \ref{fig:android} kann die Visualisierung der Datenrate und Standardabweichung betrachtet werden.
+\begin{figure}[hbtp]
+	\centering
+	\includegraphics[height=0.7\linewidth,angle=90]{res/android.jpg}
+	\caption{Visualisierung der Daten auf dem Smartphone}
+	\label{fig:android}
+\end{figure}\\
 Um die Stromaufnahme zu messen, wird das ohmsche Gesetz $I = \cfrac{U}{R}$ benötigt.
 Wird ein Widerstand in Reihe mit der Spannungsversorgung des Wearables geschaltet, ist ein Spannungsabfall über dem Widerstand zu messen.
 Da man den Wert des Widerstandes kennt und den Spannungsabfall mit einem Oszilloskop messen kann, lässt sich mit der Formel der Strom berechnen.
@@ -80,7 +87,7 @@ Die Zeile 'AVG' ist der Durchschnitt der sechs Einzeltests.
 Sie besteht aus gemessenem Spannungsabfall und der berechneten Stromaufnahme.
 Die Zeile 'P\textsubscript{AVG}' ist die Leistungsaufnahme nach $P_{AVG} = (Versorgungsspannung - gemesseneSpannung) * resultierender Strom$.
 Die Versorgungsspannung wird beim Netzteil auf 2.975 V gemittelt.
-Einzelne Tests haben zusätzlich die Standardabweichung 'ABW' oder listen die höchste gemessene Spitze im Spannungsabfall auf.
+Einzelne Tests haben zusätzlich die Standardabweichung 'ABW'.
 
 \begin{figure}[!hbtp]
   \begin{minipage}{0.5\textwidth}
@@ -336,12 +343,10 @@ Einzelne Tests haben zusätzlich die Standardabweichung 'ABW' oder listen die h�
       IMU & \multicolumn{2}{l|}{LSM6DSL}\\
       \hline
       \multicolumn{3}{|c|}{PowerOff 10000Ohm 2.875V}\\
-      Spitze & 61 mV & 6.1 $\mu$A\\
       AVG & 15.373 mV & 1.537 $\mu$A\\
       P\textsubscript{AVG} & \multicolumn{2}{c|}{0.006 mW}\\
       \hline
       \multicolumn{3}{|c|}{Advertising 47Ohm 2.916V}\\
-      Spitze & 646 mV & 13.745 mA\\
       AVG & 35.787 mV & 761.426 $\mu$A\\
       P\textsubscript{AVG} & \multicolumn{2}{c|}{2.192 mW}\\
       \hline
@@ -425,7 +430,7 @@ Auch hier lässt bei den vorherigen Szenarien ein Anstieg der Leistungsaufnahme 
 Eine weitere Fehleranalyse hat ergeben, dass die Abweichung der Messwerte durch die Erhöhung des Widerstandes zustande kommen muss.
 So bedeutet ein höherer Messwiderstand auch einen höheren Leistungsverlust durch den Widerstand.
 Statt den Widerstand zu erhöhen, wird normalerweise der geringe Spannungsabfall mit einem analogen Frontend (AFE) erhöht. \cite{site_strommessung}\\
-Der Messwiderstandwert von 10 Ohm ist für die MCU alleine empfohlen.
+Der Messwiderstandwert von 10 Ohm wird für die MCU alleine empfohlen \cite{site_nrf52dk}.
 Von der Testreihe sind damit nur die Messwerte 'Prototyp BMI160 0 Hz', 'Prototyp LSM6DSL 0 Hz' und 'Wearable LSM6DSL 0 Hz' von Tabelle \ref{tab:test1} korrekt, da die IMU in den Testfällen ausgeschaltet war und mit einem 10 Ohm Widerstand gemessen wurde.
 Die anderen Messungen können bei einem Vergleich untereinander einen Einblick gewähren, welche Szenarien eine höhere Stromaufnahme verursachen, solange die Widerstände identisch sind.
 Eine höhere Stromaufnahme bedeutet dabei einen höheren Leistungsverlust am Messwiderstand.
