@@ -90,6 +90,7 @@ abstract class GraphFragment<DataType> : Fragment() {
             if (checked) vPlot!!.visibility = VISIBLE
             else vPlot!!.visibility = GONE
         }
+        vCheckBox!!.isChecked = false
         return view
     }
 

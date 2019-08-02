@@ -18,6 +18,9 @@ data class ImuConfig(
         val BMI_REAL_ODR = arrayOf(25, 50, 100, 200, 400, 800, 1600)
         var actualOdr = LSM_REAL_ODR
 
+        private val TAG = ImuConfig::class.java.simpleName.filter { it.isUpperCase() }
+
+
         fun fromByteArray(byteArray: ByteArray): ImuConfig {
             assert(byteArray.size == 1)
             return ImuConfig(

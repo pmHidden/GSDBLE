@@ -30,6 +30,12 @@
             android:layout_height="wrap_content" />
 
         <fragment
+            android:id="@+id/vGraphTimeDeviation"
+            android:name="com.pascaldornfeld.gsdble.overview.fragments.FloatTimeGraphFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <fragment
             android:id="@+id/vGraphDataRate"
             android:name="com.pascaldornfeld.gsdble.overview.fragments.LongTimeGraphFragment"
             android:layout_width="match_parent"

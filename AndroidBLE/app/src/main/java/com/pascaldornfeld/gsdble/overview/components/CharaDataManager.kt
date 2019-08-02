@@ -1,6 +1,7 @@
 package com.pascaldornfeld.gsdble.overview.components
 
 import android.bluetooth.BluetoothDevice
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.pascaldornfeld.gsdble.R
 import com.pascaldornfeld.gsdble.overview.fragments.FloatTimeGraphFragment
@@ -21,9 +22,11 @@ class CharaDataManager(
     private val vGraphAccel = fragmentById(R.id.vGraphAccel) as SensorGraphFragment
     private val vGraphGyro = fragmentById(R.id.vGraphGyro) as SensorGraphFragment
     private val vGraphTime = (fragmentById(R.id.vGraphTime) as LongTimeGraphFragment)
-        .initialize(10000.0f, null, "data time vs delivery time")
+        .initialize(60000.0f, null, "data time vs delivery time")
+    private val vGraphTimeDeviation = (fragmentById(R.id.vGraphTimeDeviation) as FloatTimeGraphFragment)
+        .initialize(10000.0f, 1000.0f, "deviation")
     private val vGraphDataRate = (fragmentById(R.id.vGraphDataRate) as LongTimeGraphFragment)
-        .initialize(35000.0f, 1000.0f, "data time vs data rate")
+        .initialize(300000.0f, 1000.0f, "data time vs data rate")
     private val vGraphDataRateDeviation = (fragmentById(R.id.vGraphDataRateDeviation) as FloatTimeGraphFragment)
         .initialize(10000.0f, 1000.0f, "deviation")
 
@@ -33,6 +36,7 @@ class CharaDataManager(
     override fun onNewData(data: ImuData) {
         val timeOfPacketArrival = System.currentTimeMillis()
 
+        Log.v(TAG, "Received Data: $data")
         vGraphAccel.addData(
             data.time,
             Triple(data.accel_x, data.accel_y, data.accel_z)
@@ -59,6 +63,30 @@ class CharaDataManager(
                         sqrt((sum / (vGraphDataRate.internalData.size - 1).toFloat()))
                     )
                 }
+
+                if (tempCurConf != null && vGraphTime.internalData.size >= 5) {
+                    var sum = 0.0f
+                    val avgTime = vGraphTime.internalData.mapIndexed { index, pair ->
+                        if (index == 0) null
+                        else {
+                            val prev = vGraphTime.internalData[index - 1]
+                            (pair.second.toDouble() - prev.second.toDouble()) / (pair.first.toDouble() - prev.first.toDouble())
+                        }
+                    }.filterNotNull().average()
+                    vGraphTime.internalData.forEachIndexed { index, pair ->
+                        if (index != 0) {
+                            val prev = vGraphTime.internalData[index - 1]
+                            val gradient =
+                                (pair.second.toDouble() - prev.second.toDouble()) / (pair.first.toDouble() - prev.first.toDouble())
+                            sum += (gradient - avgTime).pow(2).toFloat()
+                        }
+                    }
+                    vGraphTimeDeviation.addData(
+                        currentTrackedSecond,
+                        sqrt((sum / (vGraphTime.internalData.size - 1 - 1).toFloat()))
+                    )
+                }
+
             }
             currentTrackedSecond = thisSecond
             packetsThisSecond = 0L
@@ -87,5 +115,9 @@ class CharaDataManager(
         vGraphGyro.internalData.clear()
         vGraphTime.internalData.clear()
         vGraphDataRate.internalData.clear()
+    }
+
+    companion object {
+        private val TAG = CharaDataManager::class.java.simpleName.filter { it.isUpperCase() }
     }
 }
