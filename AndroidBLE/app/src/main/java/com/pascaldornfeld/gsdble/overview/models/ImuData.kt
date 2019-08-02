@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble.models
+package com.pascaldornfeld.gsdble.overview.models
 
 import kotlin.experimental.or
 

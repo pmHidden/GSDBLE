@@ -3,73 +3,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ConnectionOverviewActivity">
+    tools:context=".overview.ConnectionOverviewActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".ConnectionOverviewActivity">
+        tools:context=".overview.ConnectionOverviewActivity">
 
         <fragment
-            android:id="@+id/graph_accel"
-            android:name="com.pascaldornfeld.gsdble.fragments.SensorGraphFragment"
+            android:id="@+id/vGraphAccel"
+            android:name="com.pascaldornfeld.gsdble.overview.fragments.SensorGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
-            android:id="@+id/graph_gyro"
-            android:name="com.pascaldornfeld.gsdble.fragments.SensorGraphFragment"
+            android:id="@+id/vGraphGyro"
+            android:name="com.pascaldornfeld.gsdble.overview.fragments.SensorGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
-            android:id="@+id/graph_time"
-            android:name="com.pascaldornfeld.gsdble.fragments.LongTimeGraphFragment"
+            android:id="@+id/vGraphTime"
+            android:name="com.pascaldornfeld.gsdble.overview.fragments.LongTimeGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
-            android:id="@+id/graph_dr"
-            android:name="com.pascaldornfeld.gsdble.fragments.LongTimeGraphFragment"
+            android:id="@+id/vGraphDataRate"
+            android:name="com.pascaldornfeld.gsdble.overview.fragments.LongTimeGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
-            android:id="@+id/graph_data_rate_variance"
-            android:name="com.pascaldornfeld.gsdble.fragments.FloatTimeGraphFragment"
+            android:id="@+id/vGraphDataRateDeviation"
+            android:name="com.pascaldornfeld.gsdble.overview.fragments.FloatTimeGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/config_odr"
-            android:name="com.pascaldornfeld.gsdble.fragments.OdrFragment"
+            android:id="@+id/vConfigOdr"
+            android:name="com.pascaldornfeld.gsdble.overview.fragments.OdrFragment"
             />
         <fragment
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/config_pause"
-            android:name="com.pascaldornfeld.gsdble.fragments.PauseFragment"
+            android:id="@+id/vConfigPause"
+            android:name="com.pascaldornfeld.gsdble.overview.fragments.PauseFragment"
             />
         <fragment
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/config_intv"
-            android:name="com.pascaldornfeld.gsdble.fragments.IntervalFragment"
+            android:id="@+id/vConfigIntv"
+            android:name="com.pascaldornfeld.gsdble.overview.fragments.IntervalFragment"
             />
         <fragment
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/config_mtu"
-            android:name="com.pascaldornfeld.gsdble.fragments.MtuFragment"
+            android:id="@+id/vConfigMtu"
+            android:name="com.pascaldornfeld.gsdble.overview.fragments.MtuFragment"
             />
         <fragment
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/config_sensor"
-            android:name="com.pascaldornfeld.gsdble.fragments.SensorFragment"
+            android:id="@+id/vConfigSensor"
+            android:name="com.pascaldornfeld.gsdble.overview.fragments.SensorFragment"
             />
     </LinearLayout>
 </ScrollView>

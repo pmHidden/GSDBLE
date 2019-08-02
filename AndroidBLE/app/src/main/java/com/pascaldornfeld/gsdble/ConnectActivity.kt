@@ -14,9 +14,11 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.pascaldornfeld.gsdble.overview.ConnectionOverviewActivity
 
 class ConnectActivity : AppCompatActivity() {
     private val bluetoothAdapter: BluetoothAdapter? by lazy { (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager?)?.adapter }
@@ -34,6 +36,7 @@ class ConnectActivity : AppCompatActivity() {
                 if (result != null) {
                     vBtStartScan.isEnabled = false
                     stopScan()
+                    Log.d(TAG, "Connecting to device with address '${result.device.address}'")
                     startActivity(
                         Intent(this@ConnectActivity, ConnectionOverviewActivity::class.java).putExtra(
                             ConnectionOverviewActivity.EXTRA_DEVICE,
@@ -56,7 +59,7 @@ class ConnectActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if(bluetoothAdapter != null) {
+        if (bluetoothAdapter != null) {
             vBtStartScan.setOnClickListener {
                 if (scanning) stopScan()
                 else startScan()
@@ -108,7 +111,7 @@ class ConnectActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if(bluetoothAdapter != null) {
+        if (bluetoothAdapter != null) {
             if (!bluetoothAdapter!!.isEnabled) startActivityForResult(
                 Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
                 REQUEST_ENABLE_BT
@@ -132,7 +135,8 @@ class ConnectActivity : AppCompatActivity() {
 
     private fun askForLocationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+            requestPermissions(
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
                 REQUEST_PERMISSION_LOC
             )
             return
@@ -144,5 +148,6 @@ class ConnectActivity : AppCompatActivity() {
         private const val REQUEST_ENABLE_BT = 1
         private const val REQUEST_PERMISSION_LOC = 2
         private const val SCAN_PERIOD = 10000L
+        private val TAG = ConnectActivity::class.java.simpleName.filter { it.isUpperCase() }
     }
 }

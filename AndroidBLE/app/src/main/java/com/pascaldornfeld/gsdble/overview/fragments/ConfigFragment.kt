@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble.fragments
+package com.pascaldornfeld.gsdble.overview.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,7 +10,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.pascaldornfeld.gsdble.R
-import com.pascaldornfeld.gsdble.models.ImuOdr
+import com.pascaldornfeld.gsdble.overview.models.ImuOdr
 
 
 abstract class ConfigFragment<DataType> : Fragment() {
@@ -19,6 +19,7 @@ abstract class ConfigFragment<DataType> : Fragment() {
     var vCurrent: TextView? = null
     var vSet: TextView? = null
     var vApply: Button? = null
+    abstract var functionToApply: ((DataType) -> Unit)?
     private val prefixSet = "on device: "
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -69,7 +70,7 @@ abstract class ConfigFragment<DataType> : Fragment() {
 
 class OdrFragment : ConfigFragment<ImuOdr>() {
     private val odrs by lazy { ImuOdr.values() }
-    var functionToApply: ((ImuOdr) -> Unit)? = null
+    override var functionToApply: ((ImuOdr) -> Unit)? = null
 
     override fun getDataArray(): Array<ImuOdr> = odrs
 
@@ -81,7 +82,7 @@ class OdrFragment : ConfigFragment<ImuOdr>() {
 }
 
 class PauseFragment : ConfigFragment<Boolean>() {
-    var functionToApply: ((Boolean) -> Unit)? = null
+    override var functionToApply: ((Boolean) -> Unit)? = null
 
     override fun getDataArray(): Array<Boolean> = arrayOf(false, true)
 
@@ -96,7 +97,7 @@ class IntervalFragment : ConfigFragment<IntervalFragment.Interval>() {
     enum class Interval { CONNECTION_PRIORITY_LOW_POWER, CONNECTION_PRIORITY_BALANCED, CONNECTION_PRIORITY_HIGH }
 
     private val intervals by lazy { Interval.values() }
-    var functionToApply: ((Interval) -> Unit)? = null
+    override var functionToApply: ((Interval) -> Unit)? = null
 
     override fun getDataArray(): Array<Interval> = intervals
 
@@ -108,7 +109,7 @@ class IntervalFragment : ConfigFragment<IntervalFragment.Interval>() {
 }
 
 class MtuFragment : ConfigFragment<Int>() {
-    var functionToApply: ((Int) -> Unit)? = null
+    override var functionToApply: ((Int) -> Unit)? = null
     private val minimum = 23
     private val maximum = 517
 
@@ -126,7 +127,7 @@ class SensorFragment : ConfigFragment<SensorFragment.Sensors>() {
 
     fun initWithLsm() { applyNewData(0) }
 
-    var functionToApply: ((Sensors) -> Unit)? = null
+    override var functionToApply: ((Sensors) -> Unit)? = null
     override fun getDataArray(): Array<Sensors> = sensors
 
     override fun getStringRepresentationFromData(data: Sensors): String = data.name

@@ -1,38 +1,45 @@
-package com.pascaldornfeld.gsdble
+package com.pascaldornfeld.gsdble.overview.components
 
+import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattService
 import android.content.Context
-import android.util.Log
-import com.pascaldornfeld.gsdble.fragments.IntervalFragment
-import com.pascaldornfeld.gsdble.models.ImuConfig
-import com.pascaldornfeld.gsdble.models.ImuData
+import androidx.fragment.app.Fragment
+import com.pascaldornfeld.gsdble.R
+import com.pascaldornfeld.gsdble.overview.fragments.IntervalFragment
+import com.pascaldornfeld.gsdble.overview.models.ImuConfig
+import com.pascaldornfeld.gsdble.overview.models.ImuData
 import no.nordicsemi.android.ble.BleManager
-import no.nordicsemi.android.ble.BleManagerCallbacks
 import no.nordicsemi.android.ble.ConnectionPriorityRequest.*
 import no.nordicsemi.android.ble.callback.DataReceivedCallback
-import no.nordicsemi.android.ble.callback.FailCallback
-import no.nordicsemi.android.ble.callback.SuccessCallback
-import java.lang.reflect.Method
 import java.util.*
+import java.util.concurrent.atomic.AtomicReference
 
-class Manager<E : BleManagerCallbacks>(
+class MyBleManager(
     context: Context,
-    private val callbacksData: CharaCallbacks<ImuData>,
-    private val callbacksConfig: CharaCallbacks<ImuConfig>,
-    private val callbackInterval: CharaCallbacks.MyDataReceivedCallback<IntervalFragment.Interval>,
-    private val callbackMtu: ((Int) -> Unit)
-) : BleManager<E>(context) {
-    data class CharaCallbacks<DataType>(
-        val newDataCallback: MyDataReceivedCallback<DataType>,
-        val notifySuccessCallback: SuccessCallback,
-        val notifyFailCallback: FailCallback
-    ) {
-        interface MyDataReceivedCallback<DataType> {
-            fun onNewData(data: DataType)
-        }
+    fragmentById: ((Int) -> Fragment?),
+    callbacksData: CharaDataManager,
+    lastConfig: AtomicReference<ImuConfig?>,
+    device: BluetoothDevice,
+    onDisconnectFunction: (() -> Unit)
+) : BleManager<MyBleManagerCallbacks>(context) {
+    interface MyDataReceivedCallback<DataType> {
+        fun onNewData(data: DataType)
     }
+
+    private val charaConfigManager: CharaConfigManager =
+        CharaConfigManager(fragmentById, lastConfig, { callbacksData.resetGraphFragments() })
+
+    private val myBleCallbacks = MyBleManagerCallbacks(
+        this,
+        fragmentById,
+        { charaConfigManager.disableOdrAndPauseConfig() },
+        { onDisconnectFunction() },
+        context
+    )
+
+    private val charaConfigSuccessCallback by lazy { charaConfigManager.buildSuccessCallback(this) }
 
     private var charaData: BluetoothGattCharacteristic? = null
     private var charaConfig: BluetoothGattCharacteristic? = null
@@ -44,27 +51,27 @@ class Manager<E : BleManagerCallbacks>(
                 DataReceivedCallback { _, data ->
                     // TODO use data.getXXValue
                     data.value?.let { ImuData.fromByteArray(it) }
-                        ?.let { callbacksData.newDataCallback.onNewData(it) }
+                        ?.let { callbacksData.onNewData(it) }
                 }
             }
             private val callbackNewConfig by lazy {
                 DataReceivedCallback { _, data ->
                     // TODO use data.getXXValue
                     data.value?.let { ImuConfig.fromByteArray(it) }
-                        ?.let { callbacksConfig.newDataCallback.onNewData(it) }
+                        ?.let { charaConfigManager.onNewData(it) }
                 }
             }
 
             override fun initialize() {
                 super.initialize()
                 setNotificationCallback(charaData).with(callbackNewData)
-                enableNotifications(charaData).done(callbacksData.notifySuccessCallback)
-                    .fail(callbacksData.notifyFailCallback).enqueue()
+                enableNotifications(charaData).done(callbacksData)
+                    .fail(callbacksData).enqueue()
 
                 setNotificationCallback(charaConfig).with(callbackNewConfig)
                 readCharacteristic(charaConfig).with(callbackNewConfig).enqueue()
-                enableNotifications(charaConfig).done(callbacksConfig.notifySuccessCallback)
-                    .fail(callbacksConfig.notifyFailCallback).enqueue()
+                enableNotifications(charaConfig).done(charaConfigSuccessCallback)
+                    .fail(charaConfigManager).enqueue()
 
                 writeNewMtu(23)
                 writeNewInterval(IntervalFragment.Interval.CONNECTION_PRIORITY_BALANCED)
@@ -91,11 +98,7 @@ class Manager<E : BleManagerCallbacks>(
         }
     }
 
-    fun writeNewMtu(pMtu: Int) {
-        requestMtu(pMtu).with { _, mtu -> callbackMtu(mtu) }.enqueue()
-    }
-
-    fun writeNewConfig(config: ImuConfig) = writeCharacteristic(charaConfig, config.toByteArray()).enqueue()
+    override fun shouldClearCacheWhenDisconnected(): Boolean = true
 
     fun writeNewInterval(interval: IntervalFragment.Interval) {
         when (interval) {
@@ -106,14 +109,19 @@ class Manager<E : BleManagerCallbacks>(
             IntervalFragment.Interval.CONNECTION_PRIORITY_HIGH ->
                 requestConnectionPriority(CONNECTION_PRIORITY_HIGH).enqueue()
         }
-        callbackInterval.onNewData(interval)
+        myBleCallbacks.onNewInterval(interval)
     }
 
-    override fun shouldClearCacheWhenDisconnected(): Boolean {
-        return true
-    }
+    fun writeNewMtu(pMtu: Int) = requestMtu(pMtu).with { _, mtu -> myBleCallbacks.onNewMtu(mtu) }.enqueue()
 
-    fun errorRefresh() {
-        refreshDeviceCache().enqueue()
+    fun writeNewConfig(config: ImuConfig) = writeCharacteristic(charaConfig, config.toByteArray()).enqueue()
+
+    fun errorRefresh() = refreshDeviceCache().enqueue()
+
+    fun disconnectDevice() = disconnect().enqueue()
+
+    init {
+        setGattCallbacks(myBleCallbacks)
+        connect(device).enqueue()
     }
 }
