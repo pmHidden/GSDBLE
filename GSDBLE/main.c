@@ -19,7 +19,7 @@
 #define DEVICE_NAME "GSDBLE"
 #define APP_BLE_CONN_CFG_TAG 1                           // A tag identifying the SoftDevice BLE configuration
 #define APP_TIMER_MAX_TIMERS (1 + BSP_APP_TIMERS_NUMBER) // We use one timer for LED
-#define TX_QUEUE_SIZE 101                                 // size of ble tx buffer
+#define TX_QUEUE_SIZE 10                                  // size of ble tx buffer
 #define DEAD_BEEF 0xDEADBEEF                             // Value used as error code on stack dump, can be used to identify stack location on stack unwind
 
 NRF_BLE_GATT_DEF(m_gatt);           // GATT module instance
@@ -111,8 +111,8 @@ static void services_init(void) {
   APP_ERROR_CHECK(err_code);
 
   // Initialize CUS Service init structure to zero.
-  err_code = my_service_init(&m_myservice, TX_QUEUE_SIZE);
-  //err_code = my_service_init(&m_myservice, 0xFFFFu);
+  //err_code = my_service_init(&m_myservice, TX_QUEUE_SIZE);
+  err_code = my_service_init(&m_myservice, 0xFFFFu);
   APP_ERROR_CHECK(err_code);
 }
 
