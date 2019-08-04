@@ -21,7 +21,7 @@ class ConnectionOverviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connected)
 
-        val charaDataManager = CharaDataManager({ id -> supportFragmentManager.findFragmentById(id) }, lastConfig)
+        val charaDataManager = CharaDataManager { id -> supportFragmentManager.findFragmentById(id) }
 
         SensorConfigManager.initialize(
             { id -> supportFragmentManager.findFragmentById(id) },
