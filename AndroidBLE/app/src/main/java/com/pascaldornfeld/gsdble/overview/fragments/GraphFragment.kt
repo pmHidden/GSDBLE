@@ -94,6 +94,11 @@ abstract class GraphFragment<DataType> : Fragment() {
         return view
     }
 
+    fun isPaused(): Boolean {
+        val check = vCheckBox
+        return check == null || !check.isChecked
+    }
+
     fun setTitle(title: String) {
         vPlot?.setTitle(title)
     }

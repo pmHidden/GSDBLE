@@ -11,6 +11,7 @@ import com.pascaldornfeld.gsdble.overview.models.ImuData
 import no.nordicsemi.android.ble.callback.FailCallback
 import no.nordicsemi.android.ble.callback.SuccessCallback
 import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicBoolean
 
 class CharaDataManager(fragmentById: ((Int) -> Fragment?)) : MyBleManager.MyDataReceivedCallback<ImuData>,
     SuccessCallback, FailCallback {
@@ -31,6 +32,7 @@ class CharaDataManager(fragmentById: ((Int) -> Fragment?)) : MyBleManager.MyData
 
     private var currentTrackedSecond = 0L
     private var packetsThisSecond = 0L
+    private val clearScheduled = AtomicBoolean(false)
 
     override fun onNewData(data: ImuData) {
         val timeOfPacketArrival = System.currentTimeMillis()
@@ -51,13 +53,19 @@ class CharaDataManager(fragmentById: ((Int) -> Fragment?)) : MyBleManager.MyData
             if (currentTrackedSecond != 0L) {
                 vGraphDataRate.addData(currentTrackedSecond, packetsThisSecond)
 
+                val clearGraphs = clearScheduled.compareAndSet(true, false)
+                val graphTimeData =
+                    if (clearGraphs || vGraphTimeDeviation.isPaused()) null else vGraphTime.internalData.toTypedArray()
                 CharaDataDeviationCalculatorAsyncTask().executeOnExecutor(
                     graphTimeDeviationExecutor,
-                    Triple(currentTrackedSecond, vGraphTime.internalData.toTypedArray(), vGraphTimeDeviation)
+                    Triple(currentTrackedSecond, graphTimeData, vGraphTimeDeviation)
                 )
+
+                val dataRateData =
+                    if (clearGraphs || vGraphDataRateDeviation.isPaused()) null else vGraphDataRate.internalData.toTypedArray()
                 CharaDataDeviationCalculatorAsyncTask().executeOnExecutor(
                     dataRateDeviationExecutor,
-                    Triple(currentTrackedSecond, vGraphDataRate.internalData.toTypedArray(), vGraphDataRateDeviation)
+                    Triple(currentTrackedSecond, dataRateData, vGraphDataRateDeviation)
                 )
             }
             currentTrackedSecond = thisSecond
@@ -88,9 +96,8 @@ class CharaDataManager(fragmentById: ((Int) -> Fragment?)) : MyBleManager.MyData
         vGraphAccel.internalData.clear()
         vGraphGyro.internalData.clear()
         vGraphTime.internalData.clear()
-        vGraphTimeDeviation.internalData.clear()
         vGraphDataRate.internalData.clear()
-        vGraphDataRateDeviation.internalData.clear()
+        clearScheduled.set(true)
     }
 
     companion object {

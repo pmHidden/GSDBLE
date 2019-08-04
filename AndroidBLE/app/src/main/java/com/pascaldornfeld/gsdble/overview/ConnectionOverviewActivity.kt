@@ -35,7 +35,7 @@ class ConnectionOverviewActivity : AppCompatActivity() {
             charaDataManager,
             lastConfig,
             device,
-            { super.onBackPressed() }
+            { finish() }
         )
     }
 

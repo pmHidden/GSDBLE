@@ -8,7 +8,7 @@ import kotlin.math.sqrt
 /**
  * input:
  * Long Current Time Second
- * Array<Pair<Long,Long>> Data
+ * Array<Pair<Long,Long>>? Data or null to clear graph
  * GraphFragment<Float> View To Push Result To
  *
  * progress:
@@ -16,17 +16,17 @@ import kotlin.math.sqrt
  *
  * result:
  * Long  Current Time Second
- * Float Calculated Deviation Of Data Or Null
+ * Float? Calculated Deviation Of Data Or Null
  * GraphFragment<Float> View To Push Result To
  */
 class CharaDataDeviationCalculatorAsyncTask :
-    AsyncTask<Triple<Long, Array<Pair<Long, Long>>, GraphFragment<Float>>, Void, Triple<Long, Float, GraphFragment<Float>>?>() {
+    AsyncTask<Triple<Long, Array<Pair<Long, Long>>?, GraphFragment<Float>>, Void, Triple<Long, Float?, GraphFragment<Float>>?>() {
 
-    override fun doInBackground(vararg params: Triple<Long, Array<Pair<Long, Long>>, GraphFragment<Float>>?): Triple<Long, Float, GraphFragment<Float>>? {
+    override fun doInBackground(vararg params: Triple<Long, Array<Pair<Long, Long>>?, GraphFragment<Float>>?): Triple<Long, Float?, GraphFragment<Float>>? {
         assert(params.isNotEmpty())
         val inputArray = params[0]!!.second
 
-        if (inputArray.size >= 3) {
+        if (inputArray != null && inputArray.size >= 3) {
             // calculate average
             val avgTime = inputArray.mapIndexed { index, pair ->
                 if (isCancelled) return null
@@ -52,12 +52,18 @@ class CharaDataDeviationCalculatorAsyncTask :
             // return deviation
             // sum is based on inputArray.size -1 elements. The formula takes this amount -1. so we got inputArray.size -2
             return Triple(params[0]!!.first, sqrt((sum / (inputArray.size - 2).toFloat())), params[0]!!.third)
-        }
-        return null
+        } else return Triple(params[0]!!.first, null, params[0]!!.third)
     }
 
-    override fun onPostExecute(result: Triple<Long, Float, GraphFragment<Float>>?) {
+    override fun onPostExecute(result: Triple<Long, Float?, GraphFragment<Float>>?) {
         super.onPostExecute(result)
-        result?.third?.addData(result.first, result.second)
+        if (result != null) {
+            val deviation = result.second
+            if (deviation == null) {
+                result.third.internalData.clear()
+            } else {
+                result.third.addData(result.first, deviation)
+            }
+        }
     }
 }

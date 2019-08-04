@@ -98,7 +98,7 @@ class MyBleManager(
         }
     }
 
-    override fun shouldClearCacheWhenDisconnected(): Boolean = true
+    // override fun shouldClearCacheWhenDisconnected(): Boolean = true
 
     fun writeNewInterval(interval: IntervalFragment.Interval) {
         when (interval) {

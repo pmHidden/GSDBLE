@@ -33,7 +33,7 @@ class MyBleManagerCallbacks(
     }
 
     override fun onDeviceNotSupported(device: BluetoothDevice) {
-        myBleManager.errorRefresh()
+        //myBleManager.errorRefresh()
         // this happens when device is still registered from a previous connection
         // 'stackoverflow' says that errorRefresh will clear the ble cache but it doesn't help
         // shouldClearCacheWhenDisconnected = true also doesn't help
