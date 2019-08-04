@@ -22,13 +22,15 @@ class CharaDataManager(fragmentById: ((Int) -> Fragment?)) : MyBleManager.MyData
     private val vGraphDataRate = (fragmentById(R.id.vGraphDataRate) as LongTimeGraphFragment)
         .initialize(300000.0f, 1000.0f, "data time vs data rate")
 
+    private val vGraphDataRateAverage = (fragmentById(R.id.vGraphDataRateAverage) as FloatTimeGraphFragment)
+        .initialize(10000.0f, 1000.0f, "average")
     private val vGraphDataRateDeviation = (fragmentById(R.id.vGraphDataRateDeviation) as FloatTimeGraphFragment)
         .initialize(10000.0f, 1000.0f, "deviation")
-    private val dataRateDeviationExecutor = Executors.newSingleThreadExecutor()
+    private val dataRateStatExecutor = Executors.newSingleThreadExecutor()
 
     private val vGraphTimeDeviation = (fragmentById(R.id.vGraphTimeDeviation) as FloatTimeGraphFragment)
         .initialize(10000.0f, 1000.0f, "deviation")
-    private val graphTimeDeviationExecutor = Executors.newSingleThreadExecutor()
+    private val graphTimeStatExecutor = Executors.newSingleThreadExecutor()
 
     private var currentTrackedSecond = 0L
     private var packetsThisSecond = 0L
@@ -56,17 +58,19 @@ class CharaDataManager(fragmentById: ((Int) -> Fragment?)) : MyBleManager.MyData
                 val clearGraphs = clearScheduled.compareAndSet(true, false)
                 val graphTimeData =
                     if (clearGraphs || vGraphTimeDeviation.isPaused()) null else vGraphTime.internalData.toTypedArray()
-                CharaDataDeviationCalculatorAsyncTask().executeOnExecutor(
-                    graphTimeDeviationExecutor,
-                    Triple(currentTrackedSecond, graphTimeData, vGraphTimeDeviation)
-                )
+                CharaDataStatsByGradient(
+                    currentTrackedSecond,
+                    null,
+                    vGraphTimeDeviation
+                ).executeOnExecutor(graphTimeStatExecutor, graphTimeData)
 
                 val dataRateData =
-                    if (clearGraphs || vGraphDataRateDeviation.isPaused()) null else vGraphDataRate.internalData.toTypedArray()
-                CharaDataDeviationCalculatorAsyncTask().executeOnExecutor(
-                    dataRateDeviationExecutor,
-                    Triple(currentTrackedSecond, dataRateData, vGraphDataRateDeviation)
-                )
+                    if (clearGraphs || (vGraphDataRateAverage.isPaused() && vGraphDataRateDeviation.isPaused())) null else vGraphDataRate.internalData.toTypedArray()
+                CharaDataStatsBySecondValue(
+                    currentTrackedSecond,
+                    vGraphDataRateAverage,
+                    vGraphDataRateDeviation
+                ).executeOnExecutor(dataRateStatExecutor, dataRateData)
             }
             currentTrackedSecond = thisSecond
             packetsThisSecond = 0L
@@ -80,6 +84,7 @@ class CharaDataManager(fragmentById: ((Int) -> Fragment?)) : MyBleManager.MyData
         vGraphTime.setTitle("Packet Delivery Delay")
         vGraphTimeDeviation.setTitle("Delay Variance")
         vGraphDataRate.setTitle("Data Rate")
+        vGraphDataRateAverage.setTitle("Data Rate Average")
         vGraphDataRateDeviation.setTitle("Data Rate Variance")
     }
 
@@ -89,6 +94,7 @@ class CharaDataManager(fragmentById: ((Int) -> Fragment?)) : MyBleManager.MyData
         vGraphTime.setTitle("Failed Data Notify $status")
         vGraphTimeDeviation.setTitle("Failed Data Notify $status")
         vGraphDataRate.setTitle("Failed Data Notify $status")
+        vGraphDataRateAverage.setTitle("Failed Data Notify $status")
         vGraphDataRateDeviation.setTitle("Failed Data Notify $status")
     }
 

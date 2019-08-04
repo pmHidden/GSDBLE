@@ -42,6 +42,12 @@
             android:layout_height="wrap_content" />
 
         <fragment
+            android:id="@+id/vGraphDataRateAverage"
+            android:name="com.pascaldornfeld.gsdble.overview.fragments.FloatTimeGraphFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <fragment
             android:id="@+id/vGraphDataRateDeviation"
             android:name="com.pascaldornfeld.gsdble.overview.fragments.FloatTimeGraphFragment"
             android:layout_width="match_parent"

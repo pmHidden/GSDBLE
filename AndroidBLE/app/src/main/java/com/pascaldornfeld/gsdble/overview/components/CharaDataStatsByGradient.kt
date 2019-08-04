@@ -1,30 +1,18 @@
 package com.pascaldornfeld.gsdble.overview.components
 
-import android.os.AsyncTask
 import com.pascaldornfeld.gsdble.overview.fragments.GraphFragment
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-/**
- * input:
- * Long Current Time Second
- * Array<Pair<Long,Long>>? Data or null to clear graph
- * GraphFragment<Float> View To Push Result To
- *
- * progress:
- * not reported
- *
- * result:
- * Long  Current Time Second
- * Float? Calculated Deviation Of Data Or Null
- * GraphFragment<Float> View To Push Result To
- */
-class CharaDataDeviationCalculatorAsyncTask :
-    AsyncTask<Triple<Long, Array<Pair<Long, Long>>?, GraphFragment<Float>>, Void, Triple<Long, Float?, GraphFragment<Float>>?>() {
+class CharaDataStatsByGradient(
+    timestamp: Long,
+    averageGraph: GraphFragment<Float>?,
+    deviationGraph: GraphFragment<Float>?
+) : CharaDataStatsCalculatorAsyncTask(timestamp, averageGraph, deviationGraph) {
 
-    override fun doInBackground(vararg params: Triple<Long, Array<Pair<Long, Long>>?, GraphFragment<Float>>?): Triple<Long, Float?, GraphFragment<Float>>? {
+    override fun doInBackground(vararg params: Array<Pair<Long, Long>>?): Float? {
         assert(params.isNotEmpty())
-        val inputArray = params[0]!!.second
+        val inputArray = params[0]
 
         if (inputArray != null && inputArray.size >= 3) {
             // calculate average
@@ -36,6 +24,7 @@ class CharaDataDeviationCalculatorAsyncTask :
                     (pair.second.toDouble() - prev.second.toDouble()) / (pair.first.toDouble() - prev.first.toDouble())
                 }
             }.filterNotNull().average()
+            publishProgress(avgTime.toFloat())
 
             // calculate variance
             var sum = 0.0f
@@ -51,19 +40,10 @@ class CharaDataDeviationCalculatorAsyncTask :
 
             // return deviation
             // sum is based on inputArray.size -1 elements. The formula takes this amount -1. so we got inputArray.size -2
-            return Triple(params[0]!!.first, sqrt((sum / (inputArray.size - 2).toFloat())), params[0]!!.third)
-        } else return Triple(params[0]!!.first, null, params[0]!!.third)
-    }
-
-    override fun onPostExecute(result: Triple<Long, Float?, GraphFragment<Float>>?) {
-        super.onPostExecute(result)
-        if (result != null) {
-            val deviation = result.second
-            if (deviation == null) {
-                result.third.internalData.clear()
-            } else {
-                result.third.addData(result.first, deviation)
-            }
+            return sqrt((sum / (inputArray.size - 2).toFloat()))
+        } else {
+            publishProgress(null)
+            return null
         }
     }
 }
