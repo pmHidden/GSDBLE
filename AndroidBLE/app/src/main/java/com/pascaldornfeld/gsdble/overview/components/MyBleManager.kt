@@ -13,6 +13,8 @@ import com.pascaldornfeld.gsdble.overview.models.ImuData
 import no.nordicsemi.android.ble.BleManager
 import no.nordicsemi.android.ble.ConnectionPriorityRequest.*
 import no.nordicsemi.android.ble.callback.DataReceivedCallback
+import no.nordicsemi.android.ble.data.Data.FORMAT_SINT16
+import no.nordicsemi.android.ble.data.Data.FORMAT_UINT32
 import java.util.*
 import java.util.concurrent.atomic.AtomicReference
 
@@ -49,14 +51,21 @@ class MyBleManager(
         object : BleManagerGattCallback() {
             private val callbackNewData by lazy {
                 DataReceivedCallback { _, data ->
-                    // TODO use data.getXXValue
-                    data.value?.let { ImuData.fromByteArray(it) }
-                        ?.let { callbacksData.onNewData(it) }
+                    callbacksData.onNewData(
+                        ImuData(
+                            data.getIntValue(FORMAT_SINT16, 0)!!.toShort(),
+                            data.getIntValue(FORMAT_SINT16, 2)!!.toShort(),
+                            data.getIntValue(FORMAT_SINT16, 4)!!.toShort(),
+                            data.getIntValue(FORMAT_SINT16, 6)!!.toShort(),
+                            data.getIntValue(FORMAT_SINT16, 8)!!.toShort(),
+                            data.getIntValue(FORMAT_SINT16, 10)!!.toShort(),
+                            data.getIntValue(FORMAT_UINT32, 12)!!
+                        )
+                    )
                 }
             }
             private val callbackNewConfig by lazy {
                 DataReceivedCallback { _, data ->
-                    // TODO use data.getXXValue
                     data.value?.let { ImuConfig.fromByteArray(it) }
                         ?.let { charaConfigManager.onNewData(it) }
                 }

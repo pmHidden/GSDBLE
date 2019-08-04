@@ -138,7 +138,7 @@ void lsm_get_data_loop(lsm6dsl_ctx_t *dev_ctx, bool (*send_data)(imu_data_t)) {
     available_sensor_data.u8bit[1] &= 0x07u;                          // only the upper 11 bits are valid from the register
     available_sensor_data.i16bit = available_sensor_data.i16bit << 1; // this register is in 2-byte-word format. after this, number of bytes is stored in this variable. 12 bits are used now.
     if (config_changed || available_sensor_data.i16bit < BYTES_PER_DATA * DATAS_PER_PACKET * local_packets_per_transaction)
-               break;
+      break;
 
     axis3bit16_t theData[DATAS_PER_PACKET * local_packets_per_transaction];
     memset(theData, 0, DATAS_PER_PACKET * local_packets_per_transaction * sizeof(axis3bit16_t));
@@ -154,15 +154,18 @@ void lsm_get_data_loop(lsm6dsl_ctx_t *dev_ctx, bool (*send_data)(imu_data_t)) {
       data.accel_x = theData[i * DATAS_PER_PACKET + 1].i16bit[0];
       data.accel_y = theData[i * DATAS_PER_PACKET + 1].i16bit[1];
       data.accel_z = theData[i * DATAS_PER_PACKET + 1].i16bit[2];
+
       memset(&data.time, 0, sizeof(uint32_t));
       uint16_t time = (theData[i * DATAS_PER_PACKET + 2].u8bit[1] << 8 | theData[i * DATAS_PER_PACKET + 2].u8bit[0]);
       if (time < last_time) {
         current_time_prefix += 1u;
-        if (current_time_prefix & 0x80 != 0u)
+        if ((current_time_prefix & 0x8000u) != 0u) {
           current_time_prefix = 0u;
+        }
       }
       last_time = time;
       data.time = (((uint32_t)current_time_prefix) << 16) | time;
+
       if (!send_data(data))
         break;
     }
