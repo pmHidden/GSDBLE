@@ -7,12 +7,23 @@
     android:orientation="vertical"
     tools:context=".overview.fragments.GraphFragment">
 
-    <CheckBox
-        android:id="@+id/vCheckEnable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="true"
-        android:text="@string/render" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/vCheckEnable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/render" />
+
+        <TextView
+            android:id="@+id/vCurValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end" />
+    </FrameLayout>
 
     <com.androidplot.xy.XYPlot
         android:id="@+id/vPlotGraph"

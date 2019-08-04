@@ -8,6 +8,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.androidplot.Plot
 import com.androidplot.PlotListener
@@ -29,6 +30,7 @@ abstract class GraphFragment<DataType> : Fragment() {
     protected var data = listOf<Pair<Long, DataType>>() // snapshots of internalData for vPlot
     val internalData = mutableListOf<Pair<Long, DataType>>() // use only on the same thread as calling addData
     private var vPlot: XYPlot? = null
+    protected var vCurValue: TextView? = null
     private var vCheckBox: CheckBox? = null
     open var timeToShowMs = 5000.0f // show 5 seconds
         protected set(value) {
@@ -63,6 +65,7 @@ abstract class GraphFragment<DataType> : Fragment() {
                 return null
             }
         }
+
         vPlot!!.graph.getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).format = formatX
         vPlot!!.graph.getLineLabelStyle(XYGraphWidget.Edge.LEFT).format = formatY
 
@@ -91,6 +94,7 @@ abstract class GraphFragment<DataType> : Fragment() {
             else vPlot!!.visibility = GONE
         }
         vCheckBox!!.isChecked = false
+        vCurValue = view.findViewById(R.id.vCurValue)
         return view
     }
 
@@ -105,7 +109,7 @@ abstract class GraphFragment<DataType> : Fragment() {
 
     private val canUpdate = AtomicBoolean(true)
 
-    fun addData(p_time: Long, p_data: DataType) {
+    open fun addData(p_time: Long, p_data: DataType) {
         internalData.add(Pair(p_time, p_data))
         if (internalData.first().first > p_time) internalData.clear() // in case of overflow
 

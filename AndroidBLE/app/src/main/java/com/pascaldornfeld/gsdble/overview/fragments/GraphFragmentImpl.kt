@@ -61,6 +61,11 @@ class FloatTimeGraphFragment : GraphFragment<Float>() {
     override fun formatterY(obj: Number, toAppendTo: StringBuffer): StringBuffer =
         toAppendTo.append(String.format("%.2f", obj.toFloat()))
 
+    override fun addData(p_time: Long, p_data: Float) {
+        super.addData(p_time, p_data)
+        vCurValue?.text = String.format("%.2f", p_data)
+    }
+
     override fun seriesInit(plot: XYPlot) {
         val series = object : FastXYSeries {
             override fun getX(index: Int): Number = data[index].first
@@ -101,6 +106,11 @@ class LongTimeGraphFragment : GraphFragment<Long>() {
         if (p_timeToShowMs != null) timeToShowMs = p_timeToShowMs
         plotplotTitle = p_title
         return this
+    }
+
+    override fun addData(p_time: Long, p_data: Long) {
+        super.addData(p_time, p_data)
+        vCurValue?.text = p_data.toString()
     }
 
     override fun seriesInit(plot: XYPlot) {
