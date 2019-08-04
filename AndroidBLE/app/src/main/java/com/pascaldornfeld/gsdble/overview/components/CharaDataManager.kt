@@ -4,7 +4,7 @@ import android.bluetooth.BluetoothDevice
 import android.util.Log
 import androidx.fragment.app.Fragment
 import com.pascaldornfeld.gsdble.R
-import com.pascaldornfeld.gsdble.overview.fragments.FloatTimeGraphFragment
+import com.pascaldornfeld.gsdble.overview.fragments.DoubleTimeGraphFragment
 import com.pascaldornfeld.gsdble.overview.fragments.LongTimeGraphFragment
 import com.pascaldornfeld.gsdble.overview.fragments.SensorGraphFragment
 import com.pascaldornfeld.gsdble.overview.models.ImuData
@@ -22,13 +22,13 @@ class CharaDataManager(fragmentById: ((Int) -> Fragment?)) : MyBleManager.MyData
     private val vGraphDataRate = (fragmentById(R.id.vGraphDataRate) as LongTimeGraphFragment)
         .initialize(300000.0f, 1000.0f, "data time vs data rate")
 
-    private val vGraphDataRateAverage = (fragmentById(R.id.vGraphDataRateAverage) as FloatTimeGraphFragment)
+    private val vGraphDataRateAverage = (fragmentById(R.id.vGraphDataRateAverage) as DoubleTimeGraphFragment)
         .initialize(10000.0f, 1000.0f, "average")
-    private val vGraphDataRateDeviation = (fragmentById(R.id.vGraphDataRateDeviation) as FloatTimeGraphFragment)
+    private val vGraphDataRateDeviation = (fragmentById(R.id.vGraphDataRateDeviation) as DoubleTimeGraphFragment)
         .initialize(10000.0f, 1000.0f, "deviation")
     private val dataRateStatExecutor = Executors.newSingleThreadExecutor()
 
-    private val vGraphTimeDeviation = (fragmentById(R.id.vGraphTimeDeviation) as FloatTimeGraphFragment)
+    private val vGraphTimeDeviation = (fragmentById(R.id.vGraphTimeDeviation) as DoubleTimeGraphFragment)
         .initialize(10000.0f, 1000.0f, "deviation")
     private val graphTimeStatExecutor = Executors.newSingleThreadExecutor()
 

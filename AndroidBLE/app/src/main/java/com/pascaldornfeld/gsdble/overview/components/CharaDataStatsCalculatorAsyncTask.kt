@@ -16,15 +16,15 @@ import java.lang.ref.WeakReference
  */
 abstract class CharaDataStatsCalculatorAsyncTask(
     private val timestamp: Long,
-    averageGraph: GraphFragment<Float>?,
-    deviationGraph: GraphFragment<Float>?
-) : AsyncTask<Array<Pair<Long, Long>>?, Float?, Float?>() {
+    averageGraph: GraphFragment<Double>?,
+    deviationGraph: GraphFragment<Double>?
+) : AsyncTask<Array<Pair<Long, Long>>?, Double?, Double?>() {
     private val averageGraphRef = WeakReference(averageGraph)
     private val deviationGraphRef = WeakReference(deviationGraph)
 
-    abstract override fun doInBackground(vararg params: Array<Pair<Long, Long>>?): Float?
+    abstract override fun doInBackground(vararg params: Array<Pair<Long, Long>>?): Double?
 
-    override fun onProgressUpdate(vararg values: Float?) {
+    override fun onProgressUpdate(vararg values: Double?) {
         super.onProgressUpdate(*values)
         assert(values.isNotEmpty())
 
@@ -34,7 +34,7 @@ abstract class CharaDataStatsCalculatorAsyncTask(
         else graph?.addData(timestamp, average)
     }
 
-    override fun onPostExecute(result: Float?) {
+    override fun onPostExecute(result: Double?) {
         super.onPostExecute(result)
         val graph = deviationGraphRef.get()
         if (result != null) graph?.addData(timestamp, result) else graph?.internalData?.clear()

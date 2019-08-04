@@ -48,10 +48,10 @@ class SensorGraphFragment : GraphFragment<Triple<Short, Short, Short>>() {
 /**
  * graph to visualize realtime time vs aby number
  */
-class FloatTimeGraphFragment : GraphFragment<Float>() {
+class DoubleTimeGraphFragment : GraphFragment<Double>() {
     var plotplotTitle = ""
 
-    fun initialize(p_timeToShowMs: Float?, p_timeStepScalingMs: Float?, p_title: String): FloatTimeGraphFragment {
+    fun initialize(p_timeToShowMs: Float?, p_timeStepScalingMs: Float?, p_title: String): DoubleTimeGraphFragment {
         if (p_timeStepScalingMs != null) timestepScalingMs = { p_timeStepScalingMs }
         if (p_timeToShowMs != null) timeToShowMs = p_timeToShowMs
         plotplotTitle = p_title
@@ -59,9 +59,9 @@ class FloatTimeGraphFragment : GraphFragment<Float>() {
     }
 
     override fun formatterY(obj: Number, toAppendTo: StringBuffer): StringBuffer =
-        toAppendTo.append(String.format("%.2f", obj.toFloat()))
+        toAppendTo.append(String.format("%.2f", obj.toDouble()))
 
-    override fun addData(p_time: Long, p_data: Float) {
+    override fun addData(p_time: Long, p_data: Double) {
         super.addData(p_time, p_data)
         vCurValue?.text = String.format("%.2f", p_data)
     }
@@ -75,8 +75,8 @@ class FloatTimeGraphFragment : GraphFragment<Float>() {
             override fun minMax(): RectRegion {
                 val minX = if (data.isEmpty()) 0 else data.minBy { it.first }!!.first
                 val maxX = if (data.isEmpty()) 0 else data.maxBy { it.first }!!.first
-                val minY = if (data.isEmpty()) 0.0f else data.minBy { it.second }!!.second
-                val maxY = if (data.isEmpty()) 0.0f else data.maxBy { it.second }!!.second
+                val minY = if (data.isEmpty()) 0.0 else data.minBy { it.second }!!.second
+                val maxY = if (data.isEmpty()) 0.0 else data.maxBy { it.second }!!.second
                 return RectRegion(minX, maxX, minY, maxY)
             }
 
