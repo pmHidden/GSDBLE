@@ -55,6 +55,10 @@ class CharaDataManager(fragmentById: ((Int) -> Fragment?)) : MyBleManager.MyData
             if (currentTrackedSecond != 0L) {
                 vGraphDataRate.addData(currentTrackedSecond, packetsThisSecond)
 
+                // the first graph will not work, when there are multiple y values for the same x values.
+                // in that case, it will just print NaN, because it cant calculate the gradient.
+                // This happens on LSM6DSL, when the sensordatarate is < 6.4 ms (> 125 Hz).
+                // So on LSM6DSL, when you setup a sensordatarate of 200 hz or more.
                 val clearGraphs = clearScheduled.compareAndSet(true, false)
                 val graphTimeData =
                     if (clearGraphs || vGraphTimeDeviation.isPaused()) null else vGraphTime.internalData.toTypedArray()
