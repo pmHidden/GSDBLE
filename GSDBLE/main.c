@@ -19,7 +19,7 @@
 #define DEVICE_NAME "GSDBLE"
 #define APP_BLE_CONN_CFG_TAG 1                           // A tag identifying the SoftDevice BLE configuration
 #define APP_TIMER_MAX_TIMERS (1 + BSP_APP_TIMERS_NUMBER) // We use one timer for LED
-#define TX_QUEUE_SIZE 1                                  // size of ble tx buffer
+#define TX_QUEUE_SIZE 101                                  // size of ble tx buffer
 #define ALGORITHM_ENABLED 1                             // enable algorithm for tx buffer
 #define DEAD_BEEF 0xDEADBEEF                             // Value used as error code on stack dump, can be used to identify stack location on stack unwind
 

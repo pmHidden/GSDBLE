@@ -1,20 +1,25 @@
-mit spi1m high 200hz
-mtu23 tx1 an	
-mtu23 tx50 an	
-mtu23 tx300 an	
-mtu23 tx1 aus	
-mtu23 tx50 aus	
-mtu23 tx300 aus	
-mtu150 tx10 an	
-mtu517 tx10 an	
-mtu150 tx50 an	
+mit spi1m high 100hz
+mtu23 tx1 an	7,4 102,28 0,95
+mtu23 tx50 an	6,9 102,28 0,92
+mtu23 tx300 an	6,9 102,28 0,86
+mtu23 tx1 aus	6,9 102,28 0,91
+mtu23 tx50 aus	6,88 102,28 0,87
+mtu23 tx300 aus	6,68 102,28 0,82
+mtu150 tx10 an	6,9 102,28 0,88
+mtu517 tx10 an	7 102,28 1,32
+mtu150 tx50 an	6,82 102,28 0,84
+
+mit mtu35 tx10 high 100hz
+spi125k		6,87 102,28 0,82
+spi1m		6,84 102,28 0,89
+spi8m		6,9 102,28 0,85
 
 mit mtu35 tx10 high 400hz
-spi125k		
-spi1m		
-spi8m		
+spi125k		408,7 - 408,9 4,7-4,8
+spi1m		408,8 - 408,9 4,0-4,2
+spi8m		408,8 - 408,9 4,4-4,6
 
 mit mtu35 tx10 100hz spi4m
-low		
-mid		
-high	
+low		20,95	98,87	7,97
+mid		11,1	102,28	2,6
+high	6,85	102,29	0,91
