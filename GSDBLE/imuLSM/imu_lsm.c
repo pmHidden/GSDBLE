@@ -27,7 +27,10 @@ void imu_init(bool (*send_data_p)(imu_data_t), uint16_t buffer_size) {
 
   uint8_t whoamI = 0;
   LSM_ERROR_CHECK(lsm6dsl_device_id_get(&dev_ctx, &whoamI));
-  APP_ERROR_CHECK_BOOL(whoamI == LSM6DSL_ID);
+  if(whoamI != LSM6DSL_ID) {
+    NRF_LOG_INFO("Could not find sensor");
+    APP_ERROR_CHECK_BOOL(false);
+  }
   LSM_ERROR_CHECK(lsm6dsl_reset_set(&dev_ctx, PROPERTY_ENABLE));
   uint8_t rst;
   do {
