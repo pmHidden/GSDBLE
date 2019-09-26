@@ -1,42 +1,55 @@
 package com.pascaldornfeld.gsdble.overview.components
 
-import android.bluetooth.BluetoothDevice
 import android.util.Log
-import androidx.fragment.app.Fragment
-import com.pascaldornfeld.gsdble.R
+import com.pascaldornfeld.gsdble.DeviceFragment
 import com.pascaldornfeld.gsdble.overview.fragments.DoubleTimeGraphFragment
 import com.pascaldornfeld.gsdble.overview.fragments.LongTimeGraphFragment
 import com.pascaldornfeld.gsdble.overview.fragments.SensorGraphFragment
 import com.pascaldornfeld.gsdble.overview.models.ImuData
-import no.nordicsemi.android.ble.callback.FailCallback
-import no.nordicsemi.android.ble.callback.SuccessCallback
+import kotlinx.android.synthetic.main.device_fragment.*
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicBoolean
 
-class CharaDataManager(fragmentById: ((Int) -> Fragment?)) : MyBleManager.MyDataReceivedCallback<ImuData>,
-    SuccessCallback, FailCallback {
-    private val vGraphAccel = fragmentById(R.id.vGraphAccel) as SensorGraphFragment
-    private val vGraphGyro = fragmentById(R.id.vGraphGyro) as SensorGraphFragment
-    private val vGraphTime = (fragmentById(R.id.vGraphTime) as LongTimeGraphFragment)
-        .initialize(300000.0f, null, "data time vs delivery time")
-    private val vGraphDataRate = (fragmentById(R.id.vGraphDataRate) as LongTimeGraphFragment)
-        .initialize(300000.0f, 1000.0f, "data time vs data rate")
+class CharaDataManager(deviceFragment: DeviceFragment) {
+    private val vGraphAccel =
+        (deviceFragment.vGraphAccel as SensorGraphFragment).apply { setTitle("Accelerometer") }
+    private val vGraphGyro =
+        (deviceFragment.vGraphGyro as SensorGraphFragment).apply { setTitle("Gyroscope") }
+    private val vGraphTime = (deviceFragment.vGraphTime as LongTimeGraphFragment).apply {
+        setTitle("Packet Delivery Delay")
+        initialize(300000.0f, null, "data time vs delivery time")
+    }
+    private val vGraphDataRate =
+        (deviceFragment.vGraphDataRate as LongTimeGraphFragment).apply {
+            setTitle("Data Rate")
+            initialize(300000.0f, 1000.0f, "data time vs data rate")
+        }
 
-    private val vGraphDataRateAverage = (fragmentById(R.id.vGraphDataRateAverage) as DoubleTimeGraphFragment)
-        .initialize(10000.0f, 1000.0f, "average")
-    private val vGraphDataRateDeviation = (fragmentById(R.id.vGraphDataRateDeviation) as DoubleTimeGraphFragment)
-        .initialize(10000.0f, 1000.0f, "deviation")
+    private val vGraphDataRateAverage =
+        (deviceFragment.vGraphDataRateAverage as DoubleTimeGraphFragment).apply {
+            setTitle("Data Rate Average")
+            initialize(10000.0f, 1000.0f, "average")
+        }
+    private val vGraphDataRateDeviation =
+        (deviceFragment.vGraphDataRateDeviation as DoubleTimeGraphFragment).apply {
+            setTitle("Data Rate Variance")
+            initialize(10000.0f, 1000.0f, "deviation")
+        }
     private val dataRateStatExecutor = Executors.newSingleThreadExecutor()
 
-    private val vGraphTimeDeviation = (fragmentById(R.id.vGraphTimeDeviation) as DoubleTimeGraphFragment)
-        .initialize(10000.0f, 1000.0f, "deviation")
+    private val vGraphTimeDeviation =
+        (deviceFragment.vGraphTimeDeviation as DoubleTimeGraphFragment).apply {
+            setTitle("Delay Deviation")
+            initialize(10000.0f, 1000.0f, "deviation")
+        }
     private val graphTimeStatExecutor = Executors.newSingleThreadExecutor()
 
     private var currentTrackedSecond = 0L
     private var packetsThisSecond = 0L
     private val clearScheduled = AtomicBoolean(false)
 
-    override fun onNewData(data: ImuData) {
+
+    fun onNewData(data: ImuData) {
         val timeOfPacketArrival = System.currentTimeMillis()
 
         Log.v(TAG, "Received Data: $data")
@@ -82,25 +95,6 @@ class CharaDataManager(fragmentById: ((Int) -> Fragment?)) : MyBleManager.MyData
         packetsThisSecond++
     }
 
-    override fun onRequestCompleted(device: BluetoothDevice) {
-        vGraphAccel.setTitle("Accelerometer")
-        vGraphGyro.setTitle("Gyroscope")
-        vGraphTime.setTitle("Packet Delivery Delay")
-        vGraphTimeDeviation.setTitle("Delay Variance")
-        vGraphDataRate.setTitle("Data Rate")
-        vGraphDataRateAverage.setTitle("Data Rate Average")
-        vGraphDataRateDeviation.setTitle("Data Rate Variance")
-    }
-
-    override fun onRequestFailed(device: BluetoothDevice, status: Int) {
-        vGraphAccel.setTitle("Failed Data Notify $status")
-        vGraphGyro.setTitle("Failed Data Notify $status")
-        vGraphTime.setTitle("Failed Data Notify $status")
-        vGraphTimeDeviation.setTitle("Failed Data Notify $status")
-        vGraphDataRate.setTitle("Failed Data Notify $status")
-        vGraphDataRateAverage.setTitle("Failed Data Notify $status")
-        vGraphDataRateDeviation.setTitle("Failed Data Notify $status")
-    }
 
     fun resetGraphFragments() {
         vGraphAccel.internalData.clear()

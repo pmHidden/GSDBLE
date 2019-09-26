@@ -12,4 +12,6 @@
     <string name="uuid_chara_cfg" tools:ignore="TypographyDashes">b2154202-d1a3-e541-8bf7-8c8eb0519548</string>
     <string name="render">Render</string>
 
+    <string name="connect">connect</string>
+    <string name="apply">Apply</string>
 </resources>

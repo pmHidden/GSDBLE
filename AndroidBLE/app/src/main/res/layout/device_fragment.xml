@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".overview.ConnectionOverviewActivity">
+    tools:context=".DeviceFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,34 +54,27 @@
             android:layout_height="wrap_content" />
 
         <fragment
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/vConfigOdr"
             android:name="com.pascaldornfeld.gsdble.overview.fragments.OdrFragment"
-            />
-        <fragment
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <fragment
             android:id="@+id/vConfigPause"
             android:name="com.pascaldornfeld.gsdble.overview.fragments.PauseFragment"
-            />
-        <fragment
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <fragment
             android:id="@+id/vConfigIntv"
             android:name="com.pascaldornfeld.gsdble.overview.fragments.IntervalFragment"
-            />
-        <fragment
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <fragment
             android:id="@+id/vConfigMtu"
             android:name="com.pascaldornfeld.gsdble.overview.fragments.MtuFragment"
-            />
-        <fragment
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/vConfigSensor"
-            android:name="com.pascaldornfeld.gsdble.overview.fragments.SensorFragment"
-            />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </ScrollView>

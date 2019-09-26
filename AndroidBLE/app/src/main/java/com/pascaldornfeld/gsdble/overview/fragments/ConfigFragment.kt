@@ -10,15 +10,15 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.pascaldornfeld.gsdble.R
-import com.pascaldornfeld.gsdble.overview.models.ImuOdr
+import com.pascaldornfeld.gsdble.overview.models.ImuConfig
 
 
 abstract class ConfigFragment<DataType> : Fragment() {
-    var vTitle: TextView? = null
-    var vSlider: SeekBar? = null
+    private var vTitle: TextView? = null
+    private var vSlider: SeekBar? = null
     var vCurrent: TextView? = null
-    var vSet: TextView? = null
-    var vApply: Button? = null
+    private var vSet: TextView? = null
+    private var vApply: Button? = null
     abstract var functionToApply: ((DataType) -> Unit)?
     private val prefixSet = "on device: "
 
@@ -68,16 +68,16 @@ abstract class ConfigFragment<DataType> : Fragment() {
     }
 }
 
-class OdrFragment : ConfigFragment<ImuOdr>() {
-    private val odrs by lazy { ImuOdr.values() }
-    override var functionToApply: ((ImuOdr) -> Unit)? = null
+class OdrFragment : ConfigFragment<Int>() {
+    override var functionToApply: ((Int) -> Unit)? = null
 
-    override fun getDataArray(): Array<ImuOdr> = odrs
+    override fun getDataArray(): Array<Int> = IntArray(7) { it }.toTypedArray()
 
-    override fun getStringRepresentationFromData(data: ImuOdr): String = data.name
+    override fun getStringRepresentationFromData(data: Int): String =
+        ImuConfig.ODR_INDEX_TO_FREQ[data].toString()
 
     override fun applyNewData(index: Int) {
-        functionToApply?.invoke(odrs[index])
+        functionToApply?.invoke(index)
     }
 }
 
@@ -93,18 +93,15 @@ class PauseFragment : ConfigFragment<Boolean>() {
     }
 }
 
-class IntervalFragment : ConfigFragment<IntervalFragment.Interval>() {
-    enum class Interval { CONNECTION_PRIORITY_LOW_POWER, CONNECTION_PRIORITY_BALANCED, CONNECTION_PRIORITY_HIGH }
+class IntervalFragment : ConfigFragment<Int>() {
+    override var functionToApply: ((Int) -> Unit)? = null
 
-    private val intervals by lazy { Interval.values() }
-    override var functionToApply: ((Interval) -> Unit)? = null
+    override fun getDataArray(): Array<Int> = arrayOf(0, 1, 2)
 
-    override fun getDataArray(): Array<Interval> = intervals
-
-    override fun getStringRepresentationFromData(data: Interval): String = data.name
+    override fun getStringRepresentationFromData(data: Int): String = data.toString()
 
     override fun applyNewData(index: Int) {
-        functionToApply?.invoke(intervals[index])
+        functionToApply?.invoke(index)
     }
 }
 
@@ -118,21 +115,5 @@ class MtuFragment : ConfigFragment<Int>() {
 
     override fun applyNewData(index: Int) {
         functionToApply?.invoke(index + minimum)
-    }
-}
-
-class SensorFragment : ConfigFragment<SensorFragment.Sensors>() {
-    enum class Sensors { LSM6DSL, BMI160 }
-    private val sensors by lazy { Sensors.values() }
-
-    fun initWithLsm() { applyNewData(0) }
-
-    override var functionToApply: ((Sensors) -> Unit)? = null
-    override fun getDataArray(): Array<Sensors> = sensors
-
-    override fun getStringRepresentationFromData(data: Sensors): String = data.name
-
-    override fun applyNewData(index: Int) {
-        functionToApply?.invoke(sensors[index])
     }
 }

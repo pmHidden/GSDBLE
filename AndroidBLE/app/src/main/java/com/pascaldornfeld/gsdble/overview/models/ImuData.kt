@@ -1,5 +1,6 @@
 package com.pascaldornfeld.gsdble.overview.models
 
+import no.nordicsemi.android.ble.data.Data
 import kotlin.math.pow
 
 data class ImuData(
@@ -11,11 +12,19 @@ data class ImuData(
     val gyro_z: Short,
     val time: Int
 ) {
+    constructor(data: Data) : this(
+        data.getIntValue(Data.FORMAT_SINT16, 0)!!.toShort(),
+        data.getIntValue(Data.FORMAT_SINT16, 2)!!.toShort(),
+        data.getIntValue(Data.FORMAT_SINT16, 4)!!.toShort(),
+        data.getIntValue(Data.FORMAT_SINT16, 6)!!.toShort(),
+        data.getIntValue(Data.FORMAT_SINT16, 8)!!.toShort(),
+        data.getIntValue(Data.FORMAT_SINT16, 10)!!.toShort(),
+        data.getIntValue(Data.FORMAT_UINT32, 12)!!
+    )
+
     companion object {
         const val TIME_SCALE_MS_LSM = 6.4f
-        const val TIME_SCALE_MS_BMI = 0.625f
         const val MIN_TIME = 0
         val MAX_TIME = 2f.pow(31).toInt() - 1
-        var actualTimeScaleMs = TIME_SCALE_MS_LSM
     }
 }

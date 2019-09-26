@@ -5,6 +5,8 @@ import com.pascaldornfeld.gsdble.overview.fragments.GraphFragment
 import java.lang.ref.WeakReference
 
 /**
+ * creates the average and deviation of given data
+ *
  * input:
  * Array<Pair<Long,Long>>? Data, or null to clear graph
  *

@@ -20,7 +20,7 @@ import com.androidplot.util.PixelUtils
 import com.androidplot.xy.XYGraphWidget
 import com.androidplot.xy.XYPlot
 import com.pascaldornfeld.gsdble.R
-import com.pascaldornfeld.gsdble.overview.models.ImuData
+import com.pascaldornfeld.gsdble.overview.models.ImuData.Companion.TIME_SCALE_MS_LSM
 import java.text.FieldPosition
 import java.text.Format
 import java.text.ParsePosition
@@ -36,7 +36,7 @@ abstract class GraphFragment<DataType> : Fragment() {
         protected set(value) {
             field = value
         }
-    var timestepScalingMs: (() -> Float) = { ImuData.actualTimeScaleMs }
+    var timestepScalingMs: (() -> Float) = { TIME_SCALE_MS_LSM }
 
     private fun timeInXScalingToShow() = ((timeToShowMs / timestepScalingMs())).toInt()
 
