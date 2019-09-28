@@ -1,7 +1,9 @@
 package com.pascaldornfeld.gsdble
 
 import android.bluetooth.BluetoothDevice
-import android.bluetooth.le.*
+import android.bluetooth.le.BluetoothLeScanner
+import android.bluetooth.le.ScanCallback
+import android.bluetooth.le.ScanResult
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -17,18 +19,8 @@ import kotlinx.android.synthetic.main.connect_fragment.view.*
 
 /**
  * fragment to scan for new devices
- *
- * @param scanAllowed if scan is allowed. usually when bluetooth is ready
- * @param leScanner function returning the ble-scanner
- * @param onUserWantsToConnect the user wants to connect to the bluetooth device
- *
- * TODO remove paramters!
  */
-class ConnectFragment(
-    private val scanAllowed: LiveData<Boolean>,
-    private val leScanner: () -> (BluetoothLeScanner?),
-    private val onUserWantsToConnect: (BluetoothDevice) -> Unit
-) : Fragment() {
+class ConnectFragment : Fragment() {
     private lateinit var adapter: DeviceAdapter
     private var devicesFound = emptyList<ScanResult>()
         set(value) {
@@ -49,23 +41,56 @@ class ConnectFragment(
             override fun onScanResult(callbackType: Int, result: ScanResult?) {
                 super.onScanResult(callbackType, result)
                 Log.i(TAG, "found device!")
-                if (result != null) devicesFound = devicesFound.plusElement(result)
+                if (result != null && isDeviceNotConnected(result.device)) devicesFound =
+                    devicesFound.plusElement(result).distinctBy { it.device.address }
             }
 
             override fun onBatchScanResults(results: MutableList<ScanResult>?) {
                 super.onBatchScanResults(results)
                 Log.i(TAG, "found devices!")
-                if (results != null) devicesFound = devicesFound.plus(results)
+                if (results != null) devicesFound =
+                    devicesFound.plus(results.filter { isDeviceNotConnected(it.device) })
+                        .distinctBy { it.device.address }
             }
         }
     }
+
+    private var scanAllowed: LiveData<Boolean>? = null
+    private var leScanner: (() -> (BluetoothLeScanner?))? = null
+    private var onUserWantsToConnect: ((BluetoothDevice) -> Unit)? = null
+    private var isDeviceNotConnected: ((BluetoothDevice) -> Boolean) = { true }
+
+    /**
+     * @param scanAllowed if scan is allowed. usually when bluetooth is ready
+     * @param leScanner function returning the ble-scanner
+     * @param onUserWantsToConnect the user wants to connect to the bluetooth device
+     */
+    fun initialize(
+        scanAllowed: LiveData<Boolean>,
+        leScanner: () -> (BluetoothLeScanner?),
+        onUserWantsToConnect: ((BluetoothDevice) -> Unit),
+        isDeviceAlreadyConnected: ((BluetoothDevice) -> Boolean)
+    ) {
+        this.scanAllowed = scanAllowed
+        this.leScanner = leScanner
+        this.onUserWantsToConnect = onUserWantsToConnect
+        this.isDeviceNotConnected = isDeviceAlreadyConnected
+        scanAllowed.observe(
+            this,
+            Observer<Boolean> { t ->
+                if (t != null) {
+                    view?.vStartScanButton?.isEnabled = t
+                }
+            })
+    }
+
 
     /**
      * create adapter on start
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = DeviceAdapter { onUserWantsToConnect(it) }
+        adapter = DeviceAdapter { onUserWantsToConnect?.invoke(it) }
     }
 
     /**
@@ -82,11 +107,7 @@ class ConnectFragment(
             LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
         view.vDevicesList.adapter = adapter
         view.vStartScanButton.isEnabled = false
-        scanAllowed.observe(
-            this,
-            Observer<Boolean> { t -> if (t != null) view.vStartScanButton.isEnabled = t })
         view.vStartScanButton.setOnClickListener {
-            Log.i(TAG, "start scanning!")
             if (scanning) stopScan()
             else startScan()
         }
@@ -110,7 +131,7 @@ class ConnectFragment(
     }
 
     companion object {
-        private const val SCAN_PERIOD = 10000L
+        private const val SCAN_PERIOD = 30000L
         private val TAG = ConnectFragment::class.java.simpleName.filter { it.isUpperCase() }
     }
 
@@ -128,20 +149,21 @@ class ConnectFragment(
         synchronized(this) {
             if (!scanning) {
                 try {
-                    val scanner = leScanner()
+                    val scanner = leScanner?.invoke()
                     if (scanner != null) {
                         devicesFound = emptyList()
                         // we cannot filter by service uuid, since we are not advertising with service uuid.
                         // we are not advertising with service uuid, since service id is custom 128-bit, so it is too big to advertise with.
                         // this is why we must filter by device name.
                         scanner.startScan(
-                            listOf(ScanFilter.Builder().setDeviceName(getString(R.string.device_name)).build()),
-                            ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build(),
+                            /*listOf(ScanFilter.Builder().setDeviceName(getString(R.string.device_name)).build()),
+                            ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build(),*/
                             leScanCallback
                         )
                         scanning = true
                         vStartScanButton.text = getString(R.string.scan_stop)
                         handler.postDelayed({ stopScan() }, SCAN_PERIOD)
+                        Log.i(TAG, "scan started!")
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -162,12 +184,13 @@ class ConnectFragment(
         synchronized(this) {
             if (scanning) {
                 try {
-                    val scanner = leScanner()
+                    val scanner = leScanner?.invoke()
                     if (scanner != null) {
                         scanner.stopScan(leScanCallback)
                         handler.removeCallbacksAndMessages(null)
                         vStartScanButton.text = getString(R.string.scan_start)
                         scanning = false
+                        Log.i(TAG, "scan stopped!")
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()

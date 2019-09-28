@@ -1,7 +1,9 @@
 package com.pascaldornfeld.gsdble
 
 import android.bluetooth.BluetoothDevice
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +18,16 @@ import com.pascaldornfeld.gsdble.overview.models.ImuData
 import kotlinx.android.synthetic.main.device_fragment.*
 
 class DeviceFragment : Fragment(), ReadDeviceIfc {
+    interface RemovableDeviceActivity {
+        fun removeDeviceFragment(device: BluetoothDevice)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is RemovableDeviceActivity) removableDeviceActivity = context
+        else Log.w(TAG, "Activity is not a RemovableDeviceActivity")
+    }
+
     override fun afterConnect() {
         (vConfigIntv as IntervalFragment).apply {
             setTitle("Interval Time")
@@ -28,7 +40,9 @@ class DeviceFragment : Fragment(), ReadDeviceIfc {
     }
 
     override fun afterDisconnect() {
-        // TODO tell activity to remove fragment
+        val removeInterface = removableDeviceActivity
+        if (removeInterface != null) removeInterface.removeDeviceFragment(device)
+        else Log.w(TAG, "Activity is not a RemovableDeviceActivity")
     }
 
     override fun readImuData(imuData: ImuData) {
@@ -47,8 +61,9 @@ class DeviceFragment : Fragment(), ReadDeviceIfc {
         // TODO damn...
     }
 
-
-    private lateinit var device: BluetoothDevice
+    private var removableDeviceActivity: RemovableDeviceActivity? = null
+    lateinit var device: BluetoothDevice
+        private set
     private var charaDataManager: CharaDataManager? = null
     private var charaConfigManager: CharaConfigManager? = null
     private var writeDeviceIfc: WriteDeviceIfc? = null
@@ -77,6 +92,7 @@ class DeviceFragment : Fragment(), ReadDeviceIfc {
 
     companion object {
         private const val DEVICE = "device"
+        private val TAG = DeviceFragment::class.java.simpleName.filter { it.isUpperCase() }
 
         @JvmStatic
         fun newInstance(device: BluetoothDevice) =

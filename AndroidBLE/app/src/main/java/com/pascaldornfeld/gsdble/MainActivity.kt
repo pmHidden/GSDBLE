@@ -1,78 +1,116 @@
 package com.pascaldornfeld.gsdble
 
 import android.Manifest
-import android.app.Activity
 import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import android.provider.Settings
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import kotlinx.android.synthetic.main.main_activity.*
 
-class MainActivity : FragmentActivity() {
+
+class MainActivity : FragmentActivity(), DeviceFragment.RemovableDeviceActivity {
+
     private val bleReady = MutableLiveData<Boolean>()
     private val bluetoothAdapter: BluetoothAdapter? by lazy { (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager?)?.adapter }
-    private val fragmentList = mutableListOf<Fragment>()
+    private val fragmentList = mutableListOf<DeviceFragment>()
+    private lateinit var fragmentAdapter: MyFragmentPagerAdapter<DeviceFragment>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        val connectFragment = ConnectFragment(
+        val connectFragment = ConnectFragment()
+        connectFragment.initialize(
             bleReady,
             { bluetoothAdapter!!.bluetoothLeScanner },
-            { bluetoothDevice -> })
-        val fragmentAdapter =
-            MyFragmentAdapter(supportFragmentManager, connectFragment, fragmentList)
+            { addDeviceFragment(it) },
+            { fragmentList.none { knownDevice -> knownDevice.device.address == it.address } }
+        )
+        fragmentAdapter =
+            MyFragmentPagerAdapter(supportFragmentManager, connectFragment, fragmentList)
         vFragmentPager.adapter = fragmentAdapter
-
-        if (bluetoothAdapter != null) {
-        } else bleReady.postValue(false)
     }
 
-
-    override fun onStart() {
-        super.onStart()
-        if (bluetoothAdapter != null) {
-            if (!bluetoothAdapter!!.isEnabled) startActivityForResult(
-                Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
-                REQUEST_ENABLE_BT
-            )
-            else askForLocationPermission()
-        } else {
-            Toast.makeText(this, R.string.bt_not_available, Toast.LENGTH_SHORT).show()
-        }
+    override fun removeDeviceFragment(device: BluetoothDevice) {
+        fragmentList.removeIf { it.device.address == device.address }
+        fragmentAdapter.notifyDataSetChanged()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_ENABLE_BT && resultCode == Activity.RESULT_OK) askForLocationPermission()
+    private fun addDeviceFragment(device: BluetoothDevice) {
+        fragmentList.add(DeviceFragment.newInstance(device))
+        fragmentAdapter.notifyDataSetChanged()
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_PERMISSION_LOC && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+    override fun onResume() {
+        super.onResume()
+        bleReady.postValue(false)
+        if (checkBluetoothEnabled() && checkLocationPermission() && checkLocationEnabled())
             bleReady.postValue(true)
     }
 
-    private fun askForLocationPermission() {
+    /**
+     * check if bluetooth is available and enabled. ask for enabled if not
+     * @return true if bluetooth was available and ready
+     */
+    private fun checkBluetoothEnabled(): Boolean {
+        if (bluetoothAdapter != null) {
+            return if (!bluetoothAdapter!!.isEnabled) {
+                startActivityForResult(
+                    Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE),
+                    REQUEST_ENABLE_BT
+                )
+                false
+            } else true
+        } else {
+            AlertDialog.Builder(this)
+                .setTitle(android.R.string.dialog_alert_title)
+                .setMessage(R.string.bt_not_available)
+                .setPositiveButton(android.R.string.ok) { _, _ -> }
+                .show()
+            return false
+        }
+    }
+
+    /**
+     * check for location permission. ask for permission if not
+     * @return true if permission was granted
+     */
+    private fun checkLocationPermission(): Boolean =
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 REQUEST_PERMISSION_LOC
             )
-            return
+            false
+        } else true
+
+    /**
+     * check if location is enabled. ask for enabled if not
+     * @return true if location was enabled
+     */
+    private fun checkLocationEnabled(): Boolean {
+        val locationManager = (getSystemService(Context.LOCATION_SERVICE) as LocationManager?)
+        return if (locationManager != null
+            && (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                    || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+        ) true
+        else {
+            AlertDialog.Builder(this)
+                .setTitle(android.R.string.dialog_alert_title)
+                .setMessage("Please enable location on your device")
+                .setPositiveButton(android.R.string.ok)
+                { _, _ -> startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) }
+                .show()
+            false
         }
-        bleReady.postValue(true)
     }
 
     companion object {

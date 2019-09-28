@@ -12,10 +12,10 @@ import androidx.fragment.app.FragmentPagerAdapter
  * @param mainFragment The main-fragment allows searching for devices.
  * @param optionalFragments There is one optional fragment for each connected device.
  */
-class MyFragmentAdapter(
+class MyFragmentPagerAdapter<Fragmentlike : Fragment>(
     fragmentManager: FragmentManager,
     private val mainFragment: Fragment,
-    private val optionalFragments: MutableList<Fragment>
+    private val optionalFragments: MutableList<Fragmentlike>
 ) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getItem(position: Int): Fragment =
         if (position == 0) mainFragment else optionalFragments[position - 1]
