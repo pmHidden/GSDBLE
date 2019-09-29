@@ -90,7 +90,11 @@ class ConnectFragment : Fragment() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = DeviceAdapter { onUserWantsToConnect?.invoke(it) }
+        adapter = DeviceAdapter { newDevice: BluetoothDevice ->
+            onUserWantsToConnect?.invoke(newDevice)
+            devicesFound =
+                devicesFound.filterNot { oldDevice: ScanResult -> newDevice.address == oldDevice.device.address }
+        }
     }
 
     /**

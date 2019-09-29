@@ -11,13 +11,12 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.size
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import kotlinx.android.synthetic.main.main_activity.*
 
-
 class MainActivity : FragmentActivity(), DeviceFragment.RemovableDeviceActivity {
-
     private val bleReady = MutableLiveData<Boolean>()
     private val bluetoothAdapter: BluetoothAdapter? by lazy { (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager?)?.adapter }
     private val fragmentList = mutableListOf<DeviceFragment>()
@@ -32,7 +31,12 @@ class MainActivity : FragmentActivity(), DeviceFragment.RemovableDeviceActivity 
             bleReady,
             { bluetoothAdapter!!.bluetoothLeScanner },
             { addDeviceFragment(it) },
-            { fragmentList.none { knownDevice -> knownDevice.device.address == it.address } }
+            {
+                // check isInLayout so no devices will be added when one is currently connecting
+                fragmentList.none { knownDevice ->
+                    (knownDevice.isInLayout && knownDevice.device.address == it.address)
+                }
+            }
         )
         fragmentAdapter =
             MyFragmentPagerAdapter(supportFragmentManager, connectFragment, fragmentList)
@@ -47,6 +51,7 @@ class MainActivity : FragmentActivity(), DeviceFragment.RemovableDeviceActivity 
     private fun addDeviceFragment(device: BluetoothDevice) {
         fragmentList.add(DeviceFragment.newInstance(device))
         fragmentAdapter.notifyDataSetChanged()
+        vFragmentPager.setCurrentItem(vFragmentPager.size - 1, true)
     }
 
     override fun onResume() {

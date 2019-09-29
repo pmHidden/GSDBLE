@@ -8,12 +8,12 @@ import com.androidplot.xy.FastXYSeries
 import com.androidplot.xy.RectRegion
 import com.androidplot.xy.XYPlot
 import com.pascaldornfeld.gsdble.R
+import kotlinx.android.synthetic.main.fragment_graph.*
 
 /**
  * graph to visualize time vs 3 sensor axis data (f.e. gyro or accel data)
  */
 class SensorGraphFragment : GraphFragment<Triple<Short, Short, Short>>() {
-
     override fun seriesInit(plot: XYPlot) {
         for (i in 0..2) {
             val axisSeries = object : FastXYSeries {
@@ -40,7 +40,10 @@ class SensorGraphFragment : GraphFragment<Triple<Short, Short, Short>>() {
             val r = if (i % 3 == 0) 255 else 0
             val g = if (i % 3 == 1) 255 else 0
             val b = if (i % 3 == 2) 255 else 0
-            plot.addSeries(axisSeries, FastLineAndPointRenderer.Formatter(Color.rgb(r, g, b), null, null))
+            plot.addSeries(
+                axisSeries,
+                FastLineAndPointRenderer.Formatter(Color.rgb(r, g, b), null, null)
+            )
         }
     }
 }
@@ -49,20 +52,12 @@ class SensorGraphFragment : GraphFragment<Triple<Short, Short, Short>>() {
  * graph to visualize realtime time vs aby number
  */
 class DoubleTimeGraphFragment : GraphFragment<Double>() {
-    var plotplotTitle = ""
-
-    fun initialize(p_timeToShowMs: Float?, p_timeStepScalingMs: Float?, p_title: String): DoubleTimeGraphFragment {
-        if (p_timeStepScalingMs != null) timestepScalingMs = { p_timeStepScalingMs }
-        if (p_timeToShowMs != null) timeToShowMs = p_timeToShowMs
-        plotplotTitle = p_title
-        return this
-    }
+    var dataDescription = ""
 
     override fun formatterY(obj: Number, toAppendTo: StringBuffer): StringBuffer =
         toAppendTo.append(String.format("%.2f", obj.toDouble()))
 
-    override fun addData(p_time: Long, p_data: Double) {
-        super.addData(p_time, p_data)
+    override fun afterAddingData(p_time: Long, p_data: Double) {
         vCurValue?.text = String.format("%.2f", p_data)
     }
 
@@ -80,7 +75,7 @@ class DoubleTimeGraphFragment : GraphFragment<Double>() {
                 return RectRegion(minX, maxX, minY, maxY)
             }
 
-            override fun getTitle(): String = plotplotTitle
+            override fun getTitle(): String = dataDescription
 
             override fun size(): Int = data.size
         }
@@ -89,7 +84,12 @@ class DoubleTimeGraphFragment : GraphFragment<Double>() {
         if (context != null)
             plot.addSeries(
                 series,
-                FastLineAndPointRenderer.Formatter(ContextCompat.getColor(context, R.color.colorAccent), null, null)
+                FastLineAndPointRenderer.Formatter(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.colorAccent
+                    ), null, null
+                )
             )
         else Log.w("GraphFragment", "Cound not get context")
     }
@@ -99,17 +99,9 @@ class DoubleTimeGraphFragment : GraphFragment<Double>() {
  * graph to visualize realtime time vs aby number
  */
 class LongTimeGraphFragment : GraphFragment<Long>() {
-    var plotplotTitle = ""
+    var dataDescription = ""
 
-    fun initialize(p_timeToShowMs: Float?, p_timeStepScalingMs: Float?, p_title: String): LongTimeGraphFragment {
-        if (p_timeStepScalingMs != null) timestepScalingMs = { p_timeStepScalingMs }
-        if (p_timeToShowMs != null) timeToShowMs = p_timeToShowMs
-        plotplotTitle = p_title
-        return this
-    }
-
-    override fun addData(p_time: Long, p_data: Long) {
-        super.addData(p_time, p_data)
+    override fun afterAddingData(p_time: Long, p_data: Long) {
         vCurValue?.text = p_data.toString()
     }
 
@@ -127,7 +119,7 @@ class LongTimeGraphFragment : GraphFragment<Long>() {
                 return RectRegion(minX, maxX, minY, maxY)
             }
 
-            override fun getTitle(): String = plotplotTitle
+            override fun getTitle(): String = dataDescription
 
             override fun size(): Int = data.size
         }
@@ -136,7 +128,12 @@ class LongTimeGraphFragment : GraphFragment<Long>() {
         if (context != null)
             plot.addSeries(
                 series,
-                FastLineAndPointRenderer.Formatter(ContextCompat.getColor(context, R.color.colorAccent), null, null)
+                FastLineAndPointRenderer.Formatter(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.colorAccent
+                    ), null, null
+                )
             )
         else Log.w("GraphFragment", "Cound not get context")
     }

@@ -9,7 +9,6 @@ import com.pascaldornfeld.gsdble.overview.models.ImuData
  * Interface To Read Events From Device
  */
 interface ReadDeviceIfc {
-    fun afterConnect()
     fun afterDisconnect()
     fun readImuData(imuData: ImuData)
     fun readImuConfig(imuConfig: ImuConfig)
@@ -22,6 +21,7 @@ interface ReadDeviceIfc {
  * Interface To Write Events To Device
  */
 interface WriteDeviceIfc {
+    fun isReadyToBeWritten(): Boolean
     fun doConnect(device: BluetoothDevice)
     fun doDisconnect()
     fun writeImuConfig(imuConfig: ImuConfig)

@@ -1,7 +1,6 @@
 package com.pascaldornfeld.gsdble.overview.models
 
 import no.nordicsemi.android.ble.data.Data
-import kotlin.math.pow
 
 data class ImuData(
     val accel_x: Short,
@@ -21,10 +20,4 @@ data class ImuData(
         data.getIntValue(Data.FORMAT_SINT16, 10)!!.toShort(),
         data.getIntValue(Data.FORMAT_UINT32, 12)!!
     )
-
-    companion object {
-        const val TIME_SCALE_MS_LSM = 6.4f
-        const val MIN_TIME = 0
-        val MAX_TIME = 2f.pow(31).toInt() - 1
-    }
 }

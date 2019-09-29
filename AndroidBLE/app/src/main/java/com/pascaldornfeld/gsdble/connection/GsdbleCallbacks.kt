@@ -20,9 +20,6 @@ class GsdbleCallbacks(
     override fun onDeviceDisconnected(device: BluetoothDevice) =
         readDeviceIfc.afterDisconnect()
 
-    override fun onDeviceReady(device: BluetoothDevice) =
-        readDeviceIfc.afterConnect()
-
     // disconnect because of errors
 
     override fun onDeviceNotSupported(device: BluetoothDevice) {
@@ -52,20 +49,14 @@ class GsdbleCallbacks(
 
     // ignored
 
-    override fun onDeviceDisconnecting(device: BluetoothDevice) {
-    }
+    override fun onDeviceReady(device: BluetoothDevice) = Unit
+    override fun onDeviceDisconnecting(device: BluetoothDevice) = Unit
+    override fun onDeviceConnected(device: BluetoothDevice) = Unit
+    override fun onServicesDiscovered(device: BluetoothDevice, optionalServicesFound: Boolean) =
+        Unit
 
-    override fun onDeviceConnected(device: BluetoothDevice) {
-    }
-
-    override fun onServicesDiscovered(device: BluetoothDevice, optionalServicesFound: Boolean) {
-    }
-
-    override fun onBonded(device: BluetoothDevice) {
-    }
-
-    override fun onDeviceConnecting(device: BluetoothDevice) {
-    }
+    override fun onBonded(device: BluetoothDevice) = Unit
+    override fun onDeviceConnecting(device: BluetoothDevice) = Unit
 
     companion object {
         private val TAG = GsdbleCallbacks::class.java.simpleName.filter { it.isUpperCase() }

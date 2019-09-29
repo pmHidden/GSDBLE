@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".overview.fragments.GraphFragment">
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -16,14 +16,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@string/render" />
+            android:text="@string/render"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/vTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/vCurValue"
+            app:layout_constraintStart_toEndOf="@id/vCheckEnable"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/vCurValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end" />
-    </FrameLayout>
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.androidplot.xy.XYPlot
         android:id="@+id/vPlotGraph"

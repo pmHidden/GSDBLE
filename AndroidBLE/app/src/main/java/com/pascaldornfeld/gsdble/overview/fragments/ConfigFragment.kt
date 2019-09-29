@@ -1,6 +1,7 @@
 package com.pascaldornfeld.gsdble.overview.fragments
 
 import android.annotation.SuppressLint
+import android.bluetooth.BluetoothGatt
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +23,11 @@ abstract class ConfigFragment<DataType> : Fragment() {
     abstract var functionToApply: ((DataType) -> Unit)?
     private val prefixSet = "on device: "
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_config, container, false)
         vTitle = view.findViewById(R.id.tv_title)
         vSlider = view.findViewById(R.id.sk_slider)
@@ -36,11 +41,9 @@ abstract class ConfigFragment<DataType> : Fragment() {
                 vCurrent!!.text = getStringRepresentationFromData(getDataArray()[progress])
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
 
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-            }
+            override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
         })
         vSlider!!.max = getDataArray().size - 1
         vApply!!.setOnClickListener { applyNewData(vSlider!!.progress) }
@@ -98,7 +101,20 @@ class IntervalFragment : ConfigFragment<Int>() {
 
     override fun getDataArray(): Array<Int> = arrayOf(0, 1, 2)
 
-    override fun getStringRepresentationFromData(data: Int): String = data.toString()
+    override fun getStringRepresentationFromData(data: Int): String = when (data) {
+        0 -> BluetoothGatt.CONNECTION_PRIORITY_LOW_POWER.javaClass.name
+        1 -> BluetoothGatt.CONNECTION_PRIORITY_BALANCED.javaClass.name
+        2 -> BluetoothGatt.CONNECTION_PRIORITY_HIGH.javaClass.name
+        else -> "unknown"
+    }
+
+    fun applyDataFromIntervalTime(intervalInMs: Int) = setNewData(
+        when (intervalInMs) {
+            in Int.MIN_VALUE..22 -> 0
+            in 23..75 -> 1
+            else -> 2
+        }
+    )
 
     override fun applyNewData(index: Int) {
         functionToApply?.invoke(index)
@@ -110,7 +126,9 @@ class MtuFragment : ConfigFragment<Int>() {
     private val minimum = 23
     private val maximum = 517
 
-    override fun getDataArray(): Array<Int> = IntArray(maximum - minimum + 1) { minimum + it }.toTypedArray()
+    override fun getDataArray(): Array<Int> =
+        IntArray(maximum - minimum + 1) { minimum + it }.toTypedArray()
+
     override fun getStringRepresentationFromData(data: Int): String = data.toString()
 
     override fun applyNewData(index: Int) {

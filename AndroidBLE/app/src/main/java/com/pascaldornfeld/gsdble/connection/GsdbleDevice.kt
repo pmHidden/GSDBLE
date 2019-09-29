@@ -17,11 +17,14 @@ import java.util.*
 
 class GsdbleDevice(context: Context, var readDeviceIfc: ReadDeviceIfc) :
     BleManager<GsdbleCallbacks>(context), WriteDeviceIfc {
+
     init {
-        this.setGattCallbacks(GsdbleCallbacks(readDeviceIfc, this))
+        setGattCallbacks(GsdbleCallbacks(readDeviceIfc, this))
     }
 
     // WriteDeviceIfc
+    override fun isReadyToBeWritten(): Boolean = isReady
+
     override fun doConnect(device: BluetoothDevice) = connect(device).enqueue()
 
     override fun doDisconnect() = disconnect().enqueue()
