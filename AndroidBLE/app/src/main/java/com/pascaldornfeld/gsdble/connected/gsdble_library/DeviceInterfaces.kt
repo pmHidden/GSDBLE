@@ -1,14 +1,14 @@
-package com.pascaldornfeld.gsdble
+package com.pascaldornfeld.gsdble.connected.gsdble_library
 
-import android.bluetooth.BluetoothDevice
-import com.pascaldornfeld.gsdble.overview.models.ImuConfig
-import com.pascaldornfeld.gsdble.overview.models.ImuData
+import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
+import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuData
+import java.io.Serializable
 
 
 /**
  * Interface To Read Events From Device
  */
-interface ReadDeviceIfc {
+interface ReadFromDeviceIfc {
     fun afterDisconnect()
     fun readImuData(imuData: ImuData)
     fun readImuConfig(imuConfig: ImuConfig)
@@ -16,13 +16,10 @@ interface ReadDeviceIfc {
     fun readConnectionSpeed(interval: Int, latency: Int, timeout: Int)
 }
 
-
 /**
  * Interface To Write Events To Device
  */
-interface WriteDeviceIfc {
-    fun isReadyToBeWritten(): Boolean
-    fun doConnect(device: BluetoothDevice)
+interface WriteToDeviceIfc : Serializable {
     fun doDisconnect()
     fun writeImuConfig(imuConfig: ImuConfig)
     fun writeMtu(mtu: Int)

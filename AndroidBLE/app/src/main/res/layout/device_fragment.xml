@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DeviceFragment">
+    tools:context=".connected.view.DeviceFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,67 +13,67 @@
 
         <fragment
             android:id="@+id/vGraphAccel"
-            android:name="com.pascaldornfeld.gsdble.overview.fragments.SensorGraphFragment"
+            android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.SensorGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
             android:id="@+id/vGraphGyro"
-            android:name="com.pascaldornfeld.gsdble.overview.fragments.SensorGraphFragment"
+            android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.SensorGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
             android:id="@+id/vGraphTime"
-            android:name="com.pascaldornfeld.gsdble.overview.fragments.LongTimeGraphFragment"
+            android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.LongTimeGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
             android:id="@+id/vGraphTimeDeviation"
-            android:name="com.pascaldornfeld.gsdble.overview.fragments.DoubleTimeGraphFragment"
+            android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.DoubleTimeGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
             android:id="@+id/vGraphDataRate"
-            android:name="com.pascaldornfeld.gsdble.overview.fragments.LongTimeGraphFragment"
+            android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.LongTimeGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
             android:id="@+id/vGraphDataRateAverage"
-            android:name="com.pascaldornfeld.gsdble.overview.fragments.DoubleTimeGraphFragment"
+            android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.DoubleTimeGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
             android:id="@+id/vGraphDataRateDeviation"
-            android:name="com.pascaldornfeld.gsdble.overview.fragments.DoubleTimeGraphFragment"
+            android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.DoubleTimeGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
             android:id="@+id/vConfigOdr"
-            android:name="com.pascaldornfeld.gsdble.overview.fragments.OdrFragment"
+            android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.OdrFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
             android:id="@+id/vConfigPause"
-            android:name="com.pascaldornfeld.gsdble.overview.fragments.PauseFragment"
+            android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.PauseFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
             android:id="@+id/vConfigIntv"
-            android:name="com.pascaldornfeld.gsdble.overview.fragments.IntervalFragment"
+            android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.IntervalFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <fragment
             android:id="@+id/vConfigMtu"
-            android:name="com.pascaldornfeld.gsdble.overview.fragments.MtuFragment"
+            android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.MtuFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

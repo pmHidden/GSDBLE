@@ -1,8 +1,7 @@
-package com.pascaldornfeld.gsdble.overview.components
+package com.pascaldornfeld.gsdble.connected.async_calculations
 
 import android.os.AsyncTask
-import com.pascaldornfeld.gsdble.overview.fragments.GraphFragment
-import java.lang.ref.WeakReference
+import com.pascaldornfeld.gsdble.connected.SmallDataHolder
 
 /**
  * creates the average and deviation of given data
@@ -18,11 +17,9 @@ import java.lang.ref.WeakReference
  */
 abstract class CharaDataStatsCalculatorAsyncTask(
     private val timestamp: Long,
-    averageGraph: GraphFragment<Double>?,
-    deviationGraph: GraphFragment<Double>?
+    private val averageDataHolder: SmallDataHolder<Double>?,
+    private val deviationDataHolder: SmallDataHolder<Double>?
 ) : AsyncTask<Array<Pair<Long, Long>>?, Double?, Double?>() {
-    private val averageGraphRef = WeakReference(averageGraph)
-    private val deviationGraphRef = WeakReference(deviationGraph)
 
     abstract override fun doInBackground(vararg params: Array<Pair<Long, Long>>?): Double?
 
@@ -31,14 +28,13 @@ abstract class CharaDataStatsCalculatorAsyncTask(
         assert(values.isNotEmpty())
 
         val average = values[0]
-        val graph = averageGraphRef.get()
-        if (average == null) graph?.internalData?.clear()
-        else graph?.addData(timestamp, average)
+        if (average == null) averageDataHolder?.clearData()
+        else averageDataHolder?.addData(timestamp, average)
     }
 
     override fun onPostExecute(result: Double?) {
         super.onPostExecute(result)
-        val graph = deviationGraphRef.get()
-        if (result != null) graph?.addData(timestamp, result) else graph?.internalData?.clear()
+        if (result != null) deviationDataHolder?.addData(timestamp, result)
+        else deviationDataHolder?.clearData()
     }
 }

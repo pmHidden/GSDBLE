@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble
+package com.pascaldornfeld.gsdble.main
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -12,13 +12,13 @@ import androidx.fragment.app.FragmentPagerAdapter
  * @param mainFragment The main-fragment allows searching for devices.
  * @param optionalFragments There is one optional fragment for each connected device.
  */
-class MyFragmentPagerAdapter<Fragmentlike : Fragment>(
+class MainFragmentPagerAdapter<Fragmentlike : Fragment, P : Pair<Any, Fragmentlike>>(
     fragmentManager: FragmentManager,
     private val mainFragment: Fragment,
-    private val optionalFragments: MutableList<Fragmentlike>
+    private val optionalFragments: MutableList<P>
 ) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getItem(position: Int): Fragment =
-        if (position == 0) mainFragment else optionalFragments[position - 1]
+        if (position == 0) mainFragment else optionalFragments[position - 1].second
 
     override fun getCount(): Int = 1 + optionalFragments.size
 }

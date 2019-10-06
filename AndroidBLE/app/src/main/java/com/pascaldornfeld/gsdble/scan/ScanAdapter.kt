@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble
+package com.pascaldornfeld.gsdble.scan
 
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.le.ScanResult
@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.ListAdapter
  *
  * @param connectCallback what to do, when user wants to doConnect to a device
  */
-class DeviceAdapter(private val connectCallback: (BluetoothDevice) -> Unit) :
-    ListAdapter<ScanResult, DeviceViewHolder>(SCAN_RESULT_DIFF_CALLBACK) {
+class ScanAdapter(private val connectCallback: (BluetoothDevice) -> Unit) :
+    ListAdapter<ScanResult, ScanViewHolder>(SCAN_RESULT_DIFF_CALLBACK) {
 
     companion object {
         private val SCAN_RESULT_DIFF_CALLBACK = object : DiffUtil.ItemCallback<ScanResult>() {
@@ -24,9 +24,9 @@ class DeviceAdapter(private val connectCallback: (BluetoothDevice) -> Unit) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeviceViewHolder =
-        DeviceViewHolder(connectCallback, parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScanViewHolder =
+        ScanViewHolder(connectCallback, parent)
 
-    override fun onBindViewHolder(holder: DeviceViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: ScanViewHolder, position: Int) =
         holder.bind(getItem(position))
 }

@@ -11,6 +11,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+
+        buildConfigField "String", "DEVICE_NAME", "\"GSDBLE\""
+        buildConfigField "String", "UUID_SERVICE", "\"b2154200-d1a3-e541-8bf7-8c8eb0519548\""
+        buildConfigField "String", "UUID_CHARA_DATA", "\"b2154201-d1a3-e541-8bf7-8c8eb0519548\""
+        buildConfigField "String", "UUID_CHARA_CONFIG", "\"b2154202-d1a3-e541-8bf7-8c8eb0519548\""
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -38,4 +44,5 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 }

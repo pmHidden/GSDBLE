@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble
+package com.pascaldornfeld.gsdble.scan
 
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.le.BluetoothLeScanner
@@ -14,14 +14,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.pascaldornfeld.gsdble.R
 import kotlinx.android.synthetic.main.connect_fragment.*
 import kotlinx.android.synthetic.main.connect_fragment.view.*
 
 /**
  * fragment to scan for new devices
  */
-class ConnectFragment : Fragment() {
-    private lateinit var adapter: DeviceAdapter
+class ScanFragment : Fragment() {
+    private lateinit var adapter: ScanAdapter
     private var devicesFound = emptyList<ScanResult>()
         set(value) {
             field = value
@@ -78,9 +79,7 @@ class ConnectFragment : Fragment() {
         scanAllowed.observe(
             this,
             Observer<Boolean> { t ->
-                if (t != null) {
-                    view?.vStartScanButton?.isEnabled = t
-                }
+                if (t != null) view?.vStartScanButton?.isEnabled = t
             })
     }
 
@@ -90,7 +89,7 @@ class ConnectFragment : Fragment() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = DeviceAdapter { newDevice: BluetoothDevice ->
+        adapter = ScanAdapter { newDevice: BluetoothDevice ->
             onUserWantsToConnect?.invoke(newDevice)
             devicesFound =
                 devicesFound.filterNot { oldDevice: ScanResult -> newDevice.address == oldDevice.device.address }
@@ -136,7 +135,7 @@ class ConnectFragment : Fragment() {
 
     companion object {
         private const val SCAN_PERIOD = 30000L
-        private val TAG = ConnectFragment::class.java.simpleName.filter { it.isUpperCase() }
+        private val TAG = ScanFragment::class.java.simpleName.filter { it.isUpperCase() }
     }
 
     /**
@@ -166,7 +165,10 @@ class ConnectFragment : Fragment() {
                         )
                         scanning = true
                         vStartScanButton.text = getString(R.string.scan_stop)
-                        handler.postDelayed({ stopScan() }, SCAN_PERIOD)
+                        handler.postDelayed(
+                            { stopScan() },
+                            SCAN_PERIOD
+                        )
                         Log.i(TAG, "scan started!")
                     }
                 } catch (e: Exception) {

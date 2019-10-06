@@ -1,9 +1,15 @@
-package com.pascaldornfeld.gsdble.overview.models
+package com.pascaldornfeld.gsdble.connected.gsdble_library.models
 
 import no.nordicsemi.android.ble.data.Data
 import kotlin.experimental.and
 import kotlin.experimental.or
 
+/**
+ * Model for configuration characteristic including conversion with ByteArray.
+ *
+ * @param odrIndex odr (data collection speed) of the sensor
+ * @param paused if sensor is paused
+ */
 data class ImuConfig(
     val odrIndex: Int,
     val paused: Boolean
@@ -20,6 +26,9 @@ data class ImuConfig(
     }
 
     companion object {
+        /**
+         * array that maps (index) -> (odr in hz)
+         */
         val ODR_INDEX_TO_FREQ = arrayOf(26, 52, 104, 208, 416, 833, 1666)
     }
 }

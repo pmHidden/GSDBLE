@@ -1,50 +1,48 @@
-package com.pascaldornfeld.gsdble.connection
+package com.pascaldornfeld.gsdble.connected.gsdble_library
 
 import android.bluetooth.BluetoothDevice
 import android.util.Log
-import com.pascaldornfeld.gsdble.ReadDeviceIfc
-import com.pascaldornfeld.gsdble.WriteDeviceIfc
 import no.nordicsemi.android.ble.BleManagerCallbacks
 
 /**
  * callback for bluetooth events happening with gsdble device
  *
- * @param readDeviceIfc interface to notify about connection events
- * @param writeDeviceIfc interface to perform actions (disconnect on error)
+ * @param readFromDeviceIfc interface to notify about connection events
+ * @param writeToDeviceIfc interface to perform actions (disconnect on error)
  */
-class GsdbleCallbacks(
-    private val readDeviceIfc: ReadDeviceIfc,
-    private val writeDeviceIfc: WriteDeviceIfc
+internal class GsdbleCallbacks(
+    private val readFromDeviceIfc: ReadFromDeviceIfc,
+    private val writeToDeviceIfc: WriteToDeviceIfc
 ) : BleManagerCallbacks {
 
     override fun onDeviceDisconnected(device: BluetoothDevice) =
-        readDeviceIfc.afterDisconnect()
+        readFromDeviceIfc.afterDisconnect()
 
     // disconnect because of errors
 
     override fun onDeviceNotSupported(device: BluetoothDevice) {
         Log.w(TAG, "Disconnect because device not supported")
-        writeDeviceIfc.doDisconnect()
+        writeToDeviceIfc.doDisconnect()
     }
 
     override fun onBondingFailed(device: BluetoothDevice) {
         Log.w(TAG, "Disconnect because bonding failed")
-        writeDeviceIfc.doDisconnect()
+        writeToDeviceIfc.doDisconnect()
     }
 
     override fun onBondingRequired(device: BluetoothDevice) {
         Log.w(TAG, "Disconnect because bonding required")
-        writeDeviceIfc.doDisconnect()
+        writeToDeviceIfc.doDisconnect()
     }
 
     override fun onLinkLossOccurred(device: BluetoothDevice) {
         Log.w(TAG, "Disconnect because link loss")
-        writeDeviceIfc.doDisconnect()
+        writeToDeviceIfc.doDisconnect()
     }
 
     override fun onError(device: BluetoothDevice, message: String, errorCode: Int) {
         Log.w(TAG, "Disconnect because error $errorCode")
-        writeDeviceIfc.doDisconnect()
+        writeToDeviceIfc.doDisconnect()
     }
 
     // ignored

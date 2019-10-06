@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble.overview.fragments
+package com.pascaldornfeld.gsdble.connected.view.subfragments
 
 import android.graphics.Color
 import android.util.Log
@@ -57,8 +57,8 @@ class DoubleTimeGraphFragment : GraphFragment<Double>() {
     override fun formatterY(obj: Number, toAppendTo: StringBuffer): StringBuffer =
         toAppendTo.append(String.format("%.2f", obj.toDouble()))
 
-    override fun afterAddingData(p_time: Long, p_data: Double) {
-        vCurValue?.text = String.format("%.2f", p_data)
+    override fun afterAddingData(newest: Pair<Long, Double>?) {
+        vCurValue?.text = newest?.second?.let { String.format("%.2f", it) } ?: ""
     }
 
     override fun seriesInit(plot: XYPlot) {
@@ -101,8 +101,8 @@ class DoubleTimeGraphFragment : GraphFragment<Double>() {
 class LongTimeGraphFragment : GraphFragment<Long>() {
     var dataDescription = ""
 
-    override fun afterAddingData(p_time: Long, p_data: Long) {
-        vCurValue?.text = p_data.toString()
+    override fun afterAddingData(newest: Pair<Long, Long>?) {
+        vCurValue?.text = newest?.second?.toString() ?: ""
     }
 
     override fun seriesInit(plot: XYPlot) {

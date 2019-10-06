@@ -1,7 +1,14 @@
-package com.pascaldornfeld.gsdble.overview.models
+package com.pascaldornfeld.gsdble.connected.gsdble_library.models
 
 import no.nordicsemi.android.ble.data.Data
 
+/**
+ * Model for data characteristic including conversion with ByteArray.
+ *
+ * @param accel_x data of x-axis of accelerometer
+ * @param gyro_x data of x-axis of gyroscope
+ * @param time sensor time in 6.4 ms units
+ */
 data class ImuData(
     val accel_x: Short,
     val accel_y: Short,

@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble
+package com.pascaldornfeld.gsdble.scan
 
 
 import android.bluetooth.BluetoothDevice
@@ -6,6 +6,7 @@ import android.bluetooth.le.ScanResult
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.pascaldornfeld.gsdble.R
 import kotlinx.android.synthetic.main.connect_viewholder.view.*
 
 /**
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.connect_viewholder.view.*
  * @param connectCallback what to do, when user wants to doConnect to the device
  * @param parentViewGroup viewGroup where viewHolder should be added
  */
-class DeviceViewHolder(val connectCallback: (BluetoothDevice) -> Unit, parentViewGroup: ViewGroup) :
+class ScanViewHolder(val connectCallback: (BluetoothDevice) -> Unit, parentViewGroup: ViewGroup) :
     RecyclerView.ViewHolder(
         LayoutInflater.from(parentViewGroup.context).inflate(
             R.layout.connect_viewholder,

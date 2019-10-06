@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble
+package com.pascaldornfeld.gsdble.main
 
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
@@ -14,46 +14,71 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.size
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProviders
+import com.pascaldornfeld.gsdble.R
+import com.pascaldornfeld.gsdble.connected.GsdbleViewModel
+import com.pascaldornfeld.gsdble.connected.gsdble_library.GsdbleManager
+import com.pascaldornfeld.gsdble.connected.view.DeviceFragment
+import com.pascaldornfeld.gsdble.scan.ScanFragment
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : FragmentActivity(), DeviceFragment.RemovableDeviceActivity {
     private val bleReady = MutableLiveData<Boolean>()
     private val bluetoothAdapter: BluetoothAdapter? by lazy { (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager?)?.adapter }
-    private val fragmentList = mutableListOf<DeviceFragment>()
-    private lateinit var fragmentAdapter: MyFragmentPagerAdapter<DeviceFragment>
+    private val fragmentList = mutableListOf<Pair<GsdbleManager, DeviceFragment>>()
+    private lateinit var fragmentAdapter: MainFragmentPagerAdapter<DeviceFragment, Pair<GsdbleManager, DeviceFragment>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        val connectFragment = ConnectFragment()
+        val connectFragment = ScanFragment()
         connectFragment.initialize(
             bleReady,
             { bluetoothAdapter!!.bluetoothLeScanner },
             { addDeviceFragment(it) },
             {
-                // check isInLayout so no devices will be added when one is currently connecting
                 fragmentList.none { knownDevice ->
-                    (knownDevice.isInLayout && knownDevice.device.address == it.address)
+                    (knownDevice.first.device.address == it.address)
                 }
             }
         )
         fragmentAdapter =
-            MyFragmentPagerAdapter(supportFragmentManager, connectFragment, fragmentList)
+            MainFragmentPagerAdapter(
+                supportFragmentManager,
+                connectFragment,
+                fragmentList
+            )
         vFragmentPager.adapter = fragmentAdapter
     }
 
+    /**
+     * remove the fragment from the adapter-list
+     */
     override fun removeDeviceFragment(device: BluetoothDevice) {
-        fragmentList.removeIf { it.device.address == device.address }
+        fragmentList.removeIf { it.first.device.address == device.address }
         fragmentAdapter.notifyDataSetChanged()
     }
 
+    /**
+     * create a device-fragment. connect to the device.
+     * add the fragment to the adapter-list
+     */
     private fun addDeviceFragment(device: BluetoothDevice) {
-        fragmentList.add(DeviceFragment.newInstance(device))
+        val gsdbleFragment = DeviceFragment()
+        // TODO Can't create ViewModelProvider for detached fragment
+        val itsViewModel = ViewModelProviders.of(gsdbleFragment).get(GsdbleViewModel::class.java)
+        val gsdbleManager = GsdbleManager(device, this, itsViewModel)
+        gsdbleFragment.setWriteToDeviceIfc(gsdbleManager)
+
+        fragmentList.add(Pair(gsdbleManager, gsdbleFragment))
         fragmentAdapter.notifyDataSetChanged()
         vFragmentPager.setCurrentItem(vFragmentPager.size - 1, true)
     }
 
+    /**
+     * check all the permissions and requirements for a ble scan
+     */
     override fun onResume() {
         super.onResume()
         bleReady.postValue(false)

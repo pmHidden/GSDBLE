@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble.overview.fragments
+package com.pascaldornfeld.gsdble.connected.view.subfragments
 
 import android.graphics.Canvas
 import android.os.Bundle
@@ -28,10 +28,6 @@ import java.util.concurrent.atomic.AtomicBoolean
 abstract class GraphFragment<DataType> : Fragment() {
     private val canUpdate = AtomicBoolean(true) // if data can be updated
     protected var data = listOf<Pair<Long, DataType>>() // snapshots of internalData for vPlot
-    val internalData =
-        mutableListOf<Pair<Long, DataType>>() // use only on the same thread as calling addData
-    var showSeconds = 5 // show 5 seconds
-    var timestepScalingMs: Float = 6.4f
 
     /** How to print values of DataType on the axis. Default implementation prints as Integer */
     open fun formatterY(obj: Number, toAppendTo: StringBuffer): StringBuffer =
@@ -42,8 +38,6 @@ abstract class GraphFragment<DataType> : Fragment() {
         vTitle?.text = title
         vPlotGraph?.setTitle(title)
     }
-
-    fun addData(p_time: Int, p_data: DataType) = addData(p_time.toLong(), p_data)
 
     /** add data series in this method */
     abstract fun seriesInit(plot: XYPlot)
@@ -108,26 +102,14 @@ abstract class GraphFragment<DataType> : Fragment() {
         return view
     }
 
-    fun addData(p_time: Long, p_data: DataType) {
-        // add newest data
-        internalData.add(Pair(p_time, p_data))
-
-        // clear all in case of overflow of time variable on device
-        if (internalData.first().first > p_time) internalData.clear()
-
-        // remove too old data
-        while (internalData.isNotEmpty() && internalData.first().first + (((showSeconds * 1000.0f) / timestepScalingMs)).toLong() < p_time)
-            internalData.removeAt(0)
-
-        // make snapshot and plot data if enabled and ready
+    fun updateData(newDataList: List<Pair<Long, DataType>>) {
         if (isResumed && !isPausedByUser() && canUpdate.compareAndSet(true, false)) {
-            data = internalData.toList()
+            data = newDataList.toList()
             vPlotGraph?.redraw()
         }
-
-        afterAddingData(p_time, p_data)
+        afterAddingData(newDataList.lastOrNull())
     }
 
     /** New data can be printed into vCurValue */
-    open fun afterAddingData(p_time: Long, p_data: DataType) = Unit
+    open fun afterAddingData(newest: Pair<Long, DataType>?) = Unit
 }

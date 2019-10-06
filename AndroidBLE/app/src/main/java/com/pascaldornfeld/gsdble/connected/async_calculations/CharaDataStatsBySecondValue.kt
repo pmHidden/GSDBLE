@@ -1,14 +1,14 @@
-package com.pascaldornfeld.gsdble.overview.components
+package com.pascaldornfeld.gsdble.connected.async_calculations
 
-import com.pascaldornfeld.gsdble.overview.fragments.GraphFragment
+import com.pascaldornfeld.gsdble.connected.SmallDataHolder
 import kotlin.math.pow
 import kotlin.math.sqrt
 
 class CharaDataStatsBySecondValue(
     timestamp: Long,
-    averageGraph: GraphFragment<Double>?,
-    deviationGraph: GraphFragment<Double>?
-) : CharaDataStatsCalculatorAsyncTask(timestamp, averageGraph, deviationGraph) {
+    averageDataHolder: SmallDataHolder<Double>?,
+    deviationDataHolder: SmallDataHolder<Double>?
+) : CharaDataStatsCalculatorAsyncTask(timestamp, averageDataHolder, deviationDataHolder) {
 
     override fun doInBackground(vararg params: Array<Pair<Long, Long>>?): Double? {
         assert(params.isNotEmpty())

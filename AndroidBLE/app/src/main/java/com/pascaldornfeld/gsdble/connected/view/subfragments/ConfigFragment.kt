@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble.overview.fragments
+package com.pascaldornfeld.gsdble.connected.view.subfragments
 
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothGatt
@@ -11,7 +11,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.pascaldornfeld.gsdble.R
-import com.pascaldornfeld.gsdble.overview.models.ImuConfig
+import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
 
 
 abstract class ConfigFragment<DataType> : Fragment() {
