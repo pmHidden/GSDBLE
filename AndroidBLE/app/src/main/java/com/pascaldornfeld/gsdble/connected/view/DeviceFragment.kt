@@ -34,8 +34,6 @@ class DeviceFragment : Fragment() {
     }
 
     private var removableDeviceActivity: RemovableDeviceActivity? = null
-    lateinit var device: BluetoothDevice
-        private set
     private var writeToDeviceIfc: WriteToDeviceIfc? = null
 
     private val lastConfig = AtomicReference<ImuConfig?>()
@@ -45,6 +43,7 @@ class DeviceFragment : Fragment() {
         fun removeDeviceFragment(device: BluetoothDevice)
     }
 
+    fun device() = requireArguments().getParcelable<BluetoothDevice>(DEVICE)!!
 
     // lifecycle
 
@@ -64,11 +63,11 @@ class DeviceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.device_fragment, container, false)
-        viewModel.disconnected.observe(viewLifecycleOwner, Observer<Boolean> { maybe ->
+        viewModel.disconnected.observe(viewLifecycleOwner, Observer<Boolean?> { maybe ->
             maybe?.let {
                 if (it) {
                     writeToDeviceIfc = null
-                    removableDeviceActivity?.removeDeviceFragment(device)
+                    removableDeviceActivity?.removeDeviceFragment(device())
                         ?: Log.w(TAG, "Activity is not a RemovableDeviceActivity")
                 }
             }
@@ -78,7 +77,7 @@ class DeviceFragment : Fragment() {
             vGraphAccel.setTitle("Accelerometer")
             viewModel.dataAccel.getData().observe(
                 vGraphAccel.viewLifecycleOwner,
-                Observer<List<Pair<Long, Triple<Short, Short, Short>>>> { maybeList ->
+                Observer<List<Pair<Long, Triple<Short, Short, Short>>>?> { maybeList ->
                     maybeList?.let { list -> vGraphAccel.updateData(list) }
                 })
         }
@@ -86,7 +85,7 @@ class DeviceFragment : Fragment() {
             vGraphGyro.setTitle("Gyroscope")
             viewModel.dataGyro.getData().observe(
                 vGraphGyro.viewLifecycleOwner,
-                Observer<List<Pair<Long, Triple<Short, Short, Short>>>> { maybeList ->
+                Observer<List<Pair<Long, Triple<Short, Short, Short>>>?> { maybeList ->
                     maybeList?.let { list -> vGraphGyro.updateData(list) }
                 })
         }
@@ -95,7 +94,7 @@ class DeviceFragment : Fragment() {
             vGraphTime.dataDescription = "data time vs delivery time"
             viewModel.dataTime.getData().observe(
                 vGraphTime.viewLifecycleOwner,
-                Observer<List<Pair<Long, Long>>> { maybeList ->
+                Observer<List<Pair<Long, Long>>?> { maybeList ->
                     maybeList?.let { list -> vGraphTime.updateData(list) }
                 })
         }
@@ -104,7 +103,7 @@ class DeviceFragment : Fragment() {
             vGraphTimeDeviation.dataDescription = "deviation"
             viewModel.dataTimeDev.getData().observe(
                 vGraphTimeDeviation.viewLifecycleOwner,
-                Observer<List<Pair<Long, Double>>> { maybeList ->
+                Observer<List<Pair<Long, Double>>?> { maybeList ->
                     maybeList?.let { list -> vGraphTimeDeviation.updateData(list) }
                 })
         }
@@ -113,7 +112,7 @@ class DeviceFragment : Fragment() {
             vGraphDataRate.dataDescription = "data time vs data rate"
             viewModel.dataDataRate.getData().observe(
                 vGraphDataRate.viewLifecycleOwner,
-                Observer<List<Pair<Long, Long>>> { maybeList ->
+                Observer<List<Pair<Long, Long>>?> { maybeList ->
                     maybeList?.let { list -> vGraphDataRate.updateData(list) }
                 })
         }
@@ -122,7 +121,7 @@ class DeviceFragment : Fragment() {
             vGraphDataRateAverage.dataDescription = "average"
             viewModel.dataDataRateAvg.getData().observe(
                 vGraphDataRateAverage.viewLifecycleOwner,
-                Observer<List<Pair<Long, Double>>> { maybeList ->
+                Observer<List<Pair<Long, Double>>?> { maybeList ->
                     maybeList?.let { list -> vGraphDataRateAverage.updateData(list) }
                 })
         }
@@ -131,7 +130,7 @@ class DeviceFragment : Fragment() {
             vGraphDataRateDeviation.dataDescription = "deviation"
             viewModel.dataDataRateDev.getData().observe(
                 vGraphDataRateDeviation.viewLifecycleOwner,
-                Observer<List<Pair<Long, Double>>> { maybeList ->
+                Observer<List<Pair<Long, Double>>?> { maybeList ->
                     maybeList?.let { list -> vGraphDataRateDeviation.updateData(list) }
                 })
         }
@@ -142,7 +141,7 @@ class DeviceFragment : Fragment() {
             vConfigIntv.functionToApply = { writeToDeviceIfc?.writeConnectionPriority(it) }
             viewModel.dataIntervalSeconds.observe(
                 vConfigIntv.viewLifecycleOwner,
-                Observer<Int> { maybeIntv ->
+                Observer<Int?> { maybeIntv ->
                     maybeIntv?.let { intv -> vConfigIntv.setNewData(intv) }
                 })
         }
@@ -151,7 +150,7 @@ class DeviceFragment : Fragment() {
             vConfigMtu.functionToApply = { writeToDeviceIfc?.writeMtu(it) }
             viewModel.dataMtu.observe(
                 vConfigMtu.viewLifecycleOwner,
-                Observer<Int> { maybeMtu ->
+                Observer<Int?> { maybeMtu ->
                     maybeMtu?.let { mtu -> vConfigMtu.setNewData(mtu) }
                 })
         }
@@ -172,7 +171,7 @@ class DeviceFragment : Fragment() {
         }
         viewModel.dataImuConfig.observe(
             viewLifecycleOwner,
-            Observer<ImuConfig> { maybeConfig ->
+            Observer<ImuConfig?> { maybeConfig ->
                 maybeConfig?.let { config ->
                     lastConfig.set(config)
                     vConfigOdr.setNewData(config.odrIndex)
@@ -194,10 +193,16 @@ class DeviceFragment : Fragment() {
 
     // object-related
 
-    override fun toString(): String = "DeviceFragment(device=$device)"
+    override fun toString(): String = "DeviceFragment(device=${device()})"
 
     companion object {
         private val TAG = DeviceFragment::class.java.simpleName.filter { it.isUpperCase() }
+        const val DEVICE = "BluetoothDevice"
+
+        fun newInstance(device: BluetoothDevice): DeviceFragment =
+            DeviceFragment().apply {
+                arguments = Bundle().apply { putParcelable(DEVICE, device) }
+            }
     }
 
 

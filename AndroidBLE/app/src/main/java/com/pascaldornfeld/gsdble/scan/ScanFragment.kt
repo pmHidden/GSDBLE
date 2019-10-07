@@ -41,14 +41,12 @@ class ScanFragment : Fragment() {
 
             override fun onScanResult(callbackType: Int, result: ScanResult?) {
                 super.onScanResult(callbackType, result)
-                Log.i(TAG, "found device!")
                 if (result != null && isDeviceNotConnected(result.device)) devicesFound =
                     devicesFound.plusElement(result).distinctBy { it.device.address }
             }
 
             override fun onBatchScanResults(results: MutableList<ScanResult>?) {
                 super.onBatchScanResults(results)
-                Log.i(TAG, "found devices!")
                 if (results != null) devicesFound =
                     devicesFound.plus(results.filter { isDeviceNotConnected(it.device) })
                         .distinctBy { it.device.address }
@@ -78,9 +76,8 @@ class ScanFragment : Fragment() {
         this.isDeviceNotConnected = isDeviceAlreadyConnected
         scanAllowed.observe(
             this,
-            Observer<Boolean> { t ->
-                if (t != null) view?.vStartScanButton?.isEnabled = t
-            })
+            Observer<Boolean?> { it?.let { view?.vStartScanButton?.isEnabled = it } }
+        )
     }
 
 
@@ -109,7 +106,8 @@ class ScanFragment : Fragment() {
         view.vDevicesList.layoutManager =
             LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
         view.vDevicesList.adapter = adapter
-        view.vStartScanButton.isEnabled = false
+        val buttonEnabled = scanAllowed?.value ?: false
+        view.vStartScanButton.isEnabled = buttonEnabled
         view.vStartScanButton.setOnClickListener {
             if (scanning) stopScan()
             else startScan()
@@ -169,7 +167,6 @@ class ScanFragment : Fragment() {
                             { stopScan() },
                             SCAN_PERIOD
                         )
-                        Log.i(TAG, "scan started!")
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -196,7 +193,6 @@ class ScanFragment : Fragment() {
                         handler.removeCallbacksAndMessages(null)
                         vStartScanButton.text = getString(R.string.scan_start)
                         scanning = false
-                        Log.i(TAG, "scan stopped!")
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()

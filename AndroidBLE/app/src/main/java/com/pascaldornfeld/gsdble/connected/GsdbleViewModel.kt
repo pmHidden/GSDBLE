@@ -26,7 +26,7 @@ class GsdbleViewModel(application: Application) : AndroidViewModel(application),
     val disconnected = MutableLiveData<Boolean>(false)
 
     init {
-        disconnected.observeForever(object : Observer<Boolean> {
+        disconnected.observeForever(object : Observer<Boolean?> {
             override fun onChanged(t: Boolean?) {
                 if (t != null && t) {
                     clearScheduled.set(true)

@@ -22,11 +22,12 @@ import java.util.*
  * @param readFromDeviceIfc Implementation of a ReadFromDeviceInterface. Responses from gsdble device are calling its methods
  */
 class GsdbleManager(
-    val device: BluetoothDevice,
+    device: BluetoothDevice,
     context: Context,
     readFromDeviceIfc: ReadFromDeviceIfc
 ) : WriteToDeviceIfc {
-    private val gsdbleManager = GsdbleBleManager(device, context, readFromDeviceIfc, this)
+    private val gsdbleManager = GsdbleBleManager(context, readFromDeviceIfc, this)
+        .apply { connect(device).enqueue() }
 
     // WriteToDeviceIfc
 
@@ -46,8 +47,7 @@ class GsdbleManager(
 
     // BleManager
 
-    private inner class GsdbleBleManager(
-        device: BluetoothDevice,
+    private class GsdbleBleManager(
         context: Context,
         var readFromDeviceIfc: ReadFromDeviceIfc,
         writeToDeviceIfc: WriteToDeviceIfc
@@ -59,7 +59,6 @@ class GsdbleManager(
                     writeToDeviceIfc
                 )
             )
-            connect(device).enqueue()
         }
 
         // internal pseudo-WriteToDeviceIfc
