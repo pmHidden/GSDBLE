@@ -153,6 +153,5 @@ class MainActivity : FragmentActivity(), DeviceFragment.RemovableDeviceActivity 
     companion object {
         private const val REQUEST_ENABLE_BT = 1
         private const val REQUEST_PERMISSION_LOC = 2
-        private val TAG = MainActivity::class.java.simpleName.filter { it.isUpperCase() }
     }
 }

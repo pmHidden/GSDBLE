@@ -7,4 +7,5 @@
     <string name="render">Render</string>
     <string name="connect">connect</string>
     <string name="apply">Apply</string>
+    <string name="disconnect">disconnect</string>
 </resources>
