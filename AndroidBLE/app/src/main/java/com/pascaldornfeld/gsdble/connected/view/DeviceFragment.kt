@@ -141,10 +141,10 @@ class DeviceFragment : Fragment() {
         fId<IntervalFragment>(R.id.vConfigIntv)!!.also { vConfigIntv ->
             vConfigIntv.setTitle("Interval Time")
             vConfigIntv.functionToApply = { writeToDeviceIfc?.writeConnectionPriority(it) }
-            viewModel.dataIntervalSeconds.observe(
+            viewModel.dataInterval.observe(
                 vConfigIntv.viewLifecycleOwner,
                 Observer<Int?> { maybeIntv ->
-                    maybeIntv?.let { intv -> vConfigIntv.applyDataFromIntervalTime(intv) }
+                    maybeIntv?.let { intv -> vConfigIntv.setNewData(intv) }
                 })
         }
         fId<MtuFragment>(R.id.vConfigMtu)!!.also { vConfigMtu ->

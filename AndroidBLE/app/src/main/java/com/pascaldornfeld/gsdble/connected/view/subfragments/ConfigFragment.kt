@@ -1,6 +1,7 @@
 package com.pascaldornfeld.gsdble.connected.view.subfragments
 
 import android.annotation.SuppressLint
+import android.bluetooth.BluetoothGatt
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -97,25 +98,23 @@ class PauseFragment : ConfigFragment<Boolean>() {
 class IntervalFragment : ConfigFragment<Int>() {
     override var functionToApply: ((Int) -> Unit)? = null
 
-    override fun getDataArray(): Array<Int> = arrayOf(0, 1, 2)
+    private val prioArray = arrayOf(
+        BluetoothGatt.CONNECTION_PRIORITY_LOW_POWER,
+        BluetoothGatt.CONNECTION_PRIORITY_BALANCED,
+        BluetoothGatt.CONNECTION_PRIORITY_HIGH
+    )
+
+    override fun getDataArray(): Array<Int> = prioArray
 
     override fun getStringRepresentationFromData(data: Int): String = when (data) {
-        0 -> "LOW_POWER"
-        1 -> "BALANCED"
-        2 -> "HIGH"
+        BluetoothGatt.CONNECTION_PRIORITY_LOW_POWER -> "LOW_POWER"
+        BluetoothGatt.CONNECTION_PRIORITY_BALANCED -> "BALANCED"
+        BluetoothGatt.CONNECTION_PRIORITY_HIGH -> "HIGH"
         else -> "unknown"
     }
 
-    fun applyDataFromIntervalTime(intervalInMs: Int) = setNewData(
-        when (intervalInMs) {
-            in Int.MIN_VALUE..22 -> 0
-            in 23..75 -> 1
-            else -> 2
-        }
-    )
-
     override fun applyNewData(index: Int) {
-        functionToApply?.invoke(index)
+        functionToApply?.invoke(prioArray[index])
     }
 }
 

@@ -1,6 +1,7 @@
 package com.pascaldornfeld.gsdble.connected
 
 import android.app.Application
+import android.bluetooth.BluetoothGatt
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -22,7 +23,7 @@ class GsdbleViewModel(application: Application) : AndroidViewModel(application),
     val dataDataRateAvg = SmallDataHolder<Double>(10, 1000f)
     val dataDataRateDev = SmallDataHolder<Double>(10, 1000f)
     val dataMtu = MutableLiveData<Int>()
-    val dataIntervalSeconds = MutableLiveData<Int>()
+    val dataInterval = MutableLiveData<Int>()
     val dataImuConfig = MutableLiveData<ImuConfig>()
     val disconnected = MutableLiveData<Boolean>(false)
 
@@ -102,7 +103,13 @@ class GsdbleViewModel(application: Application) : AndroidViewModel(application),
     override fun readMtu(mtu: Int) = dataMtu.postValue(mtu)
 
     override fun readConnectionSpeed(interval: Int, latency: Int, timeout: Int) =
-        dataIntervalSeconds.postValue(interval)
+        dataInterval.postValue(
+            when (interval) {
+                in Int.MIN_VALUE..22 -> BluetoothGatt.CONNECTION_PRIORITY_HIGH
+                in 23..75 -> BluetoothGatt.CONNECTION_PRIORITY_BALANCED
+                else -> BluetoothGatt.CONNECTION_PRIORITY_LOW_POWER
+            }
+        )
 
     companion object {
         private val TAG = GsdbleViewModel::class.java.simpleName.filter { it.isUpperCase() }
