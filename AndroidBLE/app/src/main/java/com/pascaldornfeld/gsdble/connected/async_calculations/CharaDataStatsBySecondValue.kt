@@ -7,7 +7,7 @@ import kotlin.math.sqrt
 class CharaDataStatsBySecondValue(
     timestamp: Long,
     averageDataHolder: SmallDataHolder<Double>?,
-    deviationDataHolder: SmallDataHolder<Double>?
+    private val deviationDataHolder: SmallDataHolder<Double>?
 ) : CharaDataStatsCalculatorAsyncTask(timestamp, averageDataHolder, deviationDataHolder) {
 
     override fun doInBackground(vararg params: Array<Pair<Long, Long>>?): Double? {
@@ -18,7 +18,7 @@ class CharaDataStatsBySecondValue(
             // calculate average
             val avgTime = inputArray.map { it.second }.average()
             publishProgress(avgTime)
-            if (isCancelled) return null
+            if (isCancelled || deviationDataHolder == null) return null
 
             // calculate variance
             var sum = 0.0

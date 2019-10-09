@@ -37,18 +37,6 @@
             android:layout_height="wrap_content" />
 
         <fragment
-            android:id="@+id/vGraphTime"
-            android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.LongTimeGraphFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <fragment
-            android:id="@+id/vGraphTimeDeviation"
-            android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.DoubleTimeGraphFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <fragment
             android:id="@+id/vGraphDataRate"
             android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.LongTimeGraphFragment"
             android:layout_width="match_parent"
@@ -56,12 +44,6 @@
 
         <fragment
             android:id="@+id/vGraphDataRateAverage"
-            android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.DoubleTimeGraphFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <fragment
-            android:id="@+id/vGraphDataRateDeviation"
             android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.DoubleTimeGraphFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

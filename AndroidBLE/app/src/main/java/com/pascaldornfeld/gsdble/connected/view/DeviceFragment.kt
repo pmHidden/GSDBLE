@@ -91,24 +91,6 @@ class DeviceFragment : Fragment() {
                     maybeList?.let { list -> vGraphGyro.updateData(list) }
                 })
         }
-        fId<LongTimeGraphFragment>(R.id.vGraphTime)!!.also { vGraphTime ->
-            vGraphTime.setTitle("Packet Delivery Time")
-            vGraphTime.dataDescription = "data time vs delivery time"
-            viewModel.dataTime.getData().observe(
-                vGraphTime.viewLifecycleOwner,
-                Observer<List<Pair<Long, Long>>?> { maybeList ->
-                    maybeList?.let { list -> vGraphTime.updateData(list) }
-                })
-        }
-        fId<DoubleTimeGraphFragment>(R.id.vGraphTimeDeviation)!!.also { vGraphTimeDeviation ->
-            vGraphTimeDeviation.setTitle("Time Deviation")
-            vGraphTimeDeviation.dataDescription = "deviation"
-            viewModel.dataTimeDev.getData().observe(
-                vGraphTimeDeviation.viewLifecycleOwner,
-                Observer<List<Pair<Long, Double>>?> { maybeList ->
-                    maybeList?.let { list -> vGraphTimeDeviation.updateData(list) }
-                })
-        }
         fId<LongTimeGraphFragment>(R.id.vGraphDataRate)!!.also { vGraphDataRate ->
             vGraphDataRate.setTitle("Data Rate")
             vGraphDataRate.dataDescription = "data time vs data rate"
@@ -127,16 +109,6 @@ class DeviceFragment : Fragment() {
                     maybeList?.let { list -> vGraphDataRateAverage.updateData(list) }
                 })
         }
-        fId<DoubleTimeGraphFragment>(R.id.vGraphDataRateDeviation)!!.also { vGraphDataRateDeviation ->
-            vGraphDataRateDeviation.setTitle("Data Rate Deviation")
-            vGraphDataRateDeviation.dataDescription = "deviation"
-            viewModel.dataDataRateDev.getData().observe(
-                vGraphDataRateDeviation.viewLifecycleOwner,
-                Observer<List<Pair<Long, Double>>?> { maybeList ->
-                    maybeList?.let { list -> vGraphDataRateDeviation.updateData(list) }
-                })
-        }
-
         // mtu and interval config
         fId<IntervalFragment>(R.id.vConfigIntv)!!.also { vConfigIntv ->
             vConfigIntv.setTitle("Interval Time")
@@ -181,7 +153,6 @@ class DeviceFragment : Fragment() {
 
                     viewModel.dataAccel.clearData()
                     viewModel.dataGyro.clearData()
-                    viewModel.dataTime.clearData()
                     viewModel.dataDataRate.clearData()
                 }
             })

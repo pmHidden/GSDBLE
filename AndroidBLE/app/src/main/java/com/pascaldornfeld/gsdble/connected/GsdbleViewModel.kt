@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.pascaldornfeld.gsdble.connected.async_calculations.CharaDataStatsByGradient
 import com.pascaldornfeld.gsdble.connected.async_calculations.CharaDataStatsBySecondValue
 import com.pascaldornfeld.gsdble.connected.gsdble_library.ReadFromDeviceIfc
 import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
@@ -15,13 +14,10 @@ import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicBoolean
 
 class GsdbleViewModel(application: Application) : AndroidViewModel(application), ReadFromDeviceIfc {
-    val dataAccel = SmallDataHolder<Triple<Short, Short, Short>>(5, 6.4f)
-    val dataGyro = SmallDataHolder<Triple<Short, Short, Short>>(5, 6.4f)
-    val dataTime = SmallDataHolder<Long>(5, 1000f)
-    val dataTimeDev = SmallDataHolder<Double>(10, 1000f)
+    val dataAccel = SmallDataHolder<Triple<Short, Short, Short>>(2, 6.4f)
+    val dataGyro = SmallDataHolder<Triple<Short, Short, Short>>(2, 6.4f)
     val dataDataRate = SmallDataHolder<Long>(300, 1000f)
     val dataDataRateAvg = SmallDataHolder<Double>(10, 1000f)
-    val dataDataRateDev = SmallDataHolder<Double>(10, 1000f)
     val dataMtu = MutableLiveData<Int>()
     val dataInterval = MutableLiveData<Int>()
     val dataImuConfig = MutableLiveData<ImuConfig>()
@@ -40,7 +36,6 @@ class GsdbleViewModel(application: Application) : AndroidViewModel(application),
     // ReadFromDeviceIfc
 
     private val dataRateStatExecutor = Executors.newSingleThreadExecutor()
-    private val graphTimeStatExecutor = Executors.newSingleThreadExecutor()
     private val clearScheduled = AtomicBoolean(false)
     private var currentTrackedSecond = 0L
     private var packetsThisSecond = 0L
@@ -55,7 +50,6 @@ class GsdbleViewModel(application: Application) : AndroidViewModel(application),
             imuData.time,
             Triple(imuData.gyro_x, imuData.gyro_y, imuData.gyro_z)
         )
-        val currentDataTimeList = dataTime.addData(imuData.time, timeOfPacketArrival)
 
         val thisSecond = timeOfPacketArrival / 1000L
         if (thisSecond != currentTrackedSecond) {
@@ -63,28 +57,13 @@ class GsdbleViewModel(application: Application) : AndroidViewModel(application),
                 val currentDataRateList =
                     dataDataRate.addData(currentTrackedSecond, packetsThisSecond)
 
-                // TODO: fix gradient graph
-                // the first graph will not work, when there are multiple y values for the same x values.
-                // in that case, it will just print NaN, because it cant calculate the gradient.
-                // This happens on LSM6DSL, when the sensordatarate is < 6.4 ms (> 125 Hz).
-                // So on LSM6DSL, when you setup a sensordatarate of 200 hz or more.
-                val clearGraphs = clearScheduled.compareAndSet(true, false)
-                val graphTimeData =
-                    if (clearGraphs) null
-                    else currentDataTimeList.toTypedArray()
-                CharaDataStatsByGradient(
-                    currentTrackedSecond,
-                    null,
-                    dataTimeDev
-                ).executeOnExecutor(graphTimeStatExecutor, graphTimeData)
-
                 val dataRateData =
-                    if (clearGraphs) null
+                    if (clearScheduled.compareAndSet(true, false)) null
                     else currentDataRateList.toTypedArray()
                 CharaDataStatsBySecondValue(
                     currentTrackedSecond,
                     dataDataRateAvg,
-                    dataDataRateDev
+                    null
                 ).executeOnExecutor(dataRateStatExecutor, dataRateData)
             }
             currentTrackedSecond = thisSecond
