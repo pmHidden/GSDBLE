@@ -1,6 +1,7 @@
 package com.pascaldornfeld.gsdble.connected
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -93,10 +94,17 @@ class GsdbleViewModel(application: Application) : AndroidViewModel(application),
 
     override fun afterDisconnect() = disconnected.postValue(true)
 
-    override fun readImuConfig(imuConfig: ImuConfig) = dataImuConfig.postValue(imuConfig)
+    override fun readImuConfig(imuConfig: ImuConfig) {
+        Log.i(TAG, "New Imu Config: $imuConfig")
+        dataImuConfig.postValue(imuConfig)
+    }
 
     override fun readMtu(mtu: Int) = dataMtu.postValue(mtu)
 
     override fun readConnectionSpeed(interval: Int, latency: Int, timeout: Int) =
         dataIntervalSeconds.postValue(interval)
+
+    companion object {
+        private val TAG = GsdbleViewModel::class.java.simpleName.filter { it.isUpperCase() }
+    }
 }

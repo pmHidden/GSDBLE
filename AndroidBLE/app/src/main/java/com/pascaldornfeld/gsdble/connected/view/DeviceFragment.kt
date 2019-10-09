@@ -16,6 +16,7 @@ import com.pascaldornfeld.gsdble.connected.GsdbleViewModel
 import com.pascaldornfeld.gsdble.connected.gsdble_library.WriteToDeviceIfc
 import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
 import com.pascaldornfeld.gsdble.connected.view.subfragments.*
+import kotlinx.android.synthetic.main.device_fragment.view.*
 import java.util.concurrent.atomic.AtomicReference
 
 
@@ -72,6 +73,7 @@ class DeviceFragment : Fragment() {
                 }
             }
         })
+        view.vDeviceAddress.text = device().address
         // datas
         fId<SensorGraphFragment>(R.id.vGraphAccel)!!.also { vGraphAccel ->
             vGraphAccel.setTitle("Accelerometer")
@@ -142,7 +144,7 @@ class DeviceFragment : Fragment() {
             viewModel.dataIntervalSeconds.observe(
                 vConfigIntv.viewLifecycleOwner,
                 Observer<Int?> { maybeIntv ->
-                    maybeIntv?.let { intv -> vConfigIntv.setNewData(intv) }
+                    maybeIntv?.let { intv -> vConfigIntv.applyDataFromIntervalTime(intv) }
                 })
         }
         fId<MtuFragment>(R.id.vConfigMtu)!!.also { vConfigMtu ->
@@ -183,6 +185,8 @@ class DeviceFragment : Fragment() {
                     viewModel.dataDataRate.clearData()
                 }
             })
+        // disconnect
+        view.vDisconnectButton.setOnClickListener { writeToDeviceIfc?.doDisconnect() }
         return view
     }
 

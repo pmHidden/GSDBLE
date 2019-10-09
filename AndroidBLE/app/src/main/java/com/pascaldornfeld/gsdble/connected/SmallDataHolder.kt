@@ -24,7 +24,7 @@ class SmallDataHolder<DataType>(
         val nonemptyDataWithoutOverflow =
             if (oldData == null || oldData.isEmpty() || oldData.first().first > p_time) emptyList() else oldData
         val filteredDataWithNewData =
-            nonemptyDataWithoutOverflow.dropWhile { (((showSeconds * 1000.0f) / timestepScalingMs)).toLong() < p_time }
+            nonemptyDataWithoutOverflow.dropWhile { it.first + (((showSeconds * 1000.0f) / timestepScalingMs)).toLong() < p_time }
         return filteredDataWithNewData.plus(Pair(p_time, p_data)).also { data.postValue(it) }
     }
 

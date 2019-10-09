@@ -1,7 +1,6 @@
 package com.pascaldornfeld.gsdble.connected.view.subfragments
 
 import android.annotation.SuppressLint
-import android.bluetooth.BluetoothGatt
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.pascaldornfeld.gsdble.R
 import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
-
 
 abstract class ConfigFragment<DataType> : Fragment() {
     private var vTitle: TextView? = null
@@ -102,9 +100,9 @@ class IntervalFragment : ConfigFragment<Int>() {
     override fun getDataArray(): Array<Int> = arrayOf(0, 1, 2)
 
     override fun getStringRepresentationFromData(data: Int): String = when (data) {
-        0 -> BluetoothGatt.CONNECTION_PRIORITY_LOW_POWER.javaClass.name
-        1 -> BluetoothGatt.CONNECTION_PRIORITY_BALANCED.javaClass.name
-        2 -> BluetoothGatt.CONNECTION_PRIORITY_HIGH.javaClass.name
+        0 -> "LOW_POWER"
+        1 -> "BALANCED"
+        2 -> "HIGH"
         else -> "unknown"
     }
 

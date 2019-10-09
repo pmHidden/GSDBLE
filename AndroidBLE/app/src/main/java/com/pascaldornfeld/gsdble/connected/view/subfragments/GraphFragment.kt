@@ -18,7 +18,6 @@ import com.androidplot.util.PixelUtils
 import com.androidplot.xy.XYGraphWidget
 import com.androidplot.xy.XYPlot
 import com.pascaldornfeld.gsdble.R
-import kotlinx.android.synthetic.main.fragment_graph.*
 import kotlinx.android.synthetic.main.fragment_graph.view.*
 import java.text.FieldPosition
 import java.text.Format
@@ -33,10 +32,10 @@ abstract class GraphFragment<DataType> : Fragment() {
     open fun formatterY(obj: Number, toAppendTo: StringBuffer): StringBuffer =
         toAppendTo.append(obj.toLong())
 
-    fun isPausedByUser(): Boolean = !(vCheckEnable?.isChecked ?: false)
+    private fun isPausedByUser(): Boolean = !(view?.vCheckEnable?.isChecked ?: false)
     fun setTitle(title: String) {
-        vTitle?.text = title
-        vPlotGraph?.setTitle(title)
+        view?.vTitle?.text = title
+        view?.vPlotGraph?.setTitle(title)
     }
 
     /** add data series in this method */
@@ -93,8 +92,8 @@ abstract class GraphFragment<DataType> : Fragment() {
 
         view.vCheckEnable.apply {
             setOnCheckedChangeListener { _, checked ->
-                if (checked) vPlotGraph?.visibility = VISIBLE
-                else vPlotGraph?.visibility = GONE
+                if (checked) view.vPlotGraph?.visibility = VISIBLE
+                else view.vPlotGraph?.visibility = GONE
             }
             isChecked = false
             view.vPlotGraph.visibility = GONE
@@ -103,9 +102,14 @@ abstract class GraphFragment<DataType> : Fragment() {
     }
 
     fun updateData(newDataList: List<Pair<Long, DataType>>) {
-        if (isResumed && !isPausedByUser() && canUpdate.compareAndSet(true, false)) {
+        val graph = view?.vPlotGraph
+        if (isResumed
+            && !isPausedByUser()
+            && graph != null
+            && canUpdate.compareAndSet(true, false)
+        ) {
             data = newDataList.toList()
-            vPlotGraph?.redraw()
+            graph.redraw()
         }
         afterAddingData(newDataList.lastOrNull())
     }
