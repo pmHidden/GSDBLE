@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble.main
+package com.pascaldornfeld.gsdble
 
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
@@ -16,12 +16,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.pascaldornfeld.gsdble.R
 import com.pascaldornfeld.gsdble.connected.GsdbleViewModel
 import com.pascaldornfeld.gsdble.connected.gsdble_library.GsdbleManager
 import com.pascaldornfeld.gsdble.connected.view.DeviceFragment
 import com.pascaldornfeld.gsdble.connected.view.DeviceFragment.Companion.DEVICE
-import com.pascaldornfeld.gsdble.scan.ScanFragment
+import com.pascaldornfeld.gsdble.scan.ScanDialogFragment
 import kotlinx.android.synthetic.main.main_activity.*
 
 
@@ -29,13 +28,13 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
     private var bleReady = true
     private val bluetoothAdapter: BluetoothAdapter? by lazy { (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager?)?.adapter }
     private val fragmentList = mutableListOf<DeviceFragment>()
-    private lateinit var connectDialog: ScanFragment
+    private lateinit var connectDialog: ScanDialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        connectDialog = ScanFragment().apply {
+        connectDialog = ScanDialogFragment().apply {
             initialize(
                 { bluetoothAdapter!!.bluetoothLeScanner },
                 { addDeviceFragment(it) },

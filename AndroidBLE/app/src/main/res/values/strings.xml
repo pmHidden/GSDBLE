@@ -6,4 +6,6 @@
     <string name="connect">connect</string>
     <string name="apply">Apply</string>
     <string name="disconnect">disconnect</string>
+    <string name="scanning">Scanning</string>
+    <string name="timeout">Timeout</string>
 </resources>

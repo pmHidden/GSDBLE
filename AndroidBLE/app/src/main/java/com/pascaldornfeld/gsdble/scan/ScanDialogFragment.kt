@@ -1,10 +1,9 @@
 package com.pascaldornfeld.gsdble.scan
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.bluetooth.BluetoothDevice
-import android.bluetooth.le.BluetoothLeScanner
-import android.bluetooth.le.ScanCallback
-import android.bluetooth.le.ScanResult
+import android.bluetooth.le.*
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -12,14 +11,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.pascaldornfeld.gsdble.BuildConfig
 import com.pascaldornfeld.gsdble.R
-import kotlinx.android.synthetic.main.connect_fragment.*
 import kotlinx.android.synthetic.main.connect_fragment.view.*
 
 /**
  * fragment to scan for new devices
  */
-class ScanFragment : DialogFragment() {
+class ScanDialogFragment : DialogFragment() {
     private lateinit var adapter: ScanAdapter
     private var devicesFound = emptyList<ScanResult>()
         set(value) {
@@ -82,6 +81,7 @@ class ScanFragment : DialogFragment() {
         }
     }
 
+    @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view = activity!!.layoutInflater.inflate(R.layout.connect_fragment, null).apply {
             vDevicesList.layoutManager =
@@ -91,6 +91,7 @@ class ScanFragment : DialogFragment() {
         return activity?.let {
             AlertDialog.Builder(it)
                 .setView(view)
+                .setTitle(R.string.scanning)
                 .setNegativeButton(android.R.string.cancel) { dialog, _ -> dialog.cancel() }
                 .create()
         } ?: throw IllegalStateException("Activity cannot be null")
@@ -110,7 +111,7 @@ class ScanFragment : DialogFragment() {
 
     companion object {
         private const val SCAN_PERIOD = 30000L
-        private val TAG = ScanFragment::class.java.simpleName.filter { it.isUpperCase() }
+        private val TAG = ScanDialogFragment::class.java.simpleName.filter { it.isUpperCase() }
     }
 
     /**
@@ -134,17 +135,20 @@ class ScanFragment : DialogFragment() {
                         // we are not advertising with service uuid, since service id is custom 128-bit, so it is too big to advertise with.
                         // this is why we must filter by device name.
                         scanner.startScan(
-                            /*listOf(ScanFilter.Builder().setDeviceName(getString(R.string.device_name)).build()),
-                            ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build(),*/
+                            listOf(ScanFilter.Builder().setDeviceName(BuildConfig.DEVICE_NAME).build()),
+                            ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build(),
                             leScanCallback
                         )
                         scanning = true
-                        vStartScanButton.text = getString(R.string.scan_stop)
                         handler.postDelayed(
                             {
                                 stopScan()
                                 context?.let { context ->
-                                    Toast.makeText(context, "timeout", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        context,
+                                        getString(R.string.timeout),
+                                        Toast.LENGTH_LONG
+                                    ).show()
                                 }
                             },
                             SCAN_PERIOD
@@ -173,7 +177,6 @@ class ScanFragment : DialogFragment() {
                     if (scanner != null) {
                         scanner.stopScan(leScanCallback)
                         handler.removeCallbacksAndMessages(null)
-                        vStartScanButton.text = getString(R.string.scan_start)
                         scanning = false
                     }
                 } catch (e: Exception) {
