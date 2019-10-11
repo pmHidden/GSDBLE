@@ -18,6 +18,7 @@ import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
 import com.pascaldornfeld.gsdble.connected.view.subfragments.*
 import kotlinx.android.synthetic.main.device_fragment.view.*
 import java.util.concurrent.atomic.AtomicReference
+import kotlin.math.roundToLong
 
 
 class DeviceFragment : Fragment() {
@@ -74,6 +75,11 @@ class DeviceFragment : Fragment() {
             }
         })
         view.vDeviceAddress.text = device().address
+        viewModel.dataDataRateAvg.observe(
+            viewLifecycleOwner,
+            Observer<Double?> { t ->
+                view.vGraphDataRateAverage.text = t?.roundToLong()?.toString() ?: "-"
+            })
         // datas
         fId<SensorGraphFragment>(R.id.vGraphAccel)!!.also { vGraphAccel ->
             vGraphAccel.setTitle("Accelerometer")
@@ -89,24 +95,6 @@ class DeviceFragment : Fragment() {
                 vGraphGyro.viewLifecycleOwner,
                 Observer<List<Pair<Long, Triple<Short, Short, Short>>>?> { maybeList ->
                     maybeList?.let { list -> vGraphGyro.updateData(list) }
-                })
-        }
-        fId<LongTimeGraphFragment>(R.id.vGraphDataRate)!!.also { vGraphDataRate ->
-            vGraphDataRate.setTitle("Data Rate")
-            vGraphDataRate.dataDescription = "data time vs data rate"
-            viewModel.dataDataRate.getData().observe(
-                vGraphDataRate.viewLifecycleOwner,
-                Observer<List<Pair<Long, Long>>?> { maybeList ->
-                    maybeList?.let { list -> vGraphDataRate.updateData(list) }
-                })
-        }
-        fId<DoubleTimeGraphFragment>(R.id.vGraphDataRateAverage)!!.also { vGraphDataRateAverage ->
-            vGraphDataRateAverage.setTitle("Data Rate Average")
-            vGraphDataRateAverage.dataDescription = "average"
-            viewModel.dataDataRateAvg.getData().observe(
-                vGraphDataRateAverage.viewLifecycleOwner,
-                Observer<List<Pair<Long, Double>>?> { maybeList ->
-                    maybeList?.let { list -> vGraphDataRateAverage.updateData(list) }
                 })
         }
         // mtu and interval config
@@ -128,6 +116,7 @@ class DeviceFragment : Fragment() {
                     maybeMtu?.let { mtu -> vConfigMtu.setNewData(mtu) }
                 })
         }
+
         // imu config
         val vConfigOdr = fId<OdrFragment>(R.id.vConfigOdr)!!.apply {
             setTitle("ODR")
@@ -145,7 +134,8 @@ class DeviceFragment : Fragment() {
         }
         viewModel.dataImuConfig.observe(
             viewLifecycleOwner,
-            Observer<ImuConfig?> { maybeConfig ->
+            Observer<ImuConfig?>
+            { maybeConfig ->
                 maybeConfig?.let { config ->
                     lastConfig.set(config)
                     vConfigOdr.setNewData(config.odrIndex)
@@ -166,7 +156,7 @@ class DeviceFragment : Fragment() {
         writeToDeviceIfc?.doDisconnect()
     }
 
-    // object-related
+// object-related
 
     override fun toString(): String = "DeviceFragment(device=${device()})"
 

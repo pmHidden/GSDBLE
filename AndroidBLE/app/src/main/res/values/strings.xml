@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">GsdBle</string>
 
-    <string name="scan_stop">Stop Scan</string>
-    <string name="scan_start">Start Scan</string>
     <string name="bt_not_available">Bluetooth Is Not Available On Your Device</string>
     <string name="render">Render</string>
     <string name="connect">connect</string>

@@ -43,11 +43,6 @@
             android:text="@string/apply" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#000" />
-
     <TextView
         android:id="@+id/tv_set"
         android:layout_width="match_parent"

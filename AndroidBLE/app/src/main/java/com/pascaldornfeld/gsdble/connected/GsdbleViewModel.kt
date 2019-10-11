@@ -16,8 +16,8 @@ import java.util.concurrent.atomic.AtomicBoolean
 class GsdbleViewModel(application: Application) : AndroidViewModel(application), ReadFromDeviceIfc {
     val dataAccel = SmallDataHolder<Triple<Short, Short, Short>>(2, 6.4f)
     val dataGyro = SmallDataHolder<Triple<Short, Short, Short>>(2, 6.4f)
-    val dataDataRate = SmallDataHolder<Long>(300, 1000f)
-    val dataDataRateAvg = SmallDataHolder<Double>(10, 1000f)
+    val dataDataRate = SmallDataHolder<Long>(3, 1000f)
+    val dataDataRateAvg = MutableLiveData<Double>()
     val dataMtu = MutableLiveData<Int>()
     val dataInterval = MutableLiveData<Int>()
     val dataImuConfig = MutableLiveData<ImuConfig>()
@@ -33,6 +33,7 @@ class GsdbleViewModel(application: Application) : AndroidViewModel(application),
             }
         })
     }
+
     // ReadFromDeviceIfc
 
     private val dataRateStatExecutor = Executors.newSingleThreadExecutor()
@@ -60,11 +61,8 @@ class GsdbleViewModel(application: Application) : AndroidViewModel(application),
                 val dataRateData =
                     if (clearScheduled.compareAndSet(true, false)) null
                     else currentDataRateList.toTypedArray()
-                CharaDataStatsBySecondValue(
-                    currentTrackedSecond,
-                    dataDataRateAvg,
-                    null
-                ).executeOnExecutor(dataRateStatExecutor, dataRateData)
+                CharaDataStatsBySecondValue(dataDataRateAvg::postValue, null)
+                    .executeOnExecutor(dataRateStatExecutor, dataRateData)
             }
             currentTrackedSecond = thisSecond
             packetsThisSecond = 0L

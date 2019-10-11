@@ -10,11 +10,11 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.size
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
 import com.pascaldornfeld.gsdble.R
 import com.pascaldornfeld.gsdble.connected.GsdbleViewModel
@@ -25,41 +25,48 @@ import com.pascaldornfeld.gsdble.scan.ScanFragment
 import kotlinx.android.synthetic.main.main_activity.*
 
 
-class MainActivity : FragmentActivity(), DeviceFragment.RemovableDeviceActivity {
-    private val bleReady = MutableLiveData<Boolean>()
+class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity {
+    private var bleReady = true
     private val bluetoothAdapter: BluetoothAdapter? by lazy { (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager?)?.adapter }
     private val fragmentList = mutableListOf<DeviceFragment>()
-    private lateinit var fragmentAdapter: MainFragmentPagerAdapter<DeviceFragment>
+    private lateinit var connectDialog: ScanFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        val connectFragment = ScanFragment()
-        connectFragment.initialize(
-            bleReady,
-            { bluetoothAdapter!!.bluetoothLeScanner },
-            { addDeviceFragment(it) },
-            {
-                fragmentList.none { knownDevice -> (knownDevice.device().address == it.address) }
-            }
-        )
-        fragmentAdapter =
-            MainFragmentPagerAdapter(
-                supportFragmentManager,
-                connectFragment,
-                fragmentList
+        connectDialog = ScanFragment().apply {
+            initialize(
+                { bluetoothAdapter!!.bluetoothLeScanner },
+                { addDeviceFragment(it) },
+                {
+                    fragmentList.none { knownDevice -> (knownDevice.device().address == it.address) }
+                }
             )
-        vFragmentPager.adapter = fragmentAdapter
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean =
+        if (bleReady) {
+            menuInflater.inflate(R.menu.main_menu, menu)
+            true
+        } else false
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return if (item != null && item.itemId == R.id.search) {
+            connectDialog.show(supportFragmentManager, null)
+            true
+        } else super.onOptionsItemSelected(item)
     }
 
     /**
      * remove the fragment from the adapter-list
      */
     override fun removeDeviceFragment(device: BluetoothDevice) {
-        fragmentList.removeIf { it.device().address == device.address }
-        fragmentAdapter.notifyDataSetChanged()
-        vFragmentPager.setCurrentItem(0, true)
+        fragmentList.find { it.device().address == device.address }?.let { toRemove ->
+            if (fragmentList.remove(toRemove))
+                supportFragmentManager.beginTransaction().remove(toRemove).commit()
+        }
     }
 
     /**
@@ -69,8 +76,8 @@ class MainActivity : FragmentActivity(), DeviceFragment.RemovableDeviceActivity 
     private fun addDeviceFragment(device: BluetoothDevice) {
         val gsdbleFragment = DeviceFragment.newInstance(device)
         fragmentList.add(gsdbleFragment)
-        fragmentAdapter.notifyDataSetChanged()
-        vFragmentPager.setCurrentItem(vFragmentPager.size - 1, true)
+        supportFragmentManager.beginTransaction().add(vFragmentContainer.id, gsdbleFragment)
+            .commit()
     }
 
     override fun onAttachFragment(fragment: Fragment) {
@@ -88,9 +95,12 @@ class MainActivity : FragmentActivity(), DeviceFragment.RemovableDeviceActivity 
      */
     override fun onResume() {
         super.onResume()
-        bleReady.postValue(false)
-        if (checkBluetoothEnabled() && checkLocationPermission() && checkLocationEnabled())
-            bleReady.postValue(true)
+        bleReady = false
+        invalidateOptionsMenu()
+        if (checkBluetoothEnabled() && checkLocationPermission() && checkLocationEnabled()) {
+            bleReady = true
+            invalidateOptionsMenu()
+        }
     }
 
     /**

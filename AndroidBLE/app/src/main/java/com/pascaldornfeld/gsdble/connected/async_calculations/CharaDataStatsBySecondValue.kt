@@ -1,14 +1,12 @@
 package com.pascaldornfeld.gsdble.connected.async_calculations
 
-import com.pascaldornfeld.gsdble.connected.SmallDataHolder
 import kotlin.math.pow
 import kotlin.math.sqrt
 
 class CharaDataStatsBySecondValue(
-    timestamp: Long,
-    averageDataHolder: SmallDataHolder<Double>?,
-    private val deviationDataHolder: SmallDataHolder<Double>?
-) : CharaDataStatsCalculatorAsyncTask(timestamp, averageDataHolder, deviationDataHolder) {
+    averageFunction: ((Double?) -> Unit)?,
+    private val deviationFunction: ((Double?) -> Unit)?
+) : CharaDataStatsCalculatorAsyncTask(averageFunction, deviationFunction) {
 
     override fun doInBackground(vararg params: Array<Pair<Long, Long>>?): Double? {
         assert(params.isNotEmpty())
@@ -18,7 +16,7 @@ class CharaDataStatsBySecondValue(
             // calculate average
             val avgTime = inputArray.map { it.second }.average()
             publishProgress(avgTime)
-            if (isCancelled || deviationDataHolder == null) return null
+            if (isCancelled || deviationFunction == null) return null
 
             // calculate variance
             var sum = 0.0

@@ -1,5 +1,6 @@
 package com.pascaldornfeld.gsdble.scan
 
+import android.app.Dialog
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.le.BluetoothLeScanner
 import android.bluetooth.le.ScanCallback
@@ -7,12 +8,9 @@ import android.bluetooth.le.ScanResult
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pascaldornfeld.gsdble.R
 import kotlinx.android.synthetic.main.connect_fragment.*
@@ -21,7 +19,7 @@ import kotlinx.android.synthetic.main.connect_fragment.view.*
 /**
  * fragment to scan for new devices
  */
-class ScanFragment : Fragment() {
+class ScanFragment : DialogFragment() {
     private lateinit var adapter: ScanAdapter
     private var devicesFound = emptyList<ScanResult>()
         set(value) {
@@ -30,6 +28,7 @@ class ScanFragment : Fragment() {
         }
     private var scanning = false
     private val handler = Handler()
+
 
     private val leScanCallback by lazy {
         object : ScanCallback() {
@@ -54,32 +53,23 @@ class ScanFragment : Fragment() {
         }
     }
 
-    private var scanAllowed: LiveData<Boolean>? = null
     private var leScanner: (() -> (BluetoothLeScanner?))? = null
     private var onUserWantsToConnect: ((BluetoothDevice) -> Unit)? = null
     private var isDeviceNotConnected: ((BluetoothDevice) -> Boolean) = { true }
 
     /**
-     * @param scanAllowed if scan is allowed. usually when bluetooth is ready
      * @param leScanner function returning the ble-scanner
      * @param onUserWantsToConnect the user wants to connect to the bluetooth device
      */
     fun initialize(
-        scanAllowed: LiveData<Boolean>,
         leScanner: () -> (BluetoothLeScanner?),
         onUserWantsToConnect: ((BluetoothDevice) -> Unit),
         isDeviceAlreadyConnected: ((BluetoothDevice) -> Boolean)
     ) {
-        this.scanAllowed = scanAllowed
         this.leScanner = leScanner
         this.onUserWantsToConnect = onUserWantsToConnect
         this.isDeviceNotConnected = isDeviceAlreadyConnected
-        scanAllowed.observe(
-            this,
-            Observer<Boolean?> { it?.let { view?.vStartScanButton?.isEnabled = it } }
-        )
     }
-
 
     /**
      * create adapter on start
@@ -88,48 +78,35 @@ class ScanFragment : Fragment() {
         super.onCreate(savedInstanceState)
         adapter = ScanAdapter { newDevice: BluetoothDevice ->
             onUserWantsToConnect?.invoke(newDevice)
-            devicesFound =
-                devicesFound.filterNot { oldDevice: ScanResult -> newDevice.address == oldDevice.device.address }
+            dismiss()
         }
     }
 
-    /**
-     * add adapter to recyclerView after it was created.
-     * set observer for enabling / disabling scan-button
-     * add button listener for starting to scan
-     */
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.connect_fragment, container, false)
-        view.vDevicesList.layoutManager =
-            LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
-        view.vDevicesList.adapter = adapter
-        val buttonEnabled = scanAllowed?.value ?: false
-        view.vStartScanButton.isEnabled = buttonEnabled
-        view.vStartScanButton.setOnClickListener {
-            if (scanning) stopScan()
-            else startScan()
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val view = activity!!.layoutInflater.inflate(R.layout.connect_fragment, null).apply {
+            vDevicesList.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            vDevicesList.adapter = adapter
         }
-        return view
+        return activity?.let {
+            AlertDialog.Builder(it)
+                .setView(view)
+                .setNegativeButton(android.R.string.cancel) { dialog, _ -> dialog.cancel() }
+                .create()
+        } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-    /**
-     * clears the list of found devices on resume
-     */
     override fun onResume() {
         super.onResume()
         devicesFound = emptyList()
+        startScan()
     }
 
-    /**
-     * stop scanning on pause
-     */
     override fun onPause() {
         super.onPause()
         stopScan()
     }
+
 
     companion object {
         private const val SCAN_PERIOD = 30000L
@@ -164,7 +141,12 @@ class ScanFragment : Fragment() {
                         scanning = true
                         vStartScanButton.text = getString(R.string.scan_stop)
                         handler.postDelayed(
-                            { stopScan() },
+                            {
+                                stopScan()
+                                context?.let { context ->
+                                    Toast.makeText(context, "timeout", Toast.LENGTH_SHORT).show()
+                                }
+                            },
                             SCAN_PERIOD
                         )
                     }

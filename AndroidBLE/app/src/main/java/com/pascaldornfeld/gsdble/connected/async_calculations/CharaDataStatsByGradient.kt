@@ -1,14 +1,12 @@
 package com.pascaldornfeld.gsdble.connected.async_calculations
 
-import com.pascaldornfeld.gsdble.connected.SmallDataHolder
 import kotlin.math.pow
 import kotlin.math.sqrt
 
 class CharaDataStatsByGradient(
-    timestamp: Long,
-    averageDataHolder: SmallDataHolder<Double>?,
-    deviationDataHolder: SmallDataHolder<Double>?
-) : CharaDataStatsCalculatorAsyncTask(timestamp, averageDataHolder, deviationDataHolder) {
+    averageFunction: ((Double?) -> Unit)?,
+    private val deviationFunction: ((Double?) -> Unit)?
+) : CharaDataStatsCalculatorAsyncTask(averageFunction, deviationFunction) {
 
     override fun doInBackground(vararg params: Array<Pair<Long, Long>>?): Double? {
         assert(params.isNotEmpty())
@@ -26,21 +24,24 @@ class CharaDataStatsByGradient(
             }.filterNotNull().average()
             publishProgress(avgTime)
 
-            // calculate variance
-            var sum = 0.0
-            inputArray.forEachIndexed { index, pair ->
-                if (index != 0) {
-                    val prev = inputArray[index - 1]
-                    val gradient =
-                        (pair.second.toDouble() - prev.second.toDouble()) / (pair.first.toDouble() - prev.first.toDouble())
-                    sum += (gradient - avgTime).pow(2)
+            return if (isCancelled || deviationFunction == null) null
+            else {
+                // calculate variance
+                var sum = 0.0
+                inputArray.forEachIndexed { index, pair ->
+                    if (index != 0) {
+                        val prev = inputArray[index - 1]
+                        val gradient =
+                            (pair.second.toDouble() - prev.second.toDouble()) / (pair.first.toDouble() - prev.first.toDouble())
+                        sum += (gradient - avgTime).pow(2)
+                    }
+                    if (isCancelled) return null
                 }
-                if (isCancelled) return null
-            }
 
-            // return deviation
-            // sum is based on inputArray.size -1 elements. The formula takes this amount -1. so we got inputArray.size -2
-            return sqrt((sum / (inputArray.size - 2)))
+                // return deviation
+                // sum is based on inputArray.size -1 elements. The formula takes this amount -1. so we got inputArray.size -2
+                sqrt((sum / (inputArray.size - 2)))
+            }
         } else {
             publishProgress(null)
             return null
