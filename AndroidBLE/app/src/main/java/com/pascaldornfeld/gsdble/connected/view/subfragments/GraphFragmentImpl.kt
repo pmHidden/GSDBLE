@@ -25,9 +25,9 @@ class SensorGraphFragment : GraphFragment<Triple<Short, Short, Short>>() {
 
                 override fun getTitle(): String {
                     return when {
-                        i % 3 == 0 -> "X-Axis"
-                        i % 3 == 1 -> "Y-Axis"
-                        else -> "Z-Axis"
+                        i % 3 == 0 -> "X"
+                        i % 3 == 1 -> "Y"
+                        else -> "Z"
                     }
                 }
 

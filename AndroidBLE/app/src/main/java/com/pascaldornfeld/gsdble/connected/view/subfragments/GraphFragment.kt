@@ -7,6 +7,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.androidplot.Plot
 import com.androidplot.PlotListener
@@ -32,9 +33,7 @@ abstract class GraphFragment<DataType> : Fragment() {
     open fun formatterY(obj: Number, toAppendTo: StringBuffer): StringBuffer =
         toAppendTo.append(obj.toLong())
 
-    private fun isPausedByUser(): Boolean = !(view?.vCheckEnable?.isChecked ?: false)
     fun setTitle(title: String) {
-        view?.vTitle?.text = title
         view?.vPlotGraph?.setTitle(title)
     }
 
@@ -88,32 +87,24 @@ abstract class GraphFragment<DataType> : Fragment() {
                 ) = canUpdate.set(false)
 
             })
+            visibility = GONE
         })
-
-        view.vCheckEnable.apply {
-            setOnCheckedChangeListener { _, checked ->
-                if (checked) view.vPlotGraph?.visibility = VISIBLE
-                else view.vPlotGraph?.visibility = GONE
-            }
-            isChecked = false
-            view.vPlotGraph.visibility = GONE
-        }
         return view
+    }
+
+    fun showGraph(show: Boolean) {
+        view?.vPlotGraph?.visibility = if (show) VISIBLE else GONE
     }
 
     fun updateData(newDataList: List<Pair<Long, DataType>>) {
         val graph = view?.vPlotGraph
         if (isResumed
-            && !isPausedByUser()
             && graph != null
+            && graph.isVisible
             && canUpdate.compareAndSet(true, false)
         ) {
             data = newDataList.toList()
             graph.redraw()
         }
-        afterAddingData(newDataList.lastOrNull())
     }
-
-    /** New data can be printed into vCurValue */
-    open fun afterAddingData(newest: Pair<Long, DataType>?) = Unit
 }

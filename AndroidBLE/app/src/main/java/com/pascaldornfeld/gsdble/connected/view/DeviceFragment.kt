@@ -81,21 +81,28 @@ class DeviceFragment : Fragment() {
                 view.vGraphDataRateAverage.text = t?.roundToLong()?.toString() ?: "-"
             })
         // datas
-        fId<SensorGraphFragment>(R.id.vGraphAccel)!!.also { vGraphAccel ->
-            vGraphAccel.setTitle("Accelerometer")
-            viewModel.dataAccel.getData().observe(
-                vGraphAccel.viewLifecycleOwner,
-                Observer<List<Pair<Long, Triple<Short, Short, Short>>>?> { maybeList ->
-                    maybeList?.let { list -> vGraphAccel.updateData(list) }
-                })
-        }
-        fId<SensorGraphFragment>(R.id.vGraphGyro)!!.also { vGraphGyro ->
-            vGraphGyro.setTitle("Gyroscope")
-            viewModel.dataGyro.getData().observe(
-                vGraphGyro.viewLifecycleOwner,
-                Observer<List<Pair<Long, Triple<Short, Short, Short>>>?> { maybeList ->
-                    maybeList?.let { list -> vGraphGyro.updateData(list) }
-                })
+        view.vCheckEnable.apply {
+            isChecked = false
+            val accel = fId<SensorGraphFragment>(R.id.vGraphAccel)!!.also { vGraphAccel ->
+                vGraphAccel.setTitle("Accelerometer")
+                viewModel.dataAccel.getData().observe(
+                    vGraphAccel.viewLifecycleOwner,
+                    Observer<List<Pair<Long, Triple<Short, Short, Short>>>?> { maybeList ->
+                        maybeList?.let { list -> vGraphAccel.updateData(list) }
+                    })
+            }
+            val gyro = fId<SensorGraphFragment>(R.id.vGraphGyro)!!.also { vGraphGyro ->
+                vGraphGyro.setTitle("Gyroscope")
+                viewModel.dataGyro.getData().observe(
+                    vGraphGyro.viewLifecycleOwner,
+                    Observer<List<Pair<Long, Triple<Short, Short, Short>>>?> { maybeList ->
+                        maybeList?.let { list -> vGraphGyro.updateData(list) }
+                    })
+            }
+            setOnCheckedChangeListener { _, isChecked ->
+                accel.showGraph(isChecked)
+                gyro.showGraph(isChecked)
+            }
         }
         // mtu and interval config
         fId<IntervalFragment>(R.id.vConfigIntv)!!.also { vConfigIntv ->

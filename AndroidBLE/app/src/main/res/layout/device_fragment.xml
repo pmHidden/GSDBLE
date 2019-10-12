@@ -17,15 +17,6 @@
 
         <!-- col 1 -->
 
-        <Button
-            android:id="@+id/vDisconnectButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/disconnect"
-            app:layout_constraintBottom_toTopOf="@id/barrier1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/vDeviceAddress"
             android:layout_width="wrap_content"
@@ -50,6 +41,17 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="200" />
 
+        <Button
+            android:id="@+id/vDisconnectButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/disconnect"
+            app:layout_constraintBottom_toTopOf="@id/barrier1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- col 2 -->
+
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier1"
             android:layout_width="wrap_content"
@@ -57,21 +59,15 @@
             app:barrierDirection="bottom"
             app:constraint_referenced_ids="vDeviceAddress,vGraphDataRateAverage,vDisconnectButton" />
 
-        <!-- col 2 -->
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrier2"
+        <CheckBox
+            android:id="@+id/vCheckEnable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="vGraphAccel,vGraphGyro" />
-
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/barrier3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:barrierDirection="bottom"
-            app:constraint_referenced_ids="vConfigOdr,vConfigPause" />
+            android:checked="false"
+            android:text="@string/render_graphs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barrier1" />
 
         <fragment
             android:id="@+id/vGraphAccel"
@@ -80,9 +76,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@id/vGraphGyro"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/barrier1" />
+            app:layout_constraintTop_toBottomOf="@id/vCheckEnable" />
 
-        <!-- col 3 -->
 
         <fragment
             android:id="@+id/vGraphGyro"
@@ -91,7 +86,18 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/vGraphAccel"
-            app:layout_constraintTop_toBottomOf="@id/barrier1" />
+            app:layout_constraintTop_toBottomOf="@id/vCheckEnable" />
+
+        <!-- col 3 -->
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="vGraphAccel,vGraphGyro"
+            tools:layout_editor_absoluteX="13dp"
+            tools:layout_editor_absoluteY="79dp" />
 
         <fragment
             android:id="@+id/vConfigOdr"
@@ -112,6 +118,16 @@
             app:layout_constraintTop_toBottomOf="@id/barrier2" />
 
         <!-- col 4 -->
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="vConfigOdr,vConfigPause"
+            tools:layout_editor_absoluteX="13dp"
+            tools:layout_editor_absoluteY="98dp" />
+
         <fragment
             android:id="@+id/vConfigIntv"
             android:name="com.pascaldornfeld.gsdble.connected.view.subfragments.IntervalFragment"
@@ -128,9 +144,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/vConfigIntv"
-            app:layout_constraintTop_toBottomOf="@id/barrier3"
-
-            />
+            app:layout_constraintTop_toBottomOf="@id/barrier3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

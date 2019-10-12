@@ -2,7 +2,7 @@
     <string name="app_name">GsdBle</string>
 
     <string name="bt_not_available">Bluetooth Is Not Available On Your Device</string>
-    <string name="render">Render</string>
+    <string name="render_graphs">Render Graphs</string>
     <string name="connect">connect</string>
     <string name="apply">Apply</string>
     <string name="disconnect">disconnect</string>

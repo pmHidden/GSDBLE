@@ -11,6 +11,7 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
@@ -75,11 +76,17 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
      * create a device-fragment. connect to the device.
      * add the fragment to the adapter-list
      */
-    private fun addDeviceFragment(device: BluetoothDevice) =
-        supportFragmentManager
-            .beginTransaction()
-            .add(vFragmentContainer.id, DeviceFragment.newInstance(device))
-            .commit()
+    private fun addDeviceFragment(device: BluetoothDevice) {
+        try {
+            supportFragmentManager
+                .beginTransaction()
+                .add(vFragmentContainer.id, DeviceFragment.newInstance(device))
+                .commit()
+        } catch (e: Exception) {
+            Log.w(TAG, "Could not add Device Fragment")
+            e.printStackTrace()
+        }
+    }
 
     override fun onAttachFragment(fragment: Fragment) {
         super.onAttachFragment(fragment)
@@ -167,5 +174,6 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
     companion object {
         private const val REQUEST_ENABLE_BT = 1
         private const val REQUEST_PERMISSION_LOC = 2
+        private val TAG = MainActivity::class.java.simpleName.filter { it.isUpperCase() }
     }
 }
