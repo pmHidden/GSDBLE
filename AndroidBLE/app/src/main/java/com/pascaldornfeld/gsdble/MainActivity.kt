@@ -3,6 +3,7 @@ package com.pascaldornfeld.gsdble
 import android.Manifest
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
@@ -18,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.pascaldornfeld.gsdble.connected.GsdbleViewModel
 import com.pascaldornfeld.gsdble.connected.gsdble_library.GsdbleManager
+import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
 import com.pascaldornfeld.gsdble.connected.view.DeviceFragment
 import com.pascaldornfeld.gsdble.connected.view.DeviceFragment.Companion.DEVICE
 import com.pascaldornfeld.gsdble.scan.ScanDialogFragment
@@ -27,7 +29,6 @@ import kotlinx.android.synthetic.main.main_activity.*
 class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity {
     private var bleReady = true
     private val bluetoothAdapter: BluetoothAdapter? by lazy { (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager?)?.adapter }
-    private val fragmentList = mutableListOf<DeviceFragment>()
     private lateinit var connectDialog: ScanDialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +40,9 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
                 { bluetoothAdapter!!.bluetoothLeScanner },
                 { addDeviceFragment(it) },
                 {
-                    fragmentList.none { knownDevice -> (knownDevice.device().address == it.address) }
+                    supportFragmentManager.fragments
+                        .filterIsInstance<DeviceFragment>()
+                        .none { knownDevice -> (knownDevice.device().address == it.address) }
                 }
             )
         }
@@ -62,31 +65,33 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
      * remove the fragment from the adapter-list
      */
     override fun removeDeviceFragment(device: BluetoothDevice) {
-        fragmentList.find { it.device().address == device.address }?.let { toRemove ->
-            if (fragmentList.remove(toRemove))
-                supportFragmentManager.beginTransaction().remove(toRemove).commit()
-        }
+        supportFragmentManager.fragments
+            .filterIsInstance<DeviceFragment>()
+            .find { it.device().address == device.address }
+            ?.let { supportFragmentManager.beginTransaction().remove(it).commit() }
     }
 
     /**
      * create a device-fragment. connect to the device.
      * add the fragment to the adapter-list
      */
-    private fun addDeviceFragment(device: BluetoothDevice) {
-        val gsdbleFragment = DeviceFragment.newInstance(device)
-        fragmentList.add(gsdbleFragment)
-        supportFragmentManager.beginTransaction().add(vFragmentContainer.id, gsdbleFragment)
+    private fun addDeviceFragment(device: BluetoothDevice) =
+        supportFragmentManager
+            .beginTransaction()
+            .add(vFragmentContainer.id, DeviceFragment.newInstance(device))
             .commit()
-    }
 
     override fun onAttachFragment(fragment: Fragment) {
         super.onAttachFragment(fragment)
-        if (fragment is DeviceFragment) {
-            val device = fragment.requireArguments().getParcelable<BluetoothDevice>(DEVICE)!!
-            val itsViewModel = ViewModelProviders.of(fragment).get(GsdbleViewModel::class.java)
-            val gsdbleManager = GsdbleManager(device, this, itsViewModel)
-            fragment.setWriteToDeviceIfc(gsdbleManager)
-        }
+        if (fragment is DeviceFragment) fragment.setWriteToDeviceIfc(
+            GsdbleManager(
+                fragment.requireArguments().getParcelable(DEVICE)!!,
+                this,
+                ViewModelProviders.of(fragment).get(GsdbleViewModel::class.java),
+                BluetoothGatt.CONNECTION_PRIORITY_BALANCED,
+                ImuConfig(3, false) // odr = 208Hz
+            )
+        )
     }
 
     /**

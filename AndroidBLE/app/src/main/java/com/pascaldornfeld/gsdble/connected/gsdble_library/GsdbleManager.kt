@@ -9,7 +9,6 @@ import com.pascaldornfeld.gsdble.BuildConfig
 import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
 import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuData
 import no.nordicsemi.android.ble.BleManager
-import no.nordicsemi.android.ble.ConnectionPriorityRequest.CONNECTION_PRIORITY_BALANCED
 import no.nordicsemi.android.ble.callback.DataReceivedCallback
 import java.util.*
 
@@ -24,10 +23,13 @@ import java.util.*
 class GsdbleManager(
     device: BluetoothDevice,
     context: Context,
-    readFromDeviceIfc: ReadFromDeviceIfc
+    readFromDeviceIfc: ReadFromDeviceIfc,
+    startConnectionInterval: Int,
+    startImuConfig: ImuConfig
 ) : WriteToDeviceIfc {
-    private val gsdbleManager = GsdbleBleManager(context, readFromDeviceIfc, this)
-        .apply { connect(device).enqueue() }
+    private val gsdbleManager =
+        GsdbleBleManager(context, readFromDeviceIfc, this, startConnectionInterval, startImuConfig)
+            .apply { connect(device).enqueue() }
 
     // WriteToDeviceIfc
 
@@ -50,7 +52,9 @@ class GsdbleManager(
     private class GsdbleBleManager(
         context: Context,
         var readFromDeviceIfc: ReadFromDeviceIfc,
-        writeToDeviceIfc: WriteToDeviceIfc
+        writeToDeviceIfc: WriteToDeviceIfc,
+        startConnectionInterval: Int,
+        startImuConfig: ImuConfig
     ) : BleManager<GsdbleCallbacks>(context) {
         init {
             setGattCallbacks(
@@ -85,7 +89,9 @@ class GsdbleManager(
             private val callbackNewData =
                 DataReceivedCallback { _, data -> readFromDeviceIfc.readImuData(ImuData(data)) }
             private val callbackNewConfig =
-                DataReceivedCallback { _, data -> readFromDeviceIfc.readImuConfig(ImuConfig(data)) }
+                DataReceivedCallback { _, data ->
+                    readFromDeviceIfc.readImuConfig(ImuConfig(data))
+                }
 
             override fun initialize() {
                 super.initialize()
@@ -96,8 +102,9 @@ class GsdbleManager(
                 readCharacteristic(charaConfig).with(callbackNewConfig).enqueue()
                 enableNotifications(charaConfig).enqueue()
 
-                writeMtu(23)
-                writeConnectionPriority(CONNECTION_PRIORITY_BALANCED)
+                writeMtu(517) // maximum on device
+                writeConnectionPriority(startConnectionInterval)
+                writeImuConfig(startImuConfig)
             }
 
             override fun onDeviceDisconnected() {
