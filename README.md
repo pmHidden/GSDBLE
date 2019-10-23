@@ -10,6 +10,6 @@ App to receive and process the data.
 - AndroidBLE - Android App
 - GSDBLE - Wearable Software
 - Hardware - Wearable Hardware Development Files
-  
+
 - Datasheets - Datasheets of the Hardware used in the Wearable
 - Evaluation - Evaluation Results of the Wearable (Energy and Connection Metrics)
