@@ -2,17 +2,18 @@ package com.pascaldornfeld.gsdble.connected
 
 import android.app.Application
 import android.bluetooth.BluetoothGatt
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
+import androidx.lifecycle.*
 import com.pascaldornfeld.gsdble.connected.async_calculations.CharaDataStatsBySecondValue
 import com.pascaldornfeld.gsdble.connected.gsdble_library.ReadFromDeviceIfc
 import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
 import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuData
+import com.pascaldornfeld.gsdble.file_dumping.FileOperations
+import com.pascaldornfeld.gsdble.file_dumping.GestureData
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicBoolean
 
-class GsdbleViewModel(application: Application) : AndroidViewModel(application), ReadFromDeviceIfc {
+class GsdbleViewModel(application: Application, private val deviceName: String) :
+    AndroidViewModel(application), ReadFromDeviceIfc {
     val dataAccel = SmallDataHolder<Triple<Short, Short, Short>>(2, 6.4f)
     val dataGyro = SmallDataHolder<Triple<Short, Short, Short>>(2, 6.4f)
     val dataDataRate = SmallDataHolder<Long>(3, 1000f)
@@ -39,9 +40,18 @@ class GsdbleViewModel(application: Application) : AndroidViewModel(application),
     private val clearScheduled = AtomicBoolean(false)
     private var currentTrackedSecond = 0L
     private var packetsThisSecond = 0L
+    private val singleDeviceFiller = GestureData.SingleDeviceFiller()
 
     override fun readImuData(imuData: ImuData) {
         val timeOfPacketArrival = System.currentTimeMillis()
+        singleDeviceFiller.addFromImuData(imuData)?.let { filledGestureData: GestureData ->
+            FileOperations.writeGestureFile(
+                getApplication<Application>().applicationContext,
+                deviceName,
+                filledGestureData
+            )
+        }
+
         dataAccel.addData(
             imuData.time,
             Triple(imuData.accel_x, imuData.accel_y, imuData.accel_z)
@@ -83,4 +93,15 @@ class GsdbleViewModel(application: Application) : AndroidViewModel(application),
                 else -> BluetoothGatt.CONNECTION_PRIORITY_LOW_POWER
             }
         )
+}
+
+class GsdbleViewModelFactory(
+    private val application: Application,
+    private val deviceName: String
+) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        @Suppress("UNCHECKED_CAST")
+        return GsdbleViewModel(application, deviceName) as T
+    }
 }

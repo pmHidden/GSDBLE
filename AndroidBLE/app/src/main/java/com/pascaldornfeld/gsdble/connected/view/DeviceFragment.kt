@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.pascaldornfeld.gsdble.R
 import com.pascaldornfeld.gsdble.connected.GsdbleViewModel
+import com.pascaldornfeld.gsdble.connected.GsdbleViewModelFactory
 import com.pascaldornfeld.gsdble.connected.gsdble_library.WriteToDeviceIfc
 import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
 import com.pascaldornfeld.gsdble.connected.view.subfragments.*
@@ -51,7 +52,10 @@ class DeviceFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(GsdbleViewModel::class.java)
+        viewModel = ViewModelProviders.of(
+            this,
+            GsdbleViewModelFactory(this.requireActivity().application, device().address.toString())
+        ).get(GsdbleViewModel::class.java)
     }
 
     override fun onAttach(context: Context) {

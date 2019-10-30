@@ -8,4 +8,5 @@
     <string name="disconnect">disconnect</string>
     <string name="scanning">Scanning</string>
     <string name="timeout">Timeout</string>
+    <string name="data_saved">Data Saved</string>
 </resources>

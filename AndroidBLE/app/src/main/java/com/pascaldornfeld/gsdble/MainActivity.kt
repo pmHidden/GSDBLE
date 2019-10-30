@@ -19,10 +19,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.pascaldornfeld.gsdble.connected.GsdbleViewModel
+import com.pascaldornfeld.gsdble.connected.GsdbleViewModelFactory
 import com.pascaldornfeld.gsdble.connected.gsdble_library.GsdbleManager
 import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
 import com.pascaldornfeld.gsdble.connected.view.DeviceFragment
-import com.pascaldornfeld.gsdble.connected.view.DeviceFragment.Companion.DEVICE
 import com.pascaldornfeld.gsdble.scan.ScanDialogFragment
 import kotlinx.android.synthetic.main.main_activity.*
 
@@ -92,9 +92,12 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
         super.onAttachFragment(fragment)
         if (fragment is DeviceFragment) fragment.setWriteToDeviceIfc(
             GsdbleManager(
-                fragment.requireArguments().getParcelable(DEVICE)!!,
+                fragment.device(),
                 this,
-                ViewModelProviders.of(fragment).get(GsdbleViewModel::class.java),
+                ViewModelProviders.of(
+                    fragment,
+                    GsdbleViewModelFactory(application, fragment.device().address.toString())
+                ).get(GsdbleViewModel::class.java),
                 BluetoothGatt.CONNECTION_PRIORITY_BALANCED,
                 ImuConfig(3, false) // odr = 208Hz
             )
@@ -108,7 +111,7 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
         super.onResume()
         bleReady = false
         invalidateOptionsMenu()
-        if (checkBluetoothEnabled() && checkLocationPermission() && checkLocationEnabled()) {
+        if (checkPermissions() && checkBluetoothEnabled() && checkLocationEnabled()) {
             bleReady = true
             invalidateOptionsMenu()
         }
@@ -138,14 +141,19 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
     }
 
     /**
-     * check for location permission. ask for permission if not
+     * check for permissions. ask for permission if not
      * @return true if permission was granted
      */
-    private fun checkLocationPermission(): Boolean =
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+    private fun checkPermissions(): Boolean =
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+            checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+        ) {
             requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_PERMISSION_LOC
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
+                REQUEST_PERMISSION
             )
             false
         } else true
@@ -173,7 +181,7 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
 
     companion object {
         private const val REQUEST_ENABLE_BT = 1
-        private const val REQUEST_PERMISSION_LOC = 2
+        private const val REQUEST_PERMISSION = 2
         private val TAG = MainActivity::class.java.simpleName.filter { it.isUpperCase() }
     }
 }
