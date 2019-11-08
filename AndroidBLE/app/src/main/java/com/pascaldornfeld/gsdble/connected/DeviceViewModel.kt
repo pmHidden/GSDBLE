@@ -54,11 +54,11 @@ class GsdbleViewModel(application: Application, private val deviceName: String) 
 
         dataAccel.addData(
             imuData.time,
-            Triple(imuData.accel_x, imuData.accel_y, imuData.accel_z)
+            Triple(imuData.accel_x!!, imuData.accel_y!!, imuData.accel_z!!)
         )
         dataGyro.addData(
             imuData.time,
-            Triple(imuData.gyro_x, imuData.gyro_y, imuData.gyro_z)
+            Triple(imuData.gyro_x!!, imuData.gyro_y!!, imuData.gyro_z!!)
         )
 
         val thisSecond = timeOfPacketArrival / 1000L

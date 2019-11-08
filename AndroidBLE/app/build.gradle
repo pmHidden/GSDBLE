@@ -12,11 +12,17 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        // gsdble fields
+        buildConfigField "String", "GSDBLE_DEVICE_NAME", "\"GSDBLE\""
+        buildConfigField "String", "GSDBLE_UUID_SERVICE", "\"b2154200-d1a3-e541-8bf7-8c8eb0519548\""
+        buildConfigField "String", "GSDBLE_UUID_CHARA_DATA", "\"b2154201-d1a3-e541-8bf7-8c8eb0519548\""
+        buildConfigField "String", "GSDBLE_UUID_CHARA_CONFIG", "\"b2154202-d1a3-e541-8bf7-8c8eb0519548\""
 
-        buildConfigField "String", "DEVICE_NAME", "\"GSDBLE\""
-        buildConfigField "String", "UUID_SERVICE", "\"b2154200-d1a3-e541-8bf7-8c8eb0519548\""
-        buildConfigField "String", "UUID_CHARA_DATA", "\"b2154201-d1a3-e541-8bf7-8c8eb0519548\""
-        buildConfigField "String", "UUID_CHARA_CONFIG", "\"b2154202-d1a3-e541-8bf7-8c8eb0519548\""
+        // thunderboard fields
+        buildConfigField "String", "THUBOA_UUID_SERVICE", "\"a4e649f4-4be5-11e5-885d-feff819cdc9f\""
+        buildConfigField "String", "THUBOA_UUID_CHARA_ACC", "\"c4c1f6e2-4be5-11e5-885d-feff819cdc9f\""
+        buildConfigField "String", "THUBOA_UUID_CHARA_GYRO", "\"b7c4b694-bee3-45dd-ba9f-f3b5e994f49a\""
+        buildConfigField "String", "THUBOA_UUID_CHARA_CONFIG", "\"71e30b8c-4131-4703-b0a0-b0bbba75856b\""
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

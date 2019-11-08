@@ -76,7 +76,7 @@ class OdrFragment : ConfigFragment<Int>() {
     override fun getDataArray(): Array<Int> = IntArray(7) { it }.toTypedArray()
 
     override fun getStringRepresentationFromData(data: Int): String =
-        ImuConfig.ODR_INDEX_TO_FREQ[data].toString()
+        ImuConfig.GSDBLE_ODR_INDEX_TO_FREQ[data].toString()
 
     override fun applyNewData(index: Int) {
         functionToApply?.invoke(index)

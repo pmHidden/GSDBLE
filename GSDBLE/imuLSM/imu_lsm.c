@@ -38,7 +38,7 @@ void imu_init(bool (*send_data_p)(imu_data_t), uint16_t buffer_size) {
   } while (rst);
 
   LSM_ERROR_CHECK(lsm6dsl_block_data_update_set(&dev_ctx, PROPERTY_ENABLE));
-  LSM_ERROR_CHECK(lsm6dsl_xl_full_scale_set(&dev_ctx, LSM6DSL_2g));
+  LSM_ERROR_CHECK(lsm6dsl_xl_full_scale_set(&dev_ctx, LSM6DSL_16g));
   LSM_ERROR_CHECK(lsm6dsl_xl_filter_analog_set(&dev_ctx, LSM6DSL_XL_ANA_BW_400Hz));
   LSM_ERROR_CHECK(lsm6dsl_xl_lp2_bandwidth_set(&dev_ctx, LSM6DSL_XL_LOW_LAT_LP_ODR_DIV_9));
   LSM_ERROR_CHECK(lsm6dsl_gy_full_scale_set(&dev_ctx, LSM6DSL_2000dps));

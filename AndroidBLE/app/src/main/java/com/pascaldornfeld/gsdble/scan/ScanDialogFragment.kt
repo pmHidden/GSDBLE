@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.pascaldornfeld.gsdble.BuildConfig
 import com.pascaldornfeld.gsdble.R
 import kotlinx.android.synthetic.main.connect_fragment.view.*
 
@@ -135,7 +134,11 @@ class ScanDialogFragment : DialogFragment() {
                         // we are not advertising with service uuid, since service id is custom 128-bit, so it is too big to advertise with.
                         // this is why we must filter by device name.
                         scanner.startScan(
-                            listOf(ScanFilter.Builder().setDeviceName(BuildConfig.DEVICE_NAME).build()),
+                            listOf(
+                                ScanFilter.Builder()
+                                    //.setDeviceName(BuildConfig.GSDBLE_DEVICE_NAME)
+                                    .build()
+                            ),
                             ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY).build(),
                             leScanCallback
                         )

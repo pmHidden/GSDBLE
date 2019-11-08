@@ -56,14 +56,14 @@ data class GestureData(
                 currentGestureData.rightHandData.run {
                     count++
                     accData.apply {
-                        xAxisData.add(imuData.accel_x)
-                        yAxisData.add(imuData.accel_y)
-                        zAxisData.add(imuData.accel_z)
+                        xAxisData.add(imuData.accel_x!!)
+                        yAxisData.add(imuData.accel_y!!)
+                        zAxisData.add(imuData.accel_z!!)
                     }
                     gyroData.apply {
-                        xAxisData.add(imuData.gyro_x)
-                        yAxisData.add(imuData.gyro_y)
-                        zAxisData.add(imuData.gyro_z)
+                        xAxisData.add(imuData.gyro_x!!)
+                        yAxisData.add(imuData.gyro_y!!)
+                        zAxisData.add(imuData.gyro_z!!)
                     }
                     if (System.currentTimeMillis() - startOfCurrent >= THRESHOLD_MILLIS) {
                         gestureData = null
