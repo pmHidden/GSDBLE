@@ -7,6 +7,7 @@ import com.pascaldornfeld.gsdble.connected.async_calculations.CharaDataStatsBySe
 import com.pascaldornfeld.gsdble.connected.gsdble_library.ReadFromDeviceIfc
 import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
 import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuData
+import com.pascaldornfeld.gsdble.file_dumping.ExtremityData
 import com.pascaldornfeld.gsdble.file_dumping.FileOperations
 import com.pascaldornfeld.gsdble.file_dumping.GestureData
 import java.util.concurrent.Executors
@@ -40,16 +41,31 @@ class GsdbleViewModel(application: Application, private val deviceName: String) 
     private val clearScheduled = AtomicBoolean(false)
     private var currentTrackedSecond = 0L
     private var packetsThisSecond = 0L
-    private val singleDeviceFiller = GestureData.SingleDeviceFiller()
+    var extremityData: ExtremityData? = null
+        set(value) {
+            if (value != null) value.deviceMac = deviceName
+            field = value
+        }
 
     override fun readImuData(imuData: ImuData) {
         val timeOfPacketArrival = System.currentTimeMillis()
-        singleDeviceFiller.addFromImuData(imuData)?.let { filledGestureData: GestureData ->
-            FileOperations.writeGestureFile(
-                getApplication<Application>().applicationContext,
-                deviceName,
-                filledGestureData
-            )
+        extremityData?.apply {
+            if (imuData.accel_x != null) {
+                accData.apply {
+                    timeStamp.add(imuData.time)
+                    accData.xAxisData.add(imuData.accel_x)
+                    accData.yAxisData.add(imuData.accel_y!!)
+                    accData.zAxisData.add(imuData.accel_z!!)
+                }
+            }
+            if (imuData.gyro_x != null) {
+                gyroData.apply {
+                    timeStamp.add(imuData.time)
+                    gyroData.xAxisData.add(imuData.gyro_x)
+                    gyroData.yAxisData.add(imuData.gyro_y!!)
+                    gyroData.zAxisData.add(imuData.gyro_z!!)
+                }
+            }
         }
 
         dataAccel.addData(

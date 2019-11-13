@@ -7,7 +7,7 @@ import com.androidplot.xy.RectRegion
 import com.androidplot.xy.XYPlot
 
 /**
- * graph to visualize time vs 3 sensor axis data (f.e. gyro or accel data)
+ * graph to visualize startTime vs 3 sensor axis data (f.e. gyro or accel data)
  */
 class SensorGraphFragment : GraphFragment<Triple<Short, Short, Short>>() {
     override fun seriesInit(plot: XYPlot) {

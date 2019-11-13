@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
  * When adding data, old data gets removed automatically based on the params
  *
  * @param showSeconds duration in seconds the data should be stored
- * @param timestepScalingMs scaling of the data-timestamp to real-time seconds
+ * @param timestepScalingMs scaling of the data-timestamp to real-startTime seconds
  */
 class SmallDataHolder<DataType>(
     private val showSeconds: Int,

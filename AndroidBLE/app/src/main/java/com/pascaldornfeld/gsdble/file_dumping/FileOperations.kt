@@ -1,9 +1,7 @@
 package com.pascaldornfeld.gsdble.file_dumping
 
-import android.content.Context
 import android.os.AsyncTask
 import android.os.Environment
-import android.provider.Settings.Secure
 import com.google.gson.GsonBuilder
 import java.io.BufferedWriter
 import java.io.File
@@ -17,29 +15,25 @@ object FileOperations {
      * Write raw and meta data of a gesture to a JSON file
      * and save it in the user's directory in background.
      *
-     * @param context     Training fragment context
-     * @param username        The user who executed to gesture
      * @param gestureData The class which contains all raw and meta data of the gesture
      */
-    fun writeGestureFile(context: Context, username: String, gestureData: GestureData) {
+    fun writeGestureFile(
+        gestureData: GestureData
+    ) {
         AsyncTask.execute {
-            gestureData.apply {
-                if (time == null) setTimeToNow()
-                user = username
-                deviceId = Secure.getString(context.contentResolver, Secure.ANDROID_ID)
-            }
+            // create filename
             synchronized(FileOperations) {
                 var fileNamePostfix = 2
-                var file = getFileFromPrefixAndCreateParent(username, gestureData.time.toString())
+                var file = getFileFromPrefixAndCreateParent(gestureData.startTime.toString())
                 while (file.exists()) {
                     file = getFileFromPrefixAndCreateParent(
-                        username,
-                        "${gestureData.time.toString()}_$fileNamePostfix"
+                        "${gestureData.startTime.toString()}_$fileNamePostfix"
                     )
                     fileNamePostfix++
                 }
                 file
             }.let { file: File ->
+                // write file
                 FileWriter(file, false).use { fileWriter: FileWriter ->
                     BufferedWriter(fileWriter).use { bufferedWriter: BufferedWriter ->
                         bufferedWriter.write(gson.toJson(gestureData))
@@ -56,19 +50,18 @@ object FileOperations {
      * @param user The current user name
      * @return Number of existing gesture files
      */
+    @Suppress("unused")
     private fun getNewFileCount(user: String): Int =
         File("${getGesturesFolderPath()}$user").listFiles()?.size ?: 0
-
 
     /**
      * Check if the desired directory path exists, if not it is created.
      *
-     * @param dir      This directory name equals the user name
-     * @param prefix The file name consists of data and time of the gesture
+     * @param prefix The file name consists of data and startTime of the gesture
      * @return The file which will be written to.
      */
-    private fun getFileFromPrefixAndCreateParent(dir: String, prefix: String): File =
-        File("${getGesturesFolderPath()}$dir${File.separator}$prefix.json")
+    private fun getFileFromPrefixAndCreateParent(prefix: String): File =
+        File("${getGesturesFolderPath()}${File.separator}$prefix.json")
             .apply { if (!parentFile.exists()) parentFile.mkdirs() }
 
     private fun getGesturesFolderPath(): String =

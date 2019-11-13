@@ -1,11 +1,11 @@
 package com.pascaldornfeld.gsdble.connected.gsdble_library.models
 
 /**
- * Model for data characteristic including conversion with ByteArray.
+ * Model for data characteristic
  *
  * @param accel_x data of x-axis of accelerometer
  * @param gyro_x data of x-axis of gyroscope
- * @param time sensor time in 6.4 ms units
+ * @param time sensor startTime in 6.4 ms units
  */
 data class ImuData(
     val accel_x: Short?,
