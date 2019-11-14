@@ -17,9 +17,7 @@ object FileOperations {
      *
      * @param gestureData The class which contains all raw and meta data of the gesture
      */
-    fun writeGestureFile(
-        gestureData: GestureData
-    ) {
+    fun writeGestureFile(gestureData: GestureData) {
         AsyncTask.execute {
             // create filename
             synchronized(FileOperations) {

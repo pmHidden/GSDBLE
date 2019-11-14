@@ -4,19 +4,18 @@ import android.app.Application
 import android.bluetooth.BluetoothGatt
 import androidx.lifecycle.*
 import com.pascaldornfeld.gsdble.connected.async_calculations.CharaDataStatsBySecondValue
-import com.pascaldornfeld.gsdble.connected.gsdble_library.ReadFromDeviceIfc
-import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
-import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuData
+import com.pascaldornfeld.gsdble.connected.hardware_library.ReadFromDeviceIfc
+import com.pascaldornfeld.gsdble.connected.hardware_library.models.ImuConfig
+import com.pascaldornfeld.gsdble.connected.hardware_library.models.ImuData
+import com.pascaldornfeld.gsdble.connected.view.DeviceFragment
 import com.pascaldornfeld.gsdble.file_dumping.ExtremityData
-import com.pascaldornfeld.gsdble.file_dumping.FileOperations
-import com.pascaldornfeld.gsdble.file_dumping.GestureData
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicBoolean
 
-class GsdbleViewModel(application: Application, private val deviceName: String) :
+class DeviceViewModel(application: Application, private val deviceName: String) :
     AndroidViewModel(application), ReadFromDeviceIfc {
-    val dataAccel = SmallDataHolder<Triple<Short, Short, Short>>(2, 6.4f)
-    val dataGyro = SmallDataHolder<Triple<Short, Short, Short>>(2, 6.4f)
+    val dataAccel = SmallDataHolder<Triple<Short, Short, Short>>(2, 1f)
+    val dataGyro = SmallDataHolder<Triple<Short, Short, Short>>(2, 1f)
     val dataDataRate = SmallDataHolder<Long>(3, 1000f)
     val dataDataRateAvg = MutableLiveData<Double>()
     val dataMtu = MutableLiveData<Int>()
@@ -49,33 +48,37 @@ class GsdbleViewModel(application: Application, private val deviceName: String) 
 
     override fun readImuData(imuData: ImuData) {
         val timeOfPacketArrival = System.currentTimeMillis()
-        extremityData?.apply {
-            if (imuData.accel_x != null) {
+
+        if (imuData.accel != null) {
+            extremityData?.apply {
                 accData.apply {
-                    timeStamp.add(imuData.time)
-                    accData.xAxisData.add(imuData.accel_x)
-                    accData.yAxisData.add(imuData.accel_y!!)
-                    accData.zAxisData.add(imuData.accel_z!!)
+                    timeStamp.add(imuData.timeMs)
+                    accData.xAxisData.add(imuData.accel.x)
+                    accData.yAxisData.add(imuData.accel.y)
+                    accData.zAxisData.add(imuData.accel.z)
                 }
             }
-            if (imuData.gyro_x != null) {
-                gyroData.apply {
-                    timeStamp.add(imuData.time)
-                    gyroData.xAxisData.add(imuData.gyro_x)
-                    gyroData.yAxisData.add(imuData.gyro_y!!)
-                    gyroData.zAxisData.add(imuData.gyro_z!!)
-                }
-            }
+            dataAccel.addData(
+                imuData.timeMs,
+                Triple(imuData.accel.x, imuData.accel.y, imuData.accel.z)
+            )
         }
 
-        dataAccel.addData(
-            imuData.time,
-            Triple(imuData.accel_x!!, imuData.accel_y!!, imuData.accel_z!!)
-        )
-        dataGyro.addData(
-            imuData.time,
-            Triple(imuData.gyro_x!!, imuData.gyro_y!!, imuData.gyro_z!!)
-        )
+        if (imuData.gyro != null) {
+            extremityData?.apply {
+                gyroData.apply {
+                    timeStamp.add(imuData.timeMs)
+                    gyroData.xAxisData.add(imuData.gyro.x)
+                    gyroData.yAxisData.add(imuData.gyro.y)
+                    gyroData.zAxisData.add(imuData.gyro.z)
+                }
+            }
+
+            dataGyro.addData(
+                imuData.timeMs,
+                Triple(imuData.gyro.x, imuData.gyro.y, imuData.gyro.z)
+            )
+        }
 
         val thisSecond = timeOfPacketArrival / 1000L
         if (thisSecond != currentTrackedSecond) {
@@ -109,15 +112,25 @@ class GsdbleViewModel(application: Application, private val deviceName: String) 
                 else -> BluetoothGatt.CONNECTION_PRIORITY_LOW_POWER
             }
         )
+
+    companion object {
+        fun forDeviceFragment(deviceFragment: DeviceFragment): DeviceViewModel =
+            ViewModelProviders.of(
+                deviceFragment,
+                DeviceViewModelFactory(
+                    deviceFragment.requireActivity().application,
+                    deviceFragment.device().address.toString()
+                )
+            ).get(DeviceViewModel::class.java)
+    }
 }
 
-class GsdbleViewModelFactory(
+class DeviceViewModelFactory(
     private val application: Application,
     private val deviceName: String
 ) : ViewModelProvider.Factory {
-
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
-        return GsdbleViewModel(application, deviceName) as T
+        return DeviceViewModel(application, deviceName) as T
     }
 }

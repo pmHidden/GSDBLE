@@ -17,15 +17,12 @@ import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
-import com.pascaldornfeld.gsdble.connected.GsdbleViewModel
-import com.pascaldornfeld.gsdble.connected.GsdbleViewModelFactory
-import com.pascaldornfeld.gsdble.connected.gsdble_library.GsdbleManager
-import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
+import com.pascaldornfeld.gsdble.connected.DeviceViewModel
+import com.pascaldornfeld.gsdble.connected.hardware_library.DeviceManager
+import com.pascaldornfeld.gsdble.connected.hardware_library.models.ImuConfig
 import com.pascaldornfeld.gsdble.connected.view.DeviceFragment
 import com.pascaldornfeld.gsdble.scan.ScanDialogFragment
 import kotlinx.android.synthetic.main.main_activity.*
-
 
 class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity {
     private var bleReady = true
@@ -91,13 +88,10 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
     override fun onAttachFragment(fragment: Fragment) {
         super.onAttachFragment(fragment)
         if (fragment is DeviceFragment) fragment.setWriteToDeviceIfc(
-            GsdbleManager(
+            DeviceManager(
                 fragment.device(),
                 this,
-                ViewModelProviders.of(
-                    fragment,
-                    GsdbleViewModelFactory(application, fragment.device().address.toString())
-                ).get(GsdbleViewModel::class.java),
+                DeviceViewModel.forDeviceFragment(fragment),
                 BluetoothGatt.CONNECTION_PRIORITY_BALANCED,
                 ImuConfig(3, false) // odr = 208Hz
             )

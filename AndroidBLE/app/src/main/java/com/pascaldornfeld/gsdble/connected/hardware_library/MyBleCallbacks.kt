@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble.connected.gsdble_library
+package com.pascaldornfeld.gsdble.connected.hardware_library
 
 import android.bluetooth.BluetoothDevice
 import android.util.Log

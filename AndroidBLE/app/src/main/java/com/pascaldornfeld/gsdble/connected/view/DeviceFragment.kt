@@ -10,12 +10,10 @@ import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.pascaldornfeld.gsdble.R
-import com.pascaldornfeld.gsdble.connected.GsdbleViewModel
-import com.pascaldornfeld.gsdble.connected.GsdbleViewModelFactory
-import com.pascaldornfeld.gsdble.connected.gsdble_library.WriteToDeviceIfc
-import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
+import com.pascaldornfeld.gsdble.connected.DeviceViewModel
+import com.pascaldornfeld.gsdble.connected.hardware_library.WriteToDeviceIfc
+import com.pascaldornfeld.gsdble.connected.hardware_library.models.ImuConfig
 import com.pascaldornfeld.gsdble.connected.view.subfragments.*
 import kotlinx.android.synthetic.main.device_fragment.view.*
 import java.util.concurrent.atomic.AtomicReference
@@ -40,7 +38,7 @@ class DeviceFragment : Fragment() {
     private var writeToDeviceIfc: WriteToDeviceIfc? = null
 
     private val lastConfig = AtomicReference<ImuConfig?>()
-    private lateinit var viewModel: GsdbleViewModel
+    private lateinit var viewModel: DeviceViewModel
 
     interface RemovableDeviceActivity {
         fun removeDeviceFragment(device: BluetoothDevice)
@@ -52,10 +50,7 @@ class DeviceFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(
-            this,
-            GsdbleViewModelFactory(this.requireActivity().application, device().address.toString())
-        ).get(GsdbleViewModel::class.java)
+        viewModel = DeviceViewModel.forDeviceFragment(this)
     }
 
     override fun onAttach(context: Context) {

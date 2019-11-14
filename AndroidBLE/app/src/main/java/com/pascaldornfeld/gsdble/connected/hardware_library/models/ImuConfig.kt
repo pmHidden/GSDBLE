@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble.connected.gsdble_library.models
+package com.pascaldornfeld.gsdble.connected.hardware_library.models
 
 /**
  * Model for configuration characteristic

@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble.connected.gsdble_library
+package com.pascaldornfeld.gsdble.connected.hardware_library
 
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGatt
@@ -8,14 +8,15 @@ import android.content.Context
 import android.util.Log
 import com.pascaldornfeld.gsdble.BuildConfig
 import com.pascaldornfeld.gsdble.MainActivity
-import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
-import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig.Companion.GSDBLE_ODR_INDEX_TO_FREQ
-import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuData
+import com.pascaldornfeld.gsdble.connected.hardware_library.models.ImuConfig
+import com.pascaldornfeld.gsdble.connected.hardware_library.models.ImuConfig.Companion.GSDBLE_ODR_INDEX_TO_FREQ
+import com.pascaldornfeld.gsdble.connected.hardware_library.models.ImuData
+import com.pascaldornfeld.gsdble.connected.hardware_library.models.Sensor
 import no.nordicsemi.android.ble.BleManager
 import no.nordicsemi.android.ble.callback.DataReceivedCallback
 import no.nordicsemi.android.ble.callback.DataSentCallback
 import no.nordicsemi.android.ble.data.Data
-import java.lang.Integer.max
+import java.lang.Integer.min
 import java.nio.ByteBuffer
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
@@ -30,7 +31,7 @@ import kotlin.experimental.or
  * @param context A context
  * @param readFromDeviceIfc Implementation of a ReadFromDeviceInterface. Responses from gsdble device are calling its methods
  */
-class GsdbleManager(
+class DeviceManager(
     device: BluetoothDevice,
     context: Context,
     readFromDeviceIfc: ReadFromDeviceIfc,
@@ -124,13 +125,17 @@ class GsdbleManager(
                 DataReceivedCallback { _, data ->
                     readFromDeviceIfc.readImuData(
                         ImuData(
-                            data.getIntValue(Data.FORMAT_SINT16, 0)!!.toShort(),
-                            data.getIntValue(Data.FORMAT_SINT16, 2)!!.toShort(),
-                            data.getIntValue(Data.FORMAT_SINT16, 4)!!.toShort(),
-                            data.getIntValue(Data.FORMAT_SINT16, 6)!!.toShort(),
-                            data.getIntValue(Data.FORMAT_SINT16, 8)!!.toShort(),
-                            data.getIntValue(Data.FORMAT_SINT16, 10)!!.toShort(),
-                            data.getIntValue(Data.FORMAT_UINT32, 12)!!
+                            Sensor(
+                                data.getIntValue(Data.FORMAT_SINT16, 0)!!.toShort(),
+                                data.getIntValue(Data.FORMAT_SINT16, 2)!!.toShort(),
+                                data.getIntValue(Data.FORMAT_SINT16, 4)!!.toShort()
+                            ),
+                            Sensor(
+                                data.getIntValue(Data.FORMAT_SINT16, 6)!!.toShort(),
+                                data.getIntValue(Data.FORMAT_SINT16, 8)!!.toShort(),
+                                data.getIntValue(Data.FORMAT_SINT16, 10)!!.toShort()
+                            ),
+                            (data.getIntValue(Data.FORMAT_UINT32, 12)!! * 6.4f).toInt()
                         )
                     )
                 }
@@ -202,7 +207,7 @@ class GsdbleManager(
          * then we have to reenable notification so new speed gets applied
          */
         override fun writeImuConfig(imuConfig: ImuConfig) {
-            val validConfig = ImuConfig(max(imuConfig.odrIndex, 2), false)
+            val validConfig = ImuConfig(min(imuConfig.odrIndex, 2), false)
             val period =
                 (1000f / GSDBLE_ODR_INDEX_TO_FREQ[validConfig.odrIndex]).toInt() + 1 // round up
             val command = byteArrayOf(0, period.toByte(), period.ushr(8).toByte())
@@ -226,13 +231,11 @@ class GsdbleManager(
                 charaConfig,
                 command.copyOf().apply {
                     set(0, OPCODE_SET_ACC_PERIOD)
-                    Log.i(this.javaClass.name, joinToString(", ") { it.toString() })
                 }).with(whenSent).enqueue()
             writeCharacteristic(
                 charaConfig,
                 command.copyOf().apply {
                     set(0, OPCODE_SET_GYRO_PERIOD)
-                    Log.i(this.javaClass.name, joinToString(", ") { it.toString() })
                 }).with(whenSent).enqueue()
         }
 
@@ -268,20 +271,24 @@ class GsdbleManager(
                     val values = data.value
                     synchronized(this) {
                         val localLastImuData = lastImuData
-                        if (localLastImuData?.gyro_x == null) {
+                        if (localLastImuData?.gyro == null) {
                             lastImuData = ImuData(
-                                byteArrayToShort(Arrays.copyOfRange(values, 0, 2)),
-                                byteArrayToShort(Arrays.copyOfRange(values, 2, 4)),
-                                byteArrayToShort(Arrays.copyOfRange(values, 4, 6)),
-                                null, null, null,
-                                (System.currentTimeMillis() / 6.4f).toInt()
+                                Sensor(
+                                    byteArrayToShort(Arrays.copyOfRange(values, 0, 2)),
+                                    byteArrayToShort(Arrays.copyOfRange(values, 2, 4)),
+                                    byteArrayToShort(Arrays.copyOfRange(values, 4, 6))
+                                ),
+                                null,
+                                System.currentTimeMillis().toInt()
                             )
                         } else {
                             readFromDeviceIfc.readImuData(
                                 localLastImuData.copy(
-                                    accel_x = byteArrayToShort(Arrays.copyOfRange(values, 0, 2)),
-                                    accel_y = byteArrayToShort(Arrays.copyOfRange(values, 2, 4)),
-                                    accel_z = byteArrayToShort(Arrays.copyOfRange(values, 4, 6))
+                                    accel = Sensor(
+                                        byteArrayToShort(Arrays.copyOfRange(values, 0, 2)),
+                                        byteArrayToShort(Arrays.copyOfRange(values, 2, 4)),
+                                        byteArrayToShort(Arrays.copyOfRange(values, 4, 6))
+                                    )
                                 )
                             )
                             lastImuData = null
@@ -295,20 +302,24 @@ class GsdbleManager(
                     val values = data.value
                     synchronized(this) {
                         val localLastImuData = lastImuData
-                        if (localLastImuData?.accel_x == null) {
+                        if (localLastImuData?.accel == null) {
                             lastImuData = ImuData(
-                                null, null, null,
-                                byteArrayToShort(Arrays.copyOfRange(values, 0, 2)),
-                                byteArrayToShort(Arrays.copyOfRange(values, 2, 4)),
-                                byteArrayToShort(Arrays.copyOfRange(values, 4, 6)),
-                                (System.currentTimeMillis() / 6.4f).toInt()
+                                null,
+                                Sensor(
+                                    byteArrayToShort(Arrays.copyOfRange(values, 0, 2)),
+                                    byteArrayToShort(Arrays.copyOfRange(values, 2, 4)),
+                                    byteArrayToShort(Arrays.copyOfRange(values, 4, 6))
+                                ),
+                                System.currentTimeMillis().toInt()
                             )
                         } else {
                             readFromDeviceIfc.readImuData(
                                 localLastImuData.copy(
-                                    gyro_x = byteArrayToShort(Arrays.copyOfRange(values, 0, 2)),
-                                    gyro_y = byteArrayToShort(Arrays.copyOfRange(values, 2, 4)),
-                                    gyro_z = byteArrayToShort(Arrays.copyOfRange(values, 4, 6))
+                                    gyro = Sensor(
+                                        byteArrayToShort(Arrays.copyOfRange(values, 0, 2)),
+                                        byteArrayToShort(Arrays.copyOfRange(values, 2, 4)),
+                                        byteArrayToShort(Arrays.copyOfRange(values, 4, 6))
+                                    )
                                 )
                             )
                             lastImuData = null

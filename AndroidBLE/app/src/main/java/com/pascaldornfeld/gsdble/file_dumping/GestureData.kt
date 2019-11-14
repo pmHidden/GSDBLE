@@ -3,7 +3,6 @@ package com.pascaldornfeld.gsdble.file_dumping
 import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.Settings
-import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuData
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
