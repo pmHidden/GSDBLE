@@ -9,4 +9,6 @@
     <string name="scanning">Scanning</string>
     <string name="timeout">Timeout</string>
     <string name="data_saved">Data Saved</string>
+    <string name="record">Record</string>
+    <string name="start">Start</string>
 </resources>

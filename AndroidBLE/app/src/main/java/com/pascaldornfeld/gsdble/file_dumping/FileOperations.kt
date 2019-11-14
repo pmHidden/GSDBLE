@@ -7,7 +7,6 @@ import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 
-
 object FileOperations {
     private val gson = GsonBuilder().setPrettyPrinting().create()
 

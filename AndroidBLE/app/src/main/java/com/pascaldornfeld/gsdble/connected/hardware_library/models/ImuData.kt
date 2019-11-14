@@ -10,7 +10,7 @@ package com.pascaldornfeld.gsdble.connected.hardware_library.models
 data class ImuData(
     val accel: Sensor?,
     val gyro: Sensor?,
-    val timeMs: Int
+    val timeMs: Long
 )
 
 data class Sensor(

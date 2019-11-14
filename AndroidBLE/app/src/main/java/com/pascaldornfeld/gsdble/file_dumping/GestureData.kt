@@ -30,11 +30,12 @@ data class ExtremityData(
     var deviceMac: String = "none",
     val accData: SensorData = SensorData(),
     val gyroData: SensorData = SensorData()
+    // var timeStampOverflowError: Boolean = false
 )
 
 data class SensorData(
     val xAxisData: ArrayList<Short> = ArrayList(),
     val yAxisData: ArrayList<Short> = ArrayList(),
     val zAxisData: ArrayList<Short> = ArrayList(),
-    val timeStamp: ArrayList<Int> = ArrayList()
+    val timeStamp: ArrayList<Long> = ArrayList()
 )

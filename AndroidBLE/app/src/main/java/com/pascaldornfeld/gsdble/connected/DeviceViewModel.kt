@@ -22,6 +22,7 @@ class DeviceViewModel(application: Application, private val deviceName: String) 
     val dataInterval = MutableLiveData<Int>()
     val dataImuConfig = MutableLiveData<ImuConfig>()
     val disconnected = MutableLiveData<Boolean>(false)
+    var firstEverRecordedTimestampMs: Long? = null
 
     init {
         disconnected.observeForever(object : Observer<Boolean?> {
@@ -49,10 +50,13 @@ class DeviceViewModel(application: Application, private val deviceName: String) 
     override fun readImuData(imuData: ImuData) {
         val timeOfPacketArrival = System.currentTimeMillis()
 
+        if (firstEverRecordedTimestampMs == null) firstEverRecordedTimestampMs =
+            timeOfPacketArrival - imuData.timeMs
+
         if (imuData.accel != null) {
             extremityData?.apply {
                 accData.apply {
-                    timeStamp.add(imuData.timeMs)
+                    timeStamp.add(imuData.timeMs + firstEverRecordedTimestampMs!!)
                     accData.xAxisData.add(imuData.accel.x)
                     accData.yAxisData.add(imuData.accel.y)
                     accData.zAxisData.add(imuData.accel.z)
@@ -67,7 +71,7 @@ class DeviceViewModel(application: Application, private val deviceName: String) 
         if (imuData.gyro != null) {
             extremityData?.apply {
                 gyroData.apply {
-                    timeStamp.add(imuData.timeMs)
+                    timeStamp.add(imuData.timeMs + firstEverRecordedTimestampMs!!)
                     gyroData.xAxisData.add(imuData.gyro.x)
                     gyroData.yAxisData.add(imuData.gyro.y)
                     gyroData.zAxisData.add(imuData.gyro.z)

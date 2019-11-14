@@ -135,7 +135,7 @@ class DeviceManager(
                                 data.getIntValue(Data.FORMAT_SINT16, 8)!!.toShort(),
                                 data.getIntValue(Data.FORMAT_SINT16, 10)!!.toShort()
                             ),
-                            (data.getIntValue(Data.FORMAT_UINT32, 12)!! * 6.4f).toInt()
+                            (data.getIntValue(Data.FORMAT_UINT32, 12)!! * 6.4f).toLong()
                         )
                     )
                 }
@@ -279,7 +279,7 @@ class DeviceManager(
                                     byteArrayToShort(Arrays.copyOfRange(values, 4, 6))
                                 ),
                                 null,
-                                System.currentTimeMillis().toInt()
+                                System.currentTimeMillis()
                             )
                         } else {
                             readFromDeviceIfc.readImuData(
@@ -310,7 +310,7 @@ class DeviceManager(
                                     byteArrayToShort(Arrays.copyOfRange(values, 2, 4)),
                                     byteArrayToShort(Arrays.copyOfRange(values, 4, 6))
                                 ),
-                                System.currentTimeMillis().toInt()
+                                System.currentTimeMillis()
                             )
                         } else {
                             readFromDeviceIfc.readImuData(
