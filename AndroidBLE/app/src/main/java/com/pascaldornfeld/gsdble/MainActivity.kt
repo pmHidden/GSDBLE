@@ -21,13 +21,20 @@ import com.pascaldornfeld.gsdble.connected.DeviceViewModel
 import com.pascaldornfeld.gsdble.connected.hardware_library.DeviceManager
 import com.pascaldornfeld.gsdble.connected.hardware_library.models.ImuConfig
 import com.pascaldornfeld.gsdble.connected.view.DeviceFragment
+import com.pascaldornfeld.gsdble.file_dumping.ExtremityData
+import com.pascaldornfeld.gsdble.file_dumping.FileOperations
+import com.pascaldornfeld.gsdble.file_dumping.GestureData
 import com.pascaldornfeld.gsdble.scan.ScanDialogFragment
 import kotlinx.android.synthetic.main.main_activity.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity {
     private var bleReady = true
     private val bluetoothAdapter: BluetoothAdapter? by lazy { (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager?)?.adapter }
     private lateinit var connectDialog: ScanDialogFragment
+    private var recorder: GestureData? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,14 +51,53 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
                 }
             )
         }
+        // recording functionality
+        vRecordButton.setOnClickListener {
+            synchronized(vRecordButton) {
+                recorder =
+                    if (recorder == null) {
+                        // create one extremityData object for each sensor and assign them.
+                        // save all extremityDatas in a recorder object
+                        val extremityDatas = ArrayList<ExtremityData>()
+                        supportFragmentManager.fragments
+                            .filterIsInstance<DeviceFragment>()
+                            .forEach {
+                                val extremityData = ExtremityData()
+                                DeviceViewModel.forDeviceFragment(it).extremityData = extremityData
+                                extremityDatas.add(extremityData)
+                            }
+                        vRecordButton.text = getString(R.string.stop)
+                        GestureData(extremityDatas.toTypedArray(), this)
+                    } else {
+                        // unassign all extremityData objects from the sensors.
+                        // write recorder object into file
+                        recorder!!.endTime = SimpleDateFormat("yyyy-MM-dd--HH-mm-ss", Locale.US)
+                            .format(Date(System.currentTimeMillis()))
+                        supportFragmentManager.fragments
+                            .filterIsInstance<DeviceFragment>()
+                            .forEach {
+                                DeviceViewModel.forDeviceFragment(it).extremityData = null
+                            }
+                        vRecordButton.text = getString(R.string.start)
+                        FileOperations.writeGestureFile(recorder!!)
+                        null
+                    }
+            }
+        }
     }
 
+    /**
+     * add scan-button
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean =
         if (bleReady) {
             menuInflater.inflate(R.menu.main_menu, menu)
             true
         } else false
 
+    /**
+     * handle click on the scan-button
+     */
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return if (item != null && item.itemId == R.id.search) {
             connectDialog.show(supportFragmentManager, null)
@@ -60,7 +106,7 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
     }
 
     /**
-     * remove the fragment from the adapter-list
+     * remove the deviceFragment from the adapter-list
      */
     override fun removeDeviceFragment(device: BluetoothDevice) {
         supportFragmentManager.fragments
@@ -71,7 +117,7 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
 
     /**
      * create a device-fragment. connect to the device.
-     * add the fragment to the adapter-list
+     * add the fragment to the adapter-list so it gets attached
      */
     private fun addDeviceFragment(device: BluetoothDevice) {
         try {
@@ -85,6 +131,9 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
         }
     }
 
+    /**
+     * when a deviceFragment is attached, initialize it
+     */
     override fun onAttachFragment(fragment: Fragment) {
         super.onAttachFragment(fragment)
         if (fragment is DeviceFragment) fragment.setWriteToDeviceIfc(
@@ -99,7 +148,10 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
     }
 
     /**
-     * check all the permissions and requirements for a ble scan
+     * check all the permissions and requirements for a ble scan.
+     * if ready for a scan show the scan-button.
+     * else resolve the error (show a dialog) and
+     * call onResume again (automatically when the dialog is closed)
      */
     override fun onResume() {
         super.onResume()

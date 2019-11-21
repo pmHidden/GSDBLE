@@ -135,7 +135,10 @@ class DeviceManager(
                                 data.getIntValue(Data.FORMAT_SINT16, 8)!!.toShort(),
                                 data.getIntValue(Data.FORMAT_SINT16, 10)!!.toShort()
                             ),
-                            (data.getIntValue(Data.FORMAT_UINT32, 12)!! * 6.4f).toLong()
+                            (data.getIntValue(
+                                Data.FORMAT_UINT32,
+                                12
+                            )!!.toFloat() * 6.4f).toLong()
                         )
                     )
                 }

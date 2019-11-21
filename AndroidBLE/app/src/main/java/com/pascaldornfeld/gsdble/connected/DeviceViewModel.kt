@@ -54,13 +54,11 @@ class DeviceViewModel(application: Application, private val deviceName: String) 
             timeOfPacketArrival - imuData.timeMs
 
         if (imuData.accel != null) {
-            extremityData?.apply {
-                accData.apply {
-                    timeStamp.add(imuData.timeMs + firstEverRecordedTimestampMs!!)
-                    accData.xAxisData.add(imuData.accel.x)
-                    accData.yAxisData.add(imuData.accel.y)
-                    accData.zAxisData.add(imuData.accel.z)
-                }
+            extremityData?.accData?.apply {
+                timeStamp.add(imuData.timeMs + firstEverRecordedTimestampMs!!)
+                xAxisData.add(imuData.accel.x)
+                yAxisData.add(imuData.accel.y)
+                zAxisData.add(imuData.accel.z)
             }
             dataAccel.addData(
                 imuData.timeMs,
@@ -69,13 +67,11 @@ class DeviceViewModel(application: Application, private val deviceName: String) 
         }
 
         if (imuData.gyro != null) {
-            extremityData?.apply {
-                gyroData.apply {
-                    timeStamp.add(imuData.timeMs + firstEverRecordedTimestampMs!!)
-                    gyroData.xAxisData.add(imuData.gyro.x)
-                    gyroData.yAxisData.add(imuData.gyro.y)
-                    gyroData.zAxisData.add(imuData.gyro.z)
-                }
+            extremityData?.gyroData?.apply {
+                timeStamp.add(imuData.timeMs + firstEverRecordedTimestampMs!!)
+                xAxisData.add(imuData.gyro.x)
+                yAxisData.add(imuData.gyro.y)
+                zAxisData.add(imuData.gyro.z)
             }
 
             dataGyro.addData(

@@ -19,7 +19,7 @@ data class GestureData(
 ) {
     @SuppressLint("HardwareIds")
     constructor(pDatas: Array<ExtremityData>, context: Context) : this(
-        startTime = SimpleDateFormat("yyyy-MM-dd--HH-mm-ss")
+        startTime = SimpleDateFormat("yyyy-MM-dd--HH-mm-ss", Locale.US)
             .format(Date(System.currentTimeMillis())),
         datas = pDatas,
         deviceId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
