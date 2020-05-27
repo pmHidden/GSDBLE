@@ -1,7 +1,7 @@
-package com.pascaldornfeld.gsdble.connected.gsdble_library
+package com.pascaldornfeld.gsdble.connected.hardware_library
 
-import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
-import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuData
+import com.pascaldornfeld.gsdble.connected.hardware_library.models.ImuConfig
+import com.pascaldornfeld.gsdble.connected.hardware_library.models.ImuData
 import java.io.Serializable
 
 

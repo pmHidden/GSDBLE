@@ -11,7 +11,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.pascaldornfeld.gsdble.R
-import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
+import com.pascaldornfeld.gsdble.connected.hardware_library.models.ImuConfig
 
 abstract class ConfigFragment<DataType> : Fragment() {
     private var vTitle: TextView? = null
@@ -76,7 +76,7 @@ class OdrFragment : ConfigFragment<Int>() {
     override fun getDataArray(): Array<Int> = IntArray(7) { it }.toTypedArray()
 
     override fun getStringRepresentationFromData(data: Int): String =
-        ImuConfig.ODR_INDEX_TO_FREQ[data].toString()
+        ImuConfig.GSDBLE_ODR_INDEX_TO_FREQ[data].toString()
 
     override fun applyNewData(index: Int) {
         functionToApply?.invoke(index)

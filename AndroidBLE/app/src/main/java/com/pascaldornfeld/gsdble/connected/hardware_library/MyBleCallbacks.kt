@@ -1,4 +1,4 @@
-package com.pascaldornfeld.gsdble.connected.gsdble_library
+package com.pascaldornfeld.gsdble.connected.hardware_library
 
 import android.bluetooth.BluetoothDevice
 import android.util.Log
@@ -10,7 +10,7 @@ import no.nordicsemi.android.ble.BleManagerCallbacks
  * @param readFromDeviceIfc interface to notify about connection events
  * @param writeToDeviceIfc interface to perform actions (disconnect on error)
  */
-internal class GsdbleCallbacks(
+internal class MyBleCallbacks(
     private val readFromDeviceIfc: ReadFromDeviceIfc,
     private val writeToDeviceIfc: WriteToDeviceIfc
 ) : BleManagerCallbacks {
@@ -57,6 +57,6 @@ internal class GsdbleCallbacks(
     override fun onDeviceConnecting(device: BluetoothDevice) = Unit
 
     companion object {
-        private val TAG = GsdbleCallbacks::class.java.simpleName.filter { it.isUpperCase() }
+        private val TAG = MyBleCallbacks::class.java.simpleName.filter { it.isUpperCase() }
     }
 }

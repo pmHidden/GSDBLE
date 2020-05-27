@@ -17,20 +17,24 @@ import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
-import com.pascaldornfeld.gsdble.connected.GsdbleViewModel
-import com.pascaldornfeld.gsdble.connected.gsdble_library.GsdbleManager
-import com.pascaldornfeld.gsdble.connected.gsdble_library.models.ImuConfig
+import com.pascaldornfeld.gsdble.connected.DeviceViewModel
+import com.pascaldornfeld.gsdble.connected.hardware_library.DeviceManager
+import com.pascaldornfeld.gsdble.connected.hardware_library.models.ImuConfig
 import com.pascaldornfeld.gsdble.connected.view.DeviceFragment
-import com.pascaldornfeld.gsdble.connected.view.DeviceFragment.Companion.DEVICE
+import com.pascaldornfeld.gsdble.file_dumping.ExtremityData
+import com.pascaldornfeld.gsdble.file_dumping.FileOperations
+import com.pascaldornfeld.gsdble.file_dumping.GestureData
 import com.pascaldornfeld.gsdble.scan.ScanDialogFragment
 import kotlinx.android.synthetic.main.main_activity.*
-
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity {
     private var bleReady = true
     private val bluetoothAdapter: BluetoothAdapter? by lazy { (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager?)?.adapter }
     private lateinit var connectDialog: ScanDialogFragment
+    private var recorder: GestureData? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,14 +51,53 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
                 }
             )
         }
+        // recording functionality
+        vRecordButton.setOnClickListener {
+            synchronized(vRecordButton) {
+                recorder =
+                    if (recorder == null) {
+                        // create one extremityData object for each sensor and assign them.
+                        // save all extremityDatas in a recorder object
+                        val extremityDatas = ArrayList<ExtremityData>()
+                        supportFragmentManager.fragments
+                            .filterIsInstance<DeviceFragment>()
+                            .forEach {
+                                val extremityData = ExtremityData()
+                                DeviceViewModel.forDeviceFragment(it).extremityData = extremityData
+                                extremityDatas.add(extremityData)
+                            }
+                        vRecordButton.text = getString(R.string.stop)
+                        GestureData(extremityDatas.toTypedArray(), this)
+                    } else {
+                        // unassign all extremityData objects from the sensors.
+                        // write recorder object into file
+                        recorder!!.endTime = SimpleDateFormat("yyyy-MM-dd--HH-mm-ss", Locale.US)
+                            .format(Date(System.currentTimeMillis()))
+                        supportFragmentManager.fragments
+                            .filterIsInstance<DeviceFragment>()
+                            .forEach {
+                                DeviceViewModel.forDeviceFragment(it).extremityData = null
+                            }
+                        vRecordButton.text = getString(R.string.start)
+                        FileOperations.writeGestureFile(recorder!!)
+                        null
+                    }
+            }
+        }
     }
 
+    /**
+     * add scan-button
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean =
         if (bleReady) {
             menuInflater.inflate(R.menu.main_menu, menu)
             true
         } else false
 
+    /**
+     * handle click on the scan-button
+     */
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return if (item != null && item.itemId == R.id.search) {
             connectDialog.show(supportFragmentManager, null)
@@ -63,7 +106,7 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
     }
 
     /**
-     * remove the fragment from the adapter-list
+     * remove the deviceFragment from the adapter-list
      */
     override fun removeDeviceFragment(device: BluetoothDevice) {
         supportFragmentManager.fragments
@@ -74,7 +117,7 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
 
     /**
      * create a device-fragment. connect to the device.
-     * add the fragment to the adapter-list
+     * add the fragment to the adapter-list so it gets attached
      */
     private fun addDeviceFragment(device: BluetoothDevice) {
         try {
@@ -88,13 +131,16 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
         }
     }
 
+    /**
+     * when a deviceFragment is attached, initialize it
+     */
     override fun onAttachFragment(fragment: Fragment) {
         super.onAttachFragment(fragment)
         if (fragment is DeviceFragment) fragment.setWriteToDeviceIfc(
-            GsdbleManager(
-                fragment.requireArguments().getParcelable(DEVICE)!!,
+            DeviceManager(
+                fragment.device(),
                 this,
-                ViewModelProviders.of(fragment).get(GsdbleViewModel::class.java),
+                DeviceViewModel.forDeviceFragment(fragment),
                 BluetoothGatt.CONNECTION_PRIORITY_BALANCED,
                 ImuConfig(3, false) // odr = 208Hz
             )
@@ -102,13 +148,16 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
     }
 
     /**
-     * check all the permissions and requirements for a ble scan
+     * check all the permissions and requirements for a ble scan.
+     * if ready for a scan show the scan-button.
+     * else resolve the error (show a dialog) and
+     * call onResume again (automatically when the dialog is closed)
      */
     override fun onResume() {
         super.onResume()
         bleReady = false
         invalidateOptionsMenu()
-        if (checkBluetoothEnabled() && checkLocationPermission() && checkLocationEnabled()) {
+        if (checkPermissions() && checkBluetoothEnabled() && checkLocationEnabled()) {
             bleReady = true
             invalidateOptionsMenu()
         }
@@ -138,14 +187,19 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
     }
 
     /**
-     * check for location permission. ask for permission if not
+     * check for permissions. ask for permission if not
      * @return true if permission was granted
      */
-    private fun checkLocationPermission(): Boolean =
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+    private fun checkPermissions(): Boolean =
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
+            checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+        ) {
             requestPermissions(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_PERMISSION_LOC
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
+                REQUEST_PERMISSION
             )
             false
         } else true
@@ -173,7 +227,7 @@ class MainActivity : AppCompatActivity(), DeviceFragment.RemovableDeviceActivity
 
     companion object {
         private const val REQUEST_ENABLE_BT = 1
-        private const val REQUEST_PERMISSION_LOC = 2
+        private const val REQUEST_PERMISSION = 2
         private val TAG = MainActivity::class.java.simpleName.filter { it.isUpperCase() }
     }
 }
